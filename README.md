@@ -27,5 +27,5 @@ The `corecrypto` project has several targets:
 - `libcc_test`, all of the source code under the [test](src/test) directory for runtime testing if `libcorecrypto` was configured without testing infrastructure.
 
 > [!IMPORTANT]
-> At the moment, this fork of the base corecrypto repository is architected to work with the Darwin 19 Kernel fork found [here](https://github.com/Zormeister/xnu/tree/6153/x86-dev).
+> At the moment, this fork of the base corecrypto repository is architected to work with the Darwin 19 Kernel fork found [here](https://github.com/samuelfzormeister/xnu/tree/6153/x86-dev).
 > Any other environments *will* work, however ceratin functions may be inaccessible, eg: the AVX-512 based SHA-512 check depends on the extension to `i386_cpuid_info_t`, the base SHA extension checker should work fine for the kernel, but is not available in userspace as the `kHasSHA` bit is not defined in `<System/i386/cpu_capabilities.h>`.
