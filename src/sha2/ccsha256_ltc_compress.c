@@ -46,7 +46,7 @@ void ccsha256_ltc_compress(ccdigest_state_t state, size_t nblocks, const void *d
 {
     while (nblocks--) {
         uint32_t S[8], W[64], t0, t1;
-#ifdef CC_SMALL_CODE
+#if CC_SMALL_CODE
         uint32_t t;
 #endif
         int i;

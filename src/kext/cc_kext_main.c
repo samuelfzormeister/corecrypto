@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
+ *
+ * @LICENSE_HEADER_BEGIN@
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * @LICENSE_HEADER_END@
+ */
+
 #include <mach/mach_types.h>
 #include <sys/systm.h>
 
@@ -13,7 +31,7 @@
 #include <corecrypto/cckprng.h>
 
 #if CORECRYPTO_KEXT_TEST
-#include "../test/cctest_internal.h"
+#include <corecrypto/cctest_priv.h>
 #endif
 
 struct crypto_functions cc_functions;
@@ -41,10 +59,12 @@ kern_return_t cc_kext_start(kmod_info_t *ki, void *d)
     printf("corecrypto: module start, built %s\n", __TIMESTAMP__);
 
 #if CORECRYPTO_KEXT_TEST
-    if (cctest_run_all_tests() == 0) {
+    if (cctest_run_all() == 0) {
         cc_printf("corecrypto test: finished testing!\n");
+    } else {
+        panic("corecrypto: test failure!!!\n");
     }
-#endif
+#endif // CORECRYPTO_KEXT_TEST
 
     /* Populate our functions. */
     cc_populate_fns(&cc_functions);

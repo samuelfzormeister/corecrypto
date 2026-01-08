@@ -35,7 +35,9 @@
 #include <corecrypto/ccsha2.h>
 
 /*
- * Build the ChaCha20Poly1305 table
+ * Build the ChaCha20Poly1305 function table
+ *
+ * Required for XNU >= 4570.1.64 (Darwin 17)
  */
 const struct ccchacha20poly1305_fns ccchacha20poly1305_funcs = {
     &ccchacha20poly1305_info,
@@ -64,10 +66,37 @@ const struct ccchacha20poly1305_fns ccchacha20poly1305_funcs = {
  * Both of these sound like a PITA but I've gotta do what I've gotta do.
  *
  * XNU versions worthy of note:
- * - 7195.50.7.100.1
- * - 8792.41.9
- * - 8792.61.2
- * - 8796.101.5
+ * - 7195.50.7.100.1:
+ *   - removed the following:
+ *     - const struct ccrc4_info            *ccrc4_info
+ *     - const struct ccmode_ecb            *ccblowfish_ecb_encrypt
+ *     - const struct ccmode_ecb            *ccblowfish_ecb_decrypt
+ *     - const struct ccmode_ecb            *cccast_ecb_encrypt
+ *     - const struct ccmode_ecb            *cccast_ecb_decrypt
+ *     - ccpad_xts_encrypt_fn_t             ccpad_xts_encrypt_fn
+ *     - ccpad_xts_decrypt_fn_t             ccpad_xts_decrypt_fn
+ *
+ * - 8792.41.9:
+ *   - created the following:
+ *     - crypto_digest_ctx_size_fn_t        digest_ctx_size_fn
+ *     - crypto_digest_init_fn_t            digest_init_fn
+ *     - crypto_digest_update_fn_t          digest_update_fn
+ *     - crypto_digest_final_fn_t           digest_final_fn
+ *     - crypto_digest_fn_t                 digest_fn
+ *     - crypto_hmac_ctx_size_fn_t          hmac_ctx_size_fn
+ *     - crypto_hmac_init_fn_t              hmac_init_fn
+ *     - crypto_hmac_update_fn_t            hmac_update_fn
+ *     - crypto_hmac_final_generate_fn_t    hmac_final_generate_fn
+ *     - crypto_hmac_final_verify_fn_t      hmac_final_verify_fn
+ *     - crypto_hmac_generate_fn_t          hmac_generate_fn
+ *     - crypto_hmac_verify_fn_t            hmac_verify_fn
+ *
+ * - 8792.61.2:
+ *   - created the following:
+ *     - crypto_random_generate_fn_t        random_generate_fn
+ *     - crypto_random_uniform_fn_t         random_uniform_fn
+ *     - crypto_random_kmem_ctx_size_fn_t   random_kmem_ctx_size_fn
+ *     - crypto_random_kmem_init_fn_t       random_kmem_init_fn
  */
 
 void cc_populate_fns(crypto_functions_t fns)

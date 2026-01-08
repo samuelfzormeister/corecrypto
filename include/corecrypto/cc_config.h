@@ -559,13 +559,17 @@
  * I'm waiting on my Serial Header -> RS232/DB9 adapter to arrive.
  */
 #if CC_XNU_KERNEL_AVAILABLE
-    #include <System/i386/cpu_capabilities.h>
+    #if __has_include(<System/i386/cpu_capabilities.h>)
+        #include <System/i386/cpu_capabilities.h>
 
-    #if defined (kHasSHA) && defined (kHasSHA512)
-        #define CC_SAMZORMEISTER_KERNEL 1
+        #if defined (kHasSHA) && defined (kHasSHA512)
+            #define CC_SAMZORMEISTER_KERNEL 1
+        #else
+            #define CC_SAMZORMEISTER_KERNEL 0
+        #endif
     #else
         #define CC_SAMZORMEISTER_KERNEL 0
-    #endif
+    #endif // __has_include(<System/i386/cpu_capabilities.h>)
 #elif CC_KERNEL
     #include <i386/cpuid.h>
 

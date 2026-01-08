@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -58,7 +58,10 @@ struct cctest_info {
 };
 
 /* Tests for ciphers (primitive and limited, needs to be upgraded) */
-extern const struct cctest_info *ccmd2_ti();
-extern const struct cctest_info *ccmd4_ti();
+extern const struct cctest_info *ccmd2_ti(void);
+extern const struct cctest_info *ccmd4_ti(void);
+
+/* APIs */
+int cctest_run_all(void);
 
 #endif /* _CORECRYPTO_CCTEST_PRIV_H_ */
