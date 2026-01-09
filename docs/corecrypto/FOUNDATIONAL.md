@@ -55,8 +55,13 @@ Other known modes, which are usually used with AES, are:
 | ``ccsha1``             | SHA-1 hashing algorithm                                                              |
 | ``ccsha2``             | SHA-256 and SHA-512 + derivative hashing algorithm                                   |
 | ``ccsha3``             | SHA-3 hashing algorithm                                                              |
+| ``ccspake``            | SPAKE2, I believe                                                                    |
 | ``ccsrp``              | Secure Remote Password key exchange                                                  |
+| ``ccss_shamir``        | Shamir's Secret Sharing                                                              |
+| ``ccvrf``              | Verifiable Random Functions (draft-irtf-cfrg-vrf-03)                                 |
 | ``ccwrap``             | AES Key Wrapping operations                                                          |
 | ``ccxof``              | eXtended Output Functions, defined in FIPS-202                                       |
 | ``ccz``                | Generic Big Number handler, utilising cc_units                                       |
 | ``cczp``               | Large prime number representation, ccz's beefier cousin.                             |
+
+This list isn't reflective of the latest versions of `*OS`.
