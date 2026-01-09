@@ -137,7 +137,7 @@ XNU has various interfaces to corecrypto, XNU wants the following cryptographic 
 
 ### Collaborative Key Generation
 
-[This  CMVP document](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp4390.pdf) makes several refernces as to the nature of the CKG implementation.
+[This CMVP document](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp4390.pdf) makes several refernces as to the nature of the CKG implementation.
 
 Note-worthy tidbits from this document are in the Sensitive Security Parameter Managemnet section:
 - 'Key Generation (ANSI X9.31) (CKG using method in Sections 4 and 5.1 [SP 800-133])'

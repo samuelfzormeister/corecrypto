@@ -182,6 +182,9 @@
 		420E9A482F104F37005E3B27 /* ccmode_cfb_encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 420E9A032F104F37005E3B27 /* ccmode_cfb_encrypt.c */; };
 		420E9A492F104F37005E3B27 /* ccmode_ofb_init.c in Sources */ = {isa = PBXBuildFile; fileRef = 420E9A132F104F37005E3B27 /* ccmode_ofb_init.c */; };
 		420E9A4A2F104F37005E3B27 /* ccmode_ctr_init.c in Sources */ = {isa = PBXBuildFile; fileRef = 420E9A0D2F104F37005E3B27 /* ccmode_ctr_init.c */; };
+		420E9A4E2F10B3E5005E3B27 /* cchkdf.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 420E9A4D2F10B3E5005E3B27 /* cchkdf.h */; };
+		420E9B082F10BE28005E3B27 /* ccecies.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 420E9B072F10BE28005E3B27 /* ccecies.h */; };
+		420E9B092F10BE28005E3B27 /* ccecies.h in Headers */ = {isa = PBXBuildFile; fileRef = 420E9B072F10BE28005E3B27 /* ccecies.h */; };
 		F001367A2D3F736400349FD5 /* pdckeccak.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136792D3F736400349FD5 /* pdckeccak.c */; };
 		F001367B2D3F736400349FD5 /* pdckeccak.h in Headers */ = {isa = PBXBuildFile; fileRef = F00136782D3F736400349FD5 /* pdckeccak.h */; };
 		F001367C2D3F736400349FD5 /* pdckeccak.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136792D3F736400349FD5 /* pdckeccak.c */; };
@@ -680,12 +683,14 @@
 				F004E99B2DD4B09200103A8F /* ccder.h in CopyFiles */,
 				F004E99A2DD4B08F00103A8F /* cccmac.h in CopyFiles */,
 				F004E9992DD4B08C00103A8F /* ccchacha20poly1305.h in CopyFiles */,
+				420E9A4E2F10B3E5005E3B27 /* cchkdf.h in CopyFiles */,
 				F004E9982DD4B08400103A8F /* cccast.h in CopyFiles */,
 				F0851A302DEA56DE00349FD5 /* cckeccak.h in CopyFiles */,
 				F004E9972DD4B08100103A8F /* ccblowfish.h in CopyFiles */,
 				F004E9962DD4B07E00103A8F /* ccansikdf.h in CopyFiles */,
 				F004E9952DD4B07800103A8F /* ccasn1.h in CopyFiles */,
 				F004E9942DD4B06E00103A8F /* ccaes.h in CopyFiles */,
+				420E9B082F10BE28005E3B27 /* ccecies.h in CopyFiles */,
 				420E99FB2F104E35005E3B27 /* ccdigest_test_internal.h in CopyFiles */,
 				F004E9932DD4B06A00103A8F /* cc_runtime_config.h in CopyFiles */,
 				F004E9922DD4B06500103A8F /* cc_macros.h in CopyFiles */,
@@ -838,6 +843,171 @@
 		420E9A172F104F37005E3B27 /* ccmode_xts_init.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccmode_xts_init.c; sourceTree = "<group>"; };
 		420E9A182F104F37005E3B27 /* ccmode_xts_keysched.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccmode_xts_keysched.c; sourceTree = "<group>"; };
 		420E9A192F104F37005E3B27 /* ccmode_xts_set_tweak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccmode_xts_set_tweak.c; sourceTree = "<group>"; };
+		420E9A4B2F10A2EB005E3B27 /* cc_exports.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = cc_exports.txt; sourceTree = "<group>"; };
+		420E9A4D2F10B3E5005E3B27 /* cchkdf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cchkdf.h; sourceTree = "<group>"; };
+		420E9A4F2F10B650005E3B27 /* AESAVS.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = AESAVS.pdf; sourceTree = "<group>"; };
+		420E9A502F10B650005E3B27 /* CMACVS.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = CMACVS.pdf; sourceTree = "<group>"; };
+		420E9A512F10B650005E3B27 /* DRBGVS.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DRBGVS.pdf; sourceTree = "<group>"; };
+		420E9A522F10B650005E3B27 /* gcmvs.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = gcmvs.pdf; sourceTree = "<group>"; };
+		420E9A532F10B650005E3B27 /* XTSVS.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = XTSVS.pdf; sourceTree = "<group>"; };
+		420E9A552F10B650005E3B27 /* NIST.SP.800-38B.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-38B.pdf"; sourceTree = "<group>"; };
+		420E9A572F10B650005E3B27 /* NIST.SP.800-90Ar1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-90Ar1.pdf"; sourceTree = "<group>"; };
+		420E9A582F10B650005E3B27 /* NIST.SP.800-90C.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-90C.pdf"; sourceTree = "<group>"; };
+		420E9A5A2F10B650005E3B27 /* FIPS 140-3 IG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "FIPS 140-3 IG.pdf"; sourceTree = "<group>"; };
+		420E9A5B2F10B650005E3B27 /* FIPS1402IG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = FIPS1402IG.pdf; sourceTree = "<group>"; };
+		420E9A5C2F10B650005E3B27 /* NIST.FIPS.140-2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.FIPS.140-2.pdf"; sourceTree = "<group>"; };
+		420E9A5D2F10B650005E3B27 /* NIST.FIPS.140-3.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.FIPS.140-3.pdf"; sourceTree = "<group>"; };
+		420E9A5E2F10B650005E3B27 /* NIST.SP.800-140.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-140.pdf"; sourceTree = "<group>"; };
+		420E9A5F2F10B650005E3B27 /* NIST.SP.800-140A.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-140A.pdf"; sourceTree = "<group>"; };
+		420E9A602F10B650005E3B27 /* NIST.SP.800-140Br1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-140Br1.pdf"; sourceTree = "<group>"; };
+		420E9A612F10B650005E3B27 /* NIST.SP.800-140Cr2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-140Cr2.pdf"; sourceTree = "<group>"; };
+		420E9A622F10B650005E3B27 /* NIST.SP.800-140Dr2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-140Dr2.pdf"; sourceTree = "<group>"; };
+		420E9A632F10B650005E3B27 /* NIST.SP.800-140E.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-140E.pdf"; sourceTree = "<group>"; };
+		420E9A642F10B650005E3B27 /* NIST.SP.800-140F.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-140F.pdf"; sourceTree = "<group>"; };
+		420E9A662F10B650005E3B27 /* nistspecialpublication800-38a.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "nistspecialpublication800-38a.pdf"; sourceTree = "<group>"; };
+		420E9A672F10B650005E3B27 /* nistspecialpublication800-38c.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "nistspecialpublication800-38c.pdf"; sourceTree = "<group>"; };
+		420E9A682F10B650005E3B27 /* nistspecialpublication800-38d.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "nistspecialpublication800-38d.pdf"; sourceTree = "<group>"; };
+		420E9A6A2F10B650005E3B27 /* NIST.SP.800-38a-add.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-38a-add.pdf"; sourceTree = "<group>"; };
+		420E9A6B2F10B650005E3B27 /* RFC5652.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = RFC5652.txt; sourceTree = "<group>"; };
+		420E9A6D2F10B650005E3B27 /* NIST.SP.800-132.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-132.pdf"; sourceTree = "<group>"; };
+		420E9A6F2F10B650005E3B27 /* NIST.FIPS.180-4.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.FIPS.180-4.pdf"; sourceTree = "<group>"; };
+		420E9A712F10B650005E3B27 /* NIST.FIPS.202.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = NIST.FIPS.202.pdf; sourceTree = "<group>"; };
+		420E9A732F10B650005E3B27 /* DVPT128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = DVPT128.rsp; sourceTree = "<group>"; };
+		420E9A742F10B650005E3B27 /* DVPT128.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DVPT128.txt; sourceTree = "<group>"; };
+		420E9A752F10B650005E3B27 /* DVPT192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = DVPT192.rsp; sourceTree = "<group>"; };
+		420E9A762F10B650005E3B27 /* DVPT192.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DVPT192.txt; sourceTree = "<group>"; };
+		420E9A772F10B650005E3B27 /* DVPT256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = DVPT256.rsp; sourceTree = "<group>"; };
+		420E9A782F10B650005E3B27 /* DVPT256.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DVPT256.txt; sourceTree = "<group>"; };
+		420E9A792F10B650005E3B27 /* Readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
+		420E9A7A2F10B650005E3B27 /* VADT128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VADT128.rsp; sourceTree = "<group>"; };
+		420E9A7B2F10B650005E3B27 /* VADT192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VADT192.rsp; sourceTree = "<group>"; };
+		420E9A7C2F10B650005E3B27 /* VADT256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VADT256.rsp; sourceTree = "<group>"; };
+		420E9A7D2F10B650005E3B27 /* VNT128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VNT128.rsp; sourceTree = "<group>"; };
+		420E9A7E2F10B650005E3B27 /* VNT192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VNT192.rsp; sourceTree = "<group>"; };
+		420E9A7F2F10B650005E3B27 /* VNT256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VNT256.rsp; sourceTree = "<group>"; };
+		420E9A802F10B650005E3B27 /* VPT128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VPT128.rsp; sourceTree = "<group>"; };
+		420E9A812F10B650005E3B27 /* VPT192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VPT192.rsp; sourceTree = "<group>"; };
+		420E9A822F10B650005E3B27 /* VPT256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VPT256.rsp; sourceTree = "<group>"; };
+		420E9A832F10B650005E3B27 /* VTT128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VTT128.rsp; sourceTree = "<group>"; };
+		420E9A842F10B650005E3B27 /* VTT192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VTT192.rsp; sourceTree = "<group>"; };
+		420E9A852F10B650005E3B27 /* VTT256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = VTT256.rsp; sourceTree = "<group>"; };
+		420E9A872F10B650005E3B27 /* gcmDecrypt128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = gcmDecrypt128.rsp; sourceTree = "<group>"; };
+		420E9A882F10B650005E3B27 /* gcmDecrypt192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = gcmDecrypt192.rsp; sourceTree = "<group>"; };
+		420E9A892F10B650005E3B27 /* gcmDecrypt256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = gcmDecrypt256.rsp; sourceTree = "<group>"; };
+		420E9A8A2F10B650005E3B27 /* gcmEncryptExtIV128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = gcmEncryptExtIV128.rsp; sourceTree = "<group>"; };
+		420E9A8B2F10B650005E3B27 /* gcmEncryptExtIV192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = gcmEncryptExtIV192.rsp; sourceTree = "<group>"; };
+		420E9A8C2F10B650005E3B27 /* gcmEncryptExtIV256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = gcmEncryptExtIV256.rsp; sourceTree = "<group>"; };
+		420E9A8E2F10B650005E3B27 /* aesval.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = aesval.html; sourceTree = "<group>"; };
+		420E9A8F2F10B650005E3B27 /* CBCGFSbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCGFSbox128.rsp; sourceTree = "<group>"; };
+		420E9A902F10B650005E3B27 /* CBCGFSbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCGFSbox192.rsp; sourceTree = "<group>"; };
+		420E9A912F10B650005E3B27 /* CBCGFSbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCGFSbox256.rsp; sourceTree = "<group>"; };
+		420E9A922F10B650005E3B27 /* CBCKeySbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCKeySbox128.rsp; sourceTree = "<group>"; };
+		420E9A932F10B650005E3B27 /* CBCKeySbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCKeySbox192.rsp; sourceTree = "<group>"; };
+		420E9A942F10B650005E3B27 /* CBCKeySbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCKeySbox256.rsp; sourceTree = "<group>"; };
+		420E9A952F10B650005E3B27 /* CBCVarKey128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCVarKey128.rsp; sourceTree = "<group>"; };
+		420E9A962F10B650005E3B27 /* CBCVarKey192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCVarKey192.rsp; sourceTree = "<group>"; };
+		420E9A972F10B650005E3B27 /* CBCVarKey256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCVarKey256.rsp; sourceTree = "<group>"; };
+		420E9A982F10B650005E3B27 /* CBCVarTxt128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCVarTxt128.rsp; sourceTree = "<group>"; };
+		420E9A992F10B650005E3B27 /* CBCVarTxt192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCVarTxt192.rsp; sourceTree = "<group>"; };
+		420E9A9A2F10B650005E3B27 /* CBCVarTxt256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CBCVarTxt256.rsp; sourceTree = "<group>"; };
+		420E9A9B2F10B650005E3B27 /* CFB1GFSbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1GFSbox128.rsp; sourceTree = "<group>"; };
+		420E9A9C2F10B650005E3B27 /* CFB1GFSbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1GFSbox192.rsp; sourceTree = "<group>"; };
+		420E9A9D2F10B650005E3B27 /* CFB1GFSbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1GFSbox256.rsp; sourceTree = "<group>"; };
+		420E9A9E2F10B650005E3B27 /* CFB1KeySbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1KeySbox128.rsp; sourceTree = "<group>"; };
+		420E9A9F2F10B650005E3B27 /* CFB1KeySbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1KeySbox192.rsp; sourceTree = "<group>"; };
+		420E9AA02F10B650005E3B27 /* CFB1KeySbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1KeySbox256.rsp; sourceTree = "<group>"; };
+		420E9AA12F10B650005E3B27 /* CFB1VarKey128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1VarKey128.rsp; sourceTree = "<group>"; };
+		420E9AA22F10B650005E3B27 /* CFB1VarKey192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1VarKey192.rsp; sourceTree = "<group>"; };
+		420E9AA32F10B650005E3B27 /* CFB1VarKey256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1VarKey256.rsp; sourceTree = "<group>"; };
+		420E9AA42F10B650005E3B27 /* CFB1VarTxt128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1VarTxt128.rsp; sourceTree = "<group>"; };
+		420E9AA52F10B650005E3B27 /* CFB1VarTxt192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1VarTxt192.rsp; sourceTree = "<group>"; };
+		420E9AA62F10B650005E3B27 /* CFB1VarTxt256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB1VarTxt256.rsp; sourceTree = "<group>"; };
+		420E9AA72F10B650005E3B27 /* CFB8GFSbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8GFSbox128.rsp; sourceTree = "<group>"; };
+		420E9AA82F10B650005E3B27 /* CFB8GFSbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8GFSbox192.rsp; sourceTree = "<group>"; };
+		420E9AA92F10B650005E3B27 /* CFB8GFSbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8GFSbox256.rsp; sourceTree = "<group>"; };
+		420E9AAA2F10B650005E3B27 /* CFB8KeySbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8KeySbox128.rsp; sourceTree = "<group>"; };
+		420E9AAB2F10B650005E3B27 /* CFB8KeySbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8KeySbox192.rsp; sourceTree = "<group>"; };
+		420E9AAC2F10B650005E3B27 /* CFB8KeySbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8KeySbox256.rsp; sourceTree = "<group>"; };
+		420E9AAD2F10B650005E3B27 /* CFB8VarKey128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8VarKey128.rsp; sourceTree = "<group>"; };
+		420E9AAE2F10B650005E3B27 /* CFB8VarKey192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8VarKey192.rsp; sourceTree = "<group>"; };
+		420E9AAF2F10B650005E3B27 /* CFB8VarKey256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8VarKey256.rsp; sourceTree = "<group>"; };
+		420E9AB02F10B650005E3B27 /* CFB8VarTxt128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8VarTxt128.rsp; sourceTree = "<group>"; };
+		420E9AB12F10B650005E3B27 /* CFB8VarTxt192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8VarTxt192.rsp; sourceTree = "<group>"; };
+		420E9AB22F10B650005E3B27 /* CFB8VarTxt256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB8VarTxt256.rsp; sourceTree = "<group>"; };
+		420E9AB32F10B650005E3B27 /* CFB128GFSbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128GFSbox128.rsp; sourceTree = "<group>"; };
+		420E9AB42F10B650005E3B27 /* CFB128GFSbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128GFSbox192.rsp; sourceTree = "<group>"; };
+		420E9AB52F10B650005E3B27 /* CFB128GFSbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128GFSbox256.rsp; sourceTree = "<group>"; };
+		420E9AB62F10B650005E3B27 /* CFB128KeySbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128KeySbox128.rsp; sourceTree = "<group>"; };
+		420E9AB72F10B650005E3B27 /* CFB128KeySbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128KeySbox192.rsp; sourceTree = "<group>"; };
+		420E9AB82F10B650005E3B27 /* CFB128KeySbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128KeySbox256.rsp; sourceTree = "<group>"; };
+		420E9AB92F10B650005E3B27 /* CFB128VarKey128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128VarKey128.rsp; sourceTree = "<group>"; };
+		420E9ABA2F10B650005E3B27 /* CFB128VarKey192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128VarKey192.rsp; sourceTree = "<group>"; };
+		420E9ABB2F10B650005E3B27 /* CFB128VarKey256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128VarKey256.rsp; sourceTree = "<group>"; };
+		420E9ABC2F10B650005E3B27 /* CFB128VarTxt128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128VarTxt128.rsp; sourceTree = "<group>"; };
+		420E9ABD2F10B650005E3B27 /* CFB128VarTxt192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128VarTxt192.rsp; sourceTree = "<group>"; };
+		420E9ABE2F10B650005E3B27 /* CFB128VarTxt256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = CFB128VarTxt256.rsp; sourceTree = "<group>"; };
+		420E9ABF2F10B650005E3B27 /* ECBGFSbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBGFSbox128.rsp; sourceTree = "<group>"; };
+		420E9AC02F10B650005E3B27 /* ECBGFSbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBGFSbox192.rsp; sourceTree = "<group>"; };
+		420E9AC12F10B650005E3B27 /* ECBGFSbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBGFSbox256.rsp; sourceTree = "<group>"; };
+		420E9AC22F10B650005E3B27 /* ECBKeySbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBKeySbox128.rsp; sourceTree = "<group>"; };
+		420E9AC32F10B650005E3B27 /* ECBKeySbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBKeySbox192.rsp; sourceTree = "<group>"; };
+		420E9AC42F10B650005E3B27 /* ECBKeySbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBKeySbox256.rsp; sourceTree = "<group>"; };
+		420E9AC52F10B650005E3B27 /* ECBVarKey128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBVarKey128.rsp; sourceTree = "<group>"; };
+		420E9AC62F10B650005E3B27 /* ECBVarKey192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBVarKey192.rsp; sourceTree = "<group>"; };
+		420E9AC72F10B650005E3B27 /* ECBVarKey256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBVarKey256.rsp; sourceTree = "<group>"; };
+		420E9AC82F10B650005E3B27 /* ECBVarTxt128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBVarTxt128.rsp; sourceTree = "<group>"; };
+		420E9AC92F10B650005E3B27 /* ECBVarTxt192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBVarTxt192.rsp; sourceTree = "<group>"; };
+		420E9ACA2F10B650005E3B27 /* ECBVarTxt256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = ECBVarTxt256.rsp; sourceTree = "<group>"; };
+		420E9ACB2F10B650005E3B27 /* OFBGFSbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBGFSbox128.rsp; sourceTree = "<group>"; };
+		420E9ACC2F10B650005E3B27 /* OFBGFSbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBGFSbox192.rsp; sourceTree = "<group>"; };
+		420E9ACD2F10B650005E3B27 /* OFBGFSbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBGFSbox256.rsp; sourceTree = "<group>"; };
+		420E9ACE2F10B650005E3B27 /* OFBKeySbox128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBKeySbox128.rsp; sourceTree = "<group>"; };
+		420E9ACF2F10B650005E3B27 /* OFBKeySbox192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBKeySbox192.rsp; sourceTree = "<group>"; };
+		420E9AD02F10B650005E3B27 /* OFBKeySbox256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBKeySbox256.rsp; sourceTree = "<group>"; };
+		420E9AD12F10B650005E3B27 /* OFBVarKey128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBVarKey128.rsp; sourceTree = "<group>"; };
+		420E9AD22F10B650005E3B27 /* OFBVarKey192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBVarKey192.rsp; sourceTree = "<group>"; };
+		420E9AD32F10B650005E3B27 /* OFBVarKey256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBVarKey256.rsp; sourceTree = "<group>"; };
+		420E9AD42F10B650005E3B27 /* OFBVarTxt128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBVarTxt128.rsp; sourceTree = "<group>"; };
+		420E9AD52F10B650005E3B27 /* OFBVarTxt192.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBVarTxt192.rsp; sourceTree = "<group>"; };
+		420E9AD62F10B650005E3B27 /* OFBVarTxt256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFBVarTxt256.rsp; sourceTree = "<group>"; };
+		420E9AD82F10B650005E3B27 /* XTSGenAES128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = XTSGenAES128.rsp; sourceTree = "<group>"; };
+		420E9AD92F10B650005E3B27 /* XTSGenAES256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = XTSGenAES256.rsp; sourceTree = "<group>"; };
+		420E9ADB2F10B650005E3B27 /* XTSGenAES128.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = XTSGenAES128.rsp; sourceTree = "<group>"; };
+		420E9ADC2F10B650005E3B27 /* XTSGenAES256.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = XTSGenAES256.rsp; sourceTree = "<group>"; };
+		420E9AE02F10B650005E3B27 /* Readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
+		420E9AE12F10B650005E3B27 /* SHA1LongMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA1LongMsg.rsp; sourceTree = "<group>"; };
+		420E9AE22F10B650005E3B27 /* SHA1Monte.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA1Monte.rsp; sourceTree = "<group>"; };
+		420E9AE32F10B650005E3B27 /* SHA1Monte.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA1Monte.txt; sourceTree = "<group>"; };
+		420E9AE42F10B650005E3B27 /* SHA1ShortMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA1ShortMsg.rsp; sourceTree = "<group>"; };
+		420E9AE52F10B650005E3B27 /* SHA224LongMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA224LongMsg.rsp; sourceTree = "<group>"; };
+		420E9AE62F10B650005E3B27 /* SHA224Monte.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA224Monte.rsp; sourceTree = "<group>"; };
+		420E9AE72F10B650005E3B27 /* SHA224Monte.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA224Monte.txt; sourceTree = "<group>"; };
+		420E9AE82F10B650005E3B27 /* SHA224ShortMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA224ShortMsg.rsp; sourceTree = "<group>"; };
+		420E9AE92F10B650005E3B27 /* SHA256LongMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA256LongMsg.rsp; sourceTree = "<group>"; };
+		420E9AEA2F10B650005E3B27 /* SHA256Monte.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA256Monte.rsp; sourceTree = "<group>"; };
+		420E9AEB2F10B650005E3B27 /* SHA256Monte.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA256Monte.txt; sourceTree = "<group>"; };
+		420E9AEC2F10B650005E3B27 /* SHA256ShortMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA256ShortMsg.rsp; sourceTree = "<group>"; };
+		420E9AED2F10B650005E3B27 /* SHA384LongMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA384LongMsg.rsp; sourceTree = "<group>"; };
+		420E9AEE2F10B650005E3B27 /* SHA384Monte.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA384Monte.rsp; sourceTree = "<group>"; };
+		420E9AEF2F10B650005E3B27 /* SHA384Monte.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA384Monte.txt; sourceTree = "<group>"; };
+		420E9AF02F10B650005E3B27 /* SHA384ShortMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA384ShortMsg.rsp; sourceTree = "<group>"; };
+		420E9AF12F10B650005E3B27 /* SHA512_224LongMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512_224LongMsg.rsp; sourceTree = "<group>"; };
+		420E9AF22F10B650005E3B27 /* SHA512_224Monte.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512_224Monte.rsp; sourceTree = "<group>"; };
+		420E9AF32F10B650005E3B27 /* SHA512_224Monte.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512_224Monte.txt; sourceTree = "<group>"; };
+		420E9AF42F10B650005E3B27 /* SHA512_224ShortMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512_224ShortMsg.rsp; sourceTree = "<group>"; };
+		420E9AF52F10B650005E3B27 /* SHA512_256LongMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512_256LongMsg.rsp; sourceTree = "<group>"; };
+		420E9AF62F10B650005E3B27 /* SHA512_256Monte.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512_256Monte.rsp; sourceTree = "<group>"; };
+		420E9AF72F10B650005E3B27 /* SHA512_256Monte.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512_256Monte.txt; sourceTree = "<group>"; };
+		420E9AF82F10B650005E3B27 /* SHA512_256ShortMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512_256ShortMsg.rsp; sourceTree = "<group>"; };
+		420E9AF92F10B650005E3B27 /* SHA512LongMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512LongMsg.rsp; sourceTree = "<group>"; };
+		420E9AFA2F10B650005E3B27 /* SHA512Monte.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512Monte.rsp; sourceTree = "<group>"; };
+		420E9AFB2F10B650005E3B27 /* SHA512Monte.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512Monte.txt; sourceTree = "<group>"; };
+		420E9AFC2F10B650005E3B27 /* SHA512ShortMsg.rsp */ = {isa = PBXFileReference; lastKnownFileType = text; path = SHA512ShortMsg.rsp; sourceTree = "<group>"; };
+		420E9B002F10B650005E3B27 /* NIST.SP.800-38F.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "NIST.SP.800-38F.pdf"; sourceTree = "<group>"; };
+		420E9B022F10B650005E3B27 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		420E9B052F10B6D9005E3B27 /* FOUNDATIONAL.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = FOUNDATIONAL.md; sourceTree = "<group>"; };
+		420E9B062F10BD92005E3B27 /* cc_required_where.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = cc_required_where.txt; sourceTree = "<group>"; };
+		420E9B072F10BE28005E3B27 /* ccecies.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccecies.h; sourceTree = "<group>"; };
 		F00136782D3F736400349FD5 /* pdckeccak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pdckeccak.h; sourceTree = "<group>"; };
 		F00136792D3F736400349FD5 /* pdckeccak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pdckeccak.c; sourceTree = "<group>"; };
 		F00136852D4059EC00349FD5 /* pdcxof.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pdcxof.h; sourceTree = "<group>"; };
@@ -1038,7 +1208,6 @@
 		F0BBB4F42E38E6DF00349FD5 /* ccsha512_ltc_di.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccsha512_ltc_di.c; sourceTree = "<group>"; };
 		F0BBB5132E38E73100349FD5 /* ccder_sizeof_oid.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccder_sizeof_oid.c; sourceTree = "<group>"; };
 		F0BBB5162E38E76500349FD5 /* xmake.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = xmake.lua; sourceTree = "<group>"; };
-		F0BBB5172E38E77200349FD5 /* PRIORITY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = PRIORITY.md; sourceTree = "<group>"; };
 		F0BFEB542D69204000349FD5 /* der.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = der.c; sourceTree = "<group>"; };
 		F0CA56D02CF9165900521F17 /* ccsha3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccsha3.h; sourceTree = "<group>"; };
 		F0CA56D22CF9891F00521F17 /* sha3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sha3.c; sourceTree = "<group>"; };
@@ -1105,8 +1274,7 @@
 			isa = PBXGroup;
 			children = (
 				F0BBB5162E38E76500349FD5 /* xmake.lua */,
-				F0BBB5172E38E77200349FD5 /* PRIORITY.md */,
-				F001368F2D405CB700349FD5 /* DARWIN19.md */,
+				420E9B032F10B650005E3B27 /* docs */,
 				1F65CFE21F2800A20073759F /* include */,
 				1FB2F6BF1C87B2BA009C0F4C /* src */,
 				1F377BA5213DF15B00D1C6CA /* xcscripts */,
@@ -1179,8 +1347,8 @@
 				1F358E752354F0370030CA4F /* cc_runtime_config.h */,
 				F004E9832DD4AFBA00103A8F /* cc_uptime.h */,
 				1F65CFE51F2800C60073759F /* ccaes.h */,
-				1F65D0011F2800C60073759F /* ccasn1.h */,
 				F09C430E2DAF80DD008E7BD3 /* ccansikdf.h */,
+				1F65D0011F2800C60073759F /* ccasn1.h */,
 				F03D8B0D2DAC68C3004F403D /* ccblowfish.h */,
 				F004E9842DD4AFC600103A8F /* cccast.h */,
 				1F358E732354F0370030CA4F /* ccchacha20poly1305.h */,
@@ -1194,22 +1362,24 @@
 				1F65CFF31F2800C60073759F /* ccdigest.h */,
 				1F65CFEA1F2800C60073759F /* ccdigest_priv.h */,
 				420E99F92F104E35005E3B27 /* ccdigest_test_internal.h */,
-				1F65CFE81F2800C60073759F /* ccdrbg_impl.h */,
 				1F65CFE61F2800C60073759F /* ccdrbg.h */,
+				1F65CFE81F2800C60073759F /* ccdrbg_impl.h */,
 				F05D85FC2D5706F500E8FF15 /* ccec.h */,
 				F01271AC2DB38C56009706F7 /* ccec25519.h */,
 				F01271AD2DB39F0C009706F7 /* ccec25519_priv.h */,
+				420E9B072F10BE28005E3B27 /* ccecies.h */,
+				420E9A4D2F10B3E5005E3B27 /* cchkdf.h */,
 				1F65CFED1F2800C60073759F /* cchmac.h */,
 				F0851A2F2DEA56DE00349FD5 /* cckeccak.h */,
 				1F358E722354F0360030CA4F /* cckprng.h */,
 				F01186CD2D44F3A4009C285F /* ccmd2.h */,
 				F09056FF2D4589A0007C6E87 /* ccmd4.h */,
 				1F65CFE41F2800C60073759F /* ccmd5.h */,
+				1F65CFF21F2800C60073759F /* ccmode.h */,
 				1F65D0001F2800C60073759F /* ccmode_factory.h */,
 				1F65CFF61F2800C60073759F /* ccmode_impl.h */,
 				1F65CFFA1F2800C60073759F /* ccmode_siv.h */,
 				1FE6C82A245E60E600D738AF /* ccmode_siv_hmac.h */,
-				1F65CFF21F2800C60073759F /* ccmode.h */,
 				1F65CFFC1F2800C60073759F /* ccn.h */,
 				F01F76E92DAA389900770D5D /* ccnistkdf.h */,
 				1F65CFF51F2800C60073759F /* ccpad.h */,
@@ -1217,8 +1387,8 @@
 				F0851A2C2DEA56C200349FD5 /* ccrc2.h */,
 				1F65CFFB1F2800C60073759F /* ccrc4.h */,
 				F090570F2D45CDEB007C6E87 /* ccripemd.h */,
-				1F65CFF81F2800C60073759F /* ccrng_system.h */,
 				1F65CFFD1F2800C60073759F /* ccrng.h */,
+				1F65CFF81F2800C60073759F /* ccrng_system.h */,
 				1F65CFEE1F2800C60073759F /* ccrsa.h */,
 				F0B0A52B2DC9689B00349FD5 /* ccrsa_priv.h */,
 				1F65CFF91F2800C60073759F /* ccsha1.h */,
@@ -1227,9 +1397,9 @@
 				F0851A262DEA56AA00349FD5 /* ccsrp.h */,
 				F0851A272DEA56AA00349FD5 /* ccsrp_gp.h */,
 				420E99FC2F104E4E005E3B27 /* cctest_priv.h */,
-				F0B081422D5D44D000349FD5 /* ccxof.h */,
 				F00D098D2D40B35600349FD5 /* ccwrap.h */,
 				F01186CA2D44BB85009C285F /* ccwrap_priv.h */,
+				F0B081422D5D44D000349FD5 /* ccxof.h */,
 				F01F76EB2DAA5A0800770D5D /* ccz.h */,
 				1F65CFEF1F2800C60073759F /* cczp.h */,
 				1F358E742354F0370030CA4F /* fipspost_trace.h */,
@@ -1427,6 +1597,345 @@
 				420E9A192F104F37005E3B27 /* ccmode_xts_set_tweak.c */,
 			);
 			path = xts;
+			sourceTree = "<group>";
+		};
+		420E9A542F10B650005E3B27 /* cavp */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A4F2F10B650005E3B27 /* AESAVS.pdf */,
+				420E9A502F10B650005E3B27 /* CMACVS.pdf */,
+				420E9A512F10B650005E3B27 /* DRBGVS.pdf */,
+				420E9A522F10B650005E3B27 /* gcmvs.pdf */,
+				420E9A532F10B650005E3B27 /* XTSVS.pdf */,
+			);
+			path = cavp;
+			sourceTree = "<group>";
+		};
+		420E9A562F10B650005E3B27 /* cmac */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A552F10B650005E3B27 /* NIST.SP.800-38B.pdf */,
+			);
+			path = cmac;
+			sourceTree = "<group>";
+		};
+		420E9A592F10B650005E3B27 /* drbg */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A572F10B650005E3B27 /* NIST.SP.800-90Ar1.pdf */,
+				420E9A582F10B650005E3B27 /* NIST.SP.800-90C.pdf */,
+			);
+			path = drbg;
+			sourceTree = "<group>";
+		};
+		420E9A652F10B650005E3B27 /* fips */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A5A2F10B650005E3B27 /* FIPS 140-3 IG.pdf */,
+				420E9A5B2F10B650005E3B27 /* FIPS1402IG.pdf */,
+				420E9A5C2F10B650005E3B27 /* NIST.FIPS.140-2.pdf */,
+				420E9A5D2F10B650005E3B27 /* NIST.FIPS.140-3.pdf */,
+				420E9A5E2F10B650005E3B27 /* NIST.SP.800-140.pdf */,
+				420E9A5F2F10B650005E3B27 /* NIST.SP.800-140A.pdf */,
+				420E9A602F10B650005E3B27 /* NIST.SP.800-140Br1.pdf */,
+				420E9A612F10B650005E3B27 /* NIST.SP.800-140Cr2.pdf */,
+				420E9A622F10B650005E3B27 /* NIST.SP.800-140Dr2.pdf */,
+				420E9A632F10B650005E3B27 /* NIST.SP.800-140E.pdf */,
+				420E9A642F10B650005E3B27 /* NIST.SP.800-140F.pdf */,
+			);
+			path = fips;
+			sourceTree = "<group>";
+		};
+		420E9A692F10B650005E3B27 /* modes */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A662F10B650005E3B27 /* nistspecialpublication800-38a.pdf */,
+				420E9A672F10B650005E3B27 /* nistspecialpublication800-38c.pdf */,
+				420E9A682F10B650005E3B27 /* nistspecialpublication800-38d.pdf */,
+			);
+			path = modes;
+			sourceTree = "<group>";
+		};
+		420E9A6C2F10B650005E3B27 /* pad */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A6A2F10B650005E3B27 /* NIST.SP.800-38a-add.pdf */,
+				420E9A6B2F10B650005E3B27 /* RFC5652.txt */,
+			);
+			path = pad;
+			sourceTree = "<group>";
+		};
+		420E9A6E2F10B650005E3B27 /* pbkdf2 */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A6D2F10B650005E3B27 /* NIST.SP.800-132.pdf */,
+			);
+			path = pbkdf2;
+			sourceTree = "<group>";
+		};
+		420E9A702F10B650005E3B27 /* sha */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A6F2F10B650005E3B27 /* NIST.FIPS.180-4.pdf */,
+			);
+			path = sha;
+			sourceTree = "<group>";
+		};
+		420E9A722F10B650005E3B27 /* sha3 */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A712F10B650005E3B27 /* NIST.FIPS.202.pdf */,
+			);
+			path = sha3;
+			sourceTree = "<group>";
+		};
+		420E9A862F10B650005E3B27 /* ccm */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A732F10B650005E3B27 /* DVPT128.rsp */,
+				420E9A742F10B650005E3B27 /* DVPT128.txt */,
+				420E9A752F10B650005E3B27 /* DVPT192.rsp */,
+				420E9A762F10B650005E3B27 /* DVPT192.txt */,
+				420E9A772F10B650005E3B27 /* DVPT256.rsp */,
+				420E9A782F10B650005E3B27 /* DVPT256.txt */,
+				420E9A792F10B650005E3B27 /* Readme.txt */,
+				420E9A7A2F10B650005E3B27 /* VADT128.rsp */,
+				420E9A7B2F10B650005E3B27 /* VADT192.rsp */,
+				420E9A7C2F10B650005E3B27 /* VADT256.rsp */,
+				420E9A7D2F10B650005E3B27 /* VNT128.rsp */,
+				420E9A7E2F10B650005E3B27 /* VNT192.rsp */,
+				420E9A7F2F10B650005E3B27 /* VNT256.rsp */,
+				420E9A802F10B650005E3B27 /* VPT128.rsp */,
+				420E9A812F10B650005E3B27 /* VPT192.rsp */,
+				420E9A822F10B650005E3B27 /* VPT256.rsp */,
+				420E9A832F10B650005E3B27 /* VTT128.rsp */,
+				420E9A842F10B650005E3B27 /* VTT192.rsp */,
+				420E9A852F10B650005E3B27 /* VTT256.rsp */,
+			);
+			path = ccm;
+			sourceTree = "<group>";
+		};
+		420E9A8D2F10B650005E3B27 /* gcm */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A872F10B650005E3B27 /* gcmDecrypt128.rsp */,
+				420E9A882F10B650005E3B27 /* gcmDecrypt192.rsp */,
+				420E9A892F10B650005E3B27 /* gcmDecrypt256.rsp */,
+				420E9A8A2F10B650005E3B27 /* gcmEncryptExtIV128.rsp */,
+				420E9A8B2F10B650005E3B27 /* gcmEncryptExtIV192.rsp */,
+				420E9A8C2F10B650005E3B27 /* gcmEncryptExtIV256.rsp */,
+			);
+			path = gcm;
+			sourceTree = "<group>";
+		};
+		420E9AD72F10B650005E3B27 /* KAT_AES */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A8E2F10B650005E3B27 /* aesval.html */,
+				420E9A8F2F10B650005E3B27 /* CBCGFSbox128.rsp */,
+				420E9A902F10B650005E3B27 /* CBCGFSbox192.rsp */,
+				420E9A912F10B650005E3B27 /* CBCGFSbox256.rsp */,
+				420E9A922F10B650005E3B27 /* CBCKeySbox128.rsp */,
+				420E9A932F10B650005E3B27 /* CBCKeySbox192.rsp */,
+				420E9A942F10B650005E3B27 /* CBCKeySbox256.rsp */,
+				420E9A952F10B650005E3B27 /* CBCVarKey128.rsp */,
+				420E9A962F10B650005E3B27 /* CBCVarKey192.rsp */,
+				420E9A972F10B650005E3B27 /* CBCVarKey256.rsp */,
+				420E9A982F10B650005E3B27 /* CBCVarTxt128.rsp */,
+				420E9A992F10B650005E3B27 /* CBCVarTxt192.rsp */,
+				420E9A9A2F10B650005E3B27 /* CBCVarTxt256.rsp */,
+				420E9A9B2F10B650005E3B27 /* CFB1GFSbox128.rsp */,
+				420E9A9C2F10B650005E3B27 /* CFB1GFSbox192.rsp */,
+				420E9A9D2F10B650005E3B27 /* CFB1GFSbox256.rsp */,
+				420E9A9E2F10B650005E3B27 /* CFB1KeySbox128.rsp */,
+				420E9A9F2F10B650005E3B27 /* CFB1KeySbox192.rsp */,
+				420E9AA02F10B650005E3B27 /* CFB1KeySbox256.rsp */,
+				420E9AA12F10B650005E3B27 /* CFB1VarKey128.rsp */,
+				420E9AA22F10B650005E3B27 /* CFB1VarKey192.rsp */,
+				420E9AA32F10B650005E3B27 /* CFB1VarKey256.rsp */,
+				420E9AA42F10B650005E3B27 /* CFB1VarTxt128.rsp */,
+				420E9AA52F10B650005E3B27 /* CFB1VarTxt192.rsp */,
+				420E9AA62F10B650005E3B27 /* CFB1VarTxt256.rsp */,
+				420E9AA72F10B650005E3B27 /* CFB8GFSbox128.rsp */,
+				420E9AA82F10B650005E3B27 /* CFB8GFSbox192.rsp */,
+				420E9AA92F10B650005E3B27 /* CFB8GFSbox256.rsp */,
+				420E9AAA2F10B650005E3B27 /* CFB8KeySbox128.rsp */,
+				420E9AAB2F10B650005E3B27 /* CFB8KeySbox192.rsp */,
+				420E9AAC2F10B650005E3B27 /* CFB8KeySbox256.rsp */,
+				420E9AAD2F10B650005E3B27 /* CFB8VarKey128.rsp */,
+				420E9AAE2F10B650005E3B27 /* CFB8VarKey192.rsp */,
+				420E9AAF2F10B650005E3B27 /* CFB8VarKey256.rsp */,
+				420E9AB02F10B650005E3B27 /* CFB8VarTxt128.rsp */,
+				420E9AB12F10B650005E3B27 /* CFB8VarTxt192.rsp */,
+				420E9AB22F10B650005E3B27 /* CFB8VarTxt256.rsp */,
+				420E9AB32F10B650005E3B27 /* CFB128GFSbox128.rsp */,
+				420E9AB42F10B650005E3B27 /* CFB128GFSbox192.rsp */,
+				420E9AB52F10B650005E3B27 /* CFB128GFSbox256.rsp */,
+				420E9AB62F10B650005E3B27 /* CFB128KeySbox128.rsp */,
+				420E9AB72F10B650005E3B27 /* CFB128KeySbox192.rsp */,
+				420E9AB82F10B650005E3B27 /* CFB128KeySbox256.rsp */,
+				420E9AB92F10B650005E3B27 /* CFB128VarKey128.rsp */,
+				420E9ABA2F10B650005E3B27 /* CFB128VarKey192.rsp */,
+				420E9ABB2F10B650005E3B27 /* CFB128VarKey256.rsp */,
+				420E9ABC2F10B650005E3B27 /* CFB128VarTxt128.rsp */,
+				420E9ABD2F10B650005E3B27 /* CFB128VarTxt192.rsp */,
+				420E9ABE2F10B650005E3B27 /* CFB128VarTxt256.rsp */,
+				420E9ABF2F10B650005E3B27 /* ECBGFSbox128.rsp */,
+				420E9AC02F10B650005E3B27 /* ECBGFSbox192.rsp */,
+				420E9AC12F10B650005E3B27 /* ECBGFSbox256.rsp */,
+				420E9AC22F10B650005E3B27 /* ECBKeySbox128.rsp */,
+				420E9AC32F10B650005E3B27 /* ECBKeySbox192.rsp */,
+				420E9AC42F10B650005E3B27 /* ECBKeySbox256.rsp */,
+				420E9AC52F10B650005E3B27 /* ECBVarKey128.rsp */,
+				420E9AC62F10B650005E3B27 /* ECBVarKey192.rsp */,
+				420E9AC72F10B650005E3B27 /* ECBVarKey256.rsp */,
+				420E9AC82F10B650005E3B27 /* ECBVarTxt128.rsp */,
+				420E9AC92F10B650005E3B27 /* ECBVarTxt192.rsp */,
+				420E9ACA2F10B650005E3B27 /* ECBVarTxt256.rsp */,
+				420E9ACB2F10B650005E3B27 /* OFBGFSbox128.rsp */,
+				420E9ACC2F10B650005E3B27 /* OFBGFSbox192.rsp */,
+				420E9ACD2F10B650005E3B27 /* OFBGFSbox256.rsp */,
+				420E9ACE2F10B650005E3B27 /* OFBKeySbox128.rsp */,
+				420E9ACF2F10B650005E3B27 /* OFBKeySbox192.rsp */,
+				420E9AD02F10B650005E3B27 /* OFBKeySbox256.rsp */,
+				420E9AD12F10B650005E3B27 /* OFBVarKey128.rsp */,
+				420E9AD22F10B650005E3B27 /* OFBVarKey192.rsp */,
+				420E9AD32F10B650005E3B27 /* OFBVarKey256.rsp */,
+				420E9AD42F10B650005E3B27 /* OFBVarTxt128.rsp */,
+				420E9AD52F10B650005E3B27 /* OFBVarTxt192.rsp */,
+				420E9AD62F10B650005E3B27 /* OFBVarTxt256.rsp */,
+			);
+			path = KAT_AES;
+			sourceTree = "<group>";
+		};
+		420E9ADA2F10B650005E3B27 /* format tweak value input - 128 hex str */ = {
+			isa = PBXGroup;
+			children = (
+				420E9AD82F10B650005E3B27 /* XTSGenAES128.rsp */,
+				420E9AD92F10B650005E3B27 /* XTSGenAES256.rsp */,
+			);
+			path = "format tweak value input - 128 hex str";
+			sourceTree = "<group>";
+		};
+		420E9ADD2F10B650005E3B27 /* format tweak value input - data unit seq no */ = {
+			isa = PBXGroup;
+			children = (
+				420E9ADB2F10B650005E3B27 /* XTSGenAES128.rsp */,
+				420E9ADC2F10B650005E3B27 /* XTSGenAES256.rsp */,
+			);
+			path = "format tweak value input - data unit seq no";
+			sourceTree = "<group>";
+		};
+		420E9ADE2F10B650005E3B27 /* xts */ = {
+			isa = PBXGroup;
+			children = (
+				420E9ADA2F10B650005E3B27 /* format tweak value input - 128 hex str */,
+				420E9ADD2F10B650005E3B27 /* format tweak value input - data unit seq no */,
+			);
+			path = xts;
+			sourceTree = "<group>";
+		};
+		420E9ADF2F10B650005E3B27 /* aes */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A862F10B650005E3B27 /* ccm */,
+				420E9A8D2F10B650005E3B27 /* gcm */,
+				420E9AD72F10B650005E3B27 /* KAT_AES */,
+				420E9ADE2F10B650005E3B27 /* xts */,
+			);
+			path = aes;
+			sourceTree = "<group>";
+		};
+		420E9AFD2F10B650005E3B27 /* shabytetestvectors */ = {
+			isa = PBXGroup;
+			children = (
+				420E9AE02F10B650005E3B27 /* Readme.txt */,
+				420E9AE12F10B650005E3B27 /* SHA1LongMsg.rsp */,
+				420E9AE22F10B650005E3B27 /* SHA1Monte.rsp */,
+				420E9AE32F10B650005E3B27 /* SHA1Monte.txt */,
+				420E9AE42F10B650005E3B27 /* SHA1ShortMsg.rsp */,
+				420E9AE52F10B650005E3B27 /* SHA224LongMsg.rsp */,
+				420E9AE62F10B650005E3B27 /* SHA224Monte.rsp */,
+				420E9AE72F10B650005E3B27 /* SHA224Monte.txt */,
+				420E9AE82F10B650005E3B27 /* SHA224ShortMsg.rsp */,
+				420E9AE92F10B650005E3B27 /* SHA256LongMsg.rsp */,
+				420E9AEA2F10B650005E3B27 /* SHA256Monte.rsp */,
+				420E9AEB2F10B650005E3B27 /* SHA256Monte.txt */,
+				420E9AEC2F10B650005E3B27 /* SHA256ShortMsg.rsp */,
+				420E9AED2F10B650005E3B27 /* SHA384LongMsg.rsp */,
+				420E9AEE2F10B650005E3B27 /* SHA384Monte.rsp */,
+				420E9AEF2F10B650005E3B27 /* SHA384Monte.txt */,
+				420E9AF02F10B650005E3B27 /* SHA384ShortMsg.rsp */,
+				420E9AF12F10B650005E3B27 /* SHA512_224LongMsg.rsp */,
+				420E9AF22F10B650005E3B27 /* SHA512_224Monte.rsp */,
+				420E9AF32F10B650005E3B27 /* SHA512_224Monte.txt */,
+				420E9AF42F10B650005E3B27 /* SHA512_224ShortMsg.rsp */,
+				420E9AF52F10B650005E3B27 /* SHA512_256LongMsg.rsp */,
+				420E9AF62F10B650005E3B27 /* SHA512_256Monte.rsp */,
+				420E9AF72F10B650005E3B27 /* SHA512_256Monte.txt */,
+				420E9AF82F10B650005E3B27 /* SHA512_256ShortMsg.rsp */,
+				420E9AF92F10B650005E3B27 /* SHA512LongMsg.rsp */,
+				420E9AFA2F10B650005E3B27 /* SHA512Monte.rsp */,
+				420E9AFB2F10B650005E3B27 /* SHA512Monte.txt */,
+				420E9AFC2F10B650005E3B27 /* SHA512ShortMsg.rsp */,
+			);
+			path = shabytetestvectors;
+			sourceTree = "<group>";
+		};
+		420E9AFE2F10B650005E3B27 /* sha */ = {
+			isa = PBXGroup;
+			children = (
+				420E9AFD2F10B650005E3B27 /* shabytetestvectors */,
+			);
+			path = sha;
+			sourceTree = "<group>";
+		};
+		420E9AFF2F10B650005E3B27 /* vectors */ = {
+			isa = PBXGroup;
+			children = (
+				420E9ADF2F10B650005E3B27 /* aes */,
+				420E9AFE2F10B650005E3B27 /* sha */,
+			);
+			path = vectors;
+			sourceTree = "<group>";
+		};
+		420E9B012F10B650005E3B27 /* wrap */ = {
+			isa = PBXGroup;
+			children = (
+				420E9B002F10B650005E3B27 /* NIST.SP.800-38F.pdf */,
+			);
+			path = wrap;
+			sourceTree = "<group>";
+		};
+		420E9B032F10B650005E3B27 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				420E9B042F10B682005E3B27 /* corecrypto */,
+				420E9A542F10B650005E3B27 /* cavp */,
+				420E9A562F10B650005E3B27 /* cmac */,
+				420E9A592F10B650005E3B27 /* drbg */,
+				420E9A652F10B650005E3B27 /* fips */,
+				420E9A692F10B650005E3B27 /* modes */,
+				420E9A6C2F10B650005E3B27 /* pad */,
+				420E9A6E2F10B650005E3B27 /* pbkdf2 */,
+				420E9A702F10B650005E3B27 /* sha */,
+				420E9A722F10B650005E3B27 /* sha3 */,
+				420E9AFF2F10B650005E3B27 /* vectors */,
+				420E9B012F10B650005E3B27 /* wrap */,
+				420E9B022F10B650005E3B27 /* README.md */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		420E9B042F10B682005E3B27 /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A4B2F10A2EB005E3B27 /* cc_exports.txt */,
+				420E9B062F10BD92005E3B27 /* cc_required_where.txt */,
+				420E9B052F10B6D9005E3B27 /* FOUNDATIONAL.md */,
+				F001368F2D405CB700349FD5 /* DARWIN19.md */,
+			);
+			path = corecrypto;
 			sourceTree = "<group>";
 		};
 		F001366D2D3F69BC00349FD5 /* aes */ = {
@@ -2029,6 +2538,7 @@
 				F004E9872DD4AFCC00103A8F /* cccast.h in Headers */,
 				F01F76EC2DAA5A0800770D5D /* ccz.h in Headers */,
 				1F615F382480A48C0021D82E /* ccdigest_priv.h in Headers */,
+				420E9B092F10BE28005E3B27 /* ccecies.h in Headers */,
 				1F615F3A2480A48C0021D82E /* ccdrbg_impl.h in Headers */,
 				1F615F402480A48C0021D82E /* ccmode_impl.h in Headers */,
 				F00D098E2D40B35600349FD5 /* ccwrap.h in Headers */,
