@@ -54,7 +54,6 @@
 
 #include "aesopt.h"
 #include "aestab.h"
-#include <strings.h>
 
 /*	Produce object code iff UseGladmanAES is defined.  Otherwise, suppress
 	use of this module, because some other AES implementation is being used.
