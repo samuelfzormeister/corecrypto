@@ -80,7 +80,11 @@
 
 /* Linux, Windows, darwinOS, etc. */
 
+#if __APPLE__
+#include <sys/malloc.h>
+#else
 #include <malloc.h>
+#endif
 
 #define CC_WORKSPACE_DECL_N(ws, n) \
             cc_ws ws##_ctx; \
