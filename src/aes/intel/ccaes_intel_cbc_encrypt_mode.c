@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,8 +35,15 @@ static int init_wrapper_opt(const struct ccmode_cbc *ecb, cccbc_ctx *ctx, size_t
 
 static int cbc_wrapper_opt(const cccbc_ctx *ctx, cccbc_iv *iv, size_t nblocks, const void *in, void *out)
 {
+    size_t finalBlockOffset = (nblocks-1) * CCAES_BLOCK_SIZE;
     struct ccaes_intel_encrypt_key *k = (struct ccaes_intel_encrypt_key *)ctx;
     vng_aes_encrypt_opt_cbc(in, (unsigned char *)iv, nblocks, out, k->ctx);
+    
+    //
+    // funny story: We're SUPPOSED to update the IV. Which, the VNG ASM doesn't.
+    //
+    cc_memcpy(iv, out+finalBlockOffset, CCAES_BLOCK_SIZE);
+    
     return 0;
 }
 
@@ -57,8 +64,15 @@ static int init_wrapper_aesni(const struct ccmode_cbc *ecb, cccbc_ctx *ctx, size
 
 static int cbc_wrapper_aesni(const cccbc_ctx *ctx, cccbc_iv *iv, size_t nblocks, const void *in, void *out)
 {
+    size_t finalBlockOffset = (nblocks-1) * CCAES_BLOCK_SIZE;
     struct ccaes_intel_encrypt_key *k = (struct ccaes_intel_encrypt_key *)ctx;
     vng_aes_encrypt_aesni_cbc(in, (unsigned char *)iv, nblocks, out, k->ctx);
+
+    //
+    // funny story: We're SUPPOSED to update the IV. Which, the VNG ASM doesn't.
+    //
+    cc_memcpy(iv, out+finalBlockOffset, CCAES_BLOCK_SIZE);
+
     return 0;
 }
 

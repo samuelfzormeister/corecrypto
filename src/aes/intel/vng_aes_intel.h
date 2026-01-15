@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +20,8 @@
 #define _CORECRYPTO_CCAES_INTEL_VNG_H_
 
 #include <corecrypto/ccaes.h>
+#include <corecrypto/cc_priv.h>
+#include <stdint.h>
 
 #if CCAES_INTEL_ASM
 
@@ -93,11 +95,11 @@ typedef struct {
 	vng_aes_intel_decrypt_ctx decrypt;
 } vng_aes_intel_ctx;
 
-extern int vng_aes_encrypt_opt_key(const unsigned char *key, int key_len, vng_aes_intel_encrypt_ctx cx[1]) __asm__("_vng_aes_encrypt_opt_key");
-extern int vng_aes_encrypt_aesni_key(const unsigned char *key, int key_len, vng_aes_intel_encrypt_ctx cx[1]) __asm__("_vng_aes_encrypt_aesni_key");
+extern int vng_aes_encrypt_opt_key(const unsigned char *key, size_t key_len, vng_aes_intel_encrypt_ctx cx[1]) __asm__("_vng_aes_encrypt_opt_key");
+extern int vng_aes_encrypt_aesni_key(const unsigned char *key, size_t key_len, vng_aes_intel_encrypt_ctx cx[1]) __asm__("_vng_aes_encrypt_aesni_key");
 
-extern int vng_aes_decrypt_opt_key(const unsigned char *key, int key_len, vng_aes_intel_decrypt_ctx cx[1]) __asm__("_vng_aes_decrypt_opt_key");
-extern int vng_aes_decrypt_aesni_key(const unsigned char *key, int key_len, vng_aes_intel_decrypt_ctx cx[1]) __asm__("_vng_aes_decrypt_aesni_key");
+extern int vng_aes_decrypt_opt_key(const unsigned char *key, size_t key_len, vng_aes_intel_decrypt_ctx cx[1]) __asm__("_vng_aes_decrypt_opt_key");
+extern int vng_aes_decrypt_aesni_key(const unsigned char *key, size_t key_len, vng_aes_intel_decrypt_ctx cx[1]) __asm__("_vng_aes_decrypt_aesni_key");
 
 extern int vng_aes_encrypt_aesni(const unsigned char *pt, unsigned char *ct, vng_aes_intel_encrypt_ctx *ctx) __asm__("_vng_aes_encrypt_aesni");
 extern int vng_aes_encrypt_opt(const unsigned char *pt, unsigned char *ct, vng_aes_intel_encrypt_ctx *ctx) __asm__("_vng_aes_encrypt_opt");
@@ -105,14 +107,14 @@ extern int vng_aes_encrypt_opt(const unsigned char *pt, unsigned char *ct, vng_a
 extern int vng_aes_decrypt_aesni(const unsigned char *ct, unsigned char *pt, vng_aes_intel_decrypt_ctx *ctx) __asm__("_vng_aes_decrypt_aesni");
 extern int vng_aes_decrypt_opt(const unsigned char *ct, unsigned char *pt, vng_aes_intel_decrypt_ctx *ctx) __asm__("_vng_aes_decrypt_opt");
 
-extern int vng_aes_decrypt_opt_cbc(const unsigned char *ibuf, unsigned char *in_iv, unsigned int num_blk,
+extern int vng_aes_decrypt_opt_cbc(const unsigned char *ibuf, unsigned char *in_iv, size_t num_blk,
                               unsigned char *obuf, const vng_aes_intel_decrypt_ctx cx[1]) __asm__("_vng_aes_decrypt_opt_cbc");
-extern int vng_aes_encrypt_opt_cbc(const unsigned char *ibuf, unsigned char *in_iv, unsigned int num_blk,
+extern int vng_aes_encrypt_opt_cbc(const unsigned char *ibuf, unsigned char *in_iv, size_t num_blk,
                               unsigned char *obuf, const vng_aes_intel_encrypt_ctx ctx[1]) __asm__("_vng_aes_encrypt_opt_cbc");
 
-extern int vng_aes_decrypt_aesni_cbc(const unsigned char *ibuf, unsigned char *in_iv, unsigned int num_blk,
+extern int vng_aes_decrypt_aesni_cbc(const unsigned char *ibuf, unsigned char *in_iv, size_t num_blk,
                               unsigned char *obuf, const vng_aes_intel_decrypt_ctx cx[1]) __asm__("_vng_aes_decrypt_aesni_cbc");
-extern int vng_aes_encrypt_aesni_cbc(const unsigned char *ibuf, unsigned char *in_iv, unsigned int num_blk,
+extern int vng_aes_encrypt_aesni_cbc(const unsigned char *ibuf, unsigned char *in_iv, size_t num_blk,
                               unsigned char *obuf, const vng_aes_intel_encrypt_ctx ctx[1]) __asm__("_vng_aes_encrypt_aesni_cbc");
 
 /* accessors to the assembly code */
