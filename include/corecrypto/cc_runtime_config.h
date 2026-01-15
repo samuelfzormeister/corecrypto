@@ -21,7 +21,11 @@
     #include <i386/cpuid.h>
     #define CC_HAS_RDRAND() ((cpuid_features() & CPUID_FEATURE_RDRAND) != 0)
 #elif CC_XNU_KERNEL_AVAILABLE
-    #include <System/i386/cpu_capabilities.h>
+    #if !__has_include(<System/i386/cpu_capabilities.h>)
+        #define kHasRDRAND 0x02000000
+    #else
+        #include <System/i386/cpu_capabilities.h>
+    #endif
 
     extern int _cpu_capabilities;
     #define CC_HAS_RDRAND() (_cpu_capabilities & kHasRDRAND)
@@ -47,7 +51,14 @@
 #endif
 
 #elif CC_XNU_KERNEL_AVAILABLE
-    #include <System/i386/cpu_capabilities.h>
+    #if !__has_include(<System/i386/cpu_capabilities.h>)
+        #define kHasSupplementalSSE3    0x00000100
+        #define kHasAES                 0x00001000
+        #define kHasAVX1_0              0x01000000
+        #define kHasAVX2_0              0x20000000
+    #else
+        #include <System/i386/cpu_capabilities.h>
+    #endif
 
     extern int _cpu_capabilities;
     #define CC_HAS_AESNI() (_cpu_capabilities & kHasAES)
