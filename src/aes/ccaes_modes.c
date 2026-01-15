@@ -74,7 +74,7 @@ const struct ccmode_cbc *ccaes_cbc_encrypt_mode(void)
     }
 #endif
 
-    return &ccaes_tinyaes_cbc_encrypt_mode;
+    return &ccaes_gladman_cbc_encrypt_mode;
 };
 
 const struct ccmode_cbc *ccaes_cbc_decrypt_mode(void)
@@ -91,7 +91,7 @@ const struct ccmode_cbc *ccaes_cbc_decrypt_mode(void)
     }
 #endif
 
-    return &ccaes_tinyaes_cbc_decrypt_mode;
+    return &ccaes_gladman_cbc_decrypt_mode;
 };
 
 #pragma mark - XTS mode
