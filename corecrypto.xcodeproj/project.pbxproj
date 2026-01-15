@@ -50,13 +50,7 @@
 		1F17F84824809D7B0080E3C3 /* yarrowUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE4D235542CB00F25C08 /* yarrowUtils.c */; };
 		1F17F84924809D7B0080E3C3 /* cckprng.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F358E7C2354F1570030CA4F /* cckprng.c */; };
 		1F17F84D24809D7B0080E3C3 /* pdcrypto_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44531F280A7C0043CE92 /* pdcrypto_dummy.c */; };
-		1F17F84E24809D7B0080E3C3 /* aes128.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44581F280B490043CE92 /* aes128.c */; };
-		1F17F84F24809D7B0080E3C3 /* ccaes_tinyaes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44571F280B490043CE92 /* ccaes_tinyaes_cbc.c */; };
-		1F17F85024809D7B0080E3C3 /* ccaes_tinyaes_ecb.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44561F280B490043CE92 /* ccaes_tinyaes_ecb.c */; };
 		1F1D44541F280A9A0043CE92 /* pdcrypto_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44531F280A7C0043CE92 /* pdcrypto_dummy.c */; };
-		1F1D44591F280B5F0043CE92 /* aes128.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44581F280B490043CE92 /* aes128.c */; };
-		1F1D445A1F280B5F0043CE92 /* ccaes_tinyaes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44571F280B490043CE92 /* ccaes_tinyaes_cbc.c */; };
-		1F1D445B1F280B5F0043CE92 /* ccaes_tinyaes_ecb.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44561F280B490043CE92 /* ccaes_tinyaes_ecb.c */; };
 		1F358E772354F0370030CA4F /* cckprng.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E722354F0360030CA4F /* cckprng.h */; };
 		1F358E782354F0370030CA4F /* ccchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E732354F0370030CA4F /* ccchacha20poly1305.h */; };
 		1F358E792354F0370030CA4F /* fipspost_trace.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E742354F0370030CA4F /* fipspost_trace.h */; };
@@ -758,10 +752,6 @@
 		1F17F85724809DD30080E3C3 /* corecrypto_user.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = corecrypto_user.xcconfig; sourceTree = "<group>"; };
 		1F1D44521F280A7C0043CE92 /* pdcrypto_dummy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pdcrypto_dummy.h; sourceTree = "<group>"; };
 		1F1D44531F280A7C0043CE92 /* pdcrypto_dummy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pdcrypto_dummy.c; sourceTree = "<group>"; };
-		1F1D44551F280B490043CE92 /* aes128.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aes128.h; sourceTree = "<group>"; };
-		1F1D44561F280B490043CE92 /* ccaes_tinyaes_ecb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccaes_tinyaes_ecb.c; sourceTree = "<group>"; };
-		1F1D44571F280B490043CE92 /* ccaes_tinyaes_cbc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccaes_tinyaes_cbc.c; sourceTree = "<group>"; };
-		1F1D44581F280B490043CE92 /* aes128.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aes128.c; sourceTree = "<group>"; };
 		1F358E722354F0360030CA4F /* cckprng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cckprng.h; sourceTree = "<group>"; };
 		1F358E732354F0370030CA4F /* ccchacha20poly1305.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccchacha20poly1305.h; sourceTree = "<group>"; };
 		1F358E742354F0370030CA4F /* fipspost_trace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fipspost_trace.h; sourceTree = "<group>"; };
@@ -1982,7 +1972,6 @@
 				421C05F72F18E7E200E5B924 /* gladman */,
 				F0BBB4A12E38E61F00349FD5 /* intel */,
 				F0BBB4A72E38E61F00349FD5 /* ltc */,
-				F0851A8D2DEA5B6C00349FD5 /* tinyaes */,
 			);
 			path = aes;
 			sourceTree = "<group>";
@@ -2331,17 +2320,6 @@
 				F0851A6B2DEA585E00349FD5 /* cctest.c */,
 			);
 			path = test;
-			sourceTree = "<group>";
-		};
-		F0851A8D2DEA5B6C00349FD5 /* tinyaes */ = {
-			isa = PBXGroup;
-			children = (
-				1F1D44551F280B490043CE92 /* aes128.h */,
-				1F1D44581F280B490043CE92 /* aes128.c */,
-				1F1D44571F280B490043CE92 /* ccaes_tinyaes_cbc.c */,
-				1F1D44561F280B490043CE92 /* ccaes_tinyaes_ecb.c */,
-			);
-			path = tinyaes;
 			sourceTree = "<group>";
 		};
 		F09057002D459240007C6E87 /* md4 */ = {
@@ -2910,13 +2888,10 @@
 				1F17F84D24809D7B0080E3C3 /* pdcrypto_dummy.c in Sources */,
 				F0CA56D42CF9892500521F17 /* sha3.c in Sources */,
 				F01DBC452DCF6C2300813612 /* ccdes_ltc_ecb.c in Sources */,
-				1F17F84E24809D7B0080E3C3 /* aes128.c in Sources */,
 				F05D86072D5732C200E8FF15 /* cchmac_init.c in Sources */,
-				1F17F84F24809D7B0080E3C3 /* ccaes_tinyaes_cbc.c in Sources */,
 				F0851A402DEA577500349FD5 /* ccdes_cbc_cksum.c in Sources */,
 				F01DBC2C2DCF6A6800813612 /* ccrng.c in Sources */,
 				F004E9F42DD4B2F700103A8F /* cccast_modes.c in Sources */,
-				1F17F85024809D7B0080E3C3 /* ccaes_tinyaes_ecb.c in Sources */,
 				F09057032D45A20A007C6E87 /* ccmd4.c in Sources */,
 				F0851A4B2DEA57A400349FD5 /* ccdh_gp_rfc2409group02.c in Sources */,
 				F0BBB5042E38E6DF00349FD5 /* ccsha512_initial_state.c in Sources */,
@@ -3081,7 +3056,6 @@
 				F0BBB4762E38E5E000349FD5 /* ccpad_pkcs7_ecb_decrypt.c in Sources */,
 				F0BBB4772E38E5E000349FD5 /* ccpad_pkcs7_decode.c in Sources */,
 				1F358E7D2354F1570030CA4F /* cckprng.c in Sources */,
-				1F1D445B1F280B5F0043CE92 /* ccaes_tinyaes_ecb.c in Sources */,
 				F004E9E72DD4B2F700103A8F /* c_skey.c in Sources */,
 				F09953AC2D46DCDE0021D020 /* auth_encrypt.c in Sources */,
 				F0BBB4802E38E5F600349FD5 /* ccrng_pbkdf2_prng.c in Sources */,
@@ -3229,7 +3203,6 @@
 				F00CF6FE2E1F223F00349FD5 /* ccn_n.c in Sources */,
 				F00CF6FF2E1F223F00349FD5 /* ccn_add.c in Sources */,
 				F01DBC182DCF696A00813612 /* cc_populate_fns_dummy.c in Sources */,
-				1F1D44591F280B5F0043CE92 /* aes128.c in Sources */,
 				F098241E2D484D7200D4B888 /* sizes.c in Sources */,
 				F00CF7062E1F228400349FD5 /* ccdigest_final_64be.c in Sources */,
 				F00CF7072E1F228400349FD5 /* ccdigest.c in Sources */,
@@ -3241,7 +3214,6 @@
 				F01DBC4A2DCF6C2300813612 /* ccdes3_modes.c in Sources */,
 				F05D86022D5732C200E8FF15 /* cchmac_final.c in Sources */,
 				F01DBC212DCF6A2E00813612 /* cchkdf_extract.c in Sources */,
-				1F1D445A1F280B5F0043CE92 /* ccaes_tinyaes_cbc.c in Sources */,
 				1FABCE5E235542CB00F25C08 /* yarrowUtils.c in Sources */,
 				F09057022D459257007C6E87 /* ccmd4.c in Sources */,
 				F05D85F92D57008900E8FF15 /* argsvalid.c in Sources */,

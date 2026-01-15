@@ -24,39 +24,8 @@
 extern const struct ccmode_ecb ccaes_ltc_ecb_decrypt_mode;
 extern const struct ccmode_ecb ccaes_ltc_ecb_encrypt_mode;
 
-/*
- * SAMUEL: This isn't actually a mode in Apple CC, this is my own doing.
- *
- * TODO: phase this mode out in favor of LTC AES.
- *
- * So far it's been done in ccaes_ecb_encrypt_mode and ccaes_ecb_decrypt_mode
- * This implementation is being removed (at a later date) due to the fact that
- * it only operates with a 128-bit key, in doing so, limiting the available
- * options for encryption (and not really providing a long-lasting implementation)
- *
- * I believe it will be removed once Gladman AES is imported and adapted for
- * the corecrypto project.
- */
-extern const struct ccmode_ecb ccaes_tinyaes_ecb_decrypt_mode;
-extern const struct ccmode_ecb ccaes_tinyaes_ecb_encrypt_mode;
-
 extern const struct ccmode_cbc ccaes_gladman_cbc_encrypt_mode;
 extern const struct ccmode_cbc ccaes_gladman_cbc_decrypt_mode;
-
-/*
- * SAMUEL: This isn't actually a mode in Apple CC, this is my own doing.
- *
- * TODO: phase this mode out in favor of Gladman AES CBC.
- *
- * This implementation is being removed (at a later date) due to the fact that
- * it only operates with a 128-bit key, in doing so, limiting the available
- * options for encryption (and not really providing a long-lasting implementation)
- *
- * I believe it will be removed once Gladman AES is imported and adapted for
- * the corecrypto project.
- */
-extern const struct ccmode_cbc ccaes_tinyaes_cbc_decrypt_mode;
-extern const struct ccmode_cbc ccaes_tinyaes_cbc_encrypt_mode;
 
 #if  CCAES_ARM_ASM
 extern const struct ccmode_ecb ccaes_arm_ecb_encrypt_mode;
