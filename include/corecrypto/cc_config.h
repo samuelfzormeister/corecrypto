@@ -130,6 +130,12 @@
  #define CC_DARWINBOOT 0
 #endif
 
+#if defined (LONDON) && (LONDON)
+ #define CC_LONDON 1
+#else
+ #define CC_LONDON 0
+#endif
+
 // Defined by the XNU build scripts
 // Applies to code embedded in XNU but NOT to the kext
 #if defined(XNU_KERNEL_PRIVATE)
@@ -326,7 +332,7 @@
 // Use this macro to strictly disable assembly regardless of cpu/os/compiler/etc.
 // Our assembly code is not gcc compatible. Clang defines the __GNUC__ macro as well.
 #if !defined(CC_USE_ASM)
- #if defined(_WIN32) || CC_EFI || CC_BASEBAND || CC_XNU_KERNEL_PRIVATE || (defined(__GNUC__) && !defined(__clang__)) || defined(__ANDROID_API__) || CC_LINUX || CC_DARWINBOOT
+ #if defined(_WIN32) || CC_EFI || CC_BASEBAND || CC_XNU_KERNEL_PRIVATE || (defined(__GNUC__) && !defined(__clang__)) || defined(__ANDROID_API__) || CC_LINUX || CC_DARWINBOOT || CC_LONDON
   #define CC_USE_ASM 0
  #else
   #define CC_USE_ASM 1
