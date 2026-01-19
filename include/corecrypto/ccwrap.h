@@ -23,13 +23,18 @@
 
 /* AES wrapping stuff, RFC 3394 */
 
-/* sizeof-s */
-
 // I doubt this is *supposed* to be "public". Whatever.
 #define CCWRAP_SEMIBLOCK 8 // AES 128-bit, according to NIST 800-38F
 
-size_t ccwrap_wrapped_size(size_t key_length);
-size_t ccwrap_unwrapped_size(size_t wrapped_length);
+inline size_t ccwrap_wrapped_size(size_t key_length)
+{
+    return (key_length + CCWRAP_SEMIBLOCK);
+}
+
+inline size_t ccwrap_unwrapped_size(size_t wrapped_length)
+{
+    return (wrapped_length - CCWRAP_SEMIBLOCK);
+}
 
 // Runtime check that ECB mode is AES-128?
 int ccwrap_auth_encrypt_withiv(struct ccmode_ecb *mode, ccecb_ctx *context, size_t key_length, const uint8_t *key, size_t *wrapped_key_length, uint8_t *wrapped_key, const uint8_t *iv);

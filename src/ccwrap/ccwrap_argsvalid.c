@@ -16,25 +16,19 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <corecrypto/cc.h>
+#include <corecrypto/cc_macros.h>
 #include <corecrypto/cc_priv.h>
-#include <corecrypto/ccaes.h>
-#include <corecrypto/ccwrap.h>
 #include <corecrypto/ccwrap_priv.h>
 
-// Wrapped Key includes the included wrapped IV.
-// The formula is literally just key_len + CCWRAP_SEMIBLOCK as the IV is limited to being a 64-bit value.
-size_t ccwrap_wrapped_size(size_t size)
+int ccwrap_argsvalid(const struct ccmode_ecb *mode, size_t pt_len, size_t wrapped_len)
 {
-    return size + CCWRAP_SEMIBLOCK;
-}
-
-// The same applies here.
-size_t ccwrap_unwrapped_size(size_t size)
-{
-    // Avoid integer overflow
-    if (size < CCWRAP_SEMIBLOCK) {
-        return 0;
-    }
-    return size - CCWRAP_SEMIBLOCK;
+    int res = CCERR_OK;
+    
+    cc_require(mode->block_size == (CCWRAP_SEMIBLOCK * 2), fail);
+    cc_require((pt_len / CCWRAP_SEMIBLOCK) < CCWRAP_MAX_SEMIBLOCKS, fail);
+    cc_require((wrapped_len / CCWRAP_SEMIBLOCK) <= CCWRAP_MAX_SEMIBLOCKS, fail);
+    
+fail:
+    res = CCERR_PARAMETER;
+    return res;
 }

@@ -22,13 +22,13 @@
 #include <corecrypto/ccwrap.h>
 #include <corecrypto/ccwrap_priv.h>
 
-int ccwrap_auth_encrypt_withiv(struct ccmode_ecb *mode, ccecb_ctx *context, size_t key_length, const uint8_t *key, size_t *wrapped_key_length, uint8_t *wrapped_key, const uint8_t *iv)
+int ccwrap_auth_encrypt_withiv(struct ccmode_ecb *mode, ccecb_ctx *context, size_t length, const uint8_t *key, size_t *wrapped_length, uint8_t *wrapped_key, const uint8_t *iv)
 {
-    uint64_t R[(key_length / CCWRAP_SEMIBLOCK) + 1]; // + 1 for the outgoing IV.
+    uint64_t R[3]; // + 1 for the outgoing IV.
     uint64_t B;
-    size_t n = (key_length / CCWRAP_SEMIBLOCK);
+    size_t n = (length / CCWRAP_SEMIBLOCK);
 
-    if (key_length != CCAES_KEY_SIZE_128) {
+    if (length != CCAES_KEY_SIZE_128) {
         return CCERR_PARAMETER;
     }
 
@@ -51,13 +51,15 @@ int ccwrap_auth_encrypt_withiv(struct ccmode_ecb *mode, ccecb_ctx *context, size
         }
     }
 
-    *wrapped_key_length = ccwrap_wrapped_size(key_length);
-    CC_MEMCPY(wrapped_key, R, ccwrap_wrapped_size(key_length));
+    *wrapped_length = ccwrap_wrapped_size(length);
+    CC_MEMCPY(wrapped_key, R, ccwrap_wrapped_size(length));
 
     return CCERR_OK;
 }
 
 int ccwrap_auth_encrypt(struct ccmode_ecb *mode, ccecb_ctx *context, size_t key_length, const uint8_t *key, size_t *wrapped_key_length, uint8_t *wrapped_key)
 {
-    return ccwrap_auth_encrypt_withiv(mode, context, key_length, key, wrapped_key_length, wrapped_key, ccwrap_default_iv);
+    uint8_t iv[CCAES_BLOCK_SIZE] = CCWRAP_DEFAULT_IV;
+    
+    return ccwrap_auth_encrypt_withiv(mode, context, key_length, key, wrapped_key_length, wrapped_key, iv);
 }

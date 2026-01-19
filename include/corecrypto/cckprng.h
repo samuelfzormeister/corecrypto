@@ -15,7 +15,11 @@
 
 #include <corecrypto/cc.h>
 
+#if __CORECRYPTO_EXPERIMENTAL_KPRNG__
+#define CCKPRNG_YARROW 0
+#else
 #define CCKPRNG_YARROW 1
+#endif
 
 #if CCKPRNG_YARROW
 

@@ -17,21 +17,21 @@ target("libcorecrypto_static")
     )
 
     if is_arch("x86_64", "i386") then
-        add_files("src/aes/intel/*.c")
-        add_files("src/aes/intel/*.s")
+        add_files("src/ccaes/intel/*.c")
+        add_files("src/ccaes/intel/*.s")
 
         remove_files(
-            "src/aes/intel/Data.s",
-            "src/aes/intel/EncryptDecrypt.s",
-            "src/aes/intel/ExpandKeyForDecryption.s",
-            "src/aes/intel/ExpandKeyForEncryption.s"
+            "src/ccaes/intel/Data.s",
+            "src/ccaes/intel/EncryptDecrypt.s",
+            "src/ccaes/intel/ExpandKeyForDecryption.s",
+            "src/ccaes/intel/ExpandKeyForEncryption.s"
         )
     end
 
     remove_files(
-        "src/kext/*.c",
-        "src/kprng/*.c",
-        "src/kprng/**.c"
+        "src/cc_kext/*.c",
+        "src/cckprng/*.c",
+        "src/cckprng/**.c"
     )
 
     add_cflags("-Wincompatible-pointer-types", "-Wno-int-conversion")
@@ -53,23 +53,23 @@ target("libcorecrypto")
     )
 
     if is_arch("x86_64", "i386") then
-        add_files("src/aes/intel/*.c")
-        add_files("src/aes/intel/*.s")
+        add_files("src/ccaes/intel/*.c")
+        add_files("src/ccaes/intel/*.s")
 
         remove_files(
-            "src/aes/intel/Data.s",
-            "src/aes/intel/EncryptDecrypt.s",
-            "src/aes/intel/ExpandKeyForDecryption.s",
-            "src/aes/intel/ExpandKeyForEncryption.s"
+            "src/ccaes/intel/Data.s",
+            "src/ccaes/intel/EncryptDecrypt.s",
+            "src/ccaes/intel/ExpandKeyForDecryption.s",
+            "src/ccaes/intel/ExpandKeyForEncryption.s"
         )
     end
 
     -- The yarrow PRNG won't compile for Linux, and I doubt it'll compile on Windows without modifications.
     -- Also I don't think we want Darwin Kernel Extension code compiled on a non-Darwin (or non-Userspace) platform.
     remove_files(
-        "src/kext/*.c",
-        "src/kprng/*.c",
-        "src/kprng/**.c"
+        "src/cc_kext/*.c",
+        "src/cc_kprng/*.c",
+        "src/cc_kprng/**.c"
     )
 
     add_cflags("-Wincompatible-pointer-types", "-Wno-int-conversion")
@@ -97,9 +97,9 @@ target("libcorecrypto_noasm")
     add_defines("CC_USE_ASM=0")
 
     remove_files(
-        "src/kext/*.c",
-        "src/kprng/*.c",
-        "src/kprng/**.c"
+        "src/cc_kext/*.c",
+        "src/cckprng/*.c",
+        "src/cckprng/**.c"
     )
 
     add_cflags("-Wincompatible-pointer-types", "-Wno-int-conversion")
@@ -113,7 +113,7 @@ target("libcc_test")
     add_defines("CORECRYPTO_TEST=1")
 
     add_files(
-        "src/test/**.c"
+        "src/cctest/**.c"
     )
 
 target("cctest")

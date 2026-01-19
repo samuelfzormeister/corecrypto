@@ -24,9 +24,11 @@
 
 #include <corecrypto/ccwrap.h>
 
-// dunno.
-int ccwrap_argsvalid(void);
+int ccwrap_argsvalid(const struct ccmode_ecb *mode, size_t key_len, size_t wrapped_size);
 
-extern const uint8_t ccwrap_default_iv[8]; // NOTE: This is NOT from any symbols in CoreCrypto. This is me doing my own thing here.
+#define CCWRAP_DEFAULT_IV { 0xA6, 0xA6, 0xA6, 0xA6, 0xA6, 0xA6, 0xA6, 0xA6 }
+
+// 5.3.1 - Mandatory Limits
+#define CCWRAP_MAX_SEMIBLOCKS 0x40000000000000
 
 #endif /* _CORECRYPTO_CCWRAP_PRIV_H_ */
