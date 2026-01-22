@@ -188,6 +188,11 @@
 		421C06782F1DE4E700E5B924 /* ccz_is_zero.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06752F1DE4E700E5B924 /* ccz_is_zero.c */; };
 		421C067B2F1DE50400E5B924 /* ccpbkdf2_hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06792F1DE50400E5B924 /* ccpbkdf2_hmac.c */; };
 		421C067C2F1DE50400E5B924 /* ccpbkdf2_hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06792F1DE50400E5B924 /* ccpbkdf2_hmac.c */; };
+		421C06C72F22D67300E5B924 /* cc_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06C62F22D67300E5B924 /* cc_lock.h */; };
+		421C06C82F22D67300E5B924 /* cc_lock.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 421C06C62F22D67300E5B924 /* cc_lock.h */; };
+		421C06CA2F22D69500E5B924 /* cc_lock.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06C92F22D69500E5B924 /* cc_lock.c */; };
+		421C06CB2F22D69500E5B924 /* cc_lock.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06C92F22D69500E5B924 /* cc_lock.c */; };
+		421C06CC2F22D69500E5B924 /* cc_lock.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06C92F22D69500E5B924 /* cc_lock.c */; };
 		F001367A2D3F736400349FD5 /* pdckeccak.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136792D3F736400349FD5 /* pdckeccak.c */; };
 		F001367B2D3F736400349FD5 /* pdckeccak.h in Headers */ = {isa = PBXBuildFile; fileRef = F00136782D3F736400349FD5 /* pdckeccak.h */; };
 		F001367C2D3F736400349FD5 /* pdckeccak.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136792D3F736400349FD5 /* pdckeccak.c */; };
@@ -684,6 +689,7 @@
 				F004E9992DD4B08C00103A8F /* ccchacha20poly1305.h in CopyFiles */,
 				420E9A4E2F10B3E5005E3B27 /* cchkdf.h in CopyFiles */,
 				F004E9982DD4B08400103A8F /* cccast.h in CopyFiles */,
+				421C06C82F22D67300E5B924 /* cc_lock.h in CopyFiles */,
 				F0851A302DEA56DE00349FD5 /* cckeccak.h in CopyFiles */,
 				F004E9972DD4B08100103A8F /* ccblowfish.h in CopyFiles */,
 				F004E9962DD4B07E00103A8F /* ccansikdf.h in CopyFiles */,
@@ -1014,6 +1020,8 @@
 		421C060D2F1A25FB00E5B924 /* cckprng_init.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cckprng_init.c; sourceTree = "<group>"; };
 		421C06752F1DE4E700E5B924 /* ccz_is_zero.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccz_is_zero.c; sourceTree = "<group>"; };
 		421C06792F1DE50400E5B924 /* ccpbkdf2_hmac.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccpbkdf2_hmac.c; sourceTree = "<group>"; };
+		421C06C62F22D67300E5B924 /* cc_lock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc_lock.h; sourceTree = "<group>"; };
+		421C06C92F22D69500E5B924 /* cc_lock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cc_lock.c; sourceTree = "<group>"; };
 		F00136782D3F736400349FD5 /* pdckeccak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pdckeccak.h; sourceTree = "<group>"; };
 		F00136792D3F736400349FD5 /* pdckeccak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pdckeccak.c; sourceTree = "<group>"; };
 		F00136852D4059EC00349FD5 /* pdcxof.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pdcxof.h; sourceTree = "<group>"; };
@@ -1345,6 +1353,7 @@
 				1F65CFF71F2800C60073759F /* cc_config.h */,
 				1F65CFE71F2800C60073759F /* cc_debug.h */,
 				1F358E762354F0370030CA4F /* cc_error.h */,
+				421C06C62F22D67300E5B924 /* cc_lock.h */,
 				1F65CFF01F2800C60073759F /* cc_macros.h */,
 				F00CF6D52E1F1C8900349FD5 /* cc_memory.h */,
 				1F65CFFE1F2800C60073759F /* cc_priv.h */,
@@ -2125,6 +2134,7 @@
 				F00CF6D82E1F20C700349FD5 /* cc_abort.c */,
 				F00CF6D92E1F20C700349FD5 /* cc_clear.c */,
 				F00CF6DA2E1F20C700349FD5 /* cc_cmp_safe.c */,
+				421C06C92F22D69500E5B924 /* cc_lock.c */,
 				F00CF6DB2E1F20C700349FD5 /* cc_muxp.c */,
 				F00CF6DC2E1F20C700349FD5 /* cc_print.c */,
 			);
@@ -2569,6 +2579,7 @@
 				F01186CF2D44F3A4009C285F /* ccmd2.h in Headers */,
 				F004E9E32DD4B2F700103A8F /* cccast_eay_internal.h in Headers */,
 				F01F76EA2DAA389900770D5D /* ccnistkdf.h in Headers */,
+				421C06C72F22D67300E5B924 /* cc_lock.h in Headers */,
 				F004E9872DD4AFCC00103A8F /* cccast.h in Headers */,
 				F01F76EC2DAA5A0800770D5D /* ccz.h in Headers */,
 				1F615F382480A48C0021D82E /* ccdigest_priv.h in Headers */,
@@ -2869,6 +2880,7 @@
 				F09CDC872E3B45C000820F95 /* ccn_sub1.c in Sources */,
 				420E99EE2F104DAF005E3B27 /* md2.inc in Sources */,
 				420E99EF2F104DAF005E3B27 /* ccdigest_test.c in Sources */,
+				421C06CB2F22D69500E5B924 /* cc_lock.c in Sources */,
 				420E99F02F104DAF005E3B27 /* ccmd4_ti.c in Sources */,
 				420E99F12F104DAF005E3B27 /* ccmd2_ti.c in Sources */,
 				420E99F22F104DAF005E3B27 /* md4.inc in Sources */,
@@ -3040,6 +3052,7 @@
 			files = (
 				F004E9F82DD4B2F700103A8F /* ccblowfish_modes.c in Sources */,
 				F004E9E62DD4B2F700103A8F /* c_enc.c in Sources */,
+				421C06CC2F22D69500E5B924 /* cc_lock.c in Sources */,
 				F004E9E92DD4B2F700103A8F /* c_skey.c in Sources */,
 				421C06062F19A52800E5B924 /* ccaes_gladman_encrypt_mode.c in Sources */,
 				1F615F282480A1110021D82E /* dummy.c in Sources */,
@@ -3067,6 +3080,7 @@
 				F0BBB4742E38E5E000349FD5 /* ccpad_pkcs7_decrypt.c in Sources */,
 				F0BBB4752E38E5E000349FD5 /* ccpad_pkcs7_ecb_encrypt.c in Sources */,
 				F0BBB4762E38E5E000349FD5 /* ccpad_pkcs7_ecb_decrypt.c in Sources */,
+				421C06CA2F22D69500E5B924 /* cc_lock.c in Sources */,
 				F0BBB4772E38E5E000349FD5 /* ccpad_pkcs7_decode.c in Sources */,
 				F004E9E72DD4B2F700103A8F /* c_skey.c in Sources */,
 				F09953AC2D46DCDE0021D020 /* ccwrap_auth_encrypt.c in Sources */,
