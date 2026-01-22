@@ -48,7 +48,6 @@
 		1F17F84524809D7B0080E3C3 /* sha1mod.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE41235542CB00F25C08 /* sha1mod.c */; };
 		1F17F84724809D7B0080E3C3 /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE49235542CB00F25C08 /* prng.c */; };
 		1F17F84824809D7B0080E3C3 /* yarrowUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE4D235542CB00F25C08 /* yarrowUtils.c */; };
-		1F17F84924809D7B0080E3C3 /* cckprng.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F358E7C2354F1570030CA4F /* cckprng.c */; };
 		1F17F84D24809D7B0080E3C3 /* pdcrypto_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44531F280A7C0043CE92 /* pdcrypto_dummy.c */; };
 		1F1D44541F280A9A0043CE92 /* pdcrypto_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44531F280A7C0043CE92 /* pdcrypto_dummy.c */; };
 		1F358E772354F0370030CA4F /* cckprng.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E722354F0360030CA4F /* cckprng.h */; };
@@ -56,7 +55,6 @@
 		1F358E792354F0370030CA4F /* fipspost_trace.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E742354F0370030CA4F /* fipspost_trace.h */; };
 		1F358E7A2354F0370030CA4F /* cc_runtime_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E752354F0370030CA4F /* cc_runtime_config.h */; };
 		1F358E7B2354F0370030CA4F /* cc_error.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E762354F0370030CA4F /* cc_error.h */; };
-		1F358E7D2354F1570030CA4F /* cckprng.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F358E7C2354F1570030CA4F /* cckprng.c */; };
 		1F615F242480A0C10021D82E /* libcorecrypto_static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F17F83C24809D3C0080E3C3 /* libcorecrypto_static.a */; };
 		1F615F282480A1110021D82E /* dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F615F262480A10C0021D82E /* dummy.c */; };
 		1F615F2B2480A48C0021D82E /* cc.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F65CFE91F2800C60073759F /* cc.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1425,6 +1423,7 @@
 		1FABCE3C235542CB00F25C08 /* yarrow */ = {
 			isa = PBXGroup;
 			children = (
+				1F358E7C2354F1570030CA4F /* cckprng.c */,
 				1FABCE3D235542CB00F25C08 /* prng.h */,
 				1FABCE3E235542CB00F25C08 /* comp.c */,
 				1FABCE3F235542CB00F25C08 /* readme-prnguser.txt */,
@@ -2021,7 +2020,6 @@
 			children = (
 				421C060C2F1A215D00E5B924 /* fortuna */,
 				1FABCE3C235542CB00F25C08 /* yarrow */,
-				1F358E7C2354F1570030CA4F /* cckprng.c */,
 			);
 			path = cckprng;
 			sourceTree = "<group>";
@@ -2876,8 +2874,6 @@
 				F0851A342DEA572600349FD5 /* ccpoly1305.c in Sources */,
 				F01186D32D44F4C7009C285F /* ccmd2.c in Sources */,
 				F09953AD2D46DCDE0021D020 /* ccwrap_auth_encrypt.c in Sources */,
-				1F17F84424809D7B0080E3C3 /* comp.c in Sources */,
-				1F17F84524809D7B0080E3C3 /* sha1mod.c in Sources */,
 				F0BFEB562D69204000349FD5 /* der.c in Sources */,
 				F09CDC872E3B45C000820F95 /* ccn_sub1.c in Sources */,
 				420E99EE2F104DAF005E3B27 /* md2.inc in Sources */,
@@ -2896,9 +2892,7 @@
 				421C060F2F1A25FB00E5B924 /* cckprng_init.c in Sources */,
 				F01DBC2E2DCF6A6800813612 /* ccrsa_fips186.c in Sources */,
 				F01DBC3F2DCF6C2300813612 /* ccdes_modes.c in Sources */,
-				1F17F84724809D7B0080E3C3 /* prng.c in Sources */,
 				F01DBC3B2DCF6C2300813612 /* ccdes3_ltc_ecb.c in Sources */,
-				1F17F84824809D7B0080E3C3 /* yarrowUtils.c in Sources */,
 				F00CF6DE2E1F20C700349FD5 /* cc_abort.c in Sources */,
 				F00CF6DF2E1F20C700349FD5 /* cc_muxp.c in Sources */,
 				F0BBB47F2E38E5F600349FD5 /* ccrng_pbkdf2_prng.c in Sources */,
@@ -2908,7 +2902,6 @@
 				F05D85FA2D57008900E8FF15 /* ccwrap_argsvalid.c in Sources */,
 				F004E9FA2DD4B2F700103A8F /* ccblowfish_ltc_constants.c in Sources */,
 				F0BBB4D92E38E63300349FD5 /* aes_crypt_hw.s in Sources */,
-				1F17F84924809D7B0080E3C3 /* cckprng.c in Sources */,
 				F004E9E82DD4B2F700103A8F /* c_skey.c in Sources */,
 				F0851A382DEA574000349FD5 /* cccmac_generate_subkeys.c in Sources */,
 				F0851A392DEA574000349FD5 /* cccmac_update.c in Sources */,
@@ -3084,7 +3077,6 @@
 				F0BBB4752E38E5E000349FD5 /* ccpad_pkcs7_ecb_encrypt.c in Sources */,
 				F0BBB4762E38E5E000349FD5 /* ccpad_pkcs7_ecb_decrypt.c in Sources */,
 				F0BBB4772E38E5E000349FD5 /* ccpad_pkcs7_decode.c in Sources */,
-				1F358E7D2354F1570030CA4F /* cckprng.c in Sources */,
 				F004E9E72DD4B2F700103A8F /* c_skey.c in Sources */,
 				F09953AC2D46DCDE0021D020 /* ccwrap_auth_encrypt.c in Sources */,
 				F0BBB4802E38E5F600349FD5 /* ccrng_pbkdf2_prng.c in Sources */,
@@ -3211,18 +3203,14 @@
 				F01DBC462DCF6C2300813612 /* ccdes_ltc_constants.c in Sources */,
 				F0BFEB552D69204000349FD5 /* der.c in Sources */,
 				F05D860C2D57593700E8FF15 /* ccdrbg_nisthmac.c in Sources */,
-				1FABCE4F235542CB00F25C08 /* comp.c in Sources */,
 				F0851A3B2DEA574000349FD5 /* cccmac_generate_subkeys.c in Sources */,
 				F0BBB4D82E38E63300349FD5 /* aes_crypt_hw.s in Sources */,
 				F0851A3C2DEA574000349FD5 /* cccmac_update.c in Sources */,
 				F0851A3D2DEA574000349FD5 /* cccmac_init.c in Sources */,
 				1FB2F6C41C87B2EC009C0F4C /* cc_kext_main.c in Sources */,
 				F09CDC862E3B45C000820F95 /* ccn_sub1.c in Sources */,
-				1FABCE602355466800F25C08 /* smf.c in Sources */,
 				F09057132D45D299007C6E87 /* ccrmd160.c in Sources */,
 				F0851A492DEA57A400349FD5 /* ccdh_gp_rfc2409group02.c in Sources */,
-				1FABCE52235542CB00F25C08 /* sha1mod.c in Sources */,
-				1FABCE5A235542CB00F25C08 /* prng.c in Sources */,
 				F00136872D4059EC00349FD5 /* pdcxof.c in Sources */,
 				F020E6BA2DF68EA500349FD5 /* ccn_print.c in Sources */,
 				F020E6BB2DF68EA500349FD5 /* ccz_is_zero.c in Sources */,
@@ -3244,7 +3232,6 @@
 				F01DBC4A2DCF6C2300813612 /* ccdes3_modes.c in Sources */,
 				F05D86022D5732C200E8FF15 /* cchmac_final.c in Sources */,
 				F01DBC212DCF6A2E00813612 /* cchkdf_extract.c in Sources */,
-				1FABCE5E235542CB00F25C08 /* yarrowUtils.c in Sources */,
 				F09057022D459257007C6E87 /* ccmd4.c in Sources */,
 				F05D85F92D57008900E8FF15 /* ccwrap_argsvalid.c in Sources */,
 				F09CDC812E3B45A800820F95 /* ccn_add1.c in Sources */,
