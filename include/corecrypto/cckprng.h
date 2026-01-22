@@ -14,6 +14,9 @@
 #include <stdbool.h>
 
 #include <corecrypto/cc.h>
+#include <corecrypto/cc_lock.h>
+
+#define __CORECRYPTO_EXPERIMENTAL_KPRNG__ 1
 
 #if __CORECRYPTO_EXPERIMENTAL_KPRNG__
 #define CCKPRNG_YARROW 0
@@ -148,29 +151,10 @@ struct cckprng_diag {
     struct cckprng_pool_diag pools[CCKPRNG_NPOOLS];
 };
 
-#if CC_KERNEL
-
-#include <kern/locks.h>
-
-typedef lck_grp_t *cckprng_lock_group;
-typedef lck_mtx_t *cckprng_lock_mutex;
 
 struct cckprng_lock_ctx {
-    cckprng_lock_group group;
-    cckprng_lock_mutex mutex;
+    cc_lock_mutex_t mutex;
 };
-
-#else
-
-#include <os/lock.h>
-
-typedef os_unfair_lock cckprng_lock_mutex;
-
-struct cckprng_lock_ctx {
-    cckprng_lock_mutex mutex;
-};
-
-#endif
 
 struct cckprng_key_ctx {
     uint8_t data[CCKPRNG_KEY_NBYTES];
@@ -193,7 +177,7 @@ struct cckprng_gen_ctx {
     // A mutex governing this generator's state (but note the idle key
     // context is under control of the PRNG's shared mutex)
     struct {
-        cckprng_lock_mutex mutex;
+        cc_lock_mutex_t mutex;
     } lock;
 };
 

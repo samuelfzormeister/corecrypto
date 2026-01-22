@@ -19,21 +19,17 @@
 #define __CORECRYPTO_EXPERIMENTAL_KPRNG__ 1
 
 #include <corecrypto/cc_debug.h>
+#include <corecrypto/cc_priv.h>
 #include <corecrypto/cc_macros.h>
 #include <corecrypto/cckprng.h>
 
-#include <kern/panic_call.h>
-
-#define CCKPRNG_PANIC_COND(cond, ...) if (!(cond)) { panic("cckprng: " __VA_ARGS__); }
+#define CCKPRNG_ABORT_COND(cond, ...) if (!(cond)) { cc_try_abort("cckprng: " __VA_ARGS__); }
 
 void cckprng_init(struct cckprng_ctx *ctx, unsigned max_ngens, size_t entropybuf_nbytes, const void *entropybuf,
                   const uint32_t *entropybuf_nsamples, size_t seed_nbytes, const void *seed, size_t nonce_nbytes,
                   const void *nonce)
 {
     cc_printf("KPRNG: Initializing with Generator count of %d", max_ngens);
-    
-    ctx->lock.group = lck_grp_alloc_init("cckprng", NULL);
-    ctx->lock.mutex = lck_mtx_alloc_init(ctx->lock.group, NULL);
-    
-    CCKPRNG_PANIC_COND(ctx->lock.group != NULL, "Failed to ");
+
+    cc_lock_mutex_init(&ctx->lock.mutex, "cckprng");
 }
