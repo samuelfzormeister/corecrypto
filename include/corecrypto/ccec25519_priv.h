@@ -21,8 +21,16 @@
 
 #include <corecrypto/ccec25519.h>
 
-/* various bits of SPI? */
+/*
+ * Are the X25519 functions private?
+ *
+ * What functions live in <corecrypto/ccec25519_priv.h>???
+ */
 
-void cccurve25519(ccec25519key out, const ccec25519secretkey secret, const ccec25519base);
+void cccurve25519(ccec25519key out, const ccec25519secretkey secret, const ccec25519base pub);
+
+void cccurve25519_make_priv(struct ccrng_state *rng, ccec25519secretkey sk);
+void cccurve25519_make_pub(ccec25519pubkey pub, const ccec25519secretkey sk);
+void cccurve25519_make_key_pair(struct ccrng_state *rng, ccec25519pubkey pk, ccec25519secretkey sk);
 
 #endif /* _CORECRYPTO_CCEC25519_PRIV_H_ */
