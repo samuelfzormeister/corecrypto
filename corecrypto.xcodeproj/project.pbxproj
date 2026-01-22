@@ -44,10 +44,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		1F17F84424809D7B0080E3C3 /* comp.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE3E235542CB00F25C08 /* comp.c */; };
-		1F17F84524809D7B0080E3C3 /* sha1mod.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE41235542CB00F25C08 /* sha1mod.c */; };
-		1F17F84724809D7B0080E3C3 /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE49235542CB00F25C08 /* prng.c */; };
-		1F17F84824809D7B0080E3C3 /* yarrowUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE4D235542CB00F25C08 /* yarrowUtils.c */; };
 		1F17F84D24809D7B0080E3C3 /* pdcrypto_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44531F280A7C0043CE92 /* pdcrypto_dummy.c */; };
 		1F1D44541F280A9A0043CE92 /* pdcrypto_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1F1D44531F280A7C0043CE92 /* pdcrypto_dummy.c */; };
 		1F358E772354F0370030CA4F /* cckprng.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E722354F0360030CA4F /* cckprng.h */; };
@@ -95,9 +91,7 @@
 		1F615F4E2480A48C0021D82E /* fipspost_trace.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E742354F0370030CA4F /* fipspost_trace.h */; };
 		1F6314752354F3DF008CCB89 /* prng_random.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F6314742354F3DF008CCB89 /* prng_random.h */; };
 		1FABCE4E235542CB00F25C08 /* prng.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE3D235542CB00F25C08 /* prng.h */; };
-		1FABCE4F235542CB00F25C08 /* comp.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE3E235542CB00F25C08 /* comp.c */; };
 		1FABCE51235542CB00F25C08 /* yarrow.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE40235542CB00F25C08 /* yarrow.h */; };
-		1FABCE52235542CB00F25C08 /* sha1mod.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE41235542CB00F25C08 /* sha1mod.c */; };
 		1FABCE53235542CB00F25C08 /* smf.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE42235542CB00F25C08 /* smf.h */; };
 		1FABCE54235542CB00F25C08 /* prngpriv.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE43235542CB00F25C08 /* prngpriv.h */; };
 		1FABCE55235542CB00F25C08 /* yarrowUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE44235542CB00F25C08 /* yarrowUtils.h */; };
@@ -105,12 +99,9 @@
 		1FABCE57235542CB00F25C08 /* entropysources.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE46235542CB00F25C08 /* entropysources.h */; };
 		1FABCE58235542CB00F25C08 /* WindowsTypesForMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE47235542CB00F25C08 /* WindowsTypesForMac.h */; };
 		1FABCE59235542CB00F25C08 /* macOnly.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE48235542CB00F25C08 /* macOnly.h */; };
-		1FABCE5A235542CB00F25C08 /* prng.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE49235542CB00F25C08 /* prng.c */; };
 		1FABCE5B235542CB00F25C08 /* comp.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE4A235542CB00F25C08 /* comp.h */; };
 		1FABCE5C235542CB00F25C08 /* sha1mod.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE4B235542CB00F25C08 /* sha1mod.h */; };
 		1FABCE5D235542CB00F25C08 /* userdefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABCE4C235542CB00F25C08 /* userdefines.h */; };
-		1FABCE5E235542CB00F25C08 /* yarrowUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE4D235542CB00F25C08 /* yarrowUtils.c */; };
-		1FABCE602355466800F25C08 /* smf.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FABCE5F2355466800F25C08 /* smf.c */; };
 		1FB2F6C41C87B2EC009C0F4C /* cc_kext_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FB2F6C11C87B2E6009C0F4C /* cc_kext_main.c */; };
 		1FE6C82B245E60E600D738AF /* ccmode_siv_hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FE6C82A245E60E600D738AF /* ccmode_siv_hmac.h */; };
 		420E99EE2F104DAF005E3B27 /* md2.inc in Sources */ = {isa = PBXBuildFile; fileRef = 420E99E62F104DAF005E3B27 /* md2.inc */; };

@@ -311,6 +311,12 @@
  #define CCN_OSX                   1
 #endif
 
+#if defined(TARGET_OS_MAC) && TARGET_OS_MAC && !CC_KERNEL
+ #define CC_DARWIN 1
+#else
+ #define CC_DARWIN 0
+#endif
+
 // see rdar://problem/26636018
 #if (CCN_UNIT_SIZE == 8) && !( defined(_MSC_VER) && defined(__clang__))
 #define CCEC25519_CURVE25519_64BIT 1
@@ -565,27 +571,25 @@
  * I'm waiting on my Serial Header -> RS232/DB9 adapter to arrive.
  */
 #if CC_XNU_KERNEL_AVAILABLE
-    #if __has_include(<System/i386/cpu_capabilities.h>)
-        #include <System/i386/cpu_capabilities.h>
-
-        #if defined (kHasSHA) && defined (kHasSHA512)
-            #define CC_SAMZORMEISTER_KERNEL 1
-        #else
-            #define CC_SAMZORMEISTER_KERNEL 0
-        #endif
-    #else
-        #define CC_SAMZORMEISTER_KERNEL 0
-    #endif // __has_include(<System/i386/cpu_capabilities.h>)
+ #if __has_include(<System/i386/cpu_capabilities.h>)
+  #include <System/i386/cpu_capabilities.h>
+  #if defined (kHasSHA) && defined (kHasSHA512)
+   #define CC_SAMZORMEISTER_KERNEL 1
+  #else
+   #define CC_SAMZORMEISTER_KERNEL 0
+  #endif
+ #else
+  #define CC_SAMZORMEISTER_KERNEL 0
+ #endif // __has_include(<System/i386/cpu_capabilities.h>)
 #elif CC_KERNEL
-    #include <i386/cpuid.h>
-
-    #if defined (CPUID_LEAF7_SL1_FEATURE_SHA512)
-        #define CC_SAMZORMEISTER_KERNEL 1
-    #else
-        #define CC_SAMZORMEISTER_KERNEL 0
-    #endif
+ #include <i386/cpuid.h>
+ #if defined (CPUID_LEAF7_SL1_FEATURE_SHA512)
+  #define CC_SAMZORMEISTER_KERNEL 1
+ #else
+  #define CC_SAMZORMEISTER_KERNEL 0
+ #endif
 #else
-    #define CC_SAMZORMEISTER_KERNEL 0
+ #define CC_SAMZORMEISTER_KERNEL 0
 #endif
 
 #endif /* _CORECRYPTO_CC_CONFIG_H_ */
