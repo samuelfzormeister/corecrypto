@@ -33,3 +33,24 @@ void cckprng_init(struct cckprng_ctx *ctx, unsigned max_ngens, size_t entropybuf
 
     cc_lock_mutex_init(&ctx->lock.mutex, "cckprng");
 }
+
+void cckprng_initgen(struct cckprng_ctx *ctx, unsigned gen_idx)
+{
+    struct cckprng_gen_ctx *gen = &ctx->gens[gen_idx];
+    
+}
+
+void cckprng_reseed(struct cckprng_ctx *ctx, size_t nbytes, const void *seed)
+{
+    
+}
+
+void cckprng_refresh(struct cckprng_ctx *ctx)
+{
+
+}
+
+void cckprng_generate(struct cckprng_ctx *ctx, unsigned gen_idx, size_t nbytes, void *out)
+{
+
+}
