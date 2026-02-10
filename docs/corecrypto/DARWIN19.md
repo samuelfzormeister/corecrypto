@@ -133,6 +133,20 @@ XNU has various interfaces to corecrypto, XNU wants the following cryptographic 
 - ~~Triple DES in CBC and ECB mode~~
 - ~~Blowfish cipher in ECB mode~~
 
+> [!WARNING]
+> This was written using xnu-12377.1.9 as a reference.
+> 
+> It is likely to be non-reflective in some aspects, notably Blowfish and RC4.
+>
+Usage locations:
+- AES GCM and CBC, DES, DES3 and ChaCha20-Poly1305 are utilised in `bsd/netinet6/esp_core.c` as a backing for ipsec cryptography (see `bsd/netkey/key.c`, `bsd/netinet6/esp_input.c` and `bsd/netinet6/esp_output.c`).
+- HMAC is used in `bsd/netinet6/ah_core.c`, another component of ipsec alongside `bsd/netinet/flow_divert.c`
+- SHA-1, SHA2-256, SHA2-384 and SHA2-512 are wrapped around using BSD KPI (see `libkern/crypto/corecrypto_sha2.c` and related files).
+- RSA is used in the kernel to verify BaseSystem.dmg chunklist files (`bsd/kern/chunklist.c`), and is also likely used by other kernel extensions.
+- ECC isn't used by the kernel directly, but is exported by the kext build of CoreCrypto.
+- CTS3 padding is used in `bsd/nfs/gss/gss_krb5_mech.c` as a backing for the `CRYPTO_CTS_ENABLE` flag.
+- The AES-CTR based DRBG is used by XNU to back the `cc_rand_generate` function, which is used by `osfmk/vm/vm_compressor_backing_store.c` and `bsd/netkey/key.c`
+
 ## Additional Notes
 
 ### Collaborative Key Generation
