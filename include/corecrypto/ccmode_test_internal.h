@@ -55,6 +55,6 @@ struct _ccmode_test_ctx {
     cc_unit u[]; /* contains the relevant ctx */
 };
 
-void ccmode_ecb_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccdigest_test_vector_info *vi);
+void ccmode_ecb_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi);
 
 #endif /* _CORECRYPTO_CCMODE_TEST_INTERNAL_H_ */
