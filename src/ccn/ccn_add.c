@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,12 +29,7 @@ cc_unit ccn_add(cc_size n, cc_unit *r, const cc_unit *s, const cc_unit *t)
 
     for (int i = 0; i < n; i++) {
         cc_unit u = s[i] + t[i] + carry;
-        if (u < s[i] || u == s[i] && carry) {
-            carry = 1;
-        } else {
-            carry = 0;
-        }
-
+        carry = u < s[i];
         r[i] = u;
     }
 

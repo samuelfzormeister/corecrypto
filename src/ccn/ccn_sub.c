@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,38 +17,35 @@
  */
 
 #include "ccn_internal.h"
+#include <corecrypto/cc_memory.h>
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccn.h>
 
 cc_unit ccn_sub(cc_size n, cc_unit *r, const cc_unit *s, const cc_unit *t)
 {
-#if CCN_ADD_ASM
-    return ccn_sub_asm(n, r, s, t);
+#if CCN_UINT128_SUPPORT_FOR_64BIT_ARCH
+    cc_dunit tmp1;
+    cc_dunit tmp2;
+
+    //
+    // TODO: this.
+    //
 #else
-    cc_unit borrow = 0;
+    // do it using all units at once if we can't do it unit by unit.
+    CC_WORKSPACE_DECL(work, ccn_sizeof_n(n));
 
-    for (int i = 0; i < n; i++) {
-        cc_unit u = s[i];
+    // if s < t, then we have underflow and need to return the underflow
+    cc_unit underflow = ccn_cmp(n, s, t) < 0;
 
-        /* first, handle any borrow that may be needed */
-        if (borrow) {
-            /* borrow flag, because this is absoultely a disaster. */
-            if (u > 0) {
-                borrow = 0; /* no borrowing here */
-            }
-
-            u -= 1;
-        }
-
-        if (u < t[i]) {
-            borrow = 1;
-        }
-
-        u -= t[i];
-
-        r[i] = u;
+    // make one's complement of t
+    for (cc_size i = 0; i < n; i++) {
+        work->start[i] = ~t[i];
     }
 
-    return borrow;
+    // add one to make it two's complement
+    ccn_add1(n, work->start, work->start, 1);
+    ccn_add(n, r, s, work->start);
+
+    return underflow;
 #endif
 }

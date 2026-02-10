@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
 int ccn_read_unit(cc_size n, cc_unit *r, size_t data_nbytes, const uint8_t *data)
 {
     /* if we need more N than we have, bail. */
-    if (data_nbytes > ccn_sizeof_size(n)) {
+    if (data_nbytes > ccn_sizeof_n(n)) {
         return -1;
     }
 
