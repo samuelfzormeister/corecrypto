@@ -23,10 +23,9 @@
 // cc_abort
 //
 
-/* Should I define this as POSIX or STDC? tbh who cares. */
-#define CC_POSIX (CC_LINUX || CC_OSX)
+#define CC_STDC (CC_LINUX || CC_DARWIN || CC_WINDOWS)
 
-#if CC_POSIX
+#if CC_STDC
 
 #include <stdio.h>
 #include <stdlib.h>
