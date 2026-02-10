@@ -136,6 +136,29 @@
  #define CC_LONDON 0
 #endif
 
+#if _WIN32 || _WIN64
+ #define CC_WINDOWS 1
+#else
+ #define CC_WINDOWS 1
+#endif
+
+#if CC_WINDOWS && defined (__clang__)
+ // FIXME: winnt.h from SDK 10.0.26100.0 will error because clangd doesn't
+ //        define the other set of MSVC architectural macros.
+ #if (__x86_64__) && !defined(_AMD64_)
+  #define _AMD64_ 1
+ #endif
+ #if (__i386__) && !defined(_X86_)
+  #define _X86_   1
+ #endif
+ #if (__arm__) && !defined(_ARM_)
+  #define _ARM_   1
+ #endif
+ #if (__arm64__ || __aarch64__) && !defined(_ARM64_)
+  #define _ARM64_ 1
+ #endif
+#endif
+
 // Defined by the XNU build scripts
 // Applies to code embedded in XNU but NOT to the kext
 #if defined(XNU_KERNEL_PRIVATE)
@@ -566,9 +589,14 @@
 
 /*
  * SAMUEL ZORMEISTER:
- * This is kind of necessary for my own development work, as the branch I'm working with is 6153/x86-dev, which I haven't been merged into 6153/dev yet.
- * Mostly because a lot of the code is experimental, and untested to no end. I should ask someone I know to try booting it.
- * I'm waiting on my Serial Header -> RS232/DB9 adapter to arrive.
+ * With the advent of my newer XNU branches, the identification of kernels has become more difficult.
+ * I will need to establish a standard 'base' for some of these.
+ *
+ * andesite_reset and andesite_experimental are updated.
+ * adakite_stable and adakite_unstable aren't.
+ * obsidian isn't.
+ * quartzolite isn't.
+ * aplite isn't.
  */
 #if CC_XNU_KERNEL_AVAILABLE
  #if __has_include(<System/i386/cpu_capabilities.h>)

@@ -78,11 +78,15 @@
 
 #else
 
-/* Linux, Windows, darwinOS, etc. */
-
 #if __APPLE__
+//
+// Darwin derived platforms are special.
+//
 #include <sys/malloc.h>
 #else
+//
+// While technically a legacy header, this is the easiest way on non-Darwin derived platforms.
+//
 #include <malloc.h>
 #endif
 
