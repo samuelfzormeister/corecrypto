@@ -98,4 +98,28 @@ bool cc_lock_mutex_try_lock(cc_lock_mutex_t *lock)
     return lck_mtx_try_lock(lock->mtx);
 }
 
+#elif CC_WINDOWS_LOCK
+
+#include <synchapi.h>
+
+void cc_lock_mutex_init(cc_lock_mutex_t *lock, const char *group_name)
+{
+    InitializeCriticalSection(&lock->sect);
+}
+
+void cc_lock_mutex_lock(cc_lock_mutex_t *lock)
+{
+    EnterCriticalSection(&lock->sect);
+}
+
+bool cc_lock_mutex_try_lock(cc_lock_mutex_t *lock)
+{
+    return TryEnterCriticalSection(&lock->sect);
+}
+
+void cc_lock_mutex_unlock(cc_lock_mutex_t *lock)
+{
+    LeaveCriticalSection(&lock->sect);
+}
+
 #endif

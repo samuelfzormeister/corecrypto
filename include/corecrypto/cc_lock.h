@@ -25,6 +25,7 @@
 #define CC_PTHREAD_LOCK     CC_LINUX
 #define CC_DARWIN_LOCK      CC_DARWIN
 #define CC_XNU_LOCK         CC_KERNEL
+#define CC_WINDOWS_LOCK     CC_WINDOWS
 
 #if CC_PTHREAD_LOCK
 
@@ -51,12 +52,20 @@ typedef struct {
     os_unfair_lock mtx;
 } cc_lock_mutex_t;
 
+#elif CC_WINDOWS_LOCK
+
+#include <synchapi.h>
+
+typedef struct {
+    CRITICAL_SECTION sect;
+} cc_lock_mutex_t;
+
 #else
 #error "cc_lock has not been ported to this platform"
 #endif
 
 //
-// lock groups are really only necessary on the KEC build of corecrypto
+// lock groups are really only necessary on the kext build of corecrypto
 //
 void cc_lock_mutex_init(cc_lock_mutex_t *lock, const char *group_name);
 
