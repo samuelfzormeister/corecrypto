@@ -8,3 +8,5 @@ build
 .xmake
 .cache
 compile_commands.json
+
+.vs
