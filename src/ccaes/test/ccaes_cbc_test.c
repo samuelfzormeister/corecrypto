@@ -16,20 +16,14 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "gladman_aes_internal.h"
+#include <corecrypto/ccaes.h>
+#include <corecrypto/ccmode_test_internal.h>
 
-static int ccaes_gladman_cbc_decrypt_init(const struct ccmode_cbc *ecb, cccbc_ctx *ctx, size_t key_len, const void *key) {
-    ccaes_gladman_decrypt_ctx *cx = (ccaes_gladman_decrypt_ctx *)ctx;
-    cx->cbcEnable = 1;
-    ccaes_gladman_decrypt_key(key, key_len, cx);
-    return 0;
-}
+static struct ccmode_test_vector vecs[] = {
+    {
+        CCTEST_ATTRS_NONE,
 
-const struct ccmode_cbc ccaes_gladman_cbc_decrypt_mode = {
-    .block_size = CCAES_BLOCK_SIZE,
-    .size = sizeof(ccaes_gladman_decrypt_ctx),
-    
-    .init = ccaes_gladman_cbc_decrypt_init,
-    .cbc = ccaes_gladman_decrypt,
+    }
 };
 
+//CCMODE_CBC_TEST_FACTORY(aes, encrypt, vecs, "LTC AES", gladman);

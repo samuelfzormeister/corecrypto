@@ -25,7 +25,7 @@ static int ccaes_gladman_cbc_encrypt_init(const struct ccmode_cbc *ecb, cccbc_ct
     return 0;
 }
 
-const struct ccmode_cbc ccaes_gladman_cbc_encrypt = {
+const struct ccmode_cbc ccaes_gladman_cbc_encrypt_mode = {
     .block_size = CCAES_BLOCK_SIZE,
     .size = sizeof(ccaes_gladman_encrypt_ctx),
     

@@ -51,10 +51,36 @@ struct ccmode_test_vector_info {
 struct _ccmode_test_ctx {
     const void *mode;
     const struct ccmode_test_vector_info *vi;
-    size_t ctx_size;
+    cc_size ctx_size;
     cc_unit u[]; /* contains the relevant ctx */
 };
 
-void ccmode_ecb_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi);
+#define CCMODE_TEST_CTX(ctx) ((struct _ccdmode_test_ctx *)ctx)
+#define CCMODE_TEST_VI(vi) ((struct ccmode_test_vector_info *)vi)
+#define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ctx->ctx_size]
+
+//
+// Allow for space to conduct a test without allocating memory ourselves.
+//
+#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 2)
+
+// cctest_info format:
+// ccaes_IMPLNAME_TESTNAME_ti
+#define CCMODE_TEST_FACTORY(cipher, mode, crypt, vectors, testname, altname, impl)         \
+static struct cctest_info cc##cipher##_##impl##_##testname##_test;                  \
+static struct ccmode_test_vector_info cc##cipher##_##impl##_##testname##_test_vi  \
+    = { vectors , sizeof(vectors) / sizeof(struct ccmode_test_vector) };      \
+                                                                          \
+const struct cctest_info *cc##cipher##_##impl##_##testname##_ti() {          \
+    const struct ccmode_##mode *ciph = &cc##cipher##_##impl##_mode;                      \
+    ccmode_##mode##_##crypt##_test_factory(&cc##cipher##_##impl##_##testname##_test , ciph, altname , &cc##cipher##_##impl##_##testname##_test_vi ); \
+    return &cc##cipher##_##impl##_##testname##_test;                                         \
+}
+
+#define CCMODE_ECB_TEST_FACTORY(cipher, crypt, vectors, altname, testname, impl) CCMODE_TEST_FACTORY(cipher, ecb, crypt, vectors, testname, altname, impl)
+#define CCMODE_CBC_TEST_FACTORY(cipher, crypt, vectors, altname, testname, impl) CCMODE_TEST_FACTORY(cipher, cbc, crypt, vectors, testname, altname, impl)
+
+void ccmode_ecb_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi);
+void ccmode_cbc_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_cbc *mode, const char *name, struct ccmode_test_vector_info *vi);
 
 #endif /* _CORECRYPTO_CCMODE_TEST_INTERNAL_H_ */

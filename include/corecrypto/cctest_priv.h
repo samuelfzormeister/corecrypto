@@ -44,6 +44,11 @@ enum {
     CCTEST_ATTR_EXPECTEDFAIL = (1 << 0),
 };
 
+typedef enum {
+    CCTEST_ENABLE_MD2 = (1 << 0),
+    CCTEST_ENABLE_MD4 = (1 << 1),
+} cctest_run_flags_t;
+
 cc_aligned_struct(16) cctest_ctx;
 
 #define cctest_ctx_decl(size, name) cc_ctx_decl(cctest_ctx, size, name)
@@ -53,6 +58,11 @@ struct cctest_info {
     size_t size; /* Size of the mode_c */
     int (*init)(const struct cctest_info *info, cctest_ctx *ctx);
     int (*run)(cctest_ctx *ctx);
+
+    /* 
+     * These fields help give additional context to layers that may need it
+     * See ccdigest_test_internal.h and ccmode_test_internal.h
+     */
     const void *custom;
     const void *custom1;
 };
@@ -62,6 +72,12 @@ extern const struct cctest_info *ccmd2_ti(void);
 extern const struct cctest_info *ccmd4_ti(void);
 
 /* APIs */
-int cctest_run_all(void);
+int cctest_run(cctest_run_flags_t);
+
+//
+// TODO: This should be integrated with a Power-On Self Test at somepoint, or return CCPOST codes.
+//
+// This is primarily an issue because we need to be able to identify WHY we failed.
+//
 
 #endif /* _CORECRYPTO_CCTEST_PRIV_H_ */

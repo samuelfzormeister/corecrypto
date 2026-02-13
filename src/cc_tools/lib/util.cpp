@@ -16,20 +16,24 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "gladman_aes_internal.h"
+#include <cstring>
+#include <rsplib/osl.hpp>
 
-static int ccaes_gladman_cbc_decrypt_init(const struct ccmode_cbc *ecb, cccbc_ctx *ctx, size_t key_len, const void *key) {
-    ccaes_gladman_decrypt_ctx *cx = (ccaes_gladman_decrypt_ctx *)ctx;
-    cx->cbcEnable = 1;
-    ccaes_gladman_decrypt_key(key, key_len, cx);
-    return 0;
+using namespace corecrypto;
+
+void util::write_hex_string(std::stringstream &stream, const std::string &string)
+{
+    const char *c_str = string.c_str();
+    size_t len;
+
+    //
+    // We'll use a bunch of libc here to accomplish our goal.
+    //
+    len = strlen(c_str);
+    stream << "\"";
+    for (size_t i = 0; i < len; i += 2) {
+        stream << "\\x" << c_str[i];
+        stream << c_str[i+1];
+    }
+    stream << "\"";
 }
-
-const struct ccmode_cbc ccaes_gladman_cbc_decrypt_mode = {
-    .block_size = CCAES_BLOCK_SIZE,
-    .size = sizeof(ccaes_gladman_decrypt_ctx),
-    
-    .init = ccaes_gladman_cbc_decrypt_init,
-    .cbc = ccaes_gladman_decrypt,
-};
-

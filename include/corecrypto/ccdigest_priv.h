@@ -37,4 +37,11 @@ void ccdigest_final_64be(const struct ccdigest_info *di, ccdigest_ctx_t ctx, voi
 
 void ccdigest_final_fn(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *digest);
 
+//
+// !!! UPDATE WHEN NECESSARY !!!
+//
+// For now, this is equivalent to CCSHA512_OUTPUT_SIZE
+//
+#define CCDIGEST_MAX_OUTPUT_SIZE 64
+
 #endif /* _CORECRYPTO_CCDIGEST_PRIV_H_ */

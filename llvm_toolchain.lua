@@ -26,3 +26,26 @@ toolchain("llvm-linux")
 
 toolchain_end()
 
+-- jesus...
+toolchain("llvm-windows")
+    set_kind("standalone")
+
+    set_toolset("cc", "clang-cl")
+    set_toolset("cxx", "clang-cl")
+
+    -- Normal link.exe will bail trying to find msvcrt.lib, so use lld-link instead.
+    set_toolset("ld", "lld-link")
+    set_toolset("sh", "lld-link")
+
+    set_toolset("ar", "llvm-ar")
+
+    on_check(function (toolchain)
+        local ret = import("lib.detect.find_tool")("lld-link")
+        if ret then
+            return import("lib.detect.find_tool")("clang")
+        else
+            return nil
+        end
+    end)
+
+toolchain_end()

@@ -16,20 +16,11 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "gladman_aes_internal.h"
+#include <corecrypto/ccmode_internal.h>
 
-static int ccaes_gladman_cbc_decrypt_init(const struct ccmode_cbc *ecb, cccbc_ctx *ctx, size_t key_len, const void *key) {
-    ccaes_gladman_decrypt_ctx *cx = (ccaes_gladman_decrypt_ctx *)ctx;
-    cx->cbcEnable = 1;
-    ccaes_gladman_decrypt_key(key, key_len, cx);
+int ccmode_gcm_init(const struct ccmode_gcm *gcm, ccgcm_ctx *ctx, size_t rawkey_len, const void *rawkey)
+{
+    struct _ccmode_gcm_key *gkey = (struct _ccmode_gcm_key *)ctx;
+
     return 0;
 }
-
-const struct ccmode_cbc ccaes_gladman_cbc_decrypt_mode = {
-    .block_size = CCAES_BLOCK_SIZE,
-    .size = sizeof(ccaes_gladman_decrypt_ctx),
-    
-    .init = ccaes_gladman_cbc_decrypt_init,
-    .cbc = ccaes_gladman_decrypt,
-};
-

@@ -16,35 +16,57 @@
  * @LICENSE_HEADER_END@
  */
 
+#include "rsplib/osl.hpp"
+#include <istream>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 #include <string>
-#include "lib/RSPParser.hpp"
+#include <filesystem>
+#include <rsplib/base.hpp>
 
-using namespace CoreCrypto::RSP;
+using namespace corecrypto;
 
 /* rsp2header hash -f <path/to/file> -o <path/to/out> */
-/* rsp2header cipher -m cbc -f <path/to/vectors>.rsp -o <path/to/out>.h */
+/* rsp2header -f <path/to/vectors>.rsp -o <path/to/out>.h */
 
-/* usually test vectors contain a DECRYPT and ENCRYPT tag in sections. it is up to RSPParser to handle this. */
-
-const char *gRSPPath;
-const char *gOutputPath;
-
-Test::Operation gOp = Test::Operation::Hash; /* keep it like this for now */
+static std::string path;
+static std::string output_path;
 
 void parse_args(int argc, const char *argv[]) {
     for (int i = 0; i < argc; i++) {
         std::string str = argv[i];
-        if (str == "hash") {
-            /* initialise parser context */
-            gOp = Test::Operation::Hash;
-        } else if (str == "-f") {
-            gRSPPath = str.c_str();
+        if (str == "-f") {
+            path = argv[i+1];
         } else if (str == "-o") {
-            gOutputPath = str.c_str();
+            output_path = argv[i+1];
         }
     }
 }
 
 int main(int argc, const char *argv[]) {
+    parse_args(argc, argv);
 
+    osl::log(osl::debug, "r2h: enter");
+    osl::log(osl::debug, "r2h: %s", path.c_str());
+
+    std::fstream stream(path);
+    std::stringstream ss;
+    ss << stream.rdbuf();
+    stream.close();
+
+    std::filesystem::path fspath = path;
+    std::filesystem::path name = fspath.stem();
+    std::string basename = name.u8string();
+
+    rsplib::parser parser(basename, ss);
+
+    std::stringstream out_stream;
+
+    parser.write_tests_to_stream(out_stream);
+
+    std::fstream outstream;
+    outstream.open(output_path, std::fstream::out);
+    outstream << out_stream.str();
+    outstream.close();
 }

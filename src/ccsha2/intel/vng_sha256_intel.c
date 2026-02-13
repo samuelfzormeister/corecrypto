@@ -21,6 +21,7 @@
 #include <corecrypto/ccdigest_priv.h>
 #include <corecrypto/ccsha2.h>
 
+#if CCSHA2_VNG_INTEL
 const struct ccdigest_info ccsha224_vng_intel_shani_di = {
     .block_size = CCSHA256_BLOCK_SIZE,
     .output_size = CCSHA224_OUTPUT_SIZE,
@@ -48,3 +49,4 @@ const struct ccdigest_info ccsha256_vng_intel_shani_di = {
     .oid = ccoid_sha256,
     .oid_size = ccoid_sha256_len,
 };
+#endif

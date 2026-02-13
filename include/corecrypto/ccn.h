@@ -279,7 +279,7 @@ typedef struct {
 
 /* Return the number of used units after stripping leading 0 units.  */
 CC_PURE CC_NONNULL((2))
-cc_size ccn_n(cc_size n, const cc_unit *s) __asm__("_ccn_n");
+cc_size ccn_n(cc_size n, const cc_unit *s) CC_ASM(_ccn_n);
 
 /* s >> k -> r return bits shifted out of least significant word in the higest order bits of
  the retuned value. For example if CCN_UNIT_SIZE == 1, then (0b1101 1110)>>4 returns (0b1110 0000)
@@ -288,7 +288,7 @@ cc_size ccn_n(cc_size n, const cc_unit *s) __asm__("_ccn_n");
  the _multi version doesn't return the shifted bits, but does support multiple
  word shifts.  */
 CC_NONNULL((2, 3))
-cc_unit ccn_shift_right(cc_size n, cc_unit *r, const cc_unit *s, size_t k) __asm__("_ccn_shift_right");
+cc_unit ccn_shift_right(cc_size n, cc_unit *r, const cc_unit *s, size_t k) CC_ASM(_ccn_shift_right);
 
 /* s == 0 -> return 0 | s > 0 -> return index (starting at 1) of most
  * significant bit that is 1.
@@ -312,7 +312,7 @@ size_t ccn_bitlen(cc_size n, const cc_unit *s);
 /* s < t -> return - 1 | s == t -> return 0 | s > t -> return 1
  { N bit, N bit -> int } N = n * sizeof(cc_unit) * 8 */
 CC_PURE CC_NONNULL((2, 3))
-int ccn_cmp(cc_size n, const cc_unit *s, const cc_unit *t) __asm__("_ccn_cmp");
+int ccn_cmp(cc_size n, const cc_unit *s, const cc_unit *t) CC_ASM(_ccn_cmp);
 
 /* s < t -> return - 1 | s == t -> return 0 | s > t -> return 1
  { N bit, M bit -> int } N = ns * sizeof(cc_unit) * 8  M = nt * sizeof(cc_unit) * 8 */
@@ -330,7 +330,7 @@ int ccn_cmpn(cc_size ns, const cc_unit *s,
 /* s - t -> r return 1 iff t > s
  { N bit, N bit -> N bit } N = n * sizeof(cc_unit) * 8 */
 CC_NONNULL((2, 3, 4))
-cc_unit ccn_sub(cc_size n, cc_unit *r, const cc_unit *s, const cc_unit *t) __asm__("_ccn_sub");
+cc_unit ccn_sub(cc_size n, cc_unit *r, const cc_unit *s, const cc_unit *t) CC_ASM(_ccn_sub);
 
 /* s - v -> r return 1 iff v > s return 0 otherwise.
  { N bit, sizeof(cc_unit) * 8 bit -> N bit } N = n * sizeof(cc_unit) * 8 */
@@ -351,7 +351,7 @@ cc_unit ccn_subn(cc_size n, cc_unit *r, const cc_unit *s,
 /* s + t -> r return carry if result doesn't fit in n bits.
  { N bit, N bit -> N bit } N = n * sizeof(cc_unit) * 8 */
 CC_NONNULL((2, 3, 4))
-cc_unit ccn_add(cc_size n, cc_unit *r, const cc_unit *s, const cc_unit *t) __asm__("_ccn_add");
+cc_unit ccn_add(cc_size n, cc_unit *r, const cc_unit *s, const cc_unit *t) CC_ASM(_ccn_add);
 
 /* s + v -> r return carry if result doesn't fit in n bits.
  { N bit, sizeof(cc_unit) * 8 bit -> N bit } N = n * sizeof(cc_unit) * 8 */
@@ -373,7 +373,7 @@ cc_unit ccn_addn(cc_size n, cc_unit *r, const cc_unit *s,
  { n bit, n bit -> 2 * n bit } n = count * sizeof(cc_unit) * 8
  { N bit, N bit -> 2N bit } N = ccn_bitsof(n) */
 CC_NONNULL((2, 3, 4))
-void ccn_mul(cc_size n, cc_unit *r_2n, const cc_unit *s, const cc_unit *t) __asm__("_ccn_mul");
+void ccn_mul(cc_size n, cc_unit *r_2n, const cc_unit *s, const cc_unit *t) CC_ASM(_ccn_mul);
 
 /* s[0..n) * v -> r[0..n)+return value
  { N bit, sizeof(cc_unit) * 8 bit -> N + sizeof(cc_unit) * 8 bit } N = n * sizeof(cc_unit) * 8 */
@@ -524,7 +524,7 @@ void ccn_write_int(cc_size n, const cc_unit *s, size_t out_size, void *out);
 /* s -> r
  { n bit -> n bit } */
 CC_NONNULL((2, 3))
-void ccn_set(cc_size n, cc_unit *r, const cc_unit *s) __asm__("_ccn_set");
+void ccn_set(cc_size n, cc_unit *r, const cc_unit *s) CC_ASM(_ccn_set);
 
 CC_INLINE CC_NONNULL((2))
 void ccn_zero(cc_size n, cc_unit *r) {

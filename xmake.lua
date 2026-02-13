@@ -1,9 +1,11 @@
 set_policy("check.auto_ignore_flags", false)
 
-if is_plat("linux") then
-    includes("llvm_toolchain.lua")
+includes("llvm_toolchain.lua")
 
+if is_plat("linux") then
    --  set_toolchains("llvm-linux")
+elseif is_plat("windows") then
+    set_toolchains("llvm-windows")
 end
 
 target("libcorecrypto_static")
@@ -31,7 +33,7 @@ target("libcorecrypto_static")
     remove_files(
         "src/cc_kext/*.c",
         "src/cckprng/*.c",
-        "src/cckprng/**.c"
+        "src/cckprng/yarrow/*.c"
     )
 
     add_cflags("-Wincompatible-pointer-types", "-Wno-int-conversion")
@@ -68,9 +70,10 @@ target("libcorecrypto")
     -- Also I don't think we want Darwin Kernel Extension code compiled on a non-Darwin (or non-Userspace) platform.
     remove_files(
         "src/cc_kext/*.c",
-        "src/cc_kprng/*.c",
-        "src/cc_kprng/**.c"
+        "src/cckprng/*.c",
+        "src/cckprng/yarrow/*.c"
     )
+
 
     add_cflags("-Wincompatible-pointer-types", "-Wno-int-conversion")
     add_asflags("-x assembler-with-cpp")
@@ -99,7 +102,7 @@ target("libcorecrypto_noasm")
     remove_files(
         "src/cc_kext/*.c",
         "src/cckprng/*.c",
-        "src/cckprng/**.c"
+        "src/cckprng/yarrow/*.c"
     )
 
     add_cflags("-Wincompatible-pointer-types", "-Wno-int-conversion")
@@ -125,3 +128,31 @@ target("cctest")
     add_sysincludedirs("$(projectdir)/include")
 
     add_files("$(projectdir)/cctest/*.c")
+
+target("librsp")
+    set_kind("static")
+    set_languages("c++17")
+
+    add_sysincludedirs(
+        "$(projectdir)/include",
+        "$(projectdir)/src/cc_tools/include"
+    )
+
+    add_files(
+        "$(projectdir)/src/cc_tools/lib/*.cpp"
+    )
+
+target("rsp2header")
+    set_kind("binary")
+    add_deps("librsp")
+
+    set_languages("c++17")
+
+    add_sysincludedirs(
+        "$(projectdir)/include",
+        "$(projectdir)/src/cc_tools/include"
+    )
+
+    add_files(
+        "$(projectdir)/src/cc_tools/rsp2header.cpp"
+    )

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
+#include <corecrypto/ccdigest_priv.h>
 #include <corecrypto/cchkdf.h>
 #include <corecrypto/cchmac.h>
 #include <corecrypto/cc_priv.h>
@@ -30,7 +31,7 @@ int cchkdf_expand(struct ccdigest_info *di, size_t prk_len, const void *prk,
                   size_t info_len, const void *info,
                   size_t derived_len, void *derived_key)
 {
-    uint8_t T[di->output_size];
+    uint8_t T[CCDIGEST_MAX_OUTPUT_SIZE];
     size_t n = cc_ceiling(derived_len, di->output_size);
     size_t Tlength = 0;
     size_t finalBytes = derived_len - (n * di->output_size);

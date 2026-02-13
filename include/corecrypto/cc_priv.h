@@ -73,7 +73,7 @@ void cc_atfork_child(void);
 #define CC_MEMMOVE(D,S,L) cc_memmove((D),(S),(L))
 #define CC_MEMSET(D,V,L) cc_memset((D),(V),(L))
 
-#if __has_builtin(__builtin___memcpy_chk) && !CC_RTKIT
+#if __has_builtin(__builtin___memcpy_chk) && !CC_RTKIT && !defined(_MSC_VER)
 #define cc_memcpy(dst, src, len) __builtin___memcpy_chk((dst), (src), (len), __builtin_object_size((dst), 1))
 #define cc_memcpy_nochk(dst, src, len) __builtin___memcpy_chk((dst), (src), (len), __builtin_object_size((dst), 0))
 #else
@@ -81,13 +81,13 @@ void cc_atfork_child(void);
 #define cc_memcpy_nochk(dst, src, len) memcpy((dst), (src), (len))
 #endif
 
-#if __has_builtin(__builtin___memmove_chk) && !CC_RTKIT
+#if __has_builtin(__builtin___memmove_chk) && !CC_RTKIT && !defined(_MSC_VER)
 #define cc_memmove(dst, src, len) __builtin___memmove_chk((dst), (src), (len), __builtin_object_size((dst), 1))
 #else
 #define cc_memmove(dst, src, len) memmove((dst), (src), (len))
 #endif
 
-#if __has_builtin(__builtin___memset_chk) && !CC_RTKIT
+#if __has_builtin(__builtin___memset_chk) && !CC_RTKIT && !defined(_MSC_VER)
 #define cc_memset(dst, val, len) __builtin___memset_chk((dst), (val), (len), __builtin_object_size((dst), 1))
 #else
 #define cc_memset(dst, val, len) memset((dst), (val), (len))

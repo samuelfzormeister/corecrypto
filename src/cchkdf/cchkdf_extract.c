@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
+#include <corecrypto/ccdigest_priv.h>
 #include <corecrypto/cchkdf.h>
 #include <corecrypto/cchmac.h>
 #include <corecrypto/cc_priv.h>
@@ -30,7 +31,7 @@ int cchkdf_extract(struct ccdigest_info *di, size_t salt_len, const void *salt, 
 {
     if (salt == NULL || salt_len == 0) {
         // "if not provided, it is set to a string of HashLen zeros."
-        uint8_t zero_salt[di->output_size];
+        uint8_t zero_salt[CCDIGEST_MAX_OUTPUT_SIZE];
 
         cchmac(di, di->output_size, zero_salt, ikm_len, ikm, prk);
     } else {

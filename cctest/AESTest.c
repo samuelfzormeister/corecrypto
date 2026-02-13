@@ -7,6 +7,7 @@
 
 #include <corecrypto/ccaes.h>
 #include <corecrypto/ccmode_impl.h>
+#include <corecrypto/cc_priv.h>
 
 enum CIPHER_MODE {
     ECB,
@@ -42,6 +43,7 @@ struct AES_VECTOR AES_VECTORS[] = {
 
 int TestAESECB()
 {
+    cc_try_abort("bowomp...");
     for (int i = 0; i < sizeof(AES_VECTORS) / sizeof(struct AES_VECTOR); i++) {
         const struct ccmode_ecb *ecb = ccaes_ecb_encrypt_mode();
     }

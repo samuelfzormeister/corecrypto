@@ -16,20 +16,14 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "gladman_aes_internal.h"
+#include "rsplib/osl.hpp"
+#include <rsplib/aesvs.hpp>
 
-static int ccaes_gladman_cbc_decrypt_init(const struct ccmode_cbc *ecb, cccbc_ctx *ctx, size_t key_len, const void *key) {
-    ccaes_gladman_decrypt_ctx *cx = (ccaes_gladman_decrypt_ctx *)ctx;
-    cx->cbcEnable = 1;
-    ccaes_gladman_decrypt_key(key, key_len, cx);
-    return 0;
+using namespace corecrypto::rsplib;
+
+base_vector::base_vector(const std::string &input, const std::string &expected_output)
+{
+    _input = input;
+    _expected_output = expected_output;
+    osl::log(osl::debug, "[BASE VECTOR]: in %s, out %s", _input.c_str(), _expected_output.c_str());
 }
-
-const struct ccmode_cbc ccaes_gladman_cbc_decrypt_mode = {
-    .block_size = CCAES_BLOCK_SIZE,
-    .size = sizeof(ccaes_gladman_decrypt_ctx),
-    
-    .init = ccaes_gladman_cbc_decrypt_init,
-    .cbc = ccaes_gladman_decrypt,
-};
-

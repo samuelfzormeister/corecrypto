@@ -16,20 +16,40 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "gladman_aes_internal.h"
+#include <rsplib/osl.hpp>
+#include <corecrypto/cc_config.h>
+#include <cstdarg>
+#include <cstdio>
 
-static int ccaes_gladman_cbc_decrypt_init(const struct ccmode_cbc *ecb, cccbc_ctx *ctx, size_t key_len, const void *key) {
-    ccaes_gladman_decrypt_ctx *cx = (ccaes_gladman_decrypt_ctx *)ctx;
-    cx->cbcEnable = 1;
-    ccaes_gladman_decrypt_key(key, key_len, cx);
-    return 0;
+using namespace corecrypto;
+
+//
+// We use <corecrypto/cc_config.h> to define OS-specific logging.
+//
+
+#if CC_WINDOWS
+
+//
+// jesus...
+//
+
+static void __osl_log(osl::log_level level, const char *fmt, va_list args)
+{
+    static const char *__levels[] = {
+        "ERROR",
+        "WARNING",
+        "DEBUG",
+        "INFO"
+    };
+
+    printf("[rsplib][%s]: ", __levels[level]);
+    vprintf(fmt, args);
+    printf("\n");
 }
+#endif
 
-const struct ccmode_cbc ccaes_gladman_cbc_decrypt_mode = {
-    .block_size = CCAES_BLOCK_SIZE,
-    .size = sizeof(ccaes_gladman_decrypt_ctx),
-    
-    .init = ccaes_gladman_cbc_decrypt_init,
-    .cbc = ccaes_gladman_decrypt,
-};
-
+void osl::log(osl::log_level level, const char *fmt, ...) {
+    va_list list;
+    va_start(list, fmt);
+    __osl_log(level, fmt, list);
+}

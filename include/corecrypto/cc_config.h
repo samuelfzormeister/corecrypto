@@ -540,6 +540,7 @@
  #define CC_WARN_RESULT __attribute__((__warn_unused_result__))
  #define CC_MALLOC_CLEAR __attribute__((__malloc__))
  #define CC_UNUSED __attribute__((unused))
+ #define CC_ASM(sym) __asm__("##sym##")
 #else /* !__GNUC__ */
 /*! @parseOnly */
  #define CC_UNUSED
@@ -563,6 +564,7 @@
  #define CC_WARN_RESULT
 /*! @parseOnly */
  #define CC_MALLOC_CLEAR
+ #define CC_ASM(sym)
 #endif /* !__GNUC__ */
 
 
