@@ -19,6 +19,7 @@
 #ifndef __RSPLIB_BASE__
 #define __RSPLIB_BASE__
 
+#include <filesystem>
 #include <memory>
 #include <sstream>
 #include <string>
@@ -77,9 +78,13 @@ namespace corecrypto {
 
             const std::vector<std::shared_ptr<base_test>> &get_tests(void);
 
-            void parse_for_aesvs(std::stringstream &stream, bool ecb);
+            void parse_aesvs(std::stringstream &stream, bool ecb);
 
             void write_tests_to_stream(std::stringstream &stream);
+
+            void write_tests_to_directory(std::filesystem::path &path);
+
+            void write_header(std::stringstream &stream);
 
             private:
             std::string _basename;

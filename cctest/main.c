@@ -27,14 +27,8 @@ extern void TestChaCha20(void);
 
 int main(int argc, const char *argv[])
 {
-    const struct cctest_info *ti = ccmd2_ti();
-    cctest_ctx_decl(ti->size, md2);
-
-    ti->init(ti, md2);
-
-    if (ti->run(md2) == 0) {
-        printf("lmao it worked");
-    }
+    cctest_enable_trace(false);
+    cctest_conduct_tests(CCTEST_ENABLE_ALL);
 
     return 0;
 }

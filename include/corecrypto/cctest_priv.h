@@ -19,6 +19,7 @@
 #ifndef _CORECRYPTO_CCTEST_PRIV_H_
 #define _CORECRYPTO_CCTEST_PRIV_H_
 
+#include <stdbool.h>
 #include <corecrypto/ccdigest.h>
 #include <corecrypto/ccmode.h>
 
@@ -44,20 +45,25 @@ enum {
     CCTEST_ATTR_EXPECTEDFAIL = (1 << 0),
 };
 
-typedef enum {
+enum {
     CCTEST_ENABLE_MD2 = (1 << 0),
     CCTEST_ENABLE_MD4 = (1 << 1),
-} cctest_run_flags_t;
+    CCTEST_ENABLE_AES = (1 << 2),
+
+    CCTEST_ENABLE_ALL = 0xFFFFFFFF,
+};
 
 cc_aligned_struct(16) cctest_ctx;
 
 #define cctest_ctx_decl(size, name) cc_ctx_decl(cctest_ctx, size, name)
+#define cctest_ctx_clear(size, name) cc_clear(size, name)
 
 struct cctest_info {
     const char *name;
     size_t size; /* Size of the mode_c */
     int (*init)(const struct cctest_info *info, cctest_ctx *ctx);
     int (*run)(cctest_ctx *ctx);
+    void (*dump_state)(cctest_ctx *ctx);
 
     /* 
      * These fields help give additional context to layers that may need it
@@ -67,17 +73,28 @@ struct cctest_info {
     const void *custom1;
 };
 
-/* Tests for ciphers (primitive and limited, needs to be upgraded) */
-extern const struct cctest_info *ccmd2_ti(void);
-extern const struct cctest_info *ccmd4_ti(void);
+CC_INLINE int cctest_init(const struct cctest_info *ti, cctest_ctx *ctx) {
+    return ti->init(ti, ctx);
+}
+
+CC_INLINE int cctest_run(const struct cctest_info *ti, cctest_ctx *ctx) {
+    return ti->run(ctx);
+}
+
+CC_INLINE void cctest_dump_state(const struct cctest_info *ti, cctest_ctx *ctx)
+{
+    ti->dump_state(ctx);
+}
 
 /* APIs */
-int cctest_run(cctest_run_flags_t);
+int cctest_conduct_tests(uint32_t);
 
 //
 // TODO: This should be integrated with a Power-On Self Test at somepoint, or return CCPOST codes.
 //
 // This is primarily an issue because we need to be able to identify WHY we failed.
 //
+
+void cctest_enable_trace(bool enable);
 
 #endif /* _CORECRYPTO_CCTEST_PRIV_H_ */

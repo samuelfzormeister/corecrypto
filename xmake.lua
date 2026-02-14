@@ -33,7 +33,9 @@ target("libcorecrypto_static")
     remove_files(
         "src/cc_kext/*.c",
         "src/cckprng/*.c",
-        "src/cckprng/yarrow/*.c"
+        "src/cckprng/yarrow/*.c",
+        "src/*/test/*.c",
+        "src/cctest/*.c"
     )
 
     add_cflags("-Wincompatible-pointer-types", "-Wno-int-conversion")
@@ -71,7 +73,8 @@ target("libcorecrypto")
     remove_files(
         "src/cc_kext/*.c",
         "src/cckprng/*.c",
-        "src/cckprng/yarrow/*.c"
+        "src/cckprng/yarrow/*.c",
+        "src/*/test/*.c"
     )
 
 
@@ -102,7 +105,8 @@ target("libcorecrypto_noasm")
     remove_files(
         "src/cc_kext/*.c",
         "src/cckprng/*.c",
-        "src/cckprng/yarrow/*.c"
+        "src/cckprng/yarrow/*.c",
+        "src/*/test/*.c"
     )
 
     add_cflags("-Wincompatible-pointer-types", "-Wno-int-conversion")
@@ -115,8 +119,27 @@ target("libcc_test")
     
     add_defines("CORECRYPTO_TEST=1")
 
+    -- Add infrastructure
     add_files(
-        "src/cctest/**.c"
+        "src/cctest/cctest.c",
+        "src/cctest/cctest_trace.c",
+        "src/ccdigest/test/ccdigest_test.c",
+        "src/ccmode/test/ccmode_test_ecb.c"
+    )
+
+    -- AES
+    add_files(
+        "src/ccaes/test/ccaes_ecb_test.c"
+    )
+
+    -- MD2
+    add_files(
+        "src/ccmd2/test/ccmd2_ti.c"
+    )
+
+    -- MD4
+    add_files(
+        "src/ccmd4/test/ccmd4_ti.c"
     )
 
 target("cctest")

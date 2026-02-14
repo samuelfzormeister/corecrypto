@@ -62,7 +62,7 @@ void aesvs_test::write_to_stream(std::stringstream &stream)
     //
     base_test::write_to_stream(stream);
 
-    stream << "struct ccmode_test_vector " << _name << "[] = {" << std::endl;
+    //stream << "struct ccmode_test_vector " << _name << "[] = {" << std::endl;
 
     for (std::shared_ptr<aesvs_vector> vec : _testVectors) {
         stream << "    {" << std::endl;
@@ -85,10 +85,10 @@ void aesvs_test::write_to_stream(std::stringstream &stream)
         stream << "        ";
         util::write_hex_string(stream, vec->get_expected_output());
         stream << "," << std::endl;
-        stream << "        NULL," << std::endl;
+        stream << "        0," << std::endl;
         stream << "        NULL," << std::endl;
         stream << "    }," << std::endl;
     }
 
-    stream << "};" << std::endl;
+    //stream << "};" << std::endl;
 }

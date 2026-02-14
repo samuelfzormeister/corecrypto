@@ -20,11 +20,11 @@
 
 #if CORECRYPTO_TEST
 
-#include <corecrypto/ccmd4.h>
+#include <corecrypto/ccmd2.h>
 #include <corecrypto/ccdigest_test_internal.h>
 
-#include "vectors/md4.inc"
+#include "vectors/md2.inc"
 
-CCDIGEST_TEST_FACTORY(md4, ccdigest_test_md4_vectors, "LTC MD4 implementation");
+CCDIGEST_TEST_FACTORY(md2, ccdigest_test_md2_vectors, "LTC MD2");
 
 #endif /* CORECRYPTO_TEST */

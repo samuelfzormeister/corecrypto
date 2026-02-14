@@ -16,6 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
+#include "corecrypto/cctest_internal.h"
 #include <corecrypto/cc.h>
 #include <corecrypto/cc_error.h>
 #include <corecrypto/cc_memory.h>
@@ -24,9 +25,12 @@
 int ccmode_ecb_test_init(const struct cctest_info *info, cctest_ctx *ctx)
 {
     struct _ccmode_test_ctx *tctx = (struct _ccmode_test_ctx *)ctx;
+    const struct ccmode_ecb *mode = (const struct ccmode_ecb *)info->custom;
 
     tctx->mode = info->custom;
     tctx->vi = (const struct ccmode_test_vector_info *)info->custom1;
+    tctx->ctx_size = mode->size;
+    tctx->ti = info;
 
     //
     // DO NOT INITIALISE TEST ECB CTX HERE!!!
@@ -49,11 +53,15 @@ int ccmode_ecb_encrypt_test_run(cctest_ctx *ctx)
         uint32_t blocks = vec.text_length / ccecb_block_size(mode);
         ccecb_one_shot(mode, vec.key_length, vec.key, blocks, vec.plaintext, scratch);
         if (cc_cmp_safe(vec.text_length, vec.ciphertext, scratch) == 0) {
+            cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
             continue;
         } else {
+            cctest_trace_fail(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
             return CCPOST_KAT_FAILURE;
         }
     }
+
+    return 0;
 }
 
 int ccmode_ecb_decrypt_test_run(cctest_ctx *ctx)
@@ -71,11 +79,15 @@ int ccmode_ecb_decrypt_test_run(cctest_ctx *ctx)
         ccecb_one_shot(mode, vec.key_length, vec.key, blocks, vec.ciphertext, scratch);
         if (cc_cmp_safe(vec.text_length, vec.plaintext, scratch) == 0) {
             cc_clear(CCMODE_TEST_CTX_SCRATCH_SIZE(mode), scratch);
+            cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
             continue;
         } else {
+            cctest_trace_fail(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
             return CCPOST_KAT_FAILURE;
         }
     }
+
+    return 0;
 }
 
 void ccmode_ecb_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi)
@@ -83,15 +95,17 @@ void ccmode_ecb_encrypt_test_factory(struct cctest_info *ti, const struct ccmode
     ti->name = name;
     ti->custom = mode;
     ti->custom1 = vi;
+    ti->size = mode->size + CCMODE_TEST_CTX_SCRATCH_SIZE(mode);
     ti->init = ccmode_ecb_test_init;
     ti->run = ccmode_ecb_encrypt_test_run;
 }
 
-void ccmode_ecb_dedcrypt_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi)
+void ccmode_ecb_decrypt_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi)
 {
     ti->name = name;
     ti->custom = mode;
     ti->custom1 = vi;
+    ti->size = mode->size + CCMODE_TEST_CTX_SCRATCH_SIZE(mode);
     ti->init = ccmode_ecb_test_init;
     ti->run = ccmode_ecb_decrypt_test_run;
 }

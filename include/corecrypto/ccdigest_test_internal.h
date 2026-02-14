@@ -22,6 +22,7 @@
 #include <corecrypto/cc.h>
 #include <corecrypto/cc_config.h>
 #include <corecrypto/cctest_priv.h>
+#include <corecrypto/ccn.h>
 
 /*
  * @group ccdigest_test
@@ -43,6 +44,7 @@ struct ccdigest_test_vector_info {
 };
 
 struct _ccdigest_test_ctx {
+    const struct cctest_info *ti;
     const struct ccdigest_info *di;
     const struct ccdigest_test_vector_info *vi;
     size_t ctx_size;
@@ -52,7 +54,7 @@ struct _ccdigest_test_ctx {
 #define CCDIGEST_TEST_CTX(ctx) ((struct _ccdigest_test_ctx *)ctx)
 #define CCDIGEST_TEST_VI(vi) ((struct ccdigest_test_vector_info *)vi)
 #define CCDIGEST_TEST_CTX_DIGEST_CTX(ctx) (ccdigest_ctx *)&ctx->u
-#define CCDIGEST_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ctx->ctx_size];
+#define CCDIGEST_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size)];
 
 #define CCDIGEST_TEST_FACTORY(name, vectors, altname)                     \
 static struct cctest_info ccdigest_test_##name;                           \

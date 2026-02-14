@@ -32,6 +32,7 @@ using namespace corecrypto;
 
 static std::string path;
 static std::string output_path;
+static bool split_tests = false;
 
 void parse_args(int argc, const char *argv[]) {
     for (int i = 0; i < argc; i++) {
@@ -40,6 +41,8 @@ void parse_args(int argc, const char *argv[]) {
             path = argv[i+1];
         } else if (str == "-o") {
             output_path = argv[i+1];
+        } else if (str == "-split") {
+            split_tests = true;
         }
     }
 }
@@ -63,7 +66,14 @@ int main(int argc, const char *argv[]) {
 
     std::stringstream out_stream;
 
-    parser.write_tests_to_stream(out_stream);
+    if (split_tests) {
+        osl::log(osl::debug, "r2h: split");
+        std::filesystem::path opath = output_path;
+        parser.write_tests_to_directory(opath);
+        return 0;
+    } else {
+        parser.write_tests_to_stream(out_stream);
+    }
 
     std::fstream outstream;
     outstream.open(output_path, std::fstream::out);

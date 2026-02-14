@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,15 +16,23 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <corecrypto/cc_config.h>
+#ifndef __RSPLIB_XTSVS__
+#define __RSPLIB_XTSVS__
 
-#if CORECRYPTO_TEST
+#include <rsplib/aesvs.hpp>
 
-#include <corecrypto/ccmd2.h>
-#include <corecrypto/ccdigest_test_internal.h>
+namespace corecrypto {
+    namespace rsplib {
 
-#include "vectors/md2.inc"
+        class xtsvs_vector : public base_vector {
 
-CCDIGEST_TEST_FACTORY(md2, ccdigest_test_md2_vectors, "LTC MD2 implementation");
+        };
 
-#endif /* CORECRYPTO_TEST */
+        class xtsvs_test : public base_test {
+
+        };
+
+    }
+}
+
+#endif /* __RSPLIB_XTSVS__ */

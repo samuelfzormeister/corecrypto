@@ -16,9 +16,11 @@
  * @LICENSE_HEADER_END@
  */
 
-
 #include <corecrypto/cc_debug.h>
+#include <corecrypto/cc_macros.h>
+#include <corecrypto/cctest_internal.h>
 #include <corecrypto/cctest_priv.h>
+#include <corecrypto/ccdigest_test_internal.h>
 
 #if CC_KERNEL
 #define CCTEST_LINK_NEXT_ALLOC(link) link->next = (struct _cctest_test_link *)IOMalloc(sizeof(struct _cctest_test_link))
@@ -27,6 +29,8 @@
 #define CCTEST_LINK_NEXT_ALLOC(link) link->next = (struct _cctest_test_link *)malloc(sizeof(struct _cctest_test_link))
 #define CCTEST_LINK_FREE(link) free(link)
 #endif
+
+#define CCTEST_TRACE(x...) cc_printf("[CCTEST]: " x)
 
 //
 // We build a "linked list" (I say that loosely, given there's no pointer to the last field)
@@ -43,27 +47,101 @@ struct _cctest_test_link {
 
 struct _cctest_test_link root;
 
-int cctest_run(cctest_run_flags_t flags)
+static struct _cctest_test_link *cctest_add_aes_to_chain(struct _cctest_test_link *lnk)
 {
+    lnk->ti = ccaes_ltc_ecb_encrypt_ecbgfsbox_ti();
+    //CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
+    CCTEST_LINK_NEXT_ALLOC(lnk);
+    lnk = lnk->next;
+
+    lnk->ti = ccaes_ltc_ecb_encrypt_ecbkeysbox_ti();
+    //CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
+    CCTEST_LINK_NEXT_ALLOC(lnk);
+    lnk = lnk->next;
+
+    lnk->ti = ccaes_ltc_ecb_encrypt_ecbvarkey_ti();
+    //CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
+    CCTEST_LINK_NEXT_ALLOC(lnk);
+    lnk = lnk->next;
+
+    lnk->ti = ccaes_ltc_ecb_encrypt_ecbvartxt_ti();
+    //CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
+    CCTEST_LINK_NEXT_ALLOC(lnk);
+    lnk = lnk->next;
+
+    return lnk;
+}
+
+/*
+ * MEMORY CORRUPTION!!! MEMORY CORRUPTION!!! COME GET YOUR MEMORY CORRUPTION!!!
+ *
+ * TODO: DIAGNOSE THIS HEADACHE.
+ */
+int cctest_conduct_tests(uint32_t flags)
+{
+    int ret = 0;
     struct _cctest_test_link *chain = &root;
     cc_printf("We have been asked to perform tests!\n");
 
-#if CORECRYPTO_TEST
     if (flags & CCTEST_ENABLE_MD2) {
         chain->ti = ccmd2_ti();
-        
-        //
-        // At this rate, I don't think we need CC_WORKSPACE because the only real thing
-        // calling us is an extrnal tool. 
-        //
+        CCTEST_TRACE("Enabling test %s\n", chain->ti->name);
+        cc_printf("%zx\n", CCDIGEST_TEST_VI(chain->ti->custom1)->nvectors);
         CCTEST_LINK_NEXT_ALLOC(chain);
         chain = chain->next;
     }
 
     if (flags & CCTEST_ENABLE_MD4) {
         chain->ti = ccmd4_ti();
+        CCTEST_TRACE("Enabling test %s\n", chain->ti->name);
+        cc_printf("%zx\n", CCDIGEST_TEST_VI(chain->ti->custom1)->nvectors);
         CCTEST_LINK_NEXT_ALLOC(chain);
         chain = chain->next;
+        cc_printf("%zx\n", CCDIGEST_TEST_VI(chain->ti->custom1)->nvectors);
     }
-#endif
+
+    if (flags & CCTEST_ENABLE_AES) {
+        //chain = cctest_add_aes_to_chain(chain);
+    }
+
+    struct _cctest_test_link *lnk = &root;
+    cc_printf("%p\n", lnk);
+    cc_printf("%zx\n", CCDIGEST_TEST_VI(lnk->ti->custom1)->nvectors);
+
+    //
+    // for some reason the nvectors field keeps getting replaced by 8cf0c094ee4514cc
+    //
+    // why the hell is memory being corrupted
+    //
+    while (lnk->next != NULL) {
+        const struct cctest_info *ti = lnk->ti;
+        cc_printf("%zx\n", CCDIGEST_TEST_VI(lnk->ti->custom1)->nvectors);
+        cc_printf("%zx\n", CCDIGEST_TEST_VI(lnk->ti->custom1)->nvectors);
+        cc_printf("%zx\n", CCDIGEST_TEST_VI(lnk->ti->custom1)->nvectors);
+        cctest_ctx_decl(ti->size, ctx);
+        //cc_printf("%zx\n", CCDIGEST_TEST_VI(chain->ti->custom1)->nvectors);
+        const char *reason = "INIT FAIL";
+        //cc_printf("%zx\n", CCDIGEST_TEST_VI(chain->ti->custom1)->nvectors);
+        //cctest_ctx_clear(ti->size, ctx);
+        //cc_printf("%zx\n", CCDIGEST_TEST_VI(chain->ti->custom1)->nvectors);
+
+        CCTEST_TRACE("Begin test %s (size: %zd)\n", ti->name, ti->size);
+        ret = cctest_init(ti, ctx);
+        cc_require(ret == 0, fail);
+        reason = "TEST FAIL";
+        ret = cctest_run(ti, ctx);
+        cc_require(ret == 0, fail);
+        cc_printf("[CCTEST]: --- %s : PASS ---\n", ti->name);
+        CCTEST_TRACE("Exit test %s\n", ti->name);
+
+        lnk = lnk->next;
+        continue;
+
+        fail:
+        CCTEST_TRACE("!!! %s !!!\n", reason);
+        CCTEST_TRACE("Exit test %s\n", ti->name);
+        break;
+    }
+
+    return ret;
 }

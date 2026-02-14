@@ -18,7 +18,7 @@
 
 #include <corecrypto/ccdigest_test_internal.h>
 
-ccdigest_test_vector ccdigest_test_md4_vectors[] = {
+static ccdigest_test_vector ccdigest_test_md4_vectors[] = {
     {
         CCTEST_ATTRS_NONE,
         "",

@@ -22,6 +22,7 @@
 #include <corecrypto/cc.h>
 #include <corecrypto/cc_config.h>
 #include <corecrypto/cctest_priv.h>
+#include <corecrypto/ccn.h>
 
  /*
   * @group ccmode_test
@@ -29,6 +30,13 @@
   * APIs for testing the ccmode series of functions.
   */
 
+/*!
+ * @struct ccmode_test_vector
+ * A generic structure for a cipher test vector.
+ *
+ * @discussion
+ * The IV field can be reused as a field for the tweak in XTS mode.
+ */
 struct ccmode_test_vector {
      uint32_t attrs;
 
@@ -39,16 +47,16 @@ struct ccmode_test_vector {
      size_t text_length;
      const char *plaintext;
      const char *ciphertext;
-     const char *aad;
      size_t add_length;
+     const char *aad;
  };
-
 struct ccmode_test_vector_info {
     const struct ccmode_test_vector *vectors;
     size_t nvectors;
 };
 
 struct _ccmode_test_ctx {
+    const struct cctest_info *ti;
     const void *mode;
     const struct ccmode_test_vector_info *vi;
     cc_size ctx_size;
@@ -57,7 +65,7 @@ struct _ccmode_test_ctx {
 
 #define CCMODE_TEST_CTX(ctx) ((struct _ccdmode_test_ctx *)ctx)
 #define CCMODE_TEST_VI(vi) ((struct ccmode_test_vector_info *)vi)
-#define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ctx->ctx_size]
+#define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size)]
 
 //
 // Allow for space to conduct a test without allocating memory ourselves.
