@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@
  *  bbbbbbbb  nnnnnnnn  nnnnnnnn  nnnnnnnn
  */
 
-int ccchacha20_init(ccchacha20_ctx *ctx, const uint8_t *key)
+int ccchacha20_init(ccchacha20_ctx *ctx, const void *key)
 {
     if (ctx == NULL || key == NULL) {
         return CCERR_PARAMETER;
@@ -83,7 +83,7 @@ int ccchacha20_setcounter(ccchacha20_ctx *ctx, uint32_t counter)
     return CCERR_OK;
 }
 
-int ccchacha20_setnonce(ccchacha20_ctx *ctx, const uint8_t *nonce)
+int ccchacha20_setnonce(ccchacha20_ctx *ctx, const void *nonce)
 {
     if (ctx == NULL || nonce == NULL) {
         return CCERR_PARAMETER;
@@ -171,7 +171,6 @@ int ccchacha20_update(ccchacha20_ctx *ctx, size_t nbytes, const void *in, void *
 // It doesn't even wipe the nonce.
 int ccchacha20_reset(ccchacha20_ctx *ctx)
 {
-
     ccchacha20_setcounter(ctx, 0); // reset counter
 
     return CCERR_OK;
@@ -181,7 +180,7 @@ int ccchacha20_final(ccchacha20_ctx *ctx)
 {
     cc_clear(sizeof(*ctx), ctx);
     return CCERR_OK;
-};
+}
 
 int ccchacha20(const void *key, const void *nonce, uint32_t counter, size_t nbytes, const void *in, void *out)
 {

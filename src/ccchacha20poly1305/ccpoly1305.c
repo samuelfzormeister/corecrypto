@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +17,13 @@
  */
 
 #include <corecrypto/cc_priv.h>
+#include <corecrypto/cc_macros.h>
 #include <corecrypto/ccchacha20poly1305.h>
 #include <corecrypto/ccchacha20poly1305_priv.h>
 
 /* based on https://github.com/floodyberry/poly1305-donna */
 
-int ccpoly1305_init(ccpoly1305_ctx *ctx, const uint8_t *key)
+int ccpoly1305_init(ccpoly1305_ctx *ctx, const void *key)
 {
     uint32_t k[5];
 
@@ -259,4 +260,19 @@ int ccpoly1305_final(ccpoly1305_ctx *ctx, void *tag)
     ctx->h4 = 0;
 
     return CCERR_OK;
+}
+
+int ccpoly1305(const void *key, size_t nbytes, const void *in, void *tag)
+{
+    ccpoly1305_ctx ctx;
+    cc_clear(sizeof(ccpoly1305_ctx), &ctx);
+    int ret = ccpoly1305_init(&ctx, key);
+    cc_require(ret == CCERR_OK, out);
+    ret = ccpoly1305_update(&ctx, nbytes, in);
+    cc_require(ret == CCERR_OK, out);
+    ret = ccpoly1305_final(&ctx, tag);
+
+out:
+    cc_clear(sizeof(ccpoly1305_ctx), &ctx);
+    return ret;
 }

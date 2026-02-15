@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -226,7 +226,6 @@ int ccchacha20poly1305_decrypt_oneshot(const struct ccchacha20poly1305_info *inf
     ccchacha20poly1305_decrypt(info, &ctx, ctext_nbytes, ctext, ptext);
 
     return ccchacha20poly1305_verify(info, &ctx, tag);
-    ;
 }
 
 int ccchacha20poly1305_incnonce(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, uint8_t *nonce)

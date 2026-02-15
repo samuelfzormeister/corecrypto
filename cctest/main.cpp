@@ -13,23 +13,6 @@ extern "C" {
 #include <corecrypto/cctest_priv.h>
 }
 
-#define CCTEST_MD2    0
-#define CCTEST_MD4    0
-#define CCTEST_RMD160 0
-
-// fr gotta make more test cases
-#if CCTEST_MD2
-extern int TestMD2(void);
-#endif
-#if CCTEST_MD4
-extern int TestMD4(void);
-#endif
-#if CCTEST_RMD160
-extern int TestRMD160(void);
-#endif
-
-extern void TestChaCha20(void);
-
 static bool trace = false;
 
 static uint32_t flags = 0;
@@ -42,8 +25,14 @@ void set_flag(std::string &str)
     if (str == "md4") {
         flags |= CCTEST_ENABLE_MD4;
     }
-    if (str == "aes-ecb") {
+    if (str == "aes") {
         flags |= CCTEST_ENABLE_AES;
+    }
+    if (str == "md5") {
+        flags |= CCTEST_ENABLE_MD5;
+    }
+    if (str == "ripemd") {
+        flags |= CCTEST_ENABLE_RIPEMD;
     }
 }
 
@@ -54,21 +43,34 @@ void parse_test_list_string(std::string &enabled)
     const char *c_str = enabled.c_str();
     size_t off = enabled.find(",");
     size_t index = 0;
+    
+    if (off == std::string::npos) {
+        enabled.copy(tmp, (len - index), index);
+        std::string tmps = tmp;
+        std::cout << tmps << std::endl;
+        set_flag(tmps);
+    }
 
     while (off != std::string::npos) {
-        enabled.copy(tmp, (off) - index, index);
+        try {
+            enabled.copy(tmp, (off) - index, index);
+        } catch (std::runtime_error &err) {
+            err.what();
+        }
         std::string tmps = tmp;
         std::cout << tmps << std::endl;
         set_flag(tmps);
         index += off+1;
-        off = enabled.find(",");
+        off = enabled.find(",", index);
         memset(tmp, 0, sizeof(tmp));
     }
-
-    enabled.copy(tmp, (len - index), index);
-    std::string tmps = tmp;
-    std::cout << tmps << std::endl;
-    set_flag(tmps);
+    
+    if (off == std::string::npos) {
+        enabled.copy(tmp, (len - index), index);
+        std::string tmps = tmp;
+        std::cout << tmps << std::endl;
+        set_flag(tmps);
+    }
 }
 
 //

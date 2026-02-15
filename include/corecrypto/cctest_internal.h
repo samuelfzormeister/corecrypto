@@ -28,6 +28,7 @@
 
 extern const struct cctest_info *ccmd2_ti(void);
 extern const struct cctest_info *ccmd4_ti(void);
+extern const struct cctest_info *ccmd5_ti(void);
 
 //
 // merge all AES tests into converged?

@@ -491,9 +491,7 @@
 		F09880252F4120CF0058F84D /* ccmode_test_ecb.c in Sources */ = {isa = PBXBuildFile; fileRef = F09880242F4120CF0058F84D /* ccmode_test_ecb.c */; };
 		F09880272F41216C0058F84D /* cctest_trace.c in Sources */ = {isa = PBXBuildFile; fileRef = F09880262F41216C0058F84D /* cctest_trace.c */; };
 		F098802C2F4122D50058F84D /* ccmd4_ti.c in Sources */ = {isa = PBXBuildFile; fileRef = F09880292F4122D40058F84D /* ccmd4_ti.c */; };
-		F098802D2F4122D50058F84D /* md4.inc in Sources */ = {isa = PBXBuildFile; fileRef = F098802B2F4122D40058F84D /* md4.inc */; };
 		F09880322F4122E10058F84D /* ccmd2_ti.c in Sources */ = {isa = PBXBuildFile; fileRef = F098802F2F4122E10058F84D /* ccmd2_ti.c */; };
-		F09880332F4122E10058F84D /* md2.inc in Sources */ = {isa = PBXBuildFile; fileRef = F09880312F4122E10058F84D /* md2.inc */; };
 		F09880502F41231C0058F84D /* ccaes_cbc_test.c in Sources */ = {isa = PBXBuildFile; fileRef = F09880352F41231C0058F84D /* ccaes_cbc_test.c */; };
 		F09880512F41231D0058F84D /* ECBKeySbox256_encrypt.inc in Sources */ = {isa = PBXBuildFile; fileRef = F09880372F41231C0058F84D /* ECBKeySbox256_encrypt.inc */; };
 		F09880522F41231D0058F84D /* ECBVarKey192_encrypt.inc in Sources */ = {isa = PBXBuildFile; fileRef = F09880382F41231C0058F84D /* ECBVarKey192_encrypt.inc */; };
@@ -528,6 +526,9 @@
 		F09880782F4140A80058F84D /* librsp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F020E6DD2DF6900100349FD5 /* librsp.a */; };
 		F098807B2F4167950058F84D /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F09880702F4140470058F84D /* libc++abi.tbd */; };
 		F098807C2F41679B0058F84D /* libc++.1.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F098806F2F41402D0058F84D /* libc++.1.tbd */; };
+		F09880832F419AF40058F84D /* ccmd5_ti.c in Sources */ = {isa = PBXBuildFile; fileRef = F09880802F419AF40058F84D /* ccmd5_ti.c */; };
+		F09880892F419B1D0058F84D /* ccrmd160_ti.c in Sources */ = {isa = PBXBuildFile; fileRef = F09880862F419B1D0058F84D /* ccrmd160_ti.c */; };
+		F098808A2F419B1D0058F84D /* rmd160.inc in Sources */ = {isa = PBXBuildFile; fileRef = F09880882F419B1D0058F84D /* rmd160.inc */; };
 		F09953AC2D46DCDE0021D020 /* ccwrap_auth_encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F09953AB2D46DCDE0021D020 /* ccwrap_auth_encrypt.c */; };
 		F09953AD2D46DCDE0021D020 /* ccwrap_auth_encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F09953AB2D46DCDE0021D020 /* ccwrap_auth_encrypt.c */; };
 		F09C430F2DAF80DD008E7BD3 /* ccansikdf.h in Headers */ = {isa = PBXBuildFile; fileRef = F09C430E2DAF80DD008E7BD3 /* ccansikdf.h */; };
@@ -1237,9 +1238,7 @@
 		F09880242F4120CF0058F84D /* ccmode_test_ecb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmode_test_ecb.c; sourceTree = "<group>"; };
 		F09880262F41216C0058F84D /* cctest_trace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cctest_trace.c; sourceTree = "<group>"; };
 		F09880292F4122D40058F84D /* ccmd4_ti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmd4_ti.c; sourceTree = "<group>"; };
-		F098802B2F4122D40058F84D /* md4.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = md4.inc; sourceTree = "<group>"; };
 		F098802F2F4122E10058F84D /* ccmd2_ti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmd2_ti.c; sourceTree = "<group>"; };
-		F09880312F4122E10058F84D /* md2.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = md2.inc; sourceTree = "<group>"; };
 		F09880352F41231C0058F84D /* ccaes_cbc_test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccaes_cbc_test.c; sourceTree = "<group>"; };
 		F09880372F41231C0058F84D /* ECBKeySbox256_encrypt.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = ECBKeySbox256_encrypt.inc; sourceTree = "<group>"; };
 		F09880382F41231C0058F84D /* ECBVarKey192_encrypt.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = ECBVarKey192_encrypt.inc; sourceTree = "<group>"; };
@@ -1270,6 +1269,12 @@
 		F098806C2F4130F50058F84D /* cctest_link_aes_ecb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cctest_link_aes_ecb.c; sourceTree = "<group>"; };
 		F098806F2F41402D0058F84D /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		F09880702F4140470058F84D /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
+		F098807D2F419AB20058F84D /* rfc1319.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = rfc1319.inc; sourceTree = "<group>"; };
+		F098807E2F419ACA0058F84D /* rfc1320.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = rfc1320.inc; sourceTree = "<group>"; };
+		F09880802F419AF40058F84D /* ccmd5_ti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmd5_ti.c; sourceTree = "<group>"; };
+		F09880822F419AF40058F84D /* rfc1321.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = rfc1321.inc; sourceTree = "<group>"; };
+		F09880862F419B1D0058F84D /* ccrmd160_ti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccrmd160_ti.c; sourceTree = "<group>"; };
+		F09880882F419B1D0058F84D /* rmd160.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = rmd160.inc; sourceTree = "<group>"; };
 		F09953AB2D46DCDE0021D020 /* ccwrap_auth_encrypt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccwrap_auth_encrypt.c; sourceTree = "<group>"; };
 		F09C430E2DAF80DD008E7BD3 /* ccansikdf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccansikdf.h; sourceTree = "<group>"; };
 		F09CDC792E3B452600820F95 /* ccchacha20poly1305.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccchacha20poly1305.c; sourceTree = "<group>"; };
@@ -2110,6 +2115,7 @@
 		F001366F2D3F69DC00349FD5 /* ccmd5 */ = {
 			isa = PBXGroup;
 			children = (
+				F098807F2F419AF40058F84D /* test */,
 				F0BBB4DA2E38E6A300349FD5 /* ccmd5_di.c */,
 				F0BBB4DB2E38E6A300349FD5 /* ccmd5_initial_state.c */,
 				F0BBB4DC2E38E6A300349FD5 /* ccmd5_internal.h */,
@@ -2478,6 +2484,7 @@
 		F09057112D45D27E007C6E87 /* ccripemd */ = {
 			isa = PBXGroup;
 			children = (
+				F09880852F419B1D0058F84D /* test */,
 				F09057122D45D299007C6E87 /* ccrmd160.c */,
 			);
 			path = ccripemd;
@@ -2548,7 +2555,7 @@
 		F098802A2F4122D40058F84D /* vectors */ = {
 			isa = PBXGroup;
 			children = (
-				F098802B2F4122D40058F84D /* md4.inc */,
+				F098807E2F419ACA0058F84D /* rfc1320.inc */,
 			);
 			path = vectors;
 			sourceTree = "<group>";
@@ -2565,7 +2572,7 @@
 		F09880302F4122E10058F84D /* vectors */ = {
 			isa = PBXGroup;
 			children = (
-				F09880312F4122E10058F84D /* md2.inc */,
+				F098807D2F419AB20058F84D /* rfc1319.inc */,
 			);
 			path = vectors;
 			sourceTree = "<group>";
@@ -2607,6 +2614,40 @@
 				F098803E2F41231C0058F84D /* ECBVarTxt192_encrypt.inc */,
 				F098804C2F41231C0058F84D /* ECBVarTxt256_decrypt.inc */,
 				F09880462F41231C0058F84D /* ECBVarTxt256_encrypt.inc */,
+			);
+			path = vectors;
+			sourceTree = "<group>";
+		};
+		F098807F2F419AF40058F84D /* test */ = {
+			isa = PBXGroup;
+			children = (
+				F09880802F419AF40058F84D /* ccmd5_ti.c */,
+				F09880812F419AF40058F84D /* vectors */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		F09880812F419AF40058F84D /* vectors */ = {
+			isa = PBXGroup;
+			children = (
+				F09880822F419AF40058F84D /* rfc1321.inc */,
+			);
+			path = vectors;
+			sourceTree = "<group>";
+		};
+		F09880852F419B1D0058F84D /* test */ = {
+			isa = PBXGroup;
+			children = (
+				F09880862F419B1D0058F84D /* ccrmd160_ti.c */,
+				F09880872F419B1D0058F84D /* vectors */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
+		F09880872F419B1D0058F84D /* vectors */ = {
+			isa = PBXGroup;
+			children = (
+				F09880882F419B1D0058F84D /* rmd160.inc */,
 			);
 			path = vectors;
 			sourceTree = "<group>";
@@ -3580,18 +3621,18 @@
 				F09880692F41231D0058F84D /* ccaes_ecb_test.c in Sources */,
 				F098805A2F41231D0058F84D /* ECBVarKey192_decrypt.inc in Sources */,
 				F09880532F41231D0058F84D /* ECBGFSbox256_encrypt.inc in Sources */,
-				F098802D2F4122D50058F84D /* md4.inc in Sources */,
 				F098806D2F4130F50058F84D /* cctest_link_aes_ecb.c in Sources */,
 				F09880252F4120CF0058F84D /* ccmode_test_ecb.c in Sources */,
 				F09880542F41231D0058F84D /* ECBVarTxt192_decrypt.inc in Sources */,
+				F09880892F419B1D0058F84D /* ccrmd160_ti.c in Sources */,
 				F09880612F41231D0058F84D /* ECBVarKey256_decrypt.inc in Sources */,
 				F09880522F41231D0058F84D /* ECBVarKey192_encrypt.inc in Sources */,
-				F09880332F4122E10058F84D /* md2.inc in Sources */,
 				F098805E2F41231D0058F84D /* ECBGFSbox128_decrypt.inc in Sources */,
 				F09880652F41231D0058F84D /* ECBVarKey256_encrypt.inc in Sources */,
 				F09880582F41231D0058F84D /* ECBVarTxt192_encrypt.inc in Sources */,
 				F098802C2F4122D50058F84D /* ccmd4_ti.c in Sources */,
 				F09880592F41231D0058F84D /* ECBGFSbox256_decrypt.inc in Sources */,
+				F09880832F419AF40058F84D /* ccmd5_ti.c in Sources */,
 				F098805C2F41231D0058F84D /* ECBVarTxt128_encrypt.inc in Sources */,
 				F098805D2F41231D0058F84D /* ECBKeySbox128_decrypt.inc in Sources */,
 				F09880572F41231D0058F84D /* ECBKeySbox256_decrypt.inc in Sources */,
@@ -3609,6 +3650,7 @@
 				F098805B2F41231D0058F84D /* ECBVarKey128_decrypt.inc in Sources */,
 				F09880682F41231D0058F84D /* ECBKeySbox192_encrypt.inc in Sources */,
 				F09880662F41231D0058F84D /* ECBVarTxt256_decrypt.inc in Sources */,
+				F098808A2F419B1D0058F84D /* rmd160.inc in Sources */,
 				F09880272F41216C0058F84D /* cctest_trace.c in Sources */,
 				F09880622F41231D0058F84D /* ECBKeySbox192_decrypt.inc in Sources */,
 				F09880322F4122E10058F84D /* ccmd2_ti.c in Sources */,

@@ -49,8 +49,10 @@ enum {
     CCTEST_ENABLE_MD2 = (1 << 0),
     CCTEST_ENABLE_MD4 = (1 << 1),
     CCTEST_ENABLE_AES = (1 << 2),
+    CCTEST_ENABLE_MD5 = (1 << 3),
+    CCTEST_ENABLE_RIPEMD = (1 << 4),
 
-    CCTEST_ENABLE_ALL = 0xFFFFFFFF,
+    CCTEST_ENABLE_ALL = 0x0FFFFFFF,
 };
 
 cc_aligned_struct(16) cctest_ctx;

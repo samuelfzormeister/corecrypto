@@ -310,14 +310,14 @@ static void rmd160_process(ccdigest_state_t state, size_t nblocks, const void *d
     unsigned char *buf = (unsigned char *)data;
     while (nblocks--) {
         rmd160_compress(curstate, buf);
-        buf += CCRMD160_BLOCK_SIZE;
+        buf += CCRIPEMD_BLOCK_SIZE;
     }
 }
 
 const struct ccdigest_info ccrmd160_ltc_di = {
     .initial_state = ccrmd160_initial_state,
     .output_size = CCRMD160_OUTPUT_SIZE,
-    .block_size = CCRMD160_BLOCK_SIZE,
+    .block_size = CCRIPEMD_BLOCK_SIZE,
     .state_size = CCRMD160_STATE_SIZE,
     .oid = ccoid_rmd160,
     .oid_size = ccoid_rmd160_len,
