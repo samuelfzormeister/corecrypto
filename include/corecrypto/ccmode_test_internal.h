@@ -63,8 +63,9 @@ struct _ccmode_test_ctx {
     cc_unit u[]; /* contains the relevant ctx */
 };
 
-#define CCMODE_TEST_CTX(ctx) ((struct _ccdmode_test_ctx *)ctx)
+#define CCMODE_TEST_CTX(ctx) ((struct _ccmode_test_ctx *)ctx)
 #define CCMODE_TEST_VI(vi) ((struct ccmode_test_vector_info *)vi)
+#define CCMODE_TEST_KEY(kind, ctx) (kind *) &ctx->u[0]
 #define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size)]
 
 //
@@ -89,6 +90,9 @@ const struct cctest_info *cc##cipher##_##impl##_##testname##_ti() {          \
 #define CCMODE_CBC_TEST_FACTORY(cipher, crypt, vectors, altname, testname, impl) CCMODE_TEST_FACTORY(cipher, cbc, crypt, vectors, testname, altname, impl)
 
 void ccmode_ecb_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi);
+void ccmode_ecb_decrypt_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi);
+
 void ccmode_cbc_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_cbc *mode, const char *name, struct ccmode_test_vector_info *vi);
+void ccmode_cbc_decrypt_test_factory(struct cctest_info *ti, const struct ccmode_cbc *mode, const char *name, struct ccmode_test_vector_info *vi);
 
 #endif /* _CORECRYPTO_CCMODE_TEST_INTERNAL_H_ */

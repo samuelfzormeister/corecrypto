@@ -16,11 +16,49 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "corecrypto/cctest_internal.h"
 #include <corecrypto/cc.h>
+#include <corecrypto/cc_debug.h>
 #include <corecrypto/cc_error.h>
+#include <corecrypto/cc_macros.h>
 #include <corecrypto/cc_memory.h>
 #include <corecrypto/ccmode_test_internal.h>
+#include <corecrypto/cctest_internal.h>
+
+void ccmode_ecb_test_dump_state(cctest_ctx *tx)
+{
+    struct _ccmode_test_ctx *ctx = CCMODE_TEST_CTX(tx);
+    uint8_t *state = (uint8_t *)CCMODE_TEST_KEY(ccecb_ctx, ctx);
+
+    cc_printf("[CCTEST][CIPHER][%s]: CURRENT STATE:\n", ctx->ti->name);
+
+    for (cc_size i = 0; i < ctx->ctx_size; i++) {
+        if ((i % 8) == 0) {
+            if (i > 0) {
+                cc_printf("\n");
+            }
+        }
+        cc_printf("%02x ", *state);
+        state++;
+    }
+    
+    cc_printf("\n");
+    
+    cc_printf("[CCTEST][CIPHER][%s]: SCRATCH MEMORY:\n", ctx->ti->name);
+    
+    state = (uint8_t *)CCMODE_TEST_CTX_SCRATCH_SPACE(ctx);
+    
+    for (cc_size i = 0; i < CCMODE_TEST_CTX_SCRATCH_SIZE(((struct ccmode_ecb *)ctx->mode)); i++) {
+        if ((i % 8) == 0) {
+            if (i > 0) {
+                cc_printf("\n");
+            }
+        }
+        cc_printf("%02x ", *state);
+        state++;
+    }
+    
+    cc_printf("\n");
+}
 
 int ccmode_ecb_test_init(const struct cctest_info *info, cctest_ctx *ctx)
 {
@@ -45,20 +83,29 @@ int ccmode_ecb_encrypt_test_run(cctest_ctx *ctx)
     const struct ccmode_ecb *mode = (const struct ccmode_ecb *)tctx->mode;
     const struct ccmode_test_vector_info *vi = tctx->vi;
     void *scratch = CCMODE_TEST_CTX_SCRATCH_SPACE(tctx);
-
-    ccecb_ctx_decl(mode->size, ecb);
+    ccecb_ctx *cx = CCMODE_TEST_KEY(ccecb_ctx, tctx);
 
     for (int i = 0; i < vi->nvectors; i++) {
         struct ccmode_test_vector vec = vi->vectors[i];
-        uint32_t blocks = vec.text_length / ccecb_block_size(mode);
-        ccecb_one_shot(mode, vec.key_length, vec.key, blocks, vec.plaintext, scratch);
+        cc_size blocks = vec.text_length / ccecb_block_size(mode);
+        const char *reason = "";
+        
+        int ret = ccecb_init(mode, cx, vec.key_length, vec.key);
+        cc_require_action(ret == 0, testfail, reason = "INIT FAIL");
+        ret = ccecb_update(mode, cx, blocks, vec.plaintext, scratch);
+        cc_require_action(ret == 0, testfail, reason = "UPDATE FAIL");
         if (cc_cmp_safe(vec.text_length, vec.ciphertext, scratch) == 0) {
             cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
+            ccecb_ctx_clear(mode->size, cx);
             continue;
         } else {
             cctest_trace_fail(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
             return CCPOST_KAT_FAILURE;
         }
+        
+    testfail:
+        cctest_trace_general(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, reason);
+        return CCPOST_LIBRARY_ERROR;
     }
 
     return 0;
@@ -70,22 +117,61 @@ int ccmode_ecb_decrypt_test_run(cctest_ctx *ctx)
     const struct ccmode_ecb *mode = (const struct ccmode_ecb *)tctx->mode;
     const struct ccmode_test_vector_info *vi = tctx->vi;
     void *scratch = CCMODE_TEST_CTX_SCRATCH_SPACE(tctx);
-
-    ccecb_ctx_decl(mode->size, ecb);
+    ccecb_ctx *cx = CCMODE_TEST_KEY(ccecb_ctx, tctx);
 
     for (int i = 0; i < vi->nvectors; i++) {
         struct ccmode_test_vector vec = vi->vectors[i];
-        uint32_t blocks = vec.text_length / ccecb_block_size(mode);
-        ccecb_one_shot(mode, vec.key_length, vec.key, blocks, vec.ciphertext, scratch);
+        cc_size blocks = vec.text_length / ccecb_block_size(mode);
+        const char *reason = "";
+        
+        int ret = ccecb_init(mode, cx, vec.key_length, vec.key);
+        cc_require_action(ret == 0, testfail, reason = "INIT FAIL");
+        ret = ccecb_update(mode, cx, blocks, vec.ciphertext, scratch);
+        cc_require_action(ret == 0, testfail, reason = "UPDATE FAIL");
         if (cc_cmp_safe(vec.text_length, vec.plaintext, scratch) == 0) {
-            cc_clear(CCMODE_TEST_CTX_SCRATCH_SIZE(mode), scratch);
             cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
+            ccecb_ctx_clear(mode->size, cx);
             continue;
         } else {
             cctest_trace_fail(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
+            cc_printf("[CCTEST][CIPHER][%s]: EXPECTED:\n", tctx->ti->name);
+            
+            uint8_t *state = (uint8_t *)vec.plaintext;
+            
+            for (cc_size i = 0; i < CCMODE_TEST_CTX_SCRATCH_SIZE(((struct ccmode_ecb *)tctx->mode)); i++) {
+                if ((i % 8) == 0) {
+                    if (i > 0) {
+                        cc_printf("\n");
+                    }
+                }
+                cc_printf("%02x ", *state);
+                state++;
+            }
+            cc_printf("\n");
+            
+            cc_printf("[CCTEST][CIPHER][%s]: CIPHERTEXT:\n", tctx->ti->name);
+            
+            state = (uint8_t *)vec.ciphertext;
+            
+            for (cc_size i = 0; i < CCMODE_TEST_CTX_SCRATCH_SIZE(((struct ccmode_ecb *)tctx->mode)); i++) {
+                if ((i % 8) == 0) {
+                    if (i > 0) {
+                        cc_printf("\n");
+                    }
+                }
+                cc_printf("%02x ", *state);
+                state++;
+            }
+            cc_printf("\n");
+            ccmode_ecb_test_dump_state(ctx);
             return CCPOST_KAT_FAILURE;
         }
+        
+    testfail:
+        cctest_trace_general(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, reason);
+        return CCPOST_LIBRARY_ERROR;
     }
+
 
     return 0;
 }

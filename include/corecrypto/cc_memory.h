@@ -78,17 +78,7 @@
 
 #else
 
-#if __APPLE__
-//
-// Darwin derived platforms are special.
-//
-#include <sys/malloc.h>
-#else
-//
-// While technically a legacy header, this is the easiest way on non-Darwin derived platforms.
-//
-#include <malloc.h>
-#endif
+#include <stdlib.h>
 
 #define CC_WORKSPACE_DECL_N(ws, n) \
             cc_ws ws##_ctx; \

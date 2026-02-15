@@ -46,6 +46,23 @@ static void __osl_log(osl::log_level level, const char *fmt, va_list args)
     vprintf(fmt, args);
     printf("\n");
 }
+
+#elif CC_DARWIN
+
+static void __osl_log(osl::log_level level, const char *fmt, va_list args)
+{
+    static const char *__levels[] = {
+        "ERROR",
+        "WARNING",
+        "DEBUG",
+        "INFO"
+    };
+
+    printf("[rsplib][%s]: ", __levels[level]);
+    vprintf(fmt, args);
+    printf("\n");
+}
+
 #endif
 
 void osl::log(osl::log_level level, const char *fmt, ...) {

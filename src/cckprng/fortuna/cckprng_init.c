@@ -32,6 +32,12 @@ void cckprng_init(struct cckprng_ctx *ctx, unsigned max_ngens, size_t entropybuf
     cc_printf("KPRNG: Initializing with Generator count of %d", max_ngens);
 
     cc_lock_mutex_init(&ctx->lock.mutex, "cckprng");
+    ctx->diag.ngens = max_ngens;
+    ctx->gens = NULL;
+    
+    ctx->entropybuf.buf = entropybuf;
+    ctx->entropybuf.nbytes = entropybuf_nbytes;
+    ctx->entropybuf.nsamples = entropybuf_nsamples;
 }
 
 void cckprng_initgen(struct cckprng_ctx *ctx, unsigned gen_idx)

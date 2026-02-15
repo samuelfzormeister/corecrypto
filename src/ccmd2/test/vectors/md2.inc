@@ -23,6 +23,7 @@ ccdigest_test_vector ccdigest_test_md2_vectors[] = {
         CCTEST_ATTRS_NONE,
         "",
         0,
+        // 83 50 e5 a3 e2 4c 15 3d f2 27 5c 9f 80 69 27 73
         "\x83\x50\xe5\xa3\xe2\x4c\x15\x3d\xf2\x27\x5c\x9f\x80\x69\x27\x73"
     },
     {

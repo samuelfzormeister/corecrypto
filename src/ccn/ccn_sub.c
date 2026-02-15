@@ -21,15 +21,26 @@
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccn.h>
 
+//
+// TODO: identify which variant is faster.
+//
 cc_unit ccn_sub(cc_size n, cc_unit *r, const cc_unit *s, const cc_unit *t)
 {
 #if CCN_UINT128_SUPPORT_FOR_64BIT_ARCH
     cc_dunit tmp1;
     cc_dunit tmp2;
+    cc_dunit res;
+    cc_unit borrow = 0;
 
-    //
-    // TODO: this.
-    //
+    for (cc_size i = 0; i < n; i++) {
+        tmp1 = s[i] + (CCN_UNIT_MASK + 1);
+        tmp2 = t[i] + borrow;
+        res = tmp1 - tmp2;
+        r[i] = (cc_unit)(res & CCN_UNIT_MASK);
+        borrow = (res & ~CCN_UNIT_MASK) != 0;
+    }
+    
+    return borrow;
 #else
     // do it using all units at once if we can't do it unit by unit.
     CC_WORKSPACE_DECL(work, ccn_sizeof_n(n));

@@ -67,17 +67,34 @@ static struct ccmode_test_vector ECBVarTxt_decrypt_vectors[] = {
 #include "vectors/ECBVarTxt256_decrypt.inc"
 };
 
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBGFSbox_encrypt_vectors, "LTC AES (ECBGFSbox)", ecbgfsbox, ltc_ecb_encrypt);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBKeySbox_encrypt_vectors, "LTC AES (ECBKeySbox)", ecbkeysbox, ltc_ecb_encrypt);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarKey_encrypt_vectors, "LTC AES (ECBVarKey)", ecbvarkey, ltc_ecb_encrypt);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarTxt_encrypt_vectors, "LTC AES (ECBVarTxt)", ecbvartxt, ltc_ecb_encrypt);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBGFSbox_encrypt_vectors, "LTC AES Encrypt (ECBGFSbox)", ecbgfsbox, ltc_ecb_encrypt);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBKeySbox_encrypt_vectors, "LTC AES Encrypt (ECBKeySbox)", ecbkeysbox, ltc_ecb_encrypt);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarKey_encrypt_vectors, "LTC AES Encrypt (ECBVarKey)", ecbvarkey, ltc_ecb_encrypt);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarTxt_encrypt_vectors, "LTC AES Encrypt (ECBVarTxt)", ecbvartxt, ltc_ecb_encrypt);
+
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBGFSbox_decrypt_vectors, "LTC AES Decrypt (ECBGFSbox)", ecbgfsbox, ltc_ecb_decrypt);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBKeySbox_decrypt_vectors, "LTC AES Decrypt (ECBKeySbox)", ecbkeysbox, ltc_ecb_decrypt);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBVarKey_decrypt_vectors, "LTC AES Decrypt (ECBVarKey)", ecbvarkey, ltc_ecb_decrypt);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBVarTxt_decrypt_vectors, "LTC AES Decrypt (ECBVarTxt)", ecbvartxt, ltc_ecb_decrypt);
+
 #if CCAES_INTEL_ASM
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBGFSbox_encrypt_vectors, "INTEL OPT AES (ECBGFSbox)", ecbgfsbox, intel_encrypt_opt_ecb);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBKeySbox_encrypt_vectors, "INTEL OPT AES (ECBKeySbox)", ecbkeysbox, intel_encrypt_opt_ecb);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarKey_encrypt_vectors, "INTEL OPT AES (ECBVarKey)", ecbvarkey, intel_encrypt_opt_ecb);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarTxt_encrypt_vectors, "INTEL OPT AES (ECBVarTxt)", ecbvartxt, intel_encrypt_opt_ecb);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBGFSbox_encrypt_vectors, "INTEL AESNI AES (ECBGFSbox)", ecbgfsbox, intel_encrypt_aesni_ecb);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBKeySbox_encrypt_vectors, "INTEL AESNI AES (ECBKeySbox)", ecbkeysbox, intel_encrypt_aesni_ecb);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarKey_encrypt_vectors, "INTEL AESNI AES (ECBVarKey)", ecbvarkey, intel_encrypt_aesni_ecb);
-CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarTxt_encrypt_vectors, "INTEL AESNI AES (ECBVarTxt)", ecbvartxt, intel_encrypt_aesni_ecb);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBGFSbox_encrypt_vectors, "Intel Default ASM AES Encrypt (ECBGFSbox)", ecbgfsbox, intel_ecb_encrypt_opt);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBKeySbox_encrypt_vectors, "Intel Default ASM AES Encrypt (ECBKeySbox)", ecbkeysbox, intel_ecb_encrypt_opt);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarKey_encrypt_vectors, "Intel Default ASM AES Encrypt (ECBVarKey)", ecbvarkey, intel_ecb_encrypt_opt);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarTxt_encrypt_vectors, "Intel Default ASM AES Encrypt (ECBVarTxt)", ecbvartxt, intel_ecb_encrypt_opt);
+
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBGFSbox_decrypt_vectors, "Intel Default ASM AES Decrypt (ECBGFSbox)", ecbgfsbox, intel_ecb_decrypt_opt);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBKeySbox_decrypt_vectors, "Intel Default ASM AES Decrypt (ECBKeySbox)", ecbkeysbox, intel_ecb_decrypt_opt);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBVarKey_decrypt_vectors, "Intel Default ASM AES Decrypt (ECBVarKey)", ecbvarkey, intel_ecb_decrypt_opt);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBVarTxt_decrypt_vectors, "Intel Default ASM AES Decrypt (ECBVarTxt)", ecbvartxt, intel_ecb_decrypt_opt);
+
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBGFSbox_encrypt_vectors, "Intel AES-NI AES Encrypt (ECBGFSbox)", ecbgfsbox, intel_ecb_encrypt_aesni);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBKeySbox_encrypt_vectors, "Intel AES-NI AES Encrypt (ECBKeySbox)", ecbkeysbox, intel_ecb_encrypt_aesni);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarKey_encrypt_vectors, "Intel AES-NI AES Encrypt (ECBVarKey)", ecbvarkey, intel_ecb_encrypt_aesni);
+CCMODE_ECB_TEST_FACTORY(aes, encrypt, ECBVarTxt_encrypt_vectors, "Intel AES-NI AES Encrypt (ECBVarTxt)", ecbvartxt, intel_ecb_encrypt_aesni);
+
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBGFSbox_decrypt_vectors, "Intel AES-NI AES Decrypt (ECBGFSbox)", ecbgfsbox, intel_ecb_decrypt_aesni);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBKeySbox_decrypt_vectors, "Intel AES-NI AES Decrypt (ECBKeySbox)", ecbkeysbox, intel_ecb_decrypt_aesni);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBVarKey_decrypt_vectors, "Intel AES-NI AES Decrypt (ECBVarKey)", ecbvarkey, intel_ecb_decrypt_aesni);
+CCMODE_ECB_TEST_FACTORY(aes, decrypt, ECBVarTxt_decrypt_vectors, "Intel AES-NI AES Decrypt (ECBVarTxt)", ecbvartxt, intel_ecb_decrypt_aesni);
 #endif
