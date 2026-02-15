@@ -16,13 +16,10 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <corecrypto/cc_config.h>
-
-
 #include <corecrypto/ccmd4.h>
 #include <corecrypto/ccdigest_test_internal.h>
 
-#include "vectors/md4.inc"
+#include "vectors/rfc1320.inc"
 
-CCDIGEST_TEST_FACTORY(md4, ccdigest_test_md4_vectors, "LTC MD4");
+CCDIGEST_TEST_FACTORY(md4, ccdigest_test_rfc1320_vectors, "LTC MD4 (RFC 1320)");
 

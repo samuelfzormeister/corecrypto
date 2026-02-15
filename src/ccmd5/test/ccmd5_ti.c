@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +16,9 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <corecrypto/ccmd2.h>
+#include <corecrypto/ccmd5.h>
 #include <corecrypto/ccdigest_test_internal.h>
 
-#include "vectors/rfc1319.inc"
+#include "vectors/rfc1321.inc"
 
-CCDIGEST_TEST_FACTORY(md2, ccdigest_test_rfc1319_vectors, "LTC MD2");
+CCDIGEST_TEST_FACTORY(md5_ltc, ccdigest_test_rfc1321_vectors, "LTC MD5 (RFC 1321)");

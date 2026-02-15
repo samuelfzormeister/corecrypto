@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,48 +18,47 @@
 
 #include <corecrypto/ccdigest_test_internal.h>
 
-ccdigest_test_vector ccdigest_test_md2_vectors[] = {
+static ccdigest_test_vector ccdigest_test_rfc1321_vectors[] = {
     {
         CCTEST_ATTRS_NONE,
         "",
         0,
-        // 83 50 e5 a3 e2 4c 15 3d f2 27 5c 9f 80 69 27 73
-        "\x83\x50\xe5\xa3\xe2\x4c\x15\x3d\xf2\x27\x5c\x9f\x80\x69\x27\x73"
+        "\xd4\x1d\x8c\xd9\x8f\x00\xb2\x04\xe9\x80\x09\x98\xec\xf8\x42\x7e"
     },
     {
         CCTEST_ATTRS_NONE,
         "a",
         sizeof("a")-1,
-        "\x32\xec\x01\xec\x4a\x6d\xac\x72\xc0\xab\x96\xfb\x34\xc0\xb5\xd1"
+        "\x0c\xc1\x75\xb9\xc0\xf1\xb6\xa8\x31\xc3\x99\xe2\x69\x77\x26\x61"
     },
     {
         CCTEST_ATTRS_NONE,
         "abc",
         sizeof("abc")-1,
-        "\xda\x85\x3b\x0d\x3f\x88\xd9\x9b\x30\x28\x3a\x69\xe6\xde\xd6\xbb"
+        "\x90\x01\x50\x98\x3c\xd2\x4f\xb0\xd6\x96\x3f\x7d\x28\xe1\x7f\x72"
     },
     {
         CCTEST_ATTRS_NONE,
         "message digest",
         sizeof("message digest")-1,
-        "\xab\x4f\x49\x6b\xfb\x2a\x53\x0b\x21\x9f\xf3\x30\x31\xfe\x06\xb0"
+        "\xf9\x6b\x69\x7d\x7c\xb7\x93\x8d\x52\x5a\x2f\x31\xaa\xf1\x61\xd0"
     },
     {
         CCTEST_ATTRS_NONE,
         "abcdefghijklmnopqrstuvwxyz",
         sizeof("abcdefghijklmnopqrstuvwxyz")-1,
-        "\x4e\x8d\xdf\xf3\x65\x02\x92\xab\x5a\x41\x08\xc3\xaa\x47\x94\x0b"
+        "\xc3\xfc\xd3\xd7\x61\x92\xe4\x00\x7d\xfb\x49\x6c\xca\x67\xe1\x3b"
     },
     {
         CCTEST_ATTRS_NONE,
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
         sizeof("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")-1,
-        "\xda\x33\xde\xf2\xa4\x2d\xf1\x39\x75\x35\x28\x46\xc3\x03\x38\xcd"
+        "\xd1\x74\xab\x98\xd2\x77\xd9\xf5\xa5\x61\x1c\x2c\x9f\x41\x9d\x9f"
     },
     {
         CCTEST_ATTRS_NONE,
         "12345678901234567890123456789012345678901234567890123456789012345678901234567890",
         sizeof("12345678901234567890123456789012345678901234567890123456789012345678901234567890")-1,
-        "\xd5\x97\x6f\x79\xd8\x3d\x3a\x0d\xc9\x80\x6c\x3c\x66\xf3\xef\xd8"
+        "\x57\xed\xf4\xa2\x2b\xe3\xc9\x55\xac\x49\xda\x2e\x21\x07\xb6\x7a"
     }
 };

@@ -19,9 +19,11 @@
 #ifndef _CORECRYPTO_CCRIPEMD_H_
 #define _CORECRYPTO_CCRIPEMD_H_
 
+#include <corecrypto/cc.h>
 #include <corecrypto/ccdigest.h>
 
-#define CCRMD160_BLOCK_SIZE  64
+#define CCRIPEMD_BLOCK_SIZE  64
+
 #define CCRMD160_OUTPUT_SIZE 20
 #define CCRMD160_STATE_SIZE  20
 
@@ -31,5 +33,37 @@
 extern const struct ccdigest_info ccrmd160_ltc_di;
 
 #define ccrmd160_di ccrmd160_ltc_di
+
+/*
+ * RMD128, RMD256 and RMD320 were obsoleted in Apple's 2019 Fall releases (macOS Catalina, etc).
+ *
+ * For backwards-compatibility with programs and clients, keep the symbol but deprecate it for
+ * when building targeting >= macOS 10.15.
+ */
+
+#define CCRMD128_OUTPUT_SIZE 16
+#define CCRMD128_STATE_SIZE  16
+
+#define ccoid_rmd128 ((unsigned char *)"\x06\x05\x2B\x24\x03\x02\x02")
+#define ccoid_rmd128_len 7
+
+extern const struct ccdigest_info ccrmd128_ltc_di cc_deprecate(13.0, 10.15, 13.0, 6.0, 4.0);
+
+#define CCRMD256_OUTPUT_SIZE 32
+#define CCRMD256_STATE_SIZE  32
+
+#define ccoid_rmd256 ((unsigned char *)"\x06\x05\x2B\x24\x03\x02\x03")
+#define ccoid_rmd256_len 7
+
+extern const struct ccdigest_info ccrmd256_ltc_di cc_deprecate(13.0, 10.15, 13.0, 6.0, 4.0);
+
+#define CCRMD320_OUTPUT_SIZE 40
+#define CCRMD320_STATE_SIZE  40
+
+/*
+ * No OID for RMD320.
+ */
+
+extern const struct ccdigest_info ccrmd320_ltc_di cc_deprecate(13.0, 10.15, 13.0, 6.0, 4.0);
 
 #endif /* _CORECRYPTO_CCRIPEMD_H_ */

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,47 +18,51 @@
 
 #include <corecrypto/ccdigest_test_internal.h>
 
-static ccdigest_test_vector ccdigest_test_md4_vectors[] = {
+/*
+ * sourced from: https://homes.esat.kuleuven.be/~bosselae/ripemd160.html
+ */
+
+static ccdigest_test_vector ccdigest_test_rmd160_vectors[] = {
     {
         CCTEST_ATTRS_NONE,
         "",
         0,
-        "\x31\xd6\xcf\xe0\xd1\x6a\xe9\x31\xb7\x3c\x59\xd7\xe0\xc0\x89\xc0"
+        "\x9c\x11\x85\xa5\xc5\xe9\xfc\x54\x61\x28\x08\x97\x7e\xe8\xf5\x48\xb2\x25\x8d\x31"
     },
     {
         CCTEST_ATTRS_NONE,
         "a",
         sizeof("a")-1,
-        "\xbd\xe5\x2c\xb3\x1d\xe3\x3e\x46\x24\x5e\x05\xfb\xdb\xd6\xfb\x24"
+        "\x0b\xdc\x9d\x2d\x25\x6b\x3e\xe9\xda\xae\x34\x7b\xe6\xf4\xdc\x83\x5a\x46\x7f\xfe"
     },
     {
         CCTEST_ATTRS_NONE,
         "abc",
         sizeof("abc")-1,
-        "\xa4\x48\x01\x7a\xaf\x21\xd8\x52\x5f\xc1\x0a\xe8\x7a\xa6\x72\x9d"
+        "\x8e\xb2\x08\xf7\xe0\x5d\x98\x7a\x9b\x04\x4a\x8e\x98\xc6\xb0\x87\xf1\x5a\x0b\xfc"
     },
     {
         CCTEST_ATTRS_NONE,
         "message digest",
         sizeof("message digest")-1,
-        "\xd9\x13\x0a\x81\x64\x54\x9f\xe8\x18\x87\x48\x06\xe1\xc7\x01\x4b"
+        "\x5d\x06\x89\xef\x49\xd2\xfa\xe5\x72\xb8\x81\xb1\x23\xa8\x5f\xfa\x21\x59\x5f\x36"
     },
     {
         CCTEST_ATTRS_NONE,
         "abcdefghijklmnopqrstuvwxyz",
         sizeof("abcdefghijklmnopqrstuvwxyz")-1,
-        "\xd7\x9e\x1c\x30\x8a\xa5\xbb\xcd\xee\xa8\xed\x63\xdf\x41\x2d\xa9"
+        "\xf7\x1c\x27\x10\x9c\x69\x2c\x1b\x56\xbb\xdc\xeb\x5b\x9d\x28\x65\xb3\x70\x8d\xbc"
     },
     {
         CCTEST_ATTRS_NONE,
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
         sizeof("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")-1,
-        "\x04\x3f\x85\x82\xf2\x41\xdb\x35\x1c\xe6\x27\xe1\x53\xe7\xf0\xe4"
+        "\xb0\xe2\x0b\x6e\x31\x16\x64\x02\x86\xed\x3a\x87\xa5\x71\x30\x79\xb2\x1f\x51\x89"
     },
     {
         CCTEST_ATTRS_NONE,
         "12345678901234567890123456789012345678901234567890123456789012345678901234567890",
         sizeof("12345678901234567890123456789012345678901234567890123456789012345678901234567890")-1,
-        "\xe3\x3b\x4d\xdc\x9c\x38\xf2\x19\x9c\x3e\x7b\x16\x4f\xcc\x05\x36"
+        "\x9b\x75\x2e\x45\x57\x3d\x4b\x39\xf4\xdb\xd3\x32\x3c\xab\x82\xbf\x63\x32\x6b\xfb"
     }
 };
