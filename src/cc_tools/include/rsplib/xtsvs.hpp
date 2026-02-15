@@ -25,11 +25,14 @@ namespace corecrypto {
     namespace rsplib {
 
         class xtsvs_vector : public base_vector {
-
+            xtsvs_vector(const std::string &key,
+                         const std::string &tweak,
+                         const std::string &pt,
+                         const std::string &ct);
         };
 
         class xtsvs_test : public base_test {
-
+            
         };
 
     }
