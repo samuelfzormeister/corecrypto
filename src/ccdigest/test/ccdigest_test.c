@@ -69,7 +69,7 @@ int ccdigest_test_init(const struct cctest_info *info, cctest_ctx *ctx)
 
     dt->di = (const struct ccdigest_info *)info->custom;
     dt->vi = CCDIGEST_TEST_VI(info->custom1);
-    dt->ctx_size = ccdigest_ctx_size(dt->di->state_size, dt->di->block_size);
+    dt->ctx_size = ccdigest_di_size(dt->di);
     dt->ti = info;
 
     cctest_trace_general(CCTEST_SUBSYSTEM_DIGEST, info->name, "init <<");
@@ -82,24 +82,27 @@ int ccdigest_test_run(cctest_ctx *ctx)
     int res = 0;
     const struct ccdigest_info *di = CCDIGEST_TEST_CTX(ctx)->di;
     const struct ccdigest_test_vector_info *vi = CCDIGEST_TEST_CTX(ctx)->vi;
-    struct ccdigest_ctx *dc = (struct ccdigest_ctx *)&CCDIGEST_TEST_CTX(ctx)->u;
     void *scratch = CCDIGEST_TEST_CTX_SCRATCH_SPACE(CCDIGEST_TEST_CTX(ctx));
+    ccdigest_ctx_t dctx = CCDIGEST_TEST_CTX_DIGEST_CTX(CCDIGEST_TEST_CTX(ctx));
 
     cctest_trace_general(CCTEST_SUBSYSTEM_DIGEST, CCDIGEST_TEST_CTX(ctx)->ti->name, "run >>");
 
     for (size_t i = 0; i < vi->nvectors; i++) {
         struct ccdigest_test_vector vec = vi->vectors[i];
-        ccdigest(di, vec.msg_len, vec.message, scratch);
-
+        ccdigest_init(di, dctx);
+        ccdigest_update(di, dctx, vec.msg_len, vec.message);
+        ccdigest_final(di, dctx, scratch);
         res |= (cc_cmp_safe(di->output_size, vec.expected_digest, scratch) != 0) &&
                     !(vec.attrs & CCTEST_ATTR_EXPECTEDFAIL);
         
         if (res != 0) {
             ccdigest_test_dump_state(ctx);
             cctest_trace_fail(CCTEST_SUBSYSTEM_DIGEST, CCDIGEST_TEST_CTX(ctx)->ti->name, i+1);
+        } else {
+            cctest_trace_pass(CCTEST_SUBSYSTEM_DIGEST, CCDIGEST_TEST_CTX(ctx)->ti->name, i+1);
         }
 
-        ccdigest_ctx_clear(di->state_size, di->block_size, dc);
+        ccdigest_ctx_clear(di->state_size, di->block_size, dctx);
         cc_clear(di->output_size, scratch);
     }
 
@@ -112,7 +115,7 @@ void ccdigest_test_factory(struct cctest_info *ti, const struct ccdigest_info *d
 {
     ti->custom = (const void *)di;
     ti->custom1 = (const void *)vi;
-    ti->size = ccdigest_ctx_size(di->state_size, di->block_size) + sizeof(struct _ccdigest_test_ctx) + di->output_size;
+    ti->size = ccdigest_di_size(di) + sizeof(struct _ccdigest_test_ctx) + di->output_size;
     ti->init = &ccdigest_test_init;
     ti->run = &ccdigest_test_run;
     ti->dump_state = &ccdigest_test_dump_state;

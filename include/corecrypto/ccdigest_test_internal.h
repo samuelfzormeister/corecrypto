@@ -53,7 +53,7 @@ struct _ccdigest_test_ctx {
 
 #define CCDIGEST_TEST_CTX(ctx) ((struct _ccdigest_test_ctx *)ctx)
 #define CCDIGEST_TEST_VI(vi) ((struct ccdigest_test_vector_info *)vi)
-#define CCDIGEST_TEST_CTX_DIGEST_CTX(ctx) (ccdigest_ctx *)&ctx->u
+#define CCDIGEST_TEST_CTX_DIGEST_CTX(ctx) (ccdigest_ctx_t)&ctx->u
 #define CCDIGEST_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size)];
 
 #define CCDIGEST_TEST_FACTORY(name, vectors, altname)                     \

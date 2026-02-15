@@ -33,7 +33,11 @@
 
 #define CCTEST_TRACE(x...) cc_printf("[CCTEST]: " x)
 
-struct _cctest_test_link root;
+#if !defined(_MSC_VER)
+static struct _cctest_test_link root;
+#else
+static struct _cctest_test_link *root;
+#endif
 
 extern struct _cctest_test_link *cctest_link_aes_ecb(struct _cctest_test_link *lnk);
 
@@ -45,7 +49,11 @@ extern struct _cctest_test_link *cctest_link_aes_ecb(struct _cctest_test_link *l
 int cctest_conduct_tests(uint32_t flags)
 {
     int ret = 0;
+#if !defined(_MSC_VER)
     struct _cctest_test_link *chain = &root;
+#else
+    struct _cctest_test_link *chain = root = malloc(sizeof(struct _cctest_test_link));
+#endif
     CCTEST_TRACE("==== BEGIN TESTING SEQUENCE (flags: %08x) ===\n", flags);
 
     if (flags & CCTEST_ENABLE_MD2) {
@@ -66,7 +74,11 @@ int cctest_conduct_tests(uint32_t flags)
         chain = cctest_link_aes_ecb(chain);
     }
 
+#if !defined(_MSC_VER)
     struct _cctest_test_link *lnk = &root;
+#else
+    struct _cctest_test_link *lnk = root;
+#endif
 
     //
     // for some reason the nvectors field keeps getting replaced by 8cf0c094ee4514cc
@@ -75,7 +87,11 @@ int cctest_conduct_tests(uint32_t flags)
     //
     while (lnk->next != NULL) {
         const struct cctest_info *ti = lnk->ti;
+#if _MSC_VER
+        cctest_ctx *ctx = malloc(ti->size);
+#else
         cctest_ctx_decl(ti->size, ctx);
+#endif
         const char *reason = "INIT FAIL";
 
         //CCTEST_TRACE("Begin test %s\n", ti->name);
@@ -86,13 +102,16 @@ int cctest_conduct_tests(uint32_t flags)
         cc_require(ret == 0, fail);
         CCTEST_TRACE("%s - PASS\n", ti->name);
         //CCTEST_TRACE("Exit test %s\n", ti->name);
-
+#if _MSC_VER
+        free(ctx);
+#else
+        cctest_ctx_clear(ti->size, ctx);
+#endif
         lnk = lnk->next;
         continue;
 
         fail:
         CCTEST_TRACE("!!! %s !!!\n", reason);
-        ti->dump_state(ctx);
         CCTEST_TRACE("Exit test %s\n", ti->name);
         break;
     }

@@ -149,7 +149,7 @@ static void md2_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *
     md2_compress(X, ccdigest_data(di, ctx));
 
     /* output is lower 16 bytes of X */
-    CC_MEMCPY(digest, ccdigest_data(di, ctx), 16);
+    CC_MEMCPY(digest, X, 16);
 }
 
 const struct ccdigest_info ccmd2_ltc_di = {

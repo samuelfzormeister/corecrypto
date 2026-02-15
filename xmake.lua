@@ -129,7 +129,8 @@ target("libcc_test")
 
     -- AES
     add_files(
-        "src/ccaes/test/ccaes_ecb_test.c"
+        "src/ccaes/test/ccaes_ecb_test.c",
+        "src/cctest/cctest_link_aes_ecb.c"
     )
 
     -- MD2
