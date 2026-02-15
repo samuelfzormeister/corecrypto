@@ -2,5 +2,9 @@ INSTALL_PATH = /System/Library/Extensions
 
 #include? "../darwinbuild.xcconfig"
 
+#include "corecrypto.xcconfig"
+
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/cckprng/include
+
 SYSTEM_HEADER_SEARCH_PATHS = $(DEPROOT)/System/Library/Frameworks/Kernel.framework/PrivateHeaders
 FRAMEWORK_SEARCH_PATHS = // nothing

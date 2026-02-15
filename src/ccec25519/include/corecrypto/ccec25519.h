@@ -21,7 +21,6 @@
 
 #include <corecrypto/ccdigest.h>
 #include <corecrypto/ccrng.h>
-#include <corecrypto/ccec.h>
 
 /* various EC25519 stuff - from WebKit. */
 

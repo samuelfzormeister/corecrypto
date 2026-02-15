@@ -174,8 +174,6 @@
 		421C060A2F19AC3000E5B924 /* ccaes_gladman_decrypt_mode.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06072F19AC3000E5B924 /* ccaes_gladman_decrypt_mode.c */; };
 		421C060E2F1A25FB00E5B924 /* cckprng_init.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C060D2F1A25FB00E5B924 /* cckprng_init.c */; };
 		421C060F2F1A25FB00E5B924 /* cckprng_init.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C060D2F1A25FB00E5B924 /* cckprng_init.c */; };
-		421C06772F1DE4E700E5B924 /* ccz_is_zero.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06752F1DE4E700E5B924 /* ccz_is_zero.c */; };
-		421C06782F1DE4E700E5B924 /* ccz_is_zero.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06752F1DE4E700E5B924 /* ccz_is_zero.c */; };
 		421C067B2F1DE50400E5B924 /* ccpbkdf2_hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06792F1DE50400E5B924 /* ccpbkdf2_hmac.c */; };
 		421C067C2F1DE50400E5B924 /* ccpbkdf2_hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06792F1DE50400E5B924 /* ccpbkdf2_hmac.c */; };
 		421C06C72F22D67300E5B924 /* cc_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 421C06C62F22D67300E5B924 /* cc_lock.h */; };
@@ -183,18 +181,6 @@
 		421C06CA2F22D69500E5B924 /* cc_lock.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06C92F22D69500E5B924 /* cc_lock.c */; };
 		421C06CB2F22D69500E5B924 /* cc_lock.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06C92F22D69500E5B924 /* cc_lock.c */; };
 		421C06CC2F22D69500E5B924 /* cc_lock.c in Sources */ = {isa = PBXBuildFile; fileRef = 421C06C92F22D69500E5B924 /* cc_lock.c */; };
-		F001367A2D3F736400349FD5 /* pdckeccak.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136792D3F736400349FD5 /* pdckeccak.c */; };
-		F001367B2D3F736400349FD5 /* pdckeccak.h in Headers */ = {isa = PBXBuildFile; fileRef = F00136782D3F736400349FD5 /* pdckeccak.h */; };
-		F001367C2D3F736400349FD5 /* pdckeccak.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136792D3F736400349FD5 /* pdckeccak.c */; };
-		F001367D2D3F736400349FD5 /* pdckeccak.h in Headers */ = {isa = PBXBuildFile; fileRef = F00136782D3F736400349FD5 /* pdckeccak.h */; };
-		F001367E2D3F736400349FD5 /* pdckeccak.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136792D3F736400349FD5 /* pdckeccak.c */; };
-		F001367F2D3F736400349FD5 /* pdckeccak.h in Headers */ = {isa = PBXBuildFile; fileRef = F00136782D3F736400349FD5 /* pdckeccak.h */; };
-		F00136872D4059EC00349FD5 /* pdcxof.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136862D4059EC00349FD5 /* pdcxof.c */; };
-		F00136882D4059EC00349FD5 /* pdcxof.h in Headers */ = {isa = PBXBuildFile; fileRef = F00136852D4059EC00349FD5 /* pdcxof.h */; };
-		F00136892D4059EC00349FD5 /* pdcxof.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136862D4059EC00349FD5 /* pdcxof.c */; };
-		F001368A2D4059EC00349FD5 /* pdcxof.h in Headers */ = {isa = PBXBuildFile; fileRef = F00136852D4059EC00349FD5 /* pdcxof.h */; };
-		F001368B2D4059EC00349FD5 /* pdcxof.c in Sources */ = {isa = PBXBuildFile; fileRef = F00136862D4059EC00349FD5 /* pdcxof.c */; };
-		F001368C2D4059EC00349FD5 /* pdcxof.h in Headers */ = {isa = PBXBuildFile; fileRef = F00136852D4059EC00349FD5 /* pdcxof.h */; };
 		F004E9852DD4AFC600103A8F /* cccast.h in Headers */ = {isa = PBXBuildFile; fileRef = F004E9842DD4AFC600103A8F /* cccast.h */; };
 		F004E9872DD4AFCC00103A8F /* cccast.h in Headers */ = {isa = PBXBuildFile; fileRef = F004E9842DD4AFC600103A8F /* cccast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F004E98D2DD4B03B00103A8F /* cc.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1F65CFE91F2800C60073759F /* cc.h */; };
@@ -529,6 +515,14 @@
 		F09880832F419AF40058F84D /* ccmd5_ti.c in Sources */ = {isa = PBXBuildFile; fileRef = F09880802F419AF40058F84D /* ccmd5_ti.c */; };
 		F09880892F419B1D0058F84D /* ccrmd160_ti.c in Sources */ = {isa = PBXBuildFile; fileRef = F09880862F419B1D0058F84D /* ccrmd160_ti.c */; };
 		F098808A2F419B1D0058F84D /* rmd160.inc in Sources */ = {isa = PBXBuildFile; fileRef = F09880882F419B1D0058F84D /* rmd160.inc */; };
+		F09880CD2F41CA020058F84D /* ccrng_pbkdf2_prng.h in Headers */ = {isa = PBXBuildFile; fileRef = F09880CC2F41CA020058F84D /* ccrng_pbkdf2_prng.h */; };
+		F09880CE2F41CA020058F84D /* ccrng_pbkdf2_prng.h in Headers */ = {isa = PBXBuildFile; fileRef = F09880CC2F41CA020058F84D /* ccrng_pbkdf2_prng.h */; };
+		F09880CF2F41CA020058F84D /* ccrng_pbkdf2_prng.h in Headers */ = {isa = PBXBuildFile; fileRef = F09880CC2F41CA020058F84D /* ccrng_pbkdf2_prng.h */; };
+		F09880D02F41CA020058F84D /* ccrng_pbkdf2_prng.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F09880CC2F41CA020058F84D /* ccrng_pbkdf2_prng.h */; };
+		F09880D82F41CA520058F84D /* ccprime.h in Headers */ = {isa = PBXBuildFile; fileRef = F09880D72F41CA510058F84D /* ccprime.h */; };
+		F09880D92F41CA520058F84D /* ccprime.h in Headers */ = {isa = PBXBuildFile; fileRef = F09880D72F41CA510058F84D /* ccprime.h */; };
+		F09880DA2F41CA520058F84D /* ccprime.h in Headers */ = {isa = PBXBuildFile; fileRef = F09880D72F41CA510058F84D /* ccprime.h */; };
+		F09880DB2F41CA520058F84D /* ccprime.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = F09880D72F41CA510058F84D /* ccprime.h */; };
 		F09953AC2D46DCDE0021D020 /* ccwrap_auth_encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F09953AB2D46DCDE0021D020 /* ccwrap_auth_encrypt.c */; };
 		F09953AD2D46DCDE0021D020 /* ccwrap_auth_encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F09953AB2D46DCDE0021D020 /* ccwrap_auth_encrypt.c */; };
 		F09C430F2DAF80DD008E7BD3 /* ccansikdf.h in Headers */ = {isa = PBXBuildFile; fileRef = F09C430E2DAF80DD008E7BD3 /* ccansikdf.h */; };
@@ -651,8 +645,6 @@
 		F0BFEB552D69204000349FD5 /* der.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB542D69204000349FD5 /* der.c */; };
 		F0BFEB562D69204000349FD5 /* der.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BFEB542D69204000349FD5 /* der.c */; };
 		F0CA56D12CF9166000521F17 /* ccsha3.h in Headers */ = {isa = PBXBuildFile; fileRef = F0CA56D02CF9165900521F17 /* ccsha3.h */; };
-		F0CA56D32CF9892500521F17 /* sha3.c in Sources */ = {isa = PBXBuildFile; fileRef = F0CA56D22CF9891F00521F17 /* sha3.c */; };
-		F0CA56D42CF9892500521F17 /* sha3.c in Sources */ = {isa = PBXBuildFile; fileRef = F0CA56D22CF9891F00521F17 /* sha3.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -750,6 +742,7 @@
 				F004E9992DD4B08C00103A8F /* ccchacha20poly1305.h in CopyFiles */,
 				420E9A4E2F10B3E5005E3B27 /* cchkdf.h in CopyFiles */,
 				F004E9982DD4B08400103A8F /* cccast.h in CopyFiles */,
+				F09880D02F41CA020058F84D /* ccrng_pbkdf2_prng.h in CopyFiles */,
 				421C06C82F22D67300E5B924 /* cc_lock.h in CopyFiles */,
 				F0851A302DEA56DE00349FD5 /* cckeccak.h in CopyFiles */,
 				F004E9972DD4B08100103A8F /* ccblowfish.h in CopyFiles */,
@@ -760,6 +753,7 @@
 				420E99FB2F104E35005E3B27 /* ccdigest_test_internal.h in CopyFiles */,
 				F004E9932DD4B06A00103A8F /* cc_runtime_config.h in CopyFiles */,
 				F004E9922DD4B06500103A8F /* cc_macros.h in CopyFiles */,
+				F09880DB2F41CA520058F84D /* ccprime.h in CopyFiles */,
 				F004E9912DD4B06200103A8F /* cc_error.h in CopyFiles */,
 				F004E9902DD4B05E00103A8F /* cc_debug.h in CopyFiles */,
 				F004E98F2DD4B05B00103A8F /* cc_config.h in CopyFiles */,
@@ -1083,14 +1077,9 @@
 		421C06032F19A52800E5B924 /* ccaes_gladman_encrypt_mode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccaes_gladman_encrypt_mode.c; sourceTree = "<group>"; };
 		421C06072F19AC3000E5B924 /* ccaes_gladman_decrypt_mode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccaes_gladman_decrypt_mode.c; sourceTree = "<group>"; };
 		421C060D2F1A25FB00E5B924 /* cckprng_init.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cckprng_init.c; sourceTree = "<group>"; };
-		421C06752F1DE4E700E5B924 /* ccz_is_zero.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccz_is_zero.c; sourceTree = "<group>"; };
 		421C06792F1DE50400E5B924 /* ccpbkdf2_hmac.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccpbkdf2_hmac.c; sourceTree = "<group>"; };
 		421C06C62F22D67300E5B924 /* cc_lock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc_lock.h; sourceTree = "<group>"; };
 		421C06C92F22D69500E5B924 /* cc_lock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = cc_lock.c; sourceTree = "<group>"; };
-		F00136782D3F736400349FD5 /* pdckeccak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pdckeccak.h; sourceTree = "<group>"; };
-		F00136792D3F736400349FD5 /* pdckeccak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pdckeccak.c; sourceTree = "<group>"; };
-		F00136852D4059EC00349FD5 /* pdcxof.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pdcxof.h; sourceTree = "<group>"; };
-		F00136862D4059EC00349FD5 /* pdcxof.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pdcxof.c; sourceTree = "<group>"; };
 		F001368F2D405CB700349FD5 /* DARWIN19.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = DARWIN19.md; sourceTree = "<group>"; };
 		F004E9832DD4AFBA00103A8F /* cc_uptime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cc_uptime.h; sourceTree = "<group>"; };
 		F004E9842DD4AFC600103A8F /* cccast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cccast.h; sourceTree = "<group>"; };
@@ -1275,6 +1264,10 @@
 		F09880822F419AF40058F84D /* rfc1321.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = rfc1321.inc; sourceTree = "<group>"; };
 		F09880862F419B1D0058F84D /* ccrmd160_ti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccrmd160_ti.c; sourceTree = "<group>"; };
 		F09880882F419B1D0058F84D /* rmd160.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = rmd160.inc; sourceTree = "<group>"; };
+		F09880CC2F41CA020058F84D /* ccrng_pbkdf2_prng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccrng_pbkdf2_prng.h; sourceTree = "<group>"; };
+		F09880D72F41CA510058F84D /* ccprime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccprime.h; sourceTree = "<group>"; };
+		F09880F52F41CCE40058F84D /* corecrypto.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = corecrypto.xcconfig; sourceTree = "<group>"; };
+		F09880F62F41D0730058F84D /* corecrypto_test.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = corecrypto_test.xcconfig; sourceTree = "<group>"; };
 		F09953AB2D46DCDE0021D020 /* ccwrap_auth_encrypt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccwrap_auth_encrypt.c; sourceTree = "<group>"; };
 		F09C430E2DAF80DD008E7BD3 /* ccansikdf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccansikdf.h; sourceTree = "<group>"; };
 		F09CDC792E3B452600820F95 /* ccchacha20poly1305.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccchacha20poly1305.c; sourceTree = "<group>"; };
@@ -1345,7 +1338,6 @@
 		F0BBB5162E38E76500349FD5 /* xmake.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = xmake.lua; sourceTree = "<group>"; };
 		F0BFEB542D69204000349FD5 /* der.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = der.c; sourceTree = "<group>"; };
 		F0CA56D02CF9165900521F17 /* ccsha3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccsha3.h; sourceTree = "<group>"; };
-		F0CA56D22CF9891F00521F17 /* sha3.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sha3.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1431,7 +1423,6 @@
 			children = (
 				F0BBB5162E38E76500349FD5 /* xmake.lua */,
 				420E9B032F10B650005E3B27 /* docs */,
-				1F65CFE21F2800A20073759F /* include */,
 				1FB2F6BF1C87B2BA009C0F4C /* src */,
 				1F377BA5213DF15B00D1C6CA /* xcscripts */,
 				F01186EC2D451641009C285F /* cctest */,
@@ -1461,7 +1452,9 @@
 			isa = PBXGroup;
 			children = (
 				1F377BA6213DF17100D1C6CA /* corecrypto_kernel.xcconfig */,
+				F09880F62F41D0730058F84D /* corecrypto_test.xcconfig */,
 				1F17F85724809DD30080E3C3 /* corecrypto_user.xcconfig */,
+				F09880F52F41CCE40058F84D /* corecrypto.xcconfig */,
 			);
 			path = xcscripts;
 			sourceTree = "<group>";
@@ -1484,90 +1477,6 @@
 				1F615F262480A10C0021D82E /* dummy.c */,
 			);
 			path = cc_dylib;
-			sourceTree = "<group>";
-		};
-		1F65CFE21F2800A20073759F /* include */ = {
-			isa = PBXGroup;
-			children = (
-				1F65CFE31F2800A90073759F /* corecrypto */,
-			);
-			path = include;
-			sourceTree = "<group>";
-		};
-		1F65CFE31F2800A90073759F /* corecrypto */ = {
-			isa = PBXGroup;
-			children = (
-				1F65CFE91F2800C60073759F /* cc.h */,
-				1F65CFF71F2800C60073759F /* cc_config.h */,
-				1F65CFE71F2800C60073759F /* cc_debug.h */,
-				1F358E762354F0370030CA4F /* cc_error.h */,
-				421C06C62F22D67300E5B924 /* cc_lock.h */,
-				1F65CFF01F2800C60073759F /* cc_macros.h */,
-				F00CF6D52E1F1C8900349FD5 /* cc_memory.h */,
-				1F65CFFE1F2800C60073759F /* cc_priv.h */,
-				1F358E752354F0370030CA4F /* cc_runtime_config.h */,
-				F004E9832DD4AFBA00103A8F /* cc_uptime.h */,
-				1F65CFE51F2800C60073759F /* ccaes.h */,
-				F09C430E2DAF80DD008E7BD3 /* ccansikdf.h */,
-				1F65D0011F2800C60073759F /* ccasn1.h */,
-				F03D8B0D2DAC68C3004F403D /* ccblowfish.h */,
-				F004E9842DD4AFC600103A8F /* cccast.h */,
-				1F358E732354F0370030CA4F /* ccchacha20poly1305.h */,
-				F0B0813B2D5A923F00349FD5 /* ccchacha20poly1305_priv.h */,
-				1F65CFFF1F2800C60073759F /* cccmac.h */,
-				F02AD1AB2DAA8D3600A760BD /* cccmac_priv.h */,
-				1F65CFEB1F2800C60073759F /* ccder.h */,
-				1F65CFEC1F2800C60073759F /* ccdes.h */,
-				F09057162D460893007C6E87 /* ccdh.h */,
-				F09057152D460870007C6E87 /* ccdh_gp.h */,
-				1F65CFF31F2800C60073759F /* ccdigest.h */,
-				1F65CFEA1F2800C60073759F /* ccdigest_priv.h */,
-				420E99F92F104E35005E3B27 /* ccdigest_test_internal.h */,
-				1F65CFE61F2800C60073759F /* ccdrbg.h */,
-				1F65CFE81F2800C60073759F /* ccdrbg_impl.h */,
-				F05D85FC2D5706F500E8FF15 /* ccec.h */,
-				F01271AC2DB38C56009706F7 /* ccec25519.h */,
-				F01271AD2DB39F0C009706F7 /* ccec25519_priv.h */,
-				420E9B072F10BE28005E3B27 /* ccecies.h */,
-				420E9A4D2F10B3E5005E3B27 /* cchkdf.h */,
-				1F65CFED1F2800C60073759F /* cchmac.h */,
-				F0851A2F2DEA56DE00349FD5 /* cckeccak.h */,
-				1F358E722354F0360030CA4F /* cckprng.h */,
-				F01186CD2D44F3A4009C285F /* ccmd2.h */,
-				F09056FF2D4589A0007C6E87 /* ccmd4.h */,
-				1F65CFE41F2800C60073759F /* ccmd5.h */,
-				1F65CFF21F2800C60073759F /* ccmode.h */,
-				1F65D0001F2800C60073759F /* ccmode_factory.h */,
-				1F65CFF61F2800C60073759F /* ccmode_impl.h */,
-				1F65CFFA1F2800C60073759F /* ccmode_siv.h */,
-				1FE6C82A245E60E600D738AF /* ccmode_siv_hmac.h */,
-				F098806A2F412BE80058F84D /* ccmode_test_internal.h */,
-				1F65CFFC1F2800C60073759F /* ccn.h */,
-				F01F76E92DAA389900770D5D /* ccnistkdf.h */,
-				1F65CFF51F2800C60073759F /* ccpad.h */,
-				1F65CFF41F2800C60073759F /* ccpbkdf2.h */,
-				F0851A2C2DEA56C200349FD5 /* ccrc2.h */,
-				1F65CFFB1F2800C60073759F /* ccrc4.h */,
-				F090570F2D45CDEB007C6E87 /* ccripemd.h */,
-				1F65CFFD1F2800C60073759F /* ccrng.h */,
-				1F65CFF81F2800C60073759F /* ccrng_system.h */,
-				1F65CFEE1F2800C60073759F /* ccrsa.h */,
-				F0B0A52B2DC9689B00349FD5 /* ccrsa_priv.h */,
-				1F65CFF91F2800C60073759F /* ccsha1.h */,
-				1F65CFF11F2800C60073759F /* ccsha2.h */,
-				F0CA56D02CF9165900521F17 /* ccsha3.h */,
-				F0851A262DEA56AA00349FD5 /* ccsrp.h */,
-				F0851A272DEA56AA00349FD5 /* ccsrp_gp.h */,
-				F09880152F411FE60058F84D /* cctest_internal.h */,
-				420E99FC2F104E4E005E3B27 /* cctest_priv.h */,
-				F00D098D2D40B35600349FD5 /* ccwrap.h */,
-				F01186CA2D44BB85009C285F /* ccwrap_priv.h */,
-				F0B081422D5D44D000349FD5 /* ccxof.h */,
-				F01F76EB2DAA5A0800770D5D /* ccz.h */,
-				1F65CFEF1F2800C60073759F /* cczp.h */,
-				1F358E742354F0370030CA4F /* fipspost_trace.h */,
-			);
-			path = corecrypto;
 			sourceTree = "<group>";
 		};
 		1FABCE3C235542CB00F25C08 /* yarrow */ = {
@@ -1604,6 +1513,7 @@
 				1FB2F6C01C87B2C6009C0F4C /* cc_kext */,
 				F020E6D82DF68EC700349FD5 /* cc_tools */,
 				F001366D2D3F69BC00349FD5 /* ccaes */,
+				F09880942F41C50A0058F84D /* ccansikdf */,
 				F004E9DC2DD4B2F700103A8F /* ccblowfish */,
 				F004E9D42DD4B2F700103A8F /* cccast */,
 				F0B0813D2D5A96CA00349FD5 /* ccchacha20poly1305 */,
@@ -1613,6 +1523,9 @@
 				F0B081602D5FF3A700349FD5 /* ccdh */,
 				F00136722D3F6A1C00349FD5 /* ccdigest */,
 				F05D860A2D57590200E8FF15 /* ccdrbg */,
+				F09880B12F41C82A0058F84D /* ccec */,
+				F09880B32F41C83A0058F84D /* ccec25519 */,
+				F09880B22F41C8360058F84D /* ccecies */,
 				F01DBC1C2DCF6A2E00813612 /* cchkdf */,
 				F05D85FD2D57327E00E8FF15 /* cchmac */,
 				F00136772D3F734200349FD5 /* cckeccak */,
@@ -1622,8 +1535,10 @@
 				F001366F2D3F69DC00349FD5 /* ccmd5 */,
 				F01DBC232DCF6A4F00813612 /* ccmode */,
 				F020E6B72DF68EA500349FD5 /* ccn */,
+				F09880D22F41CA1D0058F84D /* ccnistkdf */,
 				F0851A542DEA581800349FD5 /* ccpad */,
 				421C067A2F1DE50400E5B924 /* ccpbkdf2 */,
+				F09880D12F41CA190058F84D /* ccprime */,
 				F020E6C52DF68EB800349FD5 /* ccrc2 */,
 				F0851A5C2DEA584500349FD5 /* ccrc4 */,
 				F09057112D45D27E007C6E87 /* ccripemd */,
@@ -1632,12 +1547,13 @@
 				F0BBB4852E38E60400349FD5 /* ccsha1 */,
 				F00136742D3F6A6900349FD5 /* ccsha2 */,
 				F00136752D3F6BBB00349FD5 /* ccsha3 */,
+				F09880E82F41CB900058F84D /* ccsrp */,
 				F0851A6D2DEA585E00349FD5 /* cctest */,
 				F09953AA2D46DCB80021D020 /* ccwrap */,
 				F00136832D40595500349FD5 /* ccxof */,
 				F020E6B92DF68EA500349FD5 /* ccz */,
-				421C06762F1DE4E700E5B924 /* ccz */,
 				F0851A682DEA585100349FD5 /* cczp */,
+				F09880F12F41CC320058F84D /* fips */,
 				F00136762D3F6BD500349FD5 /* pdcdummy */,
 			);
 			path = src;
@@ -2084,17 +2000,10 @@
 			path = fortuna;
 			sourceTree = "<group>";
 		};
-		421C06762F1DE4E700E5B924 /* ccz */ = {
-			isa = PBXGroup;
-			children = (
-				421C06752F1DE4E700E5B924 /* ccz_is_zero.c */,
-			);
-			path = ccz;
-			sourceTree = "<group>";
-		};
 		421C067A2F1DE50400E5B924 /* ccpbkdf2 */ = {
 			isa = PBXGroup;
 			children = (
+				F09880C22F41C91E0058F84D /* include */,
 				421C06792F1DE50400E5B924 /* ccpbkdf2_hmac.c */,
 			);
 			path = ccpbkdf2;
@@ -2103,6 +2012,7 @@
 		F001366D2D3F69BC00349FD5 /* ccaes */ = {
 			isa = PBXGroup;
 			children = (
+				F098808C2F41C4150058F84D /* include */,
 				F09880342F41231C0058F84D /* test */,
 				F00CF7102E1F229600349FD5 /* ccaes_modes.c */,
 				421C05F72F18E7E200E5B924 /* gladman */,
@@ -2115,6 +2025,7 @@
 		F001366F2D3F69DC00349FD5 /* ccmd5 */ = {
 			isa = PBXGroup;
 			children = (
+				F09880BC2F41C8C10058F84D /* include */,
 				F098807F2F419AF40058F84D /* test */,
 				F0BBB4DA2E38E6A300349FD5 /* ccmd5_di.c */,
 				F0BBB4DB2E38E6A300349FD5 /* ccmd5_initial_state.c */,
@@ -2127,6 +2038,7 @@
 		F00136712D3F69F900349FD5 /* cckprng */ = {
 			isa = PBXGroup;
 			children = (
+				F09880AF2F41C8160058F84D /* include */,
 				421C060C2F1A215D00E5B924 /* fortuna */,
 				1FABCE3C235542CB00F25C08 /* yarrow */,
 			);
@@ -2136,6 +2048,7 @@
 		F00136722D3F6A1C00349FD5 /* ccdigest */ = {
 			isa = PBXGroup;
 			children = (
+				F09880A32F41C7100058F84D /* include */,
 				F00CF7012E1F228400349FD5 /* ccdigest.c */,
 				F00CF7022E1F228400349FD5 /* ccdigest_final_64be.c */,
 				F00CF7032E1F228400349FD5 /* ccdigest_final_64le.c */,
@@ -2149,6 +2062,7 @@
 		F00136742D3F6A6900349FD5 /* ccsha2 */ = {
 			isa = PBXGroup;
 			children = (
+				F09880E02F41CB0D0058F84D /* include */,
 				F06AF9452E7E9F15008209DE /* intel */,
 				F0851A722DEA58BB00349FD5 /* ccsha2_ltc_internal.h */,
 				F0851A732DEA58BB00349FD5 /* ccsha224_di.c */,
@@ -2181,7 +2095,7 @@
 		F00136752D3F6BBB00349FD5 /* ccsha3 */ = {
 			isa = PBXGroup;
 			children = (
-				F0CA56D22CF9891F00521F17 /* sha3.c */,
+				F09880E22F41CB250058F84D /* include */,
 			);
 			path = ccsha3;
 			sourceTree = "<group>";
@@ -2198,8 +2112,7 @@
 		F00136772D3F734200349FD5 /* cckeccak */ = {
 			isa = PBXGroup;
 			children = (
-				F00136792D3F736400349FD5 /* pdckeccak.c */,
-				F00136782D3F736400349FD5 /* pdckeccak.h */,
+				F09880AD2F41C7780058F84D /* include */,
 			);
 			path = cckeccak;
 			sourceTree = "<group>";
@@ -2207,8 +2120,7 @@
 		F00136832D40595500349FD5 /* ccxof */ = {
 			isa = PBXGroup;
 			children = (
-				F00136862D4059EC00349FD5 /* pdcxof.c */,
-				F00136852D4059EC00349FD5 /* pdcxof.h */,
+				F09880EB2F41CBDB0058F84D /* include */,
 			);
 			path = ccxof;
 			sourceTree = "<group>";
@@ -2216,6 +2128,7 @@
 		F004E9D42DD4B2F700103A8F /* cccast */ = {
 			isa = PBXGroup;
 			children = (
+				F09880992F41C5C40058F84D /* include */,
 				F004E9D52DD4B2F700103A8F /* cccast_eay_internal.h */,
 				F004E9D62DD4B2F700103A8F /* c_enc.c */,
 				F004E9D72DD4B2F700103A8F /* c_skey.c */,
@@ -2230,6 +2143,7 @@
 		F004E9DC2DD4B2F700103A8F /* ccblowfish */ = {
 			isa = PBXGroup;
 			children = (
+				F098809F2F41C6DE0058F84D /* include */,
 				F004E9DD2DD4B2F700103A8F /* ccblowfish_modes.c */,
 				F004E9DE2DD4B2F700103A8F /* ccblowfish_ltc_constants.c */,
 				F004E9DF2DD4B2F700103A8F /* ccblowfish_ltc_internal.h */,
@@ -2241,6 +2155,7 @@
 		F00CF6DD2E1F20C700349FD5 /* cc */ = {
 			isa = PBXGroup;
 			children = (
+				F09880922F41C4E90058F84D /* include */,
 				F00CF6D82E1F20C700349FD5 /* cc_abort.c */,
 				F00CF6D92E1F20C700349FD5 /* cc_clear.c */,
 				F00CF6DA2E1F20C700349FD5 /* cc_cmp_safe.c */,
@@ -2263,6 +2178,7 @@
 		F01186D02D44F4A7009C285F /* ccmd2 */ = {
 			isa = PBXGroup;
 			children = (
+				F098808E2F41C49F0058F84D /* include */,
 				F098802E2F4122E10058F84D /* test */,
 				F01186D12D44F4C7009C285F /* ccmd2.c */,
 			);
@@ -2285,6 +2201,7 @@
 		F01DBC1C2DCF6A2E00813612 /* cchkdf */ = {
 			isa = PBXGroup;
 			children = (
+				F09880A92F41C74D0058F84D /* include */,
 				F01DBC1D2DCF6A2E00813612 /* cchkdf_expand.c */,
 				F01DBC1E2DCF6A2E00813612 /* cchkdf_extract.c */,
 			);
@@ -2294,6 +2211,7 @@
 		F01DBC232DCF6A4F00813612 /* ccmode */ = {
 			isa = PBXGroup;
 			children = (
+				F09880902F41C4C50058F84D /* include */,
 				420E9A012F104F37005E3B27 /* cbc */,
 				420E9A062F104F37005E3B27 /* cfb */,
 				420E9A0B2F104F37005E3B27 /* cfb8 */,
@@ -2309,6 +2227,7 @@
 		F01DBC272DCF6A6800813612 /* ccrng */ = {
 			isa = PBXGroup;
 			children = (
+				F09880CA2F41C97F0058F84D /* include */,
 				F0BBB47E2E38E5F600349FD5 /* pbkdf2 */,
 				F01DBC282DCF6A6800813612 /* ccrng.c */,
 			);
@@ -2318,6 +2237,7 @@
 		F01DBC292DCF6A6800813612 /* ccrsa */ = {
 			isa = PBXGroup;
 			children = (
+				F09880DC2F41CA670058F84D /* include */,
 				F01DBC2A2DCF6A6800813612 /* ccrsa_fips186.c */,
 			);
 			path = ccrsa;
@@ -2326,6 +2246,7 @@
 		F020E6B72DF68EA500349FD5 /* ccn */ = {
 			isa = PBXGroup;
 			children = (
+				F09880BE2F41C8D50058F84D /* include */,
 				F00CF6F02E1F223F00349FD5 /* intel */,
 				F00CF6E82E1F223F00349FD5 /* ccn_add.c */,
 				F09CDC7F2E3B45A800820F95 /* ccn_add1.c */,
@@ -2344,6 +2265,7 @@
 		F020E6B92DF68EA500349FD5 /* ccz */ = {
 			isa = PBXGroup;
 			children = (
+				F09880ED2F41CBF10058F84D /* include */,
 				F020E6B82DF68EA500349FD5 /* ccz_is_zero.c */,
 			);
 			path = ccz;
@@ -2352,6 +2274,7 @@
 		F020E6C52DF68EB800349FD5 /* ccrc2 */ = {
 			isa = PBXGroup;
 			children = (
+				F09880C42F41C9300058F84D /* include */,
 				F020E6BE2DF68EB800349FD5 /* ccrc2_ltc_ecb_decrypt.c */,
 				F020E6BF2DF68EB800349FD5 /* ccrc2_ltc_ecb_decrypt_mode.c */,
 				F020E6C02DF68EB800349FD5 /* ccrc2_ltc_ecb_encrypt.c */,
@@ -2392,6 +2315,7 @@
 		F02AD1AC2DAA8E2F00A760BD /* cccmac */ = {
 			isa = PBXGroup;
 			children = (
+				F098809B2F41C6930058F84D /* include */,
 				F0851A352DEA574000349FD5 /* cccmac_generate_subkeys.c */,
 				F0851A362DEA574000349FD5 /* cccmac_init.c */,
 				F0851A372DEA574000349FD5 /* cccmac_update.c */,
@@ -2402,6 +2326,7 @@
 		F05D85FD2D57327E00E8FF15 /* cchmac */ = {
 			isa = PBXGroup;
 			children = (
+				F09880AB2F41C7640058F84D /* include */,
 				F05D85FE2D5732C200E8FF15 /* cchmac_final.c */,
 				F05D86002D5732C200E8FF15 /* cchmac_init.c */,
 				F05D85FF2D5732C200E8FF15 /* cchmac_update.c */,
@@ -2413,6 +2338,7 @@
 		F05D860A2D57590200E8FF15 /* ccdrbg */ = {
 			isa = PBXGroup;
 			children = (
+				F09880A72F41C7390058F84D /* include */,
 				F01DBC4C2DCF6C7B00813612 /* ccdrbg_nistctr.c */,
 				F05D860B2D57593700E8FF15 /* ccdrbg_nisthmac.c */,
 			);
@@ -2432,6 +2358,7 @@
 		F0851A542DEA581800349FD5 /* ccpad */ = {
 			isa = PBXGroup;
 			children = (
+				F09880C02F41C90C0058F84D /* include */,
 				F0BBB46E2E38E5E000349FD5 /* ccpad_pkcs7_decode.c */,
 				F0BBB46F2E38E5E000349FD5 /* ccpad_pkcs7_decrypt.c */,
 				F0BBB4702E38E5E000349FD5 /* ccpad_pkcs7_ecb_decrypt.c */,
@@ -2444,6 +2371,7 @@
 		F0851A5C2DEA584500349FD5 /* ccrc4 */ = {
 			isa = PBXGroup;
 			children = (
+				F09880C62F41C9440058F84D /* include */,
 				F0851A592DEA584500349FD5 /* ccrc4_eay_internal.h */,
 				F0851A572DEA584500349FD5 /* ccrc4.c */,
 				F0851A582DEA584500349FD5 /* ccrc4_eay.c */,
@@ -2456,6 +2384,7 @@
 		F0851A682DEA585100349FD5 /* cczp */ = {
 			isa = PBXGroup;
 			children = (
+				F09880EF2F41CC1A0058F84D /* include */,
 				F0851A672DEA585100349FD5 /* zp_power.c */,
 			);
 			path = cczp;
@@ -2464,6 +2393,7 @@
 		F0851A6D2DEA585E00349FD5 /* cctest */ = {
 			isa = PBXGroup;
 			children = (
+				F09880E42F41CB660058F84D /* include */,
 				420E99ED2F104DAF005E3B27 /* README.md */,
 				F0851A6B2DEA585E00349FD5 /* cctest.c */,
 				F098806C2F4130F50058F84D /* cctest_link_aes_ecb.c */,
@@ -2475,6 +2405,7 @@
 		F09057002D459240007C6E87 /* ccmd4 */ = {
 			isa = PBXGroup;
 			children = (
+				F09880BA2F41C8810058F84D /* include */,
 				F09880282F4122D40058F84D /* test */,
 				F09057012D459257007C6E87 /* ccmd4.c */,
 			);
@@ -2484,6 +2415,7 @@
 		F09057112D45D27E007C6E87 /* ccripemd */ = {
 			isa = PBXGroup;
 			children = (
+				F09880C82F41C96C0058F84D /* include */,
 				F09880852F419B1D0058F84D /* test */,
 				F09057122D45D299007C6E87 /* ccrmd160.c */,
 			);
@@ -2652,9 +2584,790 @@
 			path = vectors;
 			sourceTree = "<group>";
 		};
+		F098808C2F41C4150058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F098808D2F41C4240058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F098808D2F41C4240058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFE51F2800C60073759F /* ccaes.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F098808E2F41C49F0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F098808F2F41C4A40058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F098808F2F41C4A40058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F01186CD2D44F3A4009C285F /* ccmd2.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880902F41C4C50058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880912F41C4D80058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880912F41C4D80058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFF21F2800C60073759F /* ccmode.h */,
+				1F65D0001F2800C60073759F /* ccmode_factory.h */,
+				1F65CFF61F2800C60073759F /* ccmode_impl.h */,
+				1F65CFFA1F2800C60073759F /* ccmode_siv.h */,
+				1FE6C82A245E60E600D738AF /* ccmode_siv_hmac.h */,
+				F098806A2F412BE80058F84D /* ccmode_test_internal.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880922F41C4E90058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880932F41C4EE0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880932F41C4EE0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFE91F2800C60073759F /* cc.h */,
+				1F65CFF71F2800C60073759F /* cc_config.h */,
+				1F65CFE71F2800C60073759F /* cc_debug.h */,
+				1F358E762354F0370030CA4F /* cc_error.h */,
+				421C06C62F22D67300E5B924 /* cc_lock.h */,
+				1F65CFF01F2800C60073759F /* cc_macros.h */,
+				F00CF6D52E1F1C8900349FD5 /* cc_memory.h */,
+				1F65CFFE1F2800C60073759F /* cc_priv.h */,
+				1F358E752354F0370030CA4F /* cc_runtime_config.h */,
+				F004E9832DD4AFBA00103A8F /* cc_uptime.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880942F41C50A0058F84D /* ccansikdf */ = {
+			isa = PBXGroup;
+			children = (
+				F09880952F41C5130058F84D /* include */,
+			);
+			path = ccansikdf;
+			sourceTree = "<group>";
+		};
+		F09880952F41C5130058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880962F41C5170058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880962F41C5170058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F09C430E2DAF80DD008E7BD3 /* ccansikdf.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880972F41C55D0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880982F41C56C0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880982F41C56C0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65D0011F2800C60073759F /* ccasn1.h */,
+				1F65CFEB1F2800C60073759F /* ccder.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880992F41C5C40058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F098809A2F41C5C80058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F098809A2F41C5C80058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F004E9842DD4AFC600103A8F /* cccast.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F098809B2F41C6930058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F098809C2F41C6970058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F098809C2F41C6970058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFFF1F2800C60073759F /* cccmac.h */,
+				F02AD1AB2DAA8D3600A760BD /* cccmac_priv.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F098809D2F41C6A50058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F098809E2F41C6AA0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F098809E2F41C6AA0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F358E732354F0370030CA4F /* ccchacha20poly1305.h */,
+				F0B0813B2D5A923F00349FD5 /* ccchacha20poly1305_priv.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F098809F2F41C6DE0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880A02F41C6E20058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880A02F41C6E20058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F03D8B0D2DAC68C3004F403D /* ccblowfish.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880A12F41C6F30058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880A22F41C6F80058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880A22F41C6F80058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFEC1F2800C60073759F /* ccdes.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880A32F41C7100058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880A42F41C7150058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880A42F41C7150058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFF31F2800C60073759F /* ccdigest.h */,
+				1F65CFEA1F2800C60073759F /* ccdigest_priv.h */,
+				420E99F92F104E35005E3B27 /* ccdigest_test_internal.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880A52F41C71B0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880A62F41C71F0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880A62F41C71F0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F09057162D460893007C6E87 /* ccdh.h */,
+				F09057152D460870007C6E87 /* ccdh_gp.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880A72F41C7390058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880A82F41C73D0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880A82F41C73D0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFE61F2800C60073759F /* ccdrbg.h */,
+				1F65CFE81F2800C60073759F /* ccdrbg_impl.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880A92F41C74D0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880AA2F41C7510058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880AA2F41C7510058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				420E9A4D2F10B3E5005E3B27 /* cchkdf.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880AB2F41C7640058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880AC2F41C7690058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880AC2F41C7690058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFED1F2800C60073759F /* cchmac.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880AD2F41C7780058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880AE2F41C77C0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880AE2F41C77C0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F0851A2F2DEA56DE00349FD5 /* cckeccak.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880AF2F41C8160058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880B02F41C81A0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880B02F41C81A0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F358E722354F0360030CA4F /* cckprng.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880B12F41C82A0058F84D /* ccec */ = {
+			isa = PBXGroup;
+			children = (
+				F09880B42F41C8430058F84D /* include */,
+			);
+			path = ccec;
+			sourceTree = "<group>";
+		};
+		F09880B22F41C8360058F84D /* ccecies */ = {
+			isa = PBXGroup;
+			children = (
+				F09880B62F41C8540058F84D /* include */,
+			);
+			path = ccecies;
+			sourceTree = "<group>";
+		};
+		F09880B32F41C83A0058F84D /* ccec25519 */ = {
+			isa = PBXGroup;
+			children = (
+				F09880B82F41C8600058F84D /* include */,
+			);
+			path = ccec25519;
+			sourceTree = "<group>";
+		};
+		F09880B42F41C8430058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880B52F41C8470058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880B52F41C8470058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F05D85FC2D5706F500E8FF15 /* ccec.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880B62F41C8540058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880B72F41C8580058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880B72F41C8580058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				420E9B072F10BE28005E3B27 /* ccecies.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880B82F41C8600058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880B92F41C8640058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880B92F41C8640058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F01271AC2DB38C56009706F7 /* ccec25519.h */,
+				F01271AD2DB39F0C009706F7 /* ccec25519_priv.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880BA2F41C8810058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880BB2F41C8850058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880BB2F41C8850058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F09056FF2D4589A0007C6E87 /* ccmd4.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880BC2F41C8C10058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880BD2F41C8C60058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880BD2F41C8C60058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFE41F2800C60073759F /* ccmd5.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880BE2F41C8D50058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880BF2F41C8D90058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880BF2F41C8D90058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFFC1F2800C60073759F /* ccn.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880C02F41C90C0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880C12F41C9110058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880C12F41C9110058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFF51F2800C60073759F /* ccpad.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880C22F41C91E0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880C32F41C9220058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880C32F41C9220058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFF41F2800C60073759F /* ccpbkdf2.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880C42F41C9300058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880C52F41C9330058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880C52F41C9330058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F0851A2C2DEA56C200349FD5 /* ccrc2.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880C62F41C9440058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880C72F41C9490058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880C72F41C9490058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFFB1F2800C60073759F /* ccrc4.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880C82F41C96C0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880C92F41C9710058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880C92F41C9710058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F090570F2D45CDEB007C6E87 /* ccripemd.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880CA2F41C97F0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880CB2F41C9840058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880CB2F41C9840058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F09880CC2F41CA020058F84D /* ccrng_pbkdf2_prng.h */,
+				1F65CFF81F2800C60073759F /* ccrng_system.h */,
+				1F65CFFD1F2800C60073759F /* ccrng.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880D12F41CA190058F84D /* ccprime */ = {
+			isa = PBXGroup;
+			children = (
+				F09880D32F41CA220058F84D /* include */,
+			);
+			path = ccprime;
+			sourceTree = "<group>";
+		};
+		F09880D22F41CA1D0058F84D /* ccnistkdf */ = {
+			isa = PBXGroup;
+			children = (
+				F09880D52F41CA2C0058F84D /* include */,
+			);
+			path = ccnistkdf;
+			sourceTree = "<group>";
+		};
+		F09880D32F41CA220058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880D42F41CA260058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880D42F41CA260058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F09880D72F41CA510058F84D /* ccprime.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880D52F41CA2C0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880D62F41CA310058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880D62F41CA310058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F01F76E92DAA389900770D5D /* ccnistkdf.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880DC2F41CA670058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880DD2F41CA6B0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880DD2F41CA6B0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFEE1F2800C60073759F /* ccrsa.h */,
+				F0B0A52B2DC9689B00349FD5 /* ccrsa_priv.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880DE2F41CAC10058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880DF2F41CAC50058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880DF2F41CAC50058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFF91F2800C60073759F /* ccsha1.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880E02F41CB0D0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880E12F41CB130058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880E12F41CB130058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFF11F2800C60073759F /* ccsha2.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880E22F41CB250058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880E32F41CB2F0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880E32F41CB2F0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F0CA56D02CF9165900521F17 /* ccsha3.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880E42F41CB660058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880E52F41CB6A0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880E52F41CB6A0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F09880152F411FE60058F84D /* cctest_internal.h */,
+				420E99FC2F104E4E005E3B27 /* cctest_priv.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880E62F41CB7C0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880E72F41CB800058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880E72F41CB800058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F00D098D2D40B35600349FD5 /* ccwrap.h */,
+				F01186CA2D44BB85009C285F /* ccwrap_priv.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880E82F41CB900058F84D /* ccsrp */ = {
+			isa = PBXGroup;
+			children = (
+				F09880E92F41CB950058F84D /* include */,
+			);
+			path = ccsrp;
+			sourceTree = "<group>";
+		};
+		F09880E92F41CB950058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880EA2F41CB990058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880EA2F41CB990058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F0851A262DEA56AA00349FD5 /* ccsrp.h */,
+				F0851A272DEA56AA00349FD5 /* ccsrp_gp.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880EB2F41CBDB0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880EC2F41CBDF0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880EC2F41CBDF0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F0B081422D5D44D000349FD5 /* ccxof.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880ED2F41CBF10058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880EE2F41CBF60058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880EE2F41CBF60058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				F01F76EB2DAA5A0800770D5D /* ccz.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880EF2F41CC1A0058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880F02F41CC1F0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880F02F41CC1F0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F65CFEF1F2800C60073759F /* cczp.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
+		F09880F12F41CC320058F84D /* fips */ = {
+			isa = PBXGroup;
+			children = (
+				F09880F22F41CC360058F84D /* include */,
+			);
+			path = fips;
+			sourceTree = "<group>";
+		};
+		F09880F22F41CC360058F84D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F09880F32F41CC3B0058F84D /* corecrypto */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		F09880F32F41CC3B0058F84D /* corecrypto */ = {
+			isa = PBXGroup;
+			children = (
+				1F358E742354F0370030CA4F /* fipspost_trace.h */,
+			);
+			path = corecrypto;
+			sourceTree = "<group>";
+		};
 		F09953AA2D46DCB80021D020 /* ccwrap */ = {
 			isa = PBXGroup;
 			children = (
+				F09880E62F41CB7C0058F84D /* include */,
 				F09953AB2D46DCDE0021D020 /* ccwrap_auth_encrypt.c */,
 				F05D85F82D57008900E8FF15 /* ccwrap_argsvalid.c */,
 			);
@@ -2664,6 +3377,7 @@
 		F0AF9A702D41C54D00948AAC /* ccdes */ = {
 			isa = PBXGroup;
 			children = (
+				F09880A12F41C6F30058F84D /* include */,
 				F0851A3E2DEA577500349FD5 /* ccdes_cbc_cksum.c */,
 				F01DBC382DCF6C2300813612 /* ccdes_key_is_weak.c */,
 				F01DBC372DCF6C2300813612 /* ccdes_ltc_constants.c */,
@@ -2681,6 +3395,7 @@
 		F0B0813D2D5A96CA00349FD5 /* ccchacha20poly1305 */ = {
 			isa = PBXGroup;
 			children = (
+				F098809D2F41C6A50058F84D /* include */,
 				F0B0813F2D5A96E900349FD5 /* ccchacha20.c */,
 				F09CDC792E3B452600820F95 /* ccchacha20poly1305.c */,
 				F0851A322DEA572600349FD5 /* ccpoly1305.c */,
@@ -2691,6 +3406,7 @@
 		F0B081602D5FF3A700349FD5 /* ccdh */ = {
 			isa = PBXGroup;
 			children = (
+				F09880A52F41C71B0058F84D /* include */,
 				F0851A472DEA57A400349FD5 /* ccdh_gp_decl.h */,
 				F0851A482DEA57A400349FD5 /* ccdh_gp_rfc2409group02.c */,
 			);
@@ -2708,6 +3424,7 @@
 		F0BBB4852E38E60400349FD5 /* ccsha1 */ = {
 			isa = PBXGroup;
 			children = (
+				F09880DE2F41CAC10058F84D /* include */,
 				F0BBB4812E38E60400349FD5 /* ccsha1_di.c */,
 				F0BBB4822E38E60400349FD5 /* ccsha1_initial_state.c */,
 				F0BBB4832E38E60400349FD5 /* ccsha1_internal.h */,
@@ -2757,6 +3474,7 @@
 		F0BFEB532D691F9400349FD5 /* ccder */ = {
 			isa = PBXGroup;
 			children = (
+				F09880972F41C55D0058F84D /* include */,
 				F0BBB5132E38E73100349FD5 /* ccder_sizeof_oid.c */,
 				F0BFEB542D69204000349FD5 /* der.c */,
 			);
@@ -2774,6 +3492,7 @@
 				F0BBB4D62E38E61F00349FD5 /* ccaes_ltc_internal.h in Headers */,
 				F0BBB4D72E38E61F00349FD5 /* vng_aes_intel.h in Headers */,
 				F09057052D45A21B007C6E87 /* ccmd4.h in Headers */,
+				F09880CE2F41CA020058F84D /* ccrng_pbkdf2_prng.h in Headers */,
 				F0BBB4892E38E60400349FD5 /* ccsha1_internal.h in Headers */,
 				F004E9FD2DD4B2F700103A8F /* ccblowfish_ltc_internal.h in Headers */,
 				F09057172D46093E007C6E87 /* ccdh_gp.h in Headers */,
@@ -2785,13 +3504,12 @@
 				F01186CE2D44F3A4009C285F /* ccmd2.h in Headers */,
 				F00CF6F82E1F223F00349FD5 /* ccn_internal.h in Headers */,
 				F06AF94A2E7E9F15008209DE /* vng.h in Headers */,
-				F001368A2D4059EC00349FD5 /* pdcxof.h in Headers */,
-				F001367D2D3F736400349FD5 /* pdckeccak.h in Headers */,
 				F0851A832DEA58BB00349FD5 /* ccsha2_ltc_internal.h in Headers */,
 				421C06022F18E9B900E5B924 /* gladman_aes_internal.h in Headers */,
 				F0851A4C2DEA57A400349FD5 /* ccdh_gp_decl.h in Headers */,
 				F004E9EE2DD4B2F700103A8F /* cast_s.h in Headers */,
 				F020E6C62DF68EB800349FD5 /* ccrc2_ltc_internal.h in Headers */,
+				F09880D92F41CA520058F84D /* ccprime.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2805,13 +3523,11 @@
 				F09057102D45D255007C6E87 /* ccripemd.h in Headers */,
 				1F615F2D2480A48C0021D82E /* cc_debug.h in Headers */,
 				1F615F2E2480A48C0021D82E /* cc_error.h in Headers */,
-				F001367F2D3F736400349FD5 /* pdckeccak.h in Headers */,
 				1F615F2F2480A48C0021D82E /* cc_macros.h in Headers */,
 				F00CF6D62E1F1C8900349FD5 /* cc_memory.h in Headers */,
 				1F615F312480A48C0021D82E /* cc_runtime_config.h in Headers */,
 				1F615F322480A48C0021D82E /* ccaes.h in Headers */,
 				1F615F332480A48C0021D82E /* ccasn1.h in Headers */,
-				F001368C2D4059EC00349FD5 /* pdcxof.h in Headers */,
 				F0851A282DEA56AA00349FD5 /* ccsrp_gp.h in Headers */,
 				F0851A292DEA56AA00349FD5 /* ccsrp.h in Headers */,
 				420E99FA2F104E35005E3B27 /* ccdigest_test_internal.h in Headers */,
@@ -2825,6 +3541,7 @@
 				1F615F3B2480A48C0021D82E /* ccdrbg.h in Headers */,
 				1F615F3C2480A48C0021D82E /* cchmac.h in Headers */,
 				1F615F3D2480A48C0021D82E /* cckprng.h in Headers */,
+				F09880DA2F41CA520058F84D /* ccprime.h in Headers */,
 				F03D8B0E2DAC68C3004F403D /* ccblowfish.h in Headers */,
 				1F615F3E2480A48C0021D82E /* ccmd5.h in Headers */,
 				1F615F3F2480A48C0021D82E /* ccmode_factory.h in Headers */,
@@ -2848,6 +3565,7 @@
 				1F615F492480A48C0021D82E /* ccrng.h in Headers */,
 				1F615F4A2480A48C0021D82E /* ccrsa.h in Headers */,
 				1F615F4B2480A48C0021D82E /* ccsha1.h in Headers */,
+				F09880CF2F41CA020058F84D /* ccrng_pbkdf2_prng.h in Headers */,
 				F0B081432D5D44D600349FD5 /* ccxof.h in Headers */,
 				F01186CC2D44BCBF009C285F /* ccwrap_priv.h in Headers */,
 				1F615F4C2480A48C0021D82E /* ccsha2.h in Headers */,
@@ -2878,7 +3596,7 @@
 				F01DBC3C2DCF6C2300813612 /* ccdes_ltc_internal.h in Headers */,
 				F004E9852DD4AFC600103A8F /* cccast.h in Headers */,
 				1F6314752354F3DF008CCB89 /* prng_random.h in Headers */,
-				F001367B2D3F736400349FD5 /* pdckeccak.h in Headers */,
+				F09880CD2F41CA020058F84D /* ccrng_pbkdf2_prng.h in Headers */,
 				1FABCE58235542CB00F25C08 /* WindowsTypesForMac.h in Headers */,
 				1FABCE4E235542CB00F25C08 /* prng.h in Headers */,
 				1FABCE56235542CB00F25C08 /* assertverify.h in Headers */,
@@ -2903,9 +3621,9 @@
 				1FABCE5D235542CB00F25C08 /* userdefines.h in Headers */,
 				1F358E772354F0370030CA4F /* cckprng.h in Headers */,
 				F0851A8C2DEA58BB00349FD5 /* ccsha2_ltc_internal.h in Headers */,
-				F00136882D4059EC00349FD5 /* pdcxof.h in Headers */,
 				1F358E782354F0370030CA4F /* ccchacha20poly1305.h in Headers */,
 				F06AF9492E7E9F15008209DE /* vng.h in Headers */,
+				F09880D82F41CA520058F84D /* ccprime.h in Headers */,
 				1F358E7A2354F0370030CA4F /* cc_runtime_config.h in Headers */,
 				1FABCE51235542CB00F25C08 /* yarrow.h in Headers */,
 				F0BBB4E52E38E6A300349FD5 /* ccmd5_internal.h in Headers */,
@@ -3208,7 +3926,6 @@
 				F0BFEB562D69204000349FD5 /* der.c in Sources */,
 				F09CDC872E3B45C000820F95 /* ccn_sub1.c in Sources */,
 				421C06CB2F22D69500E5B924 /* cc_lock.c in Sources */,
-				F00136892D4059EC00349FD5 /* pdcxof.c in Sources */,
 				F0BBB4DE2E38E6A300349FD5 /* ccmd5_di.c in Sources */,
 				F0BBB4DF2E38E6A300349FD5 /* ccmd5_ltc.c in Sources */,
 				F0BBB4E02E38E6A300349FD5 /* ccmd5_initial_state.c in Sources */,
@@ -3234,7 +3951,6 @@
 				F0851A392DEA574000349FD5 /* cccmac_update.c in Sources */,
 				F0851A3A2DEA574000349FD5 /* cccmac_init.c in Sources */,
 				1F17F84D24809D7B0080E3C3 /* pdcrypto_dummy.c in Sources */,
-				F0CA56D42CF9892500521F17 /* sha3.c in Sources */,
 				F01DBC452DCF6C2300813612 /* ccdes_ltc_ecb.c in Sources */,
 				F05D86072D5732C200E8FF15 /* cchmac_init.c in Sources */,
 				F0851A402DEA577500349FD5 /* ccdes_cbc_cksum.c in Sources */,
@@ -3283,7 +3999,6 @@
 				F0BBB4C42E38E61F00349FD5 /* ccaes_intel_xts_decrypt_mode.c in Sources */,
 				F0BBB4C52E38E61F00349FD5 /* AES.s in Sources */,
 				F0BBB4C82E38E61F00349FD5 /* ccaes_ltc.c in Sources */,
-				421C06782F1DE4E700E5B924 /* ccz_is_zero.c in Sources */,
 				F0BBB4C92E38E61F00349FD5 /* ccaes_intel_cbc_decrypt_mode.c in Sources */,
 				F0BBB4CA2E38E61F00349FD5 /* aes_tab.c in Sources */,
 				F0BBB4CB2E38E61F00349FD5 /* ccaes_ltc_decrypt_mode.c in Sources */,
@@ -3363,7 +4078,6 @@
 				F0851A632DEA584500349FD5 /* ccrc4.c in Sources */,
 				F0851A642DEA584500349FD5 /* eay_rc4_enc.c in Sources */,
 				F0851A652DEA584500349FD5 /* ccrc4_eay.c in Sources */,
-				F001367C2D3F736400349FD5 /* pdckeccak.c in Sources */,
 				F01DBC492DCF6C2300813612 /* ccdes_key_is_weak.c in Sources */,
 				F098801E2F4120C40058F84D /* ccmode_gcm_mult.c in Sources */,
 				F01DBC222DCF6A2E00813612 /* cchkdf_extract.c in Sources */,
@@ -3382,14 +4096,12 @@
 				421C06062F19A52800E5B924 /* ccaes_gladman_encrypt_mode.c in Sources */,
 				1F615F282480A1110021D82E /* dummy.c in Sources */,
 				F09880222F4120C40058F84D /* ccmode_gcm_init.c in Sources */,
-				F001367E2D3F736400349FD5 /* pdckeccak.c in Sources */,
 				F06AF9512E7E9F15008209DE /* vng_sha256_intel.c in Sources */,
 				421C060A2F19AC3000E5B924 /* ccaes_gladman_decrypt_mode.c in Sources */,
 				F004E9F52DD4B2F700103A8F /* cccast_modes.c in Sources */,
 				F004EA012DD4B2F700103A8F /* ccblowfish_ltc.c in Sources */,
 				F004E9FB2DD4B2F700103A8F /* ccblowfish_ltc_constants.c in Sources */,
 				F098801F2F4120C40058F84D /* ccmode_gcm_mult.c in Sources */,
-				F001368B2D4059EC00349FD5 /* pdcxof.c in Sources */,
 				F004E9F22DD4B2F700103A8F /* cccast_ecb.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3512,12 +4224,10 @@
 				F004E9F92DD4B2F700103A8F /* ccblowfish_ltc_constants.c in Sources */,
 				F020E6CE2DF68EB800349FD5 /* ccrc2_modes.c in Sources */,
 				F020E6CF2DF68EB800349FD5 /* ccrc2_ltc_setup.c in Sources */,
-				421C06772F1DE4E700E5B924 /* ccz_is_zero.c in Sources */,
 				F020E6D02DF68EB800349FD5 /* ccrc2_ltc_ecb_decrypt.c in Sources */,
 				F020E6D12DF68EB800349FD5 /* ccrc2_ltc_ecb_encrypt.c in Sources */,
 				F020E6D22DF68EB800349FD5 /* ccrc2_ltc_ecb_encrypt_mode.c in Sources */,
 				F020E6D32DF68EB800349FD5 /* ccrc2_ltc_ecb_decrypt_mode.c in Sources */,
-				F001367A2D3F736400349FD5 /* pdckeccak.c in Sources */,
 				F09CDC842E3B45B200820F95 /* ccn_read_unit.c in Sources */,
 				F01DBC2B2DCF6A6800813612 /* ccrng.c in Sources */,
 				F01186D22D44F4C7009C285F /* ccmd2.c in Sources */,
@@ -3539,10 +4249,8 @@
 				F09CDC862E3B45C000820F95 /* ccn_sub1.c in Sources */,
 				F09057132D45D299007C6E87 /* ccrmd160.c in Sources */,
 				F0851A492DEA57A400349FD5 /* ccdh_gp_rfc2409group02.c in Sources */,
-				F00136872D4059EC00349FD5 /* pdcxof.c in Sources */,
 				F020E6BA2DF68EA500349FD5 /* ccn_print.c in Sources */,
 				F020E6BB2DF68EA500349FD5 /* ccz_is_zero.c in Sources */,
-				F0CA56D32CF9892500521F17 /* sha3.c in Sources */,
 				F00CF6F92E1F223F00349FD5 /* ccn_add.c in Sources */,
 				F00CF6FA2E1F223F00349FD5 /* ccn_cmp.c in Sources */,
 				F00CF6FB2E1F223F00349FD5 /* ccn_sub.c in Sources */,
@@ -3802,10 +4510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/include",
-					"$(HEADER_SEARCH_PATHS)",
-				);
+				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3847,10 +4552,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(SRCROOT)/include",
-					"$(HEADER_SEARCH_PATHS)",
-				);
+				HEADER_SEARCH_PATHS = "$(HEADER_SEARCH_PATHS)";
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				SDKROOT = macosx;
@@ -4129,6 +4831,7 @@
 		};
 		F01186F02D451641009C285F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F09880F62F41D0730058F84D /* corecrypto_test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4167,6 +4870,7 @@
 		};
 		F01186F12D451641009C285F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F09880F62F41D0730058F84D /* corecrypto_test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4443,6 +5147,7 @@
 		};
 		F098800B2F411F4C0058F84D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F09880F62F41D0730058F84D /* corecrypto_test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -4479,6 +5184,7 @@
 		};
 		F098800C2F411F4C0058F84D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F09880F62F41D0730058F84D /* corecrypto_test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

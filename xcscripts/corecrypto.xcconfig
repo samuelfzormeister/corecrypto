@@ -1,0 +1,59 @@
+//
+// Copyright (C) 2026 The PureDarwin Project, All rights reserved.
+//
+// @LICENSE_HEADER_BEGIN@
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// @LICENSE_HEADER_END@
+//
+
+HEADER_SEARCH_PATHS = $(SRCROOT)/src/cc/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccaes/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccansikdf/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccblowfish/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/cccast/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccchacha20poly1305/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/cccmac/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccder/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccdes/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccdh/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccdigest/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccdrbg/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccec/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccec25519/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccecies/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/cchkdf/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/cchmac/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/cckeccak/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccmd2/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccmd4/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccmd5/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccmode/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccn/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccnistkdf/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccpad/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccpbkdf2/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccprime/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccrc2/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccrc4/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccripemd/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccrng/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccrsa/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccsha1/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccsha2/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccsha3/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccsrp/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccwrap/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccxof/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/ccz/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/cczp/include
+HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/fips/include

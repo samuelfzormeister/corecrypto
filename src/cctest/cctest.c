@@ -69,6 +69,20 @@ int cctest_conduct_tests(uint32_t flags)
         CCTEST_LINK_NEXT_ALLOC(chain);
         chain = chain->next;
     }
+    
+    if (flags & CCTEST_ENABLE_MD5) {
+        chain->ti = ccmd5_ltc_ti();
+        CCTEST_TRACE("Enabling test %s\n", chain->ti->name);
+        CCTEST_LINK_NEXT_ALLOC(chain);
+        chain = chain->next;
+    }
+    
+    if (flags & CCTEST_ENABLE_RIPEMD) {
+        chain->ti = ccrmd160_ti();
+        CCTEST_TRACE("Enabling test %s\n", chain->ti->name);
+        CCTEST_LINK_NEXT_ALLOC(chain);
+        chain = chain->next;
+    }
 
     if (flags & CCTEST_ENABLE_AES) {
         chain = cctest_link_aes_ecb(chain);

@@ -21,4 +21,4 @@
 
 #include "vectors/rfc1319.inc"
 
-CCDIGEST_TEST_FACTORY(md2, ccdigest_test_rfc1319_vectors, "LTC MD2");
+CCDIGEST_TEST_FACTORY(md2, ccdigest_test_rfc1319_vectors, "LTC MD2 (RFC 1319)");
