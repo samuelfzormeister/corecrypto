@@ -28,14 +28,38 @@ ccdigest_test_vector ccdigest_test_md2_vectors[] = {
     },
     {
         CCTEST_ATTRS_NONE,
-        "The quick brown fox jumps over the lazy dog",
-        sizeof("The quick brown fox jumps over the lazy dog")-1,
-        "\x03\xd8\x5a\x0d\x62\x9d\x2c\x44\x2e\x98\x75\x25\x31\x9f\xc4\x71"
+        "a",
+        sizeof("a")-1,
+        "\x32\xec\x01\xec\x4a\x6d\xac\x72\xc0\xab\x96\xfb\x34\xc0\xb5\xd1"
     },
     {
         CCTEST_ATTRS_NONE,
-        "Test vector from febooti.com",
-        sizeof("Test vector from febooti.com")-1,
-        "\xdb\x12\x8d\x6e\x0d\x20\xa1\x19\x2a\x6b\xd1\xfa\xde\x40\x11\x50"
+        "abc",
+        sizeof("abc")-1,
+        "\xda\x85\x3b\x0d\x3f\x88\xd9\x9b\x30\x28\x3a\x69\xe6\xde\xd6\xbb"
+    },
+    {
+        CCTEST_ATTRS_NONE,
+        "message digest",
+        sizeof("message digest")-1,
+        "\xab\x4f\x49\x6b\xfb\x2a\x53\x0b\x21\x9f\xf3\x30\x31\xfe\x06\xb0"
+    },
+    {
+        CCTEST_ATTRS_NONE,
+        "abcdefghijklmnopqrstuvwxyz",
+        sizeof("abcdefghijklmnopqrstuvwxyz")-1,
+        "\x4e\x8d\xdf\xf3\x65\x02\x92\xab\x5a\x41\x08\xc3\xaa\x47\x94\x0b"
+    },
+    {
+        CCTEST_ATTRS_NONE,
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+        sizeof("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")-1,
+        "\xda\x33\xde\xf2\xa4\x2d\xf1\x39\x75\x35\x28\x46\xc3\x03\x38\xcd"
+    },
+    {
+        CCTEST_ATTRS_NONE,
+        "12345678901234567890123456789012345678901234567890123456789012345678901234567890",
+        sizeof("12345678901234567890123456789012345678901234567890123456789012345678901234567890")-1,
+        "\xd5\x97\x6f\x79\xd8\x3d\x3a\x0d\xc9\x80\x6c\x3c\x66\xf3\xef\xd8"
     }
 };
