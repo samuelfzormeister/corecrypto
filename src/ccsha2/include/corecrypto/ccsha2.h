@@ -99,13 +99,13 @@ extern const struct ccdigest_info ccsha384_ltc_di;
 
 /* SHA512/224 */
 #define CCSHA512_224_BLOCK_SIZE  128
-#define	CCSHA512_224_OUTPUT_SIZE  28
+#define	CCSHA512_224_OUTPUT_SIZE  CCSHA224_OUTPUT_SIZE
 #define	CCSHA512_224_STATE_SIZE   64
 extern const struct ccdigest_info ccsha512_224_ltc_di;
 
 /* SHA512/256 */
 #define CCSHA512_256_BLOCK_SIZE  128
-#define	CCSHA512_256_OUTPUT_SIZE  32
+#define	CCSHA512_256_OUTPUT_SIZE  CCSHA256_OUTPUT_SIZE
 #define	CCSHA512_256_STATE_SIZE   64
 extern const struct ccdigest_info ccsha512_256_ltc_di;
 

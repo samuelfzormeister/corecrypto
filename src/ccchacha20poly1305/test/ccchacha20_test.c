@@ -25,7 +25,7 @@ struct _ccchacha20_test_ctx {
     ccchacha20_ctx ctx;
 };
 
-#define CCCHACHA20_TEST_CTX(cx) (struct _ccchacha20_test_ctx *)ctx
+#define CCCHACHA20_TEST_CTX(cx) (struct _ccchacha20_test_ctx *)cx
 
 static void ccchacha20_dump_state(ccchacha20_ctx *ctx)
 {

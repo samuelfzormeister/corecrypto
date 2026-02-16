@@ -30,7 +30,7 @@ shavs_test::shavs_test(const std::string &name) : base_test(name)
     //
 }
 
-void shavs_test::add_vector(std::shared_ptr<base_vector> vec)
+void shavs_test::add_vector(std::shared_ptr<shavs_vector> vec)
 {
     _testVectors.push_back(vec);
 }
@@ -47,13 +47,22 @@ void shavs_test::add_vector(std::shared_ptr<base_vector> vec)
 
 void shavs_test::write_to_stream(std::stringstream &stream)
 {
-    for (std::shared_ptr<base_vector> vec : _testVectors) {
+    for (std::shared_ptr<shavs_vector> vec : _testVectors) {
+        uint64_t tmp;
+        
         stream << "    {" << std::endl;
         stream << "        CCTEST_ATTRS_NONE," << std::endl;
         stream << "        ";
         util::write_hex_string(stream, vec->get_input());
         stream << "," << std::endl;
-        stream << "        " << vec->get_input().length() / 2;
+        //
+        // for some reason, this field is encoded with the number of bits rather than bytes.
+        //
+        tmp = std::strtoull(vec->get_length_field().c_str(), NULL, 10);
+        if (tmp) {
+            tmp /= 8;
+        }
+        stream << "        " << tmp;
         stream << "," << std::endl;
         stream << "        ";
         util::write_hex_string(stream, vec->get_expected_output());

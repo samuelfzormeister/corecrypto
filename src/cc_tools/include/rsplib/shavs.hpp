@@ -27,16 +27,28 @@ namespace corecrypto {
         //
         // SHAVS vector.
         //
+    class shavs_vector : public base_vector {
+        public:
+        shavs_vector(const std::string &len,
+                     const std::string &msg,
+                     const std::string &md);
+        
+        const std::string &get_length_field() { return _length; }
+        
+        private:
+        std::string _length;
+    };
+    
         class shavs_test : public base_test {
             public:
             shavs_test(const std::string &name);
 
-            void add_vector(std::shared_ptr<base_vector>);
+            void add_vector(std::shared_ptr<shavs_vector>);
 
             virtual void write_to_stream(std::stringstream &stream) override;
 
             private:
-            std::vector<std::shared_ptr<base_vector>> _testVectors;
+            std::vector<std::shared_ptr<shavs_vector>> _testVectors;
         };
 
     }

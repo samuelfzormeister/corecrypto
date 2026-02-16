@@ -36,6 +36,7 @@ void parser::parse_shavs(std::stringstream &stream)
     std::string line;
     std::string msg;
     std::string dgst;
+    std::string len;
 
     auto test = std::make_shared<shavs_test>(_basename);
 
@@ -45,6 +46,12 @@ void parser::parse_shavs(std::stringstream &stream)
         std::regex repl("\\s+");
         osl::log(osl::debug, "parser: cur line: %s", line.c_str());
 
+        if (line.find("Len") != std::string::npos) {
+            std::regex_search(line, match, reg);
+            osl::log(osl::debug, "parser: found msg");
+            len = std::regex_replace(match.str(), repl, "");
+        }
+        
         if (line.find("Msg") != std::string::npos) {
             std::regex_search(line, match, reg);
             osl::log(osl::debug, "parser: found msg");
@@ -56,7 +63,7 @@ void parser::parse_shavs(std::stringstream &stream)
             dgst = std::regex_replace(match.str(), repl, "");
             osl::log(osl::debug, "parser: found md");
 
-            auto vec = std::make_shared<base_vector>(msg, dgst);
+            auto vec = std::make_shared<shavs_vector>(len, msg, dgst);
             test->add_vector(vec);
         }
     }

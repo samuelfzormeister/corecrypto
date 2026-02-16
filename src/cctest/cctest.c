@@ -102,11 +102,7 @@ int cctest_conduct_tests(uint32_t flags)
         chain = cctest_link_aes_ecb(chain);
     }
 
-#if !defined(_MSC_VER)
-    struct _cctest_test_link *lnk = &root;
-#else
     struct _cctest_test_link *lnk = root;
-#endif
 
     //
     // for some reason the nvectors field keeps getting replaced by 8cf0c094ee4514cc
