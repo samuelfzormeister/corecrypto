@@ -26,18 +26,27 @@
 #if CC_KERNEL
 #define CCTEST_LINK_NEXT_ALLOC(link) link->next = (struct _cctest_test_link *)IOMalloc(sizeof(struct _cctest_test_link))
 #define CCTEST_LINK_FREE(link) IOFree(link, sizeof(struct _cctest_test_link))
+
+#define cctest_malloc(size) IOMalloc(size)
+#define cctest_free(ptr, size) IOFree(ptr, size)
 #else
 #define CCTEST_LINK_NEXT_ALLOC(link) link->next = (struct _cctest_test_link *)malloc(sizeof(struct _cctest_test_link))
 #define CCTEST_LINK_FREE(link) free(link)
+
+#define cctest_malloc(size) malloc(size)
+#define cctest_free(ptr, size) free(ptr)
 #endif
 
 #define CCTEST_TRACE(x...) cc_printf("[CCTEST]: " x)
 
-#if !defined(_MSC_VER)
-static struct _cctest_test_link root;
-#else
+#define CCTEST_ADD_TEST(chain, info)                        \
+    chain->ti = info;                                       \
+    CCTEST_TRACE("Enabling test %s\n", chain->ti->name);    \
+    CCTEST_LINK_NEXT_ALLOC(chain);                          \
+    chain = chain->next;
+
+
 static struct _cctest_test_link *root;
-#endif
 
 extern struct _cctest_test_link *cctest_link_aes_ecb(struct _cctest_test_link *lnk);
 
@@ -49,39 +58,44 @@ extern struct _cctest_test_link *cctest_link_aes_ecb(struct _cctest_test_link *l
 int cctest_conduct_tests(uint32_t flags)
 {
     int ret = 0;
-#if !defined(_MSC_VER)
-    struct _cctest_test_link *chain = &root;
-#else
     struct _cctest_test_link *chain = root = malloc(sizeof(struct _cctest_test_link));
-#endif
+
     CCTEST_TRACE("==== BEGIN TESTING SEQUENCE (flags: %08x) ===\n", flags);
 
     if (flags & CCTEST_ENABLE_MD2) {
-        chain->ti = ccmd2_ti();
-        CCTEST_TRACE("Enabling test %s\n", chain->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(chain);
-        chain = chain->next;
+        CCTEST_ADD_TEST(chain, ccmd2_ti());
     }
 
     if (flags & CCTEST_ENABLE_MD4) {
-        chain->ti = ccmd4_ti();
-        CCTEST_TRACE("Enabling test %s\n", chain->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(chain);
-        chain = chain->next;
+        CCTEST_ADD_TEST(chain, ccmd4_ti());
     }
     
     if (flags & CCTEST_ENABLE_MD5) {
-        chain->ti = ccmd5_ltc_ti();
-        CCTEST_TRACE("Enabling test %s\n", chain->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(chain);
-        chain = chain->next;
+        CCTEST_ADD_TEST(chain, ccmd5_ltc_ti());
     }
     
     if (flags & CCTEST_ENABLE_RIPEMD) {
-        chain->ti = ccrmd160_ti();
-        CCTEST_TRACE("Enabling test %s\n", chain->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(chain);
-        chain = chain->next;
+        CCTEST_ADD_TEST(chain, ccrmd160_ti());
+    }
+
+    if (flags & CCTEST_ENABLE_SHA1) {
+        CCTEST_ADD_TEST(chain, ccsha1_ltc_longmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha1_ltc_shortmsg_ti());
+    }
+
+    if (flags & CCTEST_ENABLE_SHA2) {
+        CCTEST_ADD_TEST(chain, ccsha224_ltc_longmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha224_ltc_shortmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha256_ltc_longmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha256_ltc_shortmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha384_ltc_longmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha384_ltc_shortmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha512_ltc_longmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha512_ltc_shortmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha512_224_ltc_longmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha512_224_ltc_shortmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha512_256_ltc_longmsg_ti());
+        CCTEST_ADD_TEST(chain, ccsha512_256_ltc_shortmsg_ti());
     }
 
     if (flags & CCTEST_ENABLE_AES) {
@@ -101,11 +115,7 @@ int cctest_conduct_tests(uint32_t flags)
     //
     while (lnk->next != NULL) {
         const struct cctest_info *ti = lnk->ti;
-#if _MSC_VER
-        cctest_ctx *ctx = malloc(ti->size);
-#else
-        cctest_ctx_decl(ti->size, ctx);
-#endif
+        cctest_ctx *ctx = cctest_malloc(ti->size);
         const char *reason = "INIT FAIL";
 
         //CCTEST_TRACE("Begin test %s\n", ti->name);
@@ -116,11 +126,7 @@ int cctest_conduct_tests(uint32_t flags)
         cc_require(ret == 0, fail);
         CCTEST_TRACE("%s - PASS\n", ti->name);
         //CCTEST_TRACE("Exit test %s\n", ti->name);
-#if _MSC_VER
-        free(ctx);
-#else
-        cctest_ctx_clear(ti->size, ctx);
-#endif
+        cctest_free(ctx, ti->size);
         lnk = lnk->next;
         continue;
 

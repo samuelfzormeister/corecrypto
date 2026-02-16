@@ -59,19 +59,21 @@ struct _ccmode_test_ctx {
     const struct cctest_info *ti;
     const void *mode;
     const struct ccmode_test_vector_info *vi;
+    cc_size block_size;
     cc_size ctx_size;
     cc_unit u[]; /* contains the relevant ctx */
 };
 
 #define CCMODE_TEST_CTX(ctx) ((struct _ccmode_test_ctx *)ctx)
 #define CCMODE_TEST_VI(vi) ((struct ccmode_test_vector_info *)vi)
-#define CCMODE_TEST_KEY(kind, ctx) (kind *) &ctx->u[0]
-#define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size)]
+#define CCMODE_TEST_CTX_KEY(kind, ctx) (kind *) &ctx->u[0]
+#define CCMODE_TEST_CTX_IV_SPACE(type, ctx) (type *)&ctx->u[ccn_nof_size(ctx->ctx_size)]
+#define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size + ctx->block_size)]
 
 //
 // Allow for space to conduct a test without allocating memory ourselves.
 //
-#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 2)
+#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 11)
 
 // cctest_info format:
 // ccaes_IMPLNAME_TESTNAME_ti

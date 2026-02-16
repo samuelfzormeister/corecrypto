@@ -8,11 +8,55 @@ elseif is_plat("windows") then
     set_toolchains("llvm-windows")
 end
 
+add_sysincludedirs(
+    "$(projectdir)/src/cc/include",
+    "$(projectdir)/src/ccaes/include",
+    "$(projectdir)/src/ccansikdf/include",
+    "$(projectdir)/src/ccblowfish/include",
+    "$(projectdir)/src/cccast/include",
+    "$(projectdir)/src/ccchacha20poly1305/include",
+    "$(projectdir)/src/cccmac/include",
+    "$(projectdir)/src/ccder/include",
+    "$(projectdir)/src/ccdes/include",
+    "$(projectdir)/src/ccdh/include",
+    "$(projectdir)/src/ccdigest/include",
+    "$(projectdir)/src/ccdrbg/include",
+    "$(projectdir)/src/ccec/include",
+    "$(projectdir)/src/ccec25519/include",
+    "$(projectdir)/src/ccecies/include",
+    "$(projectdir)/src/cchkdf/include",
+    "$(projectdir)/src/cchmac/include",
+    "$(projectdir)/src/cckeccak/include",
+    "$(projectdir)/src/ccmd2/include",
+    "$(projectdir)/src/ccmd4/include",
+    "$(projectdir)/src/ccmd5/include",
+    "$(projectdir)/src/ccmode/include",
+    "$(projectdir)/src/ccn/include",
+    "$(projectdir)/src/ccnistkdf/include",
+    "$(projectdir)/src/ccpad/include",
+    "$(projectdir)/src/ccpbkdf2/include",
+    "$(projectdir)/src/ccprime/include",
+    "$(projectdir)/src/ccrc2/include",
+    "$(projectdir)/src/ccrc4/include",
+    "$(projectdir)/src/ccripemd/include",
+    "$(projectdir)/src/ccrng/include",
+    "$(projectdir)/src/ccrsa/include",
+    "$(projectdir)/src/ccsha1/include",
+    "$(projectdir)/src/ccsha2/include",
+    "$(projectdir)/src/ccsha3/include",
+    "$(projectdir)/src/ccsrp/include",
+    "$(projectdir)/src/ccwrap/include",
+    "$(projectdir)/src/ccxof/include",
+    "$(projectdir)/src/ccz/include",
+    "$(projectdir)/src/cczp/include",
+    "$(projectdir)/src/fips/include"
+)
+
+add_sysincludedirs("$(projectdir)/src/cctest/include")
+
 target("libcorecrypto_static")
     set_kind("static")
     set_basename("corecrypto_static")
-
-    add_sysincludedirs("$(projectdir)/include")
 
     add_files(
         "src/**.c"
@@ -32,7 +76,7 @@ target("libcorecrypto_static")
 
     remove_files(
         "src/cc_kext/*.c",
-        "src/cckprng/*.c",
+        "src/cckprng/**.c",
         "src/cckprng/yarrow/*.c",
         "src/*/test/*.c",
         "src/cctest/*.c"
@@ -49,8 +93,6 @@ target("libcorecrypto_static")
 target("libcorecrypto")
     set_kind("shared")
     set_basename("corecrypto")
-
-    add_sysincludedirs("$(projectdir)/include")
 
     add_files(
         "src/**.c"
@@ -72,7 +114,7 @@ target("libcorecrypto")
     -- Also I don't think we want Darwin Kernel Extension code compiled on a non-Darwin (or non-Userspace) platform.
     remove_files(
         "src/cc_kext/*.c",
-        "src/cckprng/*.c",
+        "src/cckprng/**.c",
         "src/cckprng/yarrow/*.c",
         "src/*/test/*.c"
     )
@@ -91,8 +133,6 @@ target("libcorecrypto_noasm")
     set_kind("shared")
     set_basename("corecrypto_noasm")
 
-    add_sysincludedirs("$(projectdir)/include")
-
     add_files(
         "src/**.c"
     )
@@ -104,7 +144,7 @@ target("libcorecrypto_noasm")
 
     remove_files(
         "src/cc_kext/*.c",
-        "src/cckprng/*.c",
+        "src/cckprng/**.c",
         "src/cckprng/yarrow/*.c",
         "src/*/test/*.c"
     )
@@ -115,7 +155,7 @@ target("libcc_test")
     set_kind("static")
     set_basename("cc_test")
 
-    add_sysincludedirs("$(projectdir)/include")
+    add_sysincludedirs("$(projectdir)/src/cctest/include")
     
     add_defines("CORECRYPTO_TEST=1")
 
@@ -143,13 +183,38 @@ target("libcc_test")
         "src/ccmd4/test/ccmd4_ti.c"
     )
 
+    -- MD5
+    add_files(
+        "src/ccmd5/test/ccmd5_ti.c"
+    )
+
+    -- RIPEMD
+    add_files(
+        "src/ccripemd/test/ccrmd160_ti.c"
+    )
+
+    -- SHA-1
+    add_files(
+        "src/ccsha1/test/ccsha1_ti.c"
+    )
+
+    -- SHA-2
+    add_files(
+        "src/ccsha2/test/ccsha224_ti.c",
+        "src/ccsha2/test/ccsha256_ti.c",
+        "src/ccsha2/test/ccsha384_ti.c",
+        "src/ccsha2/test/ccsha512_224_ti.c",
+        "src/ccsha2/test/ccsha512_256_ti.c",
+        "src/ccsha2/test/ccsha512_ti.c"
+    )
+
 target("cctest")
     set_kind("binary")
 
     -- Link with the static version of libcorecrypto.
     add_deps("libcc_test", "libcorecrypto_static")
 
-    add_sysincludedirs("$(projectdir)/include")
+    add_sysincludedirs("$(projectdir)/src/cctest/include")
 
     add_files("$(projectdir)/cctest/main.cpp")
 

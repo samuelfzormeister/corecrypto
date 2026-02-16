@@ -16,31 +16,16 @@
  * @LICENSE_HEADER_END@
  */
 
-#ifndef __RSPLIB_SHAVS__
-#define __RSPLIB_SHAVS__
+#include <corecrypto/ccsha2.h>
+#include <corecrypto/ccdigest_test_internal.h>
 
-#include <rsplib/base.hpp>
+static struct ccdigest_test_vector SHA512LongMsg[] = {
+#include "vectors/SHA512LongMsg.inc"
+};
 
-namespace corecrypto {
+static struct ccdigest_test_vector SHA512ShortMsg[] = {
+#include "vectors/SHA512ShortMsg.inc"
+};
 
-    namespace rsplib {
-        //
-        // SHAVS vector.
-        //
-        class shavs_test : public base_test {
-            public:
-            shavs_test(const std::string &name);
-
-            void add_vector(std::shared_ptr<base_vector>);
-
-            virtual void write_to_stream(std::stringstream &stream) override;
-
-            private:
-            std::vector<std::shared_ptr<base_vector>> _testVectors;
-        };
-
-    }
-
-}
-
-#endif /* __RSPLIB_SHAVS__ */
+CCDIGEST_TEST_NAMED_FACTORY(longmsg, sha512_ltc, SHA512LongMsg, "LTC SHA-512 (SHA512LongMsg)");
+CCDIGEST_TEST_NAMED_FACTORY(shortmsg, sha512_ltc, SHA512ShortMsg, "LTC SHA-512 (SHA512ShortMsg)");

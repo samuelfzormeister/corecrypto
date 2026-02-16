@@ -80,6 +80,8 @@ namespace corecrypto {
 
             void parse_aesvs(std::stringstream &stream, bool ecb);
 
+            void parse_shavs(std::stringstream &stream);
+
             void write_tests_to_stream(std::stringstream &stream);
 
             void write_tests_to_directory(std::filesystem::path &path);

@@ -92,12 +92,9 @@ int ccdigest_test_run(cctest_ctx *ctx)
         ccdigest_init(di, dctx);
         ccdigest_update(di, dctx, vec.msg_len, vec.message);
         ccdigest_final(di, dctx, scratch);
-        res |= (cc_cmp_safe(di->output_size, vec.expected_digest, scratch) != 0) &&
-                    !(vec.attrs & CCTEST_ATTR_EXPECTEDFAIL);
-        
-        if (res != 0) {
-            ccdigest_test_dump_state(ctx);
+        if (cc_cmp_safe(di->output_size, vec.expected_digest, scratch) != 0) {
             cctest_trace_fail(CCTEST_SUBSYSTEM_DIGEST, CCDIGEST_TEST_CTX(ctx)->ti->name, i+1);
+            ccdigest_test_dump_state(ctx);
         } else {
             cctest_trace_pass(CCTEST_SUBSYSTEM_DIGEST, CCDIGEST_TEST_CTX(ctx)->ti->name, i+1);
         }

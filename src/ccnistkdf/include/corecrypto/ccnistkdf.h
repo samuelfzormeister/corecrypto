@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@
 
 #include <corecrypto/cc.h>
 #include <corecrypto/ccdigest.h>
-#include <corecrypto/cccmac.h>
+#include <corecrypto/ccmode.h>
 
 /*!
  * @group ccnistkdf
@@ -52,6 +52,25 @@ int ccnistkdf_ctr_hmac(struct ccdigest_info *digest,
                        size_t label_len, const void *label,
                        size_t context_len, const void *context,
                        size_t derived_len, void *derived_key);
+
+/*!
+ * @function   ccnistkdf_ctr_hmac_fixed
+ * @abstract   The NIST KDF in Counter mode, using HMAC.
+ *
+ * @param   digest       Digest to use for HMAC.
+ * @param   key_len      Length of the key Derivation Key
+ * @param   key          The key derivation key
+ * @param   context_len  Length of the context
+ * @param   context      The context variable of the NIST KDF function.
+ * @param   derived_len  The length of the derived key
+ * @param   derived_key  The derived key
+ *
+ * @result     0 if successful.
+ */
+int ccnistkdf_ctr_hmac_fixed(struct ccdigest_info *digest,
+                             size_t key_len, const void *key,
+                             size_t context_len, const void *context,
+                             size_t derived_len, void *derived_key);
 
 /*!
  * @function   ccnistkdf_ctr_cmac

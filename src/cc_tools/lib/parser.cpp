@@ -23,7 +23,6 @@
 #include <memory>
 #include <sstream>
 #include <string>
-#include <regex>
 
 using namespace corecrypto::rsplib;
 using namespace corecrypto;
@@ -46,6 +45,8 @@ parser::parser(const std::string &basename, std::stringstream &stream)
                 parse_aesvs(stream, true);
             }
             break;
+        } else if (line.find("SHA") != std::string::npos) {
+            parse_shavs(stream);
         }
     }
     osl::log(osl::debug, "parser::parser exit <<");

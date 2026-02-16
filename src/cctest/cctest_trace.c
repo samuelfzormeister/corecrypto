@@ -23,7 +23,8 @@
 static const char *__subsystems[] = {
     "",
     "DIGEST",
-    "CIPHER"
+    "CIPHER",
+    "CHACHA20"
 };
 
 static bool trace_enabled = false;
@@ -40,6 +41,13 @@ void cctest_trace_fail(uint32_t subsystem, const char *name, uint32_t failed_vec
     }
 }
 
+void cctest_trace_fail_named(uint32_t subsystem, const char *name, const char *named)
+{
+    if (trace_enabled) {
+        cc_printf("[CCTEST][%s][%s]: FAIL %s\n", __subsystems[subsystem], name, named);
+    }
+}
+
 void cctest_trace_general(uint32_t subsystem, const char *name, const char *msg)
 {
     if (trace_enabled) {
@@ -52,5 +60,12 @@ void cctest_trace_pass(uint32_t subsystem, const char *name, uint32_t failed_vec
 {
     if (trace_enabled) {
         cc_printf("[CCTEST][%s][%s]: PASS %d\n", __subsystems[subsystem], name, failed_vec);
+    }
+}
+
+void cctest_trace_pass_named(uint32_t subsystem, const char *name, const char *named)
+{
+    if (trace_enabled) {
+        cc_printf("[CCTEST][%s][%s]: PASS %s\n", __subsystems[subsystem], name, named);
     }
 }

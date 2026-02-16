@@ -6,6 +6,7 @@
 //
 
 #include <iostream>
+#include <sstream>
 #include <string.h>
 #include <string>
 
@@ -34,42 +35,21 @@ void set_flag(std::string &str)
     if (str == "ripemd") {
         flags |= CCTEST_ENABLE_RIPEMD;
     }
+    if (str == "sha1") {
+        flags |= CCTEST_ENABLE_SHA1;
+    }
+    if (str == "sha2") {
+        flags |= CCTEST_ENABLE_SHA2;
+    }
 }
 
 void parse_test_list_string(std::string &enabled)
 {
-    char tmp[64];
-    size_t len = enabled.length();
-    const char *c_str = enabled.c_str();
-    size_t off = enabled.find(",");
-    size_t index = 0;
-    
-    if (off == std::string::npos) {
-        enabled.copy(tmp, (len - index), index);
-        std::string tmps = tmp;
-        std::cout << tmps << std::endl;
-        set_flag(tmps);
-    }
+    std::stringstream stream(enabled);
+    std::string m;
 
-    while (off != std::string::npos) {
-        try {
-            enabled.copy(tmp, (off) - index, index);
-        } catch (std::runtime_error &err) {
-            err.what();
-        }
-        std::string tmps = tmp;
-        std::cout << tmps << std::endl;
-        set_flag(tmps);
-        index += off+1;
-        off = enabled.find(",", index);
-        memset(tmp, 0, sizeof(tmp));
-    }
-    
-    if (off == std::string::npos) {
-        enabled.copy(tmp, (len - index), index);
-        std::string tmps = tmp;
-        std::cout << tmps << std::endl;
-        set_flag(tmps);
+    while (std::getline(stream, m, ',')) {
+        set_flag(m);
     }
 }
 

@@ -51,6 +51,8 @@ enum {
     CCTEST_ENABLE_AES = (1 << 2),
     CCTEST_ENABLE_MD5 = (1 << 3),
     CCTEST_ENABLE_RIPEMD = (1 << 4),
+    CCTEST_ENABLE_SHA1 = (1 << 5),
+    CCTEST_ENABLE_SHA2 = (1 << 6),
 
     CCTEST_ENABLE_ALL = 0x0FFFFFFF,
 };

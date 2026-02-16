@@ -32,6 +32,27 @@ extern const struct cctest_info *ccmd5_ltc_ti(void);
 
 extern const struct cctest_info *ccrmd160_ti(void);
 
+extern const struct cctest_info *ccsha1_ltc_longmsg_ti(void);
+extern const struct cctest_info *ccsha1_ltc_shortmsg_ti(void);
+
+extern const struct cctest_info *ccsha224_ltc_longmsg_ti(void);
+extern const struct cctest_info *ccsha224_ltc_shortmsg_ti(void);
+
+extern const struct cctest_info *ccsha256_ltc_longmsg_ti(void);
+extern const struct cctest_info *ccsha256_ltc_shortmsg_ti(void);
+
+extern const struct cctest_info *ccsha384_ltc_longmsg_ti(void);
+extern const struct cctest_info *ccsha384_ltc_shortmsg_ti(void);
+
+extern const struct cctest_info *ccsha512_ltc_longmsg_ti(void);
+extern const struct cctest_info *ccsha512_ltc_shortmsg_ti(void);
+
+extern const struct cctest_info *ccsha512_224_ltc_longmsg_ti(void);
+extern const struct cctest_info *ccsha512_224_ltc_shortmsg_ti(void);
+
+extern const struct cctest_info *ccsha512_256_ltc_longmsg_ti(void);
+extern const struct cctest_info *ccsha512_256_ltc_shortmsg_ti(void);
+
 //
 // merge all AES tests into converged?
 //
@@ -91,10 +112,15 @@ struct _cctest_test_link {
 enum {
     CCTEST_SUBSYSTEM_DIGEST = 1,
     CCTEST_SUBSYSTEM_MODE,
+
+    CCTEST_SUBSYSTEM_CHACHA20,
 };
 
 void cctest_trace_fail(uint32_t subsystem, const char *name, uint32_t failed_vec);
 void cctest_trace_general(uint32_t subsystem, const char *name, const char *msg);
 void cctest_trace_pass(uint32_t subsystem, const char *name, uint32_t failed_vec);
+
+void cctest_trace_fail_named(uint32_t subsystem, const char *name, const char *msg);
+void cctest_trace_pass_named(uint32_t subsystem, const char *name, const char *msg);
 
 #endif /* _CORECRYPTO_CCTEST_INTERNAL_H_ */

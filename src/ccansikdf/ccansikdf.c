@@ -16,31 +16,9 @@
  * @LICENSE_HEADER_END@
  */
 
-#ifndef __RSPLIB_SHAVS__
-#define __RSPLIB_SHAVS__
+#include <corecrypto/cc_error.h>
+#include <corecrypto/cc_priv.h>
+#include <corecrypto/ccansikdf.h>
+#include <corecrypto/ccdigest_priv.h>
 
-#include <rsplib/base.hpp>
-
-namespace corecrypto {
-
-    namespace rsplib {
-        //
-        // SHAVS vector.
-        //
-        class shavs_test : public base_test {
-            public:
-            shavs_test(const std::string &name);
-
-            void add_vector(std::shared_ptr<base_vector>);
-
-            virtual void write_to_stream(std::stringstream &stream) override;
-
-            private:
-            std::vector<std::shared_ptr<base_vector>> _testVectors;
-        };
-
-    }
-
-}
-
-#endif /* __RSPLIB_SHAVS__ */
+#define CCANSIKDF_MAX_BYTES 0xFFFFFFFF

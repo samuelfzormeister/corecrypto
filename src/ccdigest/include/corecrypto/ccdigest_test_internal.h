@@ -67,6 +67,17 @@ const struct cctest_info *cc##name##_ti() {                               \
     return &ccdigest_test_##name;                                         \
 }
 
+#define CCDIGEST_TEST_NAMED_FACTORY(name, impl, vectors, altname)                     \
+static struct cctest_info ccdigest_test_##impl##_##name;                           \
+static struct ccdigest_test_vector_info ccdigest_test_##impl##_##name##_vi         \
+    = { vectors , sizeof(vectors) / sizeof(ccdigest_test_vector) };      \
+                                                                          \
+const struct cctest_info *cc##impl##_##name##_ti() {                               \
+    const struct ccdigest_info *di = &cc##impl##_di;                      \
+    ccdigest_test_factory(&ccdigest_test_##impl##_##name , di, altname , &ccdigest_test_##impl##_##name##_vi ); \
+    return &ccdigest_test_##impl##_##name;                                         \
+}
+
 void ccdigest_test_factory(struct cctest_info *ti, const struct ccdigest_info *di, const char *name, struct ccdigest_test_vector_info *vi);
 
 int ccdigest_test_init(const struct cctest_info *info, cctest_ctx *ctx);
