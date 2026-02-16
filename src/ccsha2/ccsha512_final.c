@@ -60,8 +60,12 @@ void ccsha512_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx,
         CC_STORE64_BE(ccdigest_state_u64(di, ctx)[i], dgst + (8 * i));
     }
 
+    /*
+     * This should only be triggered by SHA-512/224 because the last four bytes
+     * aren't divisible by 8, unlike SHA-512/256, SHA-384 and SHA-512 itself.
+     */
     if (remaining == 4) {
-        unsigned int top = ((di->output_size / 4) - 1);
-        CC_STORE32_BE(ccdigest_state_u32(di, ctx)[top], dgst + (4 * top));
+        unsigned int top = ((di->output_size / 4));
+        CC_STORE32_BE(ccdigest_state_u32(di, ctx)[top], dgst + (4 * (top - 1)));
     }
 }
