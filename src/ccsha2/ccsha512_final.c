@@ -25,20 +25,29 @@ void ccsha512_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx,
                     void *digest)
 {
     unsigned char *dgst = digest;
-    ccdigest_nbits(di, ctx) += ccdigest_num(di, ctx) * 8;
+    unsigned int remaining = 0;
+    ccdigest_nbits(di, ctx) += ccdigest_num(di, ctx) << 3;
     ccdigest_data(di, ctx)[ccdigest_num(di, ctx)++] = 0x80;
+
+    /* 
+     * FIXME:
+     * SHA512/224 will not function unless we work around it here. 
+     */
+    if ((di->output_size & 7)) {
+        remaining = (di->output_size & 7);
+    }
 
     /* If we don't have at least 16 bytes (for the length) left we need to add
      a second block. */
     if (ccdigest_num(di, ctx) > di->block_size - 16) {
-        while (ccdigest_num(di, ctx) < 64) {
+        while (ccdigest_num(di, ctx) < 128) {
             ccdigest_data(di, ctx)[ccdigest_num(di, ctx)++] = 0;
         }
         di->compress(ccdigest_state(di, ctx), 1, ccdigest_data(di, ctx));
         ccdigest_num(di, ctx) = 0;
     }
 
-    /* pad upto block_size minus 16 with 0s */
+    /* pad upto block_size minus 8 with 0s */
     while (ccdigest_num(di, ctx) < di->block_size - 8) {
         ccdigest_data(di, ctx)[ccdigest_num(di, ctx)++] = 0;
     }
@@ -48,6 +57,11 @@ void ccsha512_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx,
 
     /* copy output */
     for (unsigned int i = 0; i < di->output_size / 8; i++) {
-        CC_STORE64_BE(ccdigest_state_u64(di, ctx)[i], dgst + (4 * i));
+        CC_STORE64_BE(ccdigest_state_u64(di, ctx)[i], dgst + (8 * i));
+    }
+
+    if (remaining == 4) {
+        unsigned int top = ((di->output_size / 4) - 1);
+        CC_STORE32_BE(ccdigest_state_u32(di, ctx)[top], dgst + (4 * top));
     }
 }

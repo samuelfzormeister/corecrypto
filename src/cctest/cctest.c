@@ -131,6 +131,13 @@ int cctest_conduct_tests(uint32_t flags)
         CCTEST_TRACE("Exit test %s\n", ti->name);
         break;
     }
+
+    lnk = root;
+    while (lnk->next != NULL) {
+        struct _cctest_test_link *last = lnk;
+        lnk = last->next;
+        cctest_free(last, sizeof(struct _cctest_test_link));
+    }
     
     CCTEST_TRACE("=== END TESTING SEQUENCE ===\n");
 
