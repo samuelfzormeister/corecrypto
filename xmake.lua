@@ -216,7 +216,7 @@ target("cctest")
 
     add_sysincludedirs("$(projectdir)/src/cctest/include")
 
-    add_files("$(projectdir)/cctest/main.cpp")
+    add_files("$(projectdir)/src/cc_tools/cctest.cpp")
 
 target("librsp")
     set_kind("static")

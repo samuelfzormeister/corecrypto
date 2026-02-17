@@ -16,7 +16,6 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "corecrypto/ccmode.h"
 #include <corecrypto/cc.h>
 #include <corecrypto/cc_debug.h>
 #include <corecrypto/cc_error.h>

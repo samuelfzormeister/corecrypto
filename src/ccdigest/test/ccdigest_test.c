@@ -116,7 +116,7 @@ void ccdigest_test_factory(struct cctest_info *ti, const struct ccdigest_info *d
 {
     ti->custom = (const void *)di;
     ti->custom1 = (const void *)vi;
-    ti->size = ccdigest_di_size(di) + sizeof(struct _ccdigest_test_ctx) + di->output_size;
+    ti->size = ccdigest_di_size(di) + sizeof(struct _ccdigest_test_ctx) + (di->output_size * 2);
     ti->init = &ccdigest_test_init;
     ti->run = &ccdigest_test_run;
     ti->dump_state = &ccdigest_test_dump_state;
