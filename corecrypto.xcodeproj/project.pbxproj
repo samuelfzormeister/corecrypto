@@ -348,6 +348,26 @@
 		F01B55C92F43299D009425ED /* ccsha256_ti.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55B72F43299D009425ED /* ccsha256_ti.c */; };
 		F01B55CB2F432BF9009425ED /* shavs_vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01B55CA2F432BF9009425ED /* shavs_vector.cpp */; };
 		F01B55D82F43BC10009425ED /* cccryptotool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F01B55D22F43BBFD009425ED /* cccryptotool.cpp */; };
+		F01B55DD2F47A80A009425ED /* cctest_link_aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55D92F47A80A009425ED /* cctest_link_aes_cbc.c */; };
+		F01B55DE2F47A80A009425ED /* cctest_link_aes_cfb8.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55DA2F47A80A009425ED /* cctest_link_aes_cfb8.c */; };
+		F01B55DF2F47A80A009425ED /* cctest_link_aes_ofb.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55DB2F47A80A009425ED /* cctest_link_aes_ofb.c */; };
+		F01B55E02F47A80A009425ED /* cctest_link_aes_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55DC2F47A80A009425ED /* cctest_link_aes_cfb.c */; };
+		F01B55E22F47A83D009425ED /* ccpad_xts_encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55E12F47A83D009425ED /* ccpad_xts_encrypt.c */; };
+		F01B55E32F47A83D009425ED /* ccpad_xts_encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55E12F47A83D009425ED /* ccpad_xts_encrypt.c */; };
+		F01B55E42F47A83D009425ED /* ccpad_xts_encrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55E12F47A83D009425ED /* ccpad_xts_encrypt.c */; };
+		F01B55EB2F47AB75009425ED /* ccmode_test_ofb.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55E52F47AB74009425ED /* ccmode_test_ofb.c */; };
+		F01B55EC2F47AB75009425ED /* ccmode_test_cfb.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55E62F47AB75009425ED /* ccmode_test_cfb.c */; };
+		F01B55ED2F47AB75009425ED /* ccmode_test_xts.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55E72F47AB75009425ED /* ccmode_test_xts.c */; };
+		F01B55EE2F47AB75009425ED /* ccmode_test_cfb8.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55E82F47AB75009425ED /* ccmode_test_cfb8.c */; };
+		F01B55EF2F47AB75009425ED /* ccmode_test_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55E92F47AB75009425ED /* ccmode_test_cbc.c */; };
+		F01B55F02F47AB75009425ED /* ccmode_test_ctr.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55EA2F47AB75009425ED /* ccmode_test_ctr.c */; };
+		F01B55F42F47AB93009425ED /* ccaes_cfb8_test.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55F12F47AB92009425ED /* ccaes_cfb8_test.c */; };
+		F01B55F52F47AB93009425ED /* ccaes_cfb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55F22F47AB93009425ED /* ccaes_cfb_test.c */; };
+		F01B55F62F47AB93009425ED /* ccaes_ofb_test.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55F32F47AB93009425ED /* ccaes_ofb_test.c */; };
+		F01B55F82F47AC04009425ED /* ccn_read_uint.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55F72F47AC04009425ED /* ccn_read_uint.c */; };
+		F01B55FA2F47B172009425ED /* ccpad_xts_decrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55F92F47B172009425ED /* ccpad_xts_decrypt.c */; };
+		F01B55FB2F47B172009425ED /* ccpad_xts_decrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55F92F47B172009425ED /* ccpad_xts_decrypt.c */; };
+		F01B55FC2F47B172009425ED /* ccpad_xts_decrypt.c in Sources */ = {isa = PBXBuildFile; fileRef = F01B55F92F47B172009425ED /* ccpad_xts_decrypt.c */; };
 		F01DBC182DCF696A00813612 /* cc_populate_fns_dummy.c in Sources */ = {isa = PBXBuildFile; fileRef = F01DBC162DCF696A00813612 /* cc_populate_fns_dummy.c */; };
 		F01DBC192DCF696A00813612 /* cc_populate_fns.c in Sources */ = {isa = PBXBuildFile; fileRef = F01DBC172DCF696A00813612 /* cc_populate_fns.c */; };
 		F01DBC1F2DCF6A2E00813612 /* cchkdf_expand.c in Sources */ = {isa = PBXBuildFile; fileRef = F01DBC1D2DCF6A2E00813612 /* cchkdf_expand.c */; };
@@ -557,8 +577,6 @@
 		F09CDC7E2E3B45A200820F95 /* ccn_bitlen.c in Sources */ = {isa = PBXBuildFile; fileRef = F09CDC7C2E3B45A200820F95 /* ccn_bitlen.c */; };
 		F09CDC802E3B45A800820F95 /* ccn_add1.c in Sources */ = {isa = PBXBuildFile; fileRef = F09CDC7F2E3B45A800820F95 /* ccn_add1.c */; };
 		F09CDC812E3B45A800820F95 /* ccn_add1.c in Sources */ = {isa = PBXBuildFile; fileRef = F09CDC7F2E3B45A800820F95 /* ccn_add1.c */; };
-		F09CDC832E3B45B200820F95 /* ccn_read_unit.c in Sources */ = {isa = PBXBuildFile; fileRef = F09CDC822E3B45B200820F95 /* ccn_read_unit.c */; };
-		F09CDC842E3B45B200820F95 /* ccn_read_unit.c in Sources */ = {isa = PBXBuildFile; fileRef = F09CDC822E3B45B200820F95 /* ccn_read_unit.c */; };
 		F09CDC862E3B45C000820F95 /* ccn_sub1.c in Sources */ = {isa = PBXBuildFile; fileRef = F09CDC852E3B45C000820F95 /* ccn_sub1.c */; };
 		F09CDC872E3B45C000820F95 /* ccn_sub1.c in Sources */ = {isa = PBXBuildFile; fileRef = F09CDC852E3B45C000820F95 /* ccn_sub1.c */; };
 		F0B0813C2D5A924C00349FD5 /* ccchacha20poly1305_priv.h in Headers */ = {isa = PBXBuildFile; fileRef = F0B0813B2D5A923F00349FD5 /* ccchacha20poly1305_priv.h */; };
@@ -1183,6 +1201,22 @@
 		F01B55CA2F432BF9009425ED /* shavs_vector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shavs_vector.cpp; sourceTree = "<group>"; };
 		F01B55D02F43BBFD009425ED /* cccryptotool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cccryptotool; sourceTree = BUILT_PRODUCTS_DIR; };
 		F01B55D22F43BBFD009425ED /* cccryptotool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cccryptotool.cpp; sourceTree = "<group>"; };
+		F01B55D92F47A80A009425ED /* cctest_link_aes_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cctest_link_aes_cbc.c; sourceTree = "<group>"; };
+		F01B55DA2F47A80A009425ED /* cctest_link_aes_cfb8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cctest_link_aes_cfb8.c; sourceTree = "<group>"; };
+		F01B55DB2F47A80A009425ED /* cctest_link_aes_ofb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cctest_link_aes_ofb.c; sourceTree = "<group>"; };
+		F01B55DC2F47A80A009425ED /* cctest_link_aes_cfb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cctest_link_aes_cfb.c; sourceTree = "<group>"; };
+		F01B55E12F47A83D009425ED /* ccpad_xts_encrypt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccpad_xts_encrypt.c; sourceTree = "<group>"; };
+		F01B55E52F47AB74009425ED /* ccmode_test_ofb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmode_test_ofb.c; sourceTree = "<group>"; };
+		F01B55E62F47AB75009425ED /* ccmode_test_cfb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmode_test_cfb.c; sourceTree = "<group>"; };
+		F01B55E72F47AB75009425ED /* ccmode_test_xts.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmode_test_xts.c; sourceTree = "<group>"; };
+		F01B55E82F47AB75009425ED /* ccmode_test_cfb8.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmode_test_cfb8.c; sourceTree = "<group>"; };
+		F01B55E92F47AB75009425ED /* ccmode_test_cbc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmode_test_cbc.c; sourceTree = "<group>"; };
+		F01B55EA2F47AB75009425ED /* ccmode_test_ctr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccmode_test_ctr.c; sourceTree = "<group>"; };
+		F01B55F12F47AB92009425ED /* ccaes_cfb8_test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccaes_cfb8_test.c; sourceTree = "<group>"; };
+		F01B55F22F47AB93009425ED /* ccaes_cfb_test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccaes_cfb_test.c; sourceTree = "<group>"; };
+		F01B55F32F47AB93009425ED /* ccaes_ofb_test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccaes_ofb_test.c; sourceTree = "<group>"; };
+		F01B55F72F47AC04009425ED /* ccn_read_uint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ccn_read_uint.c; sourceTree = "<group>"; };
+		F01B55F92F47B172009425ED /* ccpad_xts_decrypt.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccpad_xts_decrypt.c; sourceTree = "<group>"; };
 		F01DBC162DCF696A00813612 /* cc_populate_fns_dummy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cc_populate_fns_dummy.c; sourceTree = "<group>"; };
 		F01DBC172DCF696A00813612 /* cc_populate_fns.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cc_populate_fns.c; sourceTree = "<group>"; };
 		F01DBC1D2DCF6A2E00813612 /* cchkdf_expand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cchkdf_expand.c; sourceTree = "<group>"; };
@@ -1330,7 +1364,6 @@
 		F09CDC792E3B452600820F95 /* ccchacha20poly1305.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccchacha20poly1305.c; sourceTree = "<group>"; };
 		F09CDC7C2E3B45A200820F95 /* ccn_bitlen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccn_bitlen.c; sourceTree = "<group>"; };
 		F09CDC7F2E3B45A800820F95 /* ccn_add1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccn_add1.c; sourceTree = "<group>"; };
-		F09CDC822E3B45B200820F95 /* ccn_read_unit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccn_read_unit.c; sourceTree = "<group>"; };
 		F09CDC852E3B45C000820F95 /* ccn_sub1.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccn_sub1.c; sourceTree = "<group>"; };
 		F0B0813B2D5A923F00349FD5 /* ccchacha20poly1305_priv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccchacha20poly1305_priv.h; sourceTree = "<group>"; };
 		F0B0813F2D5A96E900349FD5 /* ccchacha20.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ccchacha20.c; sourceTree = "<group>"; };
@@ -2382,7 +2415,7 @@
 				F00CF6EA2E1F223F00349FD5 /* ccn_internal.h */,
 				F00CF6EB2E1F223F00349FD5 /* ccn_n.c */,
 				F020E6B62DF68EA500349FD5 /* ccn_print.c */,
-				F09CDC822E3B45B200820F95 /* ccn_read_unit.c */,
+				F01B55F72F47AC04009425ED /* ccn_read_uint.c */,
 				F00CF6ED2E1F223F00349FD5 /* ccn_sub.c */,
 				F09CDC852E3B45C000820F95 /* ccn_sub1.c */,
 			);
@@ -2495,6 +2528,8 @@
 				F0BBB4702E38E5E000349FD5 /* ccpad_pkcs7_ecb_decrypt.c */,
 				F0BBB4712E38E5E000349FD5 /* ccpad_pkcs7_ecb_encrypt.c */,
 				F0BBB4722E38E5E000349FD5 /* ccpad_pkcs7_encrypt.c */,
+				F01B55E12F47A83D009425ED /* ccpad_xts_encrypt.c */,
+				F01B55F92F47B172009425ED /* ccpad_xts_decrypt.c */,
 			);
 			path = ccpad;
 			sourceTree = "<group>";
@@ -2528,6 +2563,10 @@
 				420E99ED2F104DAF005E3B27 /* README.md */,
 				F0851A6B2DEA585E00349FD5 /* cctest.c */,
 				F098806C2F4130F50058F84D /* cctest_link_aes_ecb.c */,
+				F01B55D92F47A80A009425ED /* cctest_link_aes_cbc.c */,
+				F01B55DC2F47A80A009425ED /* cctest_link_aes_cfb.c */,
+				F01B55DA2F47A80A009425ED /* cctest_link_aes_cfb8.c */,
+				F01B55DB2F47A80A009425ED /* cctest_link_aes_ofb.c */,
 				F09880262F41216C0058F84D /* cctest_trace.c */,
 			);
 			path = cctest;
@@ -2602,6 +2641,12 @@
 			isa = PBXGroup;
 			children = (
 				F09880242F4120CF0058F84D /* ccmode_test_ecb.c */,
+				F01B55E92F47AB75009425ED /* ccmode_test_cbc.c */,
+				F01B55E62F47AB75009425ED /* ccmode_test_cfb.c */,
+				F01B55E82F47AB75009425ED /* ccmode_test_cfb8.c */,
+				F01B55EA2F47AB75009425ED /* ccmode_test_ctr.c */,
+				F01B55E52F47AB74009425ED /* ccmode_test_ofb.c */,
+				F01B55E72F47AB75009425ED /* ccmode_test_xts.c */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -2646,6 +2691,9 @@
 				F09880352F41231C0058F84D /* ccaes_cbc_test.c */,
 				F09880362F41231C0058F84D /* vectors */,
 				F098804F2F41231C0058F84D /* ccaes_ecb_test.c */,
+				F01B55F22F47AB93009425ED /* ccaes_cfb_test.c */,
+				F01B55F12F47AB92009425ED /* ccaes_cfb8_test.c */,
+				F01B55F32F47AB93009425ED /* ccaes_ofb_test.c */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -4102,6 +4150,7 @@
 				F004E9FA2DD4B2F700103A8F /* ccblowfish_ltc_constants.c in Sources */,
 				F0BBB4D92E38E63300349FD5 /* aes_crypt_hw.s in Sources */,
 				F004E9E82DD4B2F700103A8F /* c_skey.c in Sources */,
+				F01B55FB2F47B172009425ED /* ccpad_xts_decrypt.c in Sources */,
 				F0851A382DEA574000349FD5 /* cccmac_generate_subkeys.c in Sources */,
 				F0851A392DEA574000349FD5 /* cccmac_update.c in Sources */,
 				F0851A3A2DEA574000349FD5 /* cccmac_init.c in Sources */,
@@ -4124,6 +4173,7 @@
 				F0BBB50C2E38E6DF00349FD5 /* ccsha384_di.c in Sources */,
 				F0BBB50D2E38E6DF00349FD5 /* ccsha384_ltc_di.c in Sources */,
 				F0BBB50E2E38E6DF00349FD5 /* ccsha512_224_di.c in Sources */,
+				F01B55E32F47A83D009425ED /* ccpad_xts_encrypt.c in Sources */,
 				F0BBB50F2E38E6DF00349FD5 /* ccsha512_256_initial_state.c in Sources */,
 				F0BBB5102E38E6DF00349FD5 /* ccsha512_ltc_di.c in Sources */,
 				F0BBB5112E38E6DF00349FD5 /* ccsha512_256_di.c in Sources */,
@@ -4159,7 +4209,6 @@
 				F0BBB4CB2E38E61F00349FD5 /* ccaes_ltc_decrypt_mode.c in Sources */,
 				F0BBB4CC2E38E61F00349FD5 /* aes_modes_asm.s in Sources */,
 				F0BBB4CD2E38E61F00349FD5 /* ccaes_intel_ecb_encrypt_mode.c in Sources */,
-				F09CDC832E3B45B200820F95 /* ccn_read_unit.c in Sources */,
 				F0BBB4CE2E38E61F00349FD5 /* vng_aes_intel.c in Sources */,
 				F0BBB4D02E38E61F00349FD5 /* aes_key_hw.s in Sources */,
 				F0BBB4D32E38E61F00349FD5 /* ccaes_intel_xts_encrypt_mode.c in Sources */,
@@ -4246,6 +4295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F004E9F82DD4B2F700103A8F /* ccblowfish_modes.c in Sources */,
+				F01B55E42F47A83D009425ED /* ccpad_xts_encrypt.c in Sources */,
 				F004E9E62DD4B2F700103A8F /* c_enc.c in Sources */,
 				421C06CC2F22D69500E5B924 /* cc_lock.c in Sources */,
 				F004E9E92DD4B2F700103A8F /* c_skey.c in Sources */,
@@ -4256,6 +4306,7 @@
 				421C060A2F19AC3000E5B924 /* ccaes_gladman_decrypt_mode.c in Sources */,
 				F004E9F52DD4B2F700103A8F /* cccast_modes.c in Sources */,
 				F004EA012DD4B2F700103A8F /* ccblowfish_ltc.c in Sources */,
+				F01B55FC2F47B172009425ED /* ccpad_xts_decrypt.c in Sources */,
 				F004E9FB2DD4B2F700103A8F /* ccblowfish_ltc_constants.c in Sources */,
 				F098801F2F4120C40058F84D /* ccmode_gcm_mult.c in Sources */,
 				F004E9F22DD4B2F700103A8F /* cccast_ecb.c in Sources */,
@@ -4282,6 +4333,7 @@
 				F09953AC2D46DCDE0021D020 /* ccwrap_auth_encrypt.c in Sources */,
 				F0BBB4802E38E5F600349FD5 /* ccrng_pbkdf2_prng.c in Sources */,
 				F01DBC2D2DCF6A6800813612 /* ccrsa_fips186.c in Sources */,
+				F01B55FA2F47B172009425ED /* ccpad_xts_decrypt.c in Sources */,
 				F0851A5D2DEA584500349FD5 /* eay_rc4_skey.c in Sources */,
 				F0851A5E2DEA584500349FD5 /* ccrc4.c in Sources */,
 				F0851A5F2DEA584500349FD5 /* eay_rc4_enc.c in Sources */,
@@ -4332,6 +4384,7 @@
 				F06AF94F2E7E9F15008209DE /* vng_sha256_intel.c in Sources */,
 				F0BBB4FA2E38E6DF00349FD5 /* ccsha384_initial_state.c in Sources */,
 				F0BBB4FB2E38E6DF00349FD5 /* ccsha512_final.c in Sources */,
+				F01B55E22F47A83D009425ED /* ccpad_xts_encrypt.c in Sources */,
 				F0BBB4FC2E38E6DF00349FD5 /* ccsha512_ltc_compress.c in Sources */,
 				F0BBB4FD2E38E6DF00349FD5 /* ccsha384_di.c in Sources */,
 				F0BBB4FE2E38E6DF00349FD5 /* ccsha384_ltc_di.c in Sources */,
@@ -4385,7 +4438,6 @@
 				F020E6D12DF68EB800349FD5 /* ccrc2_ltc_ecb_encrypt.c in Sources */,
 				F020E6D22DF68EB800349FD5 /* ccrc2_ltc_ecb_encrypt_mode.c in Sources */,
 				F020E6D32DF68EB800349FD5 /* ccrc2_ltc_ecb_decrypt_mode.c in Sources */,
-				F09CDC842E3B45B200820F95 /* ccn_read_unit.c in Sources */,
 				F01DBC2B2DCF6A6800813612 /* ccrng.c in Sources */,
 				F01186D22D44F4C7009C285F /* ccmd2.c in Sources */,
 				F0851A332DEA572600349FD5 /* ccpoly1305.c in Sources */,
@@ -4491,34 +4543,43 @@
 			files = (
 				F01B55B92F43299D009425ED /* ccsha384_ti.c in Sources */,
 				F09880692F41231D0058F84D /* ccaes_ecb_test.c in Sources */,
+				F01B55EB2F47AB75009425ED /* ccmode_test_ofb.c in Sources */,
 				F01B55BD2F43299D009425ED /* SHA256ShortMsg.inc in Sources */,
 				F098805A2F41231D0058F84D /* ECBVarKey192_decrypt.inc in Sources */,
 				F01B55BE2F43299D009425ED /* SHA512_256LongMsg.inc in Sources */,
+				F01B55F82F47AC04009425ED /* ccn_read_uint.c in Sources */,
 				F01B55C22F43299D009425ED /* SHA512_256ShortMsg.inc in Sources */,
 				F09880532F41231D0058F84D /* ECBGFSbox256_encrypt.inc in Sources */,
 				F098806D2F4130F50058F84D /* cctest_link_aes_ecb.c in Sources */,
+				F01B55F02F47AB75009425ED /* ccmode_test_ctr.c in Sources */,
 				F01B55A12F43298B009425ED /* SHA1ShortMsg.inc in Sources */,
 				F09880252F4120CF0058F84D /* ccmode_test_ecb.c in Sources */,
 				F09880542F41231D0058F84D /* ECBVarTxt192_decrypt.inc in Sources */,
 				F01B55C42F43299D009425ED /* SHA256LongMsg.inc in Sources */,
+				F01B55F42F47AB93009425ED /* ccaes_cfb8_test.c in Sources */,
 				F09880892F419B1D0058F84D /* ccrmd160_ti.c in Sources */,
 				F09880612F41231D0058F84D /* ECBVarKey256_decrypt.inc in Sources */,
 				F09880522F41231D0058F84D /* ECBVarKey192_encrypt.inc in Sources */,
+				F01B55EC2F47AB75009425ED /* ccmode_test_cfb.c in Sources */,
 				F098805E2F41231D0058F84D /* ECBGFSbox128_decrypt.inc in Sources */,
+				F01B55F52F47AB93009425ED /* ccaes_cfb_test.c in Sources */,
 				F09880652F41231D0058F84D /* ECBVarKey256_encrypt.inc in Sources */,
 				F01B55982F4328C2009425ED /* ccchacha20_test.c in Sources */,
 				F09880582F41231D0058F84D /* ECBVarTxt192_encrypt.inc in Sources */,
 				F098802C2F4122D50058F84D /* ccmd4_ti.c in Sources */,
 				F01B55C72F43299D009425ED /* ccsha512_ti.c in Sources */,
 				F01B55992F4328C2009425ED /* ccpoly1305_test.c in Sources */,
+				F01B55E02F47A80A009425ED /* cctest_link_aes_cfb.c in Sources */,
 				F01B55C52F43299D009425ED /* SHA512LongMsg.inc in Sources */,
 				F09880592F41231D0058F84D /* ECBGFSbox256_decrypt.inc in Sources */,
 				F09880832F419AF40058F84D /* ccmd5_ti.c in Sources */,
 				F098805C2F41231D0058F84D /* ECBVarTxt128_encrypt.inc in Sources */,
+				F01B55DE2F47A80A009425ED /* cctest_link_aes_cfb8.c in Sources */,
 				F098805D2F41231D0058F84D /* ECBKeySbox128_decrypt.inc in Sources */,
 				F09880572F41231D0058F84D /* ECBKeySbox256_decrypt.inc in Sources */,
 				F01B55C82F43299D009425ED /* ccsha512_256_ti.c in Sources */,
 				F09880162F4120040058F84D /* cctest.c in Sources */,
+				F01B55DF2F47A80A009425ED /* cctest_link_aes_ofb.c in Sources */,
 				F09880552F41231D0058F84D /* ECBVarTxt128_decrypt.inc in Sources */,
 				F09880502F41231C0058F84D /* ccaes_cbc_test.c in Sources */,
 				F01B55A32F43298B009425ED /* ccsha1_ti.c in Sources */,
@@ -4527,8 +4588,10 @@
 				F098805F2F41231D0058F84D /* ECBGFSbox192_decrypt.inc in Sources */,
 				F09880602F41231D0058F84D /* ECBVarTxt256_encrypt.inc in Sources */,
 				F01B55C12F43299D009425ED /* SHA512ShortMsg.inc in Sources */,
+				F01B55EF2F47AB75009425ED /* ccmode_test_cbc.c in Sources */,
 				F01B55A22F43298B009425ED /* SHA1LongMsg.inc in Sources */,
 				F09880562F41231D0058F84D /* ECBVarKey128_encrypt.inc in Sources */,
+				F01B55DD2F47A80A009425ED /* cctest_link_aes_cbc.c in Sources */,
 				F01B55C32F43299D009425ED /* SHA224ShortMsg.inc in Sources */,
 				F01B55C62F43299D009425ED /* SHA512_224LongMsg.inc in Sources */,
 				F09880192F41209F0058F84D /* ccdigest_test.c in Sources */,
@@ -4538,11 +4601,14 @@
 				F09880512F41231D0058F84D /* ECBKeySbox256_encrypt.inc in Sources */,
 				F09880632F41231D0058F84D /* ECBKeySbox128_encrypt.inc in Sources */,
 				F09880642F41231D0058F84D /* ECBGFSbox128_encrypt.inc in Sources */,
+				F01B55EE2F47AB75009425ED /* ccmode_test_cfb8.c in Sources */,
 				F098805B2F41231D0058F84D /* ECBVarKey128_decrypt.inc in Sources */,
+				F01B55F62F47AB93009425ED /* ccaes_ofb_test.c in Sources */,
 				F09880682F41231D0058F84D /* ECBKeySbox192_encrypt.inc in Sources */,
 				F09880662F41231D0058F84D /* ECBVarTxt256_decrypt.inc in Sources */,
 				F01B55BF2F43299D009425ED /* SHA384ShortMsg.inc in Sources */,
 				F01B55C02F43299D009425ED /* SHA224LongMsg.inc in Sources */,
+				F01B55ED2F47AB75009425ED /* ccmode_test_xts.c in Sources */,
 				F01B55BB2F43299D009425ED /* SHA512_224ShortMsg.inc in Sources */,
 				F098808A2F419B1D0058F84D /* rmd160.inc in Sources */,
 				F09880272F41216C0058F84D /* cctest_trace.c in Sources */,

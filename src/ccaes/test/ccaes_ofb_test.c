@@ -42,6 +42,6 @@ CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, encrypt, OFBMMT_encrypt_vectors, mmt, 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, decrypt, OFBMMT_decrypt_vectors, mmt, "OFB (LTC) AES Decrypt MMT", ltc_ofb_decrypt, ltc_ecb_decrypt);
 
 #if CCAES_INTEL_ASM
-CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, crypt, OFBMMT_encrypt_vectors, mmt, "OFB (LTC) AES Encrypt MMT", intel_ofb_opt_encrypt, intel_ecb_opt_encrypt);
-CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, crypt, OFBMMT_decrypt_vectors, mmt, "OFB (LTC) AES Decrypt MMT", intel_ofb_opt_decrypt, intel_ecb_opt_decrypt);
+CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, crypt, OFBMMT_encrypt_vectors, mmt, "OFB (LTC) AES Encrypt MMT", intel_ofb_encrypt_opt, intel_ecb_encrypt_opt);
+CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, crypt, OFBMMT_decrypt_vectors, mmt, "OFB (LTC) AES Decrypt MMT", intel_ofb_decrypt_opt, intel_ecb_decrypt_opt);
 #endif
