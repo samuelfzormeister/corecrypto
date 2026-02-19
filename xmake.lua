@@ -164,13 +164,26 @@ target("libcc_test")
         "src/cctest/cctest.c",
         "src/cctest/cctest_trace.c",
         "src/ccdigest/test/ccdigest_test.c",
-        "src/ccmode/test/ccmode_test_ecb.c"
+        "src/ccmode/test/ccmode_test_cbc.c",
+        "src/ccmode/test/ccmode_test_cfb.c",
+        "src/ccmode/test/ccmode_test_cfb8.c",
+        "src/ccmode/test/ccmode_test_ecb.c",
+        "src/ccmode/test/ccmode_test_ofb.c",
+        "src/ccmode/test/ccmode_test_xts.c"
     )
 
     -- AES
     add_files(
+        "src/ccaes/test/ccaes_cbc_test.c",
+        "src/ccaes/test/ccaes_cfb_test.c",
+        "src/ccaes/test/ccaes_cfb8_test.c",
         "src/ccaes/test/ccaes_ecb_test.c",
-        "src/cctest/cctest_link_aes_ecb.c"
+        "src/ccaes/test/ccaes_ofb_test.c",
+        "src/cctest/cctest_link_aes_cbc.c",
+        "src/cctest/cctest_link_aes_cfb.c",
+        "src/cctest/cctest_link_aes_cfb8.c",
+        "src/cctest/cctest_link_aes_ecb.c",
+        "src/cctest/cctest_link_aes_ofb.c"
     )
 
     -- MD2

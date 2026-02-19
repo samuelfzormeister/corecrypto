@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "rsplib/osl.hpp"
-#include <istream>
+#include <rsplib/osl.hpp>
 #include <fstream>
 #include <sstream>
 #include <iostream>

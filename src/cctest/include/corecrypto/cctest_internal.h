@@ -53,40 +53,7 @@ extern const struct cctest_info *ccsha512_224_ltc_shortmsg_ti(void);
 extern const struct cctest_info *ccsha512_256_ltc_longmsg_ti(void);
 extern const struct cctest_info *ccsha512_256_ltc_shortmsg_ti(void);
 
-//
-// merge all AES tests into converged?
-//
-extern const struct cctest_info *ccaes_ltc_ecb_encrypt_ecbgfsbox_ti(void);
-extern const struct cctest_info *ccaes_ltc_ecb_encrypt_ecbkeysbox_ti(void);
-extern const struct cctest_info *ccaes_ltc_ecb_encrypt_ecbvarkey_ti(void);
-extern const struct cctest_info *ccaes_ltc_ecb_encrypt_ecbvartxt_ti(void);
-
-extern const struct cctest_info *ccaes_ltc_ecb_decrypt_ecbgfsbox_ti(void);
-extern const struct cctest_info *ccaes_ltc_ecb_decrypt_ecbkeysbox_ti(void);
-extern const struct cctest_info *ccaes_ltc_ecb_decrypt_ecbvarkey_ti(void);
-extern const struct cctest_info *ccaes_ltc_ecb_decrypt_ecbvartxt_ti(void);
-
-#if CCAES_INTEL_ASM
-extern const struct cctest_info *ccaes_intel_ecb_encrypt_opt_ecbgfsbox_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_encrypt_opt_ecbkeysbox_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_encrypt_opt_ecbvarkey_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_encrypt_opt_ecbvartxt_ti(void);
-
-extern const struct cctest_info *ccaes_intel_ecb_decrypt_opt_ecbgfsbox_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_decrypt_opt_ecbkeysbox_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_decrypt_opt_ecbvarkey_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_decrypt_opt_ecbvartxt_ti(void);
-
-extern const struct cctest_info *ccaes_intel_ecb_encrypt_aesni_ecbgfsbox_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_encrypt_aesni_ecbkeysbox_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_encrypt_aesni_ecbvarkey_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_encrypt_aesni_ecbvartxt_ti(void);
-
-extern const struct cctest_info *ccaes_intel_ecb_decrypt_aesni_ecbgfsbox_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_decrypt_aesni_ecbkeysbox_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_decrypt_aesni_ecbvarkey_ti(void);
-extern const struct cctest_info *ccaes_intel_ecb_decrypt_aesni_ecbvartxt_ti(void);
-#endif
+#include <corecrypto/cctest_aes.h>
 
 //
 // We build a "linked list" (I say that loosely, given there's no pointer to the last field)
@@ -104,10 +71,23 @@ struct _cctest_test_link {
 #if CC_KERNEL
 #define CCTEST_LINK_NEXT_ALLOC(link) link->next = (struct _cctest_test_link *)IOMalloc(sizeof(struct _cctest_test_link))
 #define CCTEST_LINK_FREE(link) IOFree(link, sizeof(struct _cctest_test_link))
+
+#define cctest_malloc(size) IOMalloc(size)
+#define cctest_free(ptr, size) IOFree(ptr, size)
 #else
 #define CCTEST_LINK_NEXT_ALLOC(link) link->next = (struct _cctest_test_link *)malloc(sizeof(struct _cctest_test_link))
 #define CCTEST_LINK_FREE(link) free(link)
+
+#define cctest_malloc(size) malloc(size)
+#define cctest_free(ptr, size) free(ptr)
 #endif
+
+#define CCTEST_ADD_TEST(chain, info)                        \
+    chain->ti = info;                                       \
+    CCTEST_TRACE("Enabling test %s\n", chain->ti->name);    \
+    CCTEST_LINK_NEXT_ALLOC(chain);                          \
+    chain = chain->next;
+
 
 enum {
     CCTEST_SUBSYSTEM_DIGEST = 1,

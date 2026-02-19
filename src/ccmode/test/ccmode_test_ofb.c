@@ -72,7 +72,7 @@ int ccmode_ofb_test_init(const struct cctest_info *info, cctest_ctx *ctx)
     tctx->block_size = mode->block_size;
 
     //
-    // DO NOT INITIALISE TEST ofb CTX HERE!!!
+    // DO NOT INITIALISE TEST OFB CTX HERE!!!
     //
 
     return 0;
@@ -101,6 +101,52 @@ int ccmode_ofb_encrypt_test_run(cctest_ctx *ctx)
             continue;
         } else {
             cctest_trace_fail(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
+                        cc_printf("[CCTEST][CIPHER][%s]: EXPECTED:\n", tctx->ti->name);
+            
+            uint8_t *state = (uint8_t *)vec.plaintext;
+            
+            for (cc_size i = 0; i < vec.text_length; i++) {
+                if ((i % 8) == 0) {
+                    if (i > 0) {
+                        cc_printf("\n");
+                    }
+                }
+                cc_printf("%02x ", *state);
+                state++;
+            }
+            cc_printf("\n");
+            
+            cc_printf("[CCTEST][CIPHER][%s]: CIPHERTEXT:\n", tctx->ti->name);
+            
+            state = (uint8_t *)vec.ciphertext;
+            
+            for (cc_size i = 0; i < vec.text_length; i++) {
+                if ((i % 8) == 0) {
+                    if (i > 0) {
+                        cc_printf("\n");
+                    }
+                }
+                cc_printf("%02x ", *state);
+                state++;
+            }
+            cc_printf("\n");
+
+            cc_printf("[CCTEST][CIPHER][%s]: GENERATED:\n", tctx->ti->name);
+            
+            state = (uint8_t *)CCMODE_TEST_CTX_SCRATCH_SPACE(tctx);
+            
+            for (cc_size i = 0; i < vec.text_length; i++) {
+                if ((i % 8) == 0) {
+                    if (i > 0) {
+                        cc_printf("\n");
+                    }
+                }
+                cc_printf("%02x ", *state);
+                state++;
+            }
+            cc_printf("\n");
+
+            ccmode_ofb_test_dump_state(ctx);
             return CCPOST_KAT_FAILURE;
         }
         
@@ -135,11 +181,12 @@ int ccmode_ofb_decrypt_test_run(cctest_ctx *ctx)
             continue;
         } else {
             cctest_trace_fail(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
+            cctest_trace_general(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, reason);
             cc_printf("[CCTEST][CIPHER][%s]: EXPECTED:\n", tctx->ti->name);
             
             uint8_t *state = (uint8_t *)vec.plaintext;
             
-            for (cc_size i = 0; i < CCMODE_TEST_CTX_SCRATCH_SIZE(((struct ccmode_ofb *)tctx->mode)); i++) {
+            for (cc_size i = 0; i < vec.text_length; i++) {
                 if ((i % 8) == 0) {
                     if (i > 0) {
                         cc_printf("\n");
@@ -154,7 +201,22 @@ int ccmode_ofb_decrypt_test_run(cctest_ctx *ctx)
             
             state = (uint8_t *)vec.ciphertext;
             
-            for (cc_size i = 0; i < CCMODE_TEST_CTX_SCRATCH_SIZE(((struct ccmode_ofb *)tctx->mode)); i++) {
+            for (cc_size i = 0; i < vec.text_length; i++) {
+                if ((i % 8) == 0) {
+                    if (i > 0) {
+                        cc_printf("\n");
+                    }
+                }
+                cc_printf("%02x ", *state);
+                state++;
+            }
+            cc_printf("\n");
+
+            cc_printf("[CCTEST][CIPHER][%s]: GENERATED:\n", tctx->ti->name);
+            
+            state = (uint8_t *)CCMODE_TEST_CTX_SCRATCH_SPACE(tctx);
+            
+            for (cc_size i = 0; i < vec.text_length; i++) {
                 if ((i % 8) == 0) {
                     if (i > 0) {
                         cc_printf("\n");

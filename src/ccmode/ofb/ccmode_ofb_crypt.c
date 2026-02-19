@@ -24,6 +24,7 @@ int ccmode_ofb_crypt(ccofb_ctx *ctx, size_t nbytes, const void *in, void *out)
     struct _ccmode_ofb_key *okey = (struct _ccmode_ofb_key *)ctx;
     const uint8_t *in_ptr = in;
     uint8_t *out_ptr = out;
+    uint8_t *iv = (uint8_t *)CCMODE_OFB_KEY_IV(okey);
 
     /* way more efficient than just cycling it by block. maybe i should do this for other impls. */
     while (nbytes--) {
@@ -32,8 +33,7 @@ int ccmode_ofb_crypt(ccofb_ctx *ctx, size_t nbytes, const void *in, void *out)
             okey->pad_len = 0;
         }
 
-        *out_ptr++ = *in_ptr++ ^ CCMODE_OFB_KEY_IV(okey)[okey->pad_len];
-        okey->pad_len++;
+        *out_ptr++ = *in_ptr++ ^ iv[(okey->pad_len)++];
     }
 
     return CCERR_OK;

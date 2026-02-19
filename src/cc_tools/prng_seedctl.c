@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,18 +16,25 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "corecrypto/cc_priv.h"
-#include <corecrypto/ccn.h>
+#include <corecrypto/cc_config.h>
 
-int ccn_read_unit(cc_size n, cc_unit *r, size_t data_nbytes, const uint8_t *data)
+//
+// Basically just the prng_seedctl of Darwin but open.
+//
+
+//
+// What our task is:
+// - Send the latest round of entropy (in SEEDFILE_PATH) to cckprng via /dev/random
+// - Get the next round of entropy and write to SEEDFILE_PATH
+//
+
+#if CC_DARWIN
+
+#define SEEDFILE_PATH "/var/db/EntropySeedCache"
+
+int main(int argc, const char *argv[])
 {
-    /* if we need more N than we have, bail. */
-    if (data_nbytes > ccn_sizeof_n(n)) {
-        return -1;
-    }
-
-    /* corecrypto's constant ZPs have the primes in complete reverse */
-    cc_try_abort("not yet");
-
-    return 0;
+    
 }
+
+#endif

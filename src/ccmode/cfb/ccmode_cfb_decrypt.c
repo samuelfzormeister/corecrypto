@@ -25,20 +25,18 @@ int ccmode_cfb_decrypt(cccfb_ctx *ctx, size_t nbytes, const void *in, void *out)
     size_t block_size = ckey->ecb->block_size;
     const uint8_t *cur_in = in;
     uint8_t *cur_out = out;
+    uint8_t *pad = (uint8_t *)CCMODE_CFB_KEY_PADDING(ckey);
+    uint8_t *iv = (uint8_t *)CCMODE_CFB_KEY_FEEDBACK(ckey);
 
     /* way more efficient than just cycling it by block. maybe i should do this for other impls. */
     while (nbytes--) {
         if (ckey->pad_len == block_size) {
-            ckey->ecb->ecb(CCMODE_CFB_KEY_ECB_CTX(ckey), 1, CCMODE_CFB_KEY_PADDING(ckey), CCMODE_CFB_KEY_FEEDBACK(ckey));
+            ckey->ecb->ecb(CCMODE_CFB_KEY_ECB_CTX(ckey), 1, iv, pad);
             ckey->pad_len = 0;
         }
 
-        CCMODE_CFB_KEY_PADDING(ckey)
-        [ckey->pad_len] = *cur_in;
-        *cur_out = *cur_in ^ CCMODE_CFB_KEY_FEEDBACK(ckey)[ckey->pad_len];
-        ckey->pad_len++;
-        cur_in++;
-        cur_out++;
+        iv[ckey->pad_len] = *cur_in;
+        *cur_out++ = *cur_in++ ^ pad[ckey->pad_len++];
     }
 
     return CCERR_OK;

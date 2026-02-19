@@ -24,12 +24,14 @@ int ccmode_cfb8_encrypt(cccfb8_ctx *ctx, size_t nbytes, const void *in, void *ou
     struct _ccmode_cfb8_key *ckey = (struct _ccmode_cfb8_key *)ctx;
     uint8_t *out_ptr = out;
     const uint8_t *in_ptr = in;
+    uint8_t *iv = (uint8_t *)CCMODE_CFB8_KEY_FEEDBACK(ckey);
+    uint8_t *pad = (uint8_t *)CCMODE_CFB8_KEY_PADDING(ckey);
 
     while (nbytes--) {
         /* ZORMEISTER: this code is ugly but gets the job done */
-        cc_memmove(CCMODE_CFB8_KEY_FEEDBACK(ckey), CCMODE_CFB8_KEY_FEEDBACK(ckey) + 1, (ckey->ecb->block_size - 1));
-        CCMODE_CFB8_KEY_FEEDBACK(ckey)[(ckey->ecb->block_size - 1)] = *out_ptr = CCMODE_CFB8_KEY_PADDING(ckey)[0] ^ *in_ptr;
-        ckey->ecb->ecb(CCMODE_CFB8_KEY_ECB_CTX(ckey), 1, CCMODE_CFB8_KEY_FEEDBACK(ckey), CCMODE_CFB8_KEY_PADDING(ckey));
+        cc_memmove(CCMODE_CFB8_KEY_FEEDBACK(ckey), iv + 1, (ckey->ecb->block_size - 1));
+        iv[(ckey->ecb->block_size - 1)] = *out_ptr = pad[0] ^ *in_ptr;
+        ckey->ecb->ecb(CCMODE_CFB8_KEY_ECB_CTX(ckey), 1, iv, pad);
         out_ptr++;
         in_ptr++;
     }

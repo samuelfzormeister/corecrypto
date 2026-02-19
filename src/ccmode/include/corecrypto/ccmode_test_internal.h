@@ -23,6 +23,7 @@
 #include <corecrypto/cc_config.h>
 #include <corecrypto/cctest_priv.h>
 #include <corecrypto/ccn.h>
+#include <corecrypto/ccmode_factory.h>
 
  /*
   * @group ccmode_test
@@ -71,9 +72,9 @@ struct _ccmode_test_ctx {
 #define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size + ctx->block_size)]
 
 //
-// Allow for space to conduct a test without allocating memory ourselves.
+// Allow for space to conduct a test without allocating memory ourself.
 //
-#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 11)
+#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 32)
 
 // cctest_info format:
 // ccaes_IMPLNAME_TESTNAME_ti
@@ -88,6 +89,19 @@ const struct cctest_info *cc##cipher##_##impl##_##testname##_ti() {          \
     return &cc##cipher##_##impl##_##testname##_test;                                         \
 }
 
+#define CCMODE_CONSTRUCTED_TEST_FACTORY(cipher, mode, crypt, vectors, testname, altname, impl, ecb)         \
+static struct cctest_info cc##cipher##_##impl##_##testname##_test;                  \
+static struct ccmode_test_vector_info cc##cipher##_##impl##_##testname##_test_vi  \
+    = { vectors , sizeof(vectors) / sizeof(struct ccmode_test_vector) };      \
+                                                                          \
+const struct cctest_info *cc##cipher##_##impl##_##testname##_ti() {          \
+    static struct ccmode_##mode test_##cipher##_##impl##_mode; \
+    ccmode_factory_##mode##_##crypt(&test_##cipher##_##impl##_mode , &cc##cipher##_##ecb##_mode); \
+    const struct ccmode_##mode *ciph = &test_##cipher##_##impl##_mode;                      \
+    ccmode_##mode##_##crypt##_test_factory(&cc##cipher##_##impl##_##testname##_test , ciph, altname , &cc##cipher##_##impl##_##testname##_test_vi ); \
+    return &cc##cipher##_##impl##_##testname##_test;                                         \
+}
+
 #define CCMODE_ECB_TEST_FACTORY(cipher, crypt, vectors, altname, testname, impl) CCMODE_TEST_FACTORY(cipher, ecb, crypt, vectors, testname, altname, impl)
 #define CCMODE_CBC_TEST_FACTORY(cipher, crypt, vectors, altname, testname, impl) CCMODE_TEST_FACTORY(cipher, cbc, crypt, vectors, testname, altname, impl)
 
@@ -96,5 +110,16 @@ void ccmode_ecb_decrypt_test_factory(struct cctest_info *ti, const struct ccmode
 
 void ccmode_cbc_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_cbc *mode, const char *name, struct ccmode_test_vector_info *vi);
 void ccmode_cbc_decrypt_test_factory(struct cctest_info *ti, const struct ccmode_cbc *mode, const char *name, struct ccmode_test_vector_info *vi);
+
+void ccmode_ofb_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_ofb *mode, const char *name, struct ccmode_test_vector_info *vi);
+void ccmode_ofb_decrypt_test_factory(struct cctest_info *ti, const struct ccmode_ofb *mode, const char *name, struct ccmode_test_vector_info *vi);
+
+void ccmode_cfb_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_cfb *mode, const char *name, struct ccmode_test_vector_info *vi);
+void ccmode_cfb_decrypt_test_factory(struct cctest_info *ti, const struct ccmode_cfb *mode, const char *name, struct ccmode_test_vector_info *vi);
+
+void ccmode_cfb8_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_cfb8 *mode, const char *name, struct ccmode_test_vector_info *vi);
+void ccmode_cfb8_decrypt_test_factory(struct cctest_info *ti, const struct ccmode_cfb8 *mode, const char *name, struct ccmode_test_vector_info *vi);
+
+
 
 #endif /* _CORECRYPTO_CCMODE_TEST_INTERNAL_H_ */

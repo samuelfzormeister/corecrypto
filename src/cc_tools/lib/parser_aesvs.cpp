@@ -84,11 +84,8 @@ void parser::parse_aesvs(std::stringstream &stream, bool ecb)
                 osl::log(osl::debug, "parser: found ct");
                 ciphertext = std::regex_replace(match.str(), repl, "");
                 osl::log(osl::debug, "parser: %s", ciphertext.c_str());
-
-                if (ecb) {
-                    auto vector = std::make_shared<aesvs_vector>(key, iv, plaintext, ciphertext);
-                    encrypt->add_vector(vector);
-                }
+                auto vector = std::make_shared<aesvs_vector>(key, iv, plaintext, ciphertext);
+                encrypt->add_vector(vector);
             }
         } else {
             if (line.find("CIPHERTEXT") != std::string::npos) {
@@ -103,11 +100,8 @@ void parser::parse_aesvs(std::stringstream &stream, bool ecb)
                 osl::log(osl::debug, "parser: found pt");
                 plaintext = std::regex_replace(match.str(), repl, "");
                 osl::log(osl::debug, "parser: %s", plaintext.c_str());
-
-                if (ecb) {
-                    auto vector = std::make_shared<aesvs_vector>(key, iv, plaintext, ciphertext);
-                    decrypt->add_vector(vector);
-                }
+                auto vector = std::make_shared<aesvs_vector>(key, iv, plaintext, ciphertext);
+                decrypt->add_vector(vector);
             }
         }
     }

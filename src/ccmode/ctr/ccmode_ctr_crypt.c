@@ -25,18 +25,20 @@ int ccmode_ctr_crypt(ccctr_ctx *ctx, size_t nbytes, const void *in, void *out)
     size_t block_size = ckey->ecb->block_size;
     const uint8_t *cur_in = in;
     uint8_t *cur_out = out;
+    uint8_t *counter = (uint8_t *)CCMODE_CTR_KEY_COUNTER(ckey);
+    uint8_t *pad = (uint8_t *)CCMODE_CTR_KEY_PAD(ckey);
 
     while (nbytes--) {
         if (ckey->pad_len == block_size) {
-            for (size_t i = block_size - 1; i >= block_size; i--) {
-                CCMODE_CTR_KEY_COUNTER(ckey)[i] += 1;
+            for (size_t i = block_size - 1; i < block_size; i--) {
+                counter[i] += 1;
             }
 
-            ckey->ecb->ecb(CCMODE_CTR_KEY_ECB_CTX(ckey), 1, CCMODE_CTR_KEY_COUNTER(ckey), CCMODE_CTR_KEY_PAD(ckey));
+            ckey->ecb->ecb(CCMODE_CTR_KEY_ECB_CTX(ckey), 1, counter, pad);
             ckey->pad_len = 0;
         }
 
-        *cur_out++ = *cur_in++ ^ CCMODE_CTR_KEY_PAD(ckey)[ckey->pad_len++];
+        *cur_out++ = *cur_in++ ^ pad[ckey->pad_len++];
     }
 
     return CCERR_OK;

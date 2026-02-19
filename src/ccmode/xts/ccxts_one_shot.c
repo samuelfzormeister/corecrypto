@@ -16,7 +16,6 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "corecrypto/ccmode.h"
 #include <corecrypto/cc_macros.h>
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccmode_internal.h>
@@ -36,7 +35,11 @@ int ccxts_one_shot(const struct ccmode_xts *mode, size_t key_nbytes,
     cc_require(ret == 0, out);
     ret = ccxts_set_tweak(mode, ctx, twk, iv);
     cc_require(ret == 0, out);
-    ccxts_update(mode, ctx, twk, nblocks, in, out);
+    twkbuf = ccxts_update(mode, ctx, twk, nblocks, in, out);
+    if (twkbuf == NULL) {
+        // TODO: real error for here!!!
+        ret = CCERR_INTERNAL;
+    }
 
     out:
     ccxts_ctx_clear(mode->size, ctx);

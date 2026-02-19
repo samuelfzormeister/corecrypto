@@ -28,86 +28,28 @@
 static struct _cctest_test_link *cctest_link_aes_intel_ecb(struct _cctest_test_link *lnk)
 {
 #if CCAES_INTEL_ASM
-    lnk->ti = ccaes_intel_ecb_encrypt_opt_ecbgfsbox_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_intel_ecb_encrypt_opt_ecbkeysbox_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_intel_ecb_encrypt_opt_ecbvarkey_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_intel_ecb_encrypt_opt_ecbvartxt_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-    
-    lnk->ti = ccaes_intel_ecb_decrypt_opt_ecbgfsbox_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_intel_ecb_decrypt_opt_ecbkeysbox_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_intel_ecb_decrypt_opt_ecbvarkey_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_intel_ecb_decrypt_opt_ecbvartxt_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_opt_gfsbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_opt_keysbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_opt_varkey_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_opt_vartxt_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_opt_mmt_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_opt_gfsbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_opt_keysbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_opt_keysbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_opt_keysbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_opt_mmt_ti());
 
     if (CC_HAS_AESNI()) {
-        lnk->ti = ccaes_intel_ecb_encrypt_aesni_ecbgfsbox_ti();
-        CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(lnk);
-        lnk = lnk->next;
-
-        lnk->ti = ccaes_intel_ecb_encrypt_aesni_ecbkeysbox_ti();
-        CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(lnk);
-        lnk = lnk->next;
-
-        lnk->ti = ccaes_intel_ecb_encrypt_aesni_ecbvarkey_ti();
-        CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(lnk);
-        lnk = lnk->next;
-
-        lnk->ti = ccaes_intel_ecb_encrypt_aesni_ecbvartxt_ti();
-        CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(lnk);
-        lnk = lnk->next;
-        
-        lnk->ti = ccaes_intel_ecb_decrypt_aesni_ecbgfsbox_ti();
-        CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(lnk);
-        lnk = lnk->next;
-
-        lnk->ti = ccaes_intel_ecb_decrypt_aesni_ecbkeysbox_ti();
-        CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(lnk);
-        lnk = lnk->next;
-
-        lnk->ti = ccaes_intel_ecb_decrypt_aesni_ecbvarkey_ti();
-        CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(lnk);
-        lnk = lnk->next;
-
-        lnk->ti = ccaes_intel_ecb_decrypt_aesni_ecbvartxt_ti();
-        CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-        CCTEST_LINK_NEXT_ALLOC(lnk);
-        lnk = lnk->next;
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_aesni_gfsbox_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_aesni_keysbox_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_aesni_varkey_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_aesni_vartxt_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_encrypt_aesni_mmt_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_aesni_gfsbox_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_aesni_keysbox_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_aesni_keysbox_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_aesni_keysbox_ti());
+        CCTEST_ADD_TEST(lnk, ccaes_intel_ecb_decrypt_aesni_mmt_ti());
     }
 #endif
 
@@ -116,46 +58,16 @@ static struct _cctest_test_link *cctest_link_aes_intel_ecb(struct _cctest_test_l
 
 static struct _cctest_test_link *cctest_link_aes_ltc_ecb(struct _cctest_test_link *lnk)
 {
-    lnk->ti = ccaes_ltc_ecb_encrypt_ecbgfsbox_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_ltc_ecb_encrypt_ecbkeysbox_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_ltc_ecb_encrypt_ecbvarkey_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_ltc_ecb_encrypt_ecbvartxt_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-    
-    lnk->ti = ccaes_ltc_ecb_decrypt_ecbgfsbox_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_ltc_ecb_decrypt_ecbkeysbox_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_ltc_ecb_decrypt_ecbvarkey_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
-    lnk->ti = ccaes_ltc_ecb_decrypt_ecbvartxt_ti();
-    CCTEST_TRACE("Enabling test %s\n", lnk->ti->name);
-    CCTEST_LINK_NEXT_ALLOC(lnk);
-    lnk = lnk->next;
-
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_encrypt_gfsbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_encrypt_keysbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_encrypt_varkey_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_encrypt_vartxt_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_encrypt_mmt_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_decrypt_gfsbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_decrypt_keysbox_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_decrypt_varkey_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_decrypt_vartxt_ti());
+    CCTEST_ADD_TEST(lnk, ccaes_ltc_ecb_decrypt_mmt_ti());
     return lnk;
 }
 

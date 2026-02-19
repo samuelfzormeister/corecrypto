@@ -60,6 +60,4 @@ uint32_t
 ccdes_cbc_cksum(const void *in, void *out, size_t length,
                 const void *key, size_t key_nbytes, const void *ivec);
 
-/* ZORMEISTER: I have reason to believe that cbc chksum + odd parity funcs are from OpenSSL/EAY, a lot of old CommonCrypto was cannibalised to make corecrypto. */
-
 #endif /* _CORECRYPTO_CCDES_H_ */

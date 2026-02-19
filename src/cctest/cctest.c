@@ -23,32 +23,15 @@
 #include <corecrypto/ccdigest_test_internal.h>
 #include <corecrypto/cc_memory.h>
 
-#if CC_KERNEL
-#define CCTEST_LINK_NEXT_ALLOC(link) link->next = (struct _cctest_test_link *)IOMalloc(sizeof(struct _cctest_test_link))
-#define CCTEST_LINK_FREE(link) IOFree(link, sizeof(struct _cctest_test_link))
-
-#define cctest_malloc(size) IOMalloc(size)
-#define cctest_free(ptr, size) IOFree(ptr, size)
-#else
-#define CCTEST_LINK_NEXT_ALLOC(link) link->next = (struct _cctest_test_link *)malloc(sizeof(struct _cctest_test_link))
-#define CCTEST_LINK_FREE(link) free(link)
-
-#define cctest_malloc(size) malloc(size)
-#define cctest_free(ptr, size) free(ptr)
-#endif
-
 #define CCTEST_TRACE(x...) cc_printf("[CCTEST]: " x)
-
-#define CCTEST_ADD_TEST(chain, info)                        \
-    chain->ti = info;                                       \
-    CCTEST_TRACE("Enabling test %s\n", chain->ti->name);    \
-    CCTEST_LINK_NEXT_ALLOC(chain);                          \
-    chain = chain->next;
-
 
 static struct _cctest_test_link *root;
 
 extern struct _cctest_test_link *cctest_link_aes_ecb(struct _cctest_test_link *lnk);
+extern struct _cctest_test_link *cctest_link_aes_cbc(struct _cctest_test_link *lnk);
+extern struct _cctest_test_link *cctest_link_aes_ofb(struct _cctest_test_link *lnk);
+extern struct _cctest_test_link *cctest_link_aes_cfb(struct _cctest_test_link *lnk);
+extern struct _cctest_test_link *cctest_link_aes_cfb8(struct _cctest_test_link *lnk);
 
 /*
  * MEMORY CORRUPTION!!! MEMORY CORRUPTION!!! COME GET YOUR MEMORY CORRUPTION!!!
@@ -100,15 +83,14 @@ int cctest_conduct_tests(uint32_t flags)
 
     if (flags & CCTEST_ENABLE_AES) {
         chain = cctest_link_aes_ecb(chain);
+        chain = cctest_link_aes_cbc(chain);
+        chain = cctest_link_aes_ofb(chain);
+        chain = cctest_link_aes_cfb(chain);
+        chain = cctest_link_aes_cfb8(chain);
     }
 
     struct _cctest_test_link *lnk = root;
 
-    //
-    // for some reason the nvectors field keeps getting replaced by 8cf0c094ee4514cc
-    //
-    // why the hell is memory being corrupted
-    //
     while (lnk->next != NULL) {
         const struct cctest_info *ti = lnk->ti;
         cctest_ctx *ctx = cctest_malloc(ti->size);
