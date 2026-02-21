@@ -101,6 +101,7 @@ CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb8, decrypt, CFB8VarTxt_decrypt_vectors,
                                 vartxt, "LTC backed AES CFB8 Decrypt (CFB8VarTxt)", 
                                 ltc_cfb8_decrypt, ltc_ecb_decrypt);
 
+#if CCAES_INTEL_ASM
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb8, encrypt, CFB8GFSbox_encrypt_vectors,
                                 gfsbox, "LTC backed AES CFB Encrypt (CFB8GFSbox)",
                                 intel_cfb8_encrypt_opt, intel_ecb_encrypt_opt);
@@ -164,6 +165,7 @@ CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb8, decrypt, CFB8VarKey_decrypt_vectors,
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb8, decrypt, CFB8VarTxt_decrypt_vectors,
                                 vartxt, "LTC backed AES CFB Decrypt (CFB8VarTxt)",
                                 intel_cfb8_decrypt_aesni, intel_ecb_decrypt_aesni);
+#endif
 
 #pragma mark - Multi-Block Test
 
@@ -187,6 +189,7 @@ CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb8, decrypt, CFB8MMT_decrypt_vectors,
                                 mmt, "LTC backed AES CFB8 Encrypt (CFB8MMT)", 
                                 ltc_cfb8_decrypt, ltc_ecb_decrypt);
 
+#if CCAES_INTEL_ASM
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb8, encrypt, CFB8MMT_encrypt_vectors,
                                 mmt, "LTC backed AES CFB Encrypt (CFB128MMT)",
                                 intel_cfb8_encrypt_opt, intel_ecb_encrypt_opt);
@@ -202,3 +205,4 @@ CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb8, encrypt, CFB8MMT_encrypt_vectors,
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb8, decrypt, CFB8MMT_decrypt_vectors,
                                 mmt, "LTC backed AES CFB Encrypt (CFB128MMT)",
                                 intel_cfb8_decrypt_aesni, intel_ecb_decrypt_aesni);
+#endif

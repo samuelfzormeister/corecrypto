@@ -22,7 +22,7 @@
 int ccmode_cbc_encrypt(const cccbc_ctx *ctx, cccbc_iv *iv, size_t nblocks, const void *in, void *out)
 {
     const struct _ccmode_cbc_key *fctx = (const struct _ccmode_cbc_key *)ctx;
-    void *cur_iv = iv->b;
+    uint8_t *cur_iv = &iv->b[0];
 
     /* iterate. */
     while (nblocks--) {
@@ -33,6 +33,9 @@ int ccmode_cbc_encrypt(const cccbc_ctx *ctx, cccbc_iv *iv, size_t nblocks, const
         in += ccecb_block_size(fctx->ecb);
         out += ccecb_block_size(fctx->ecb);
     }
+
+    // copy the last ciphertext block to the iv context for any extra update callss
+    cc_copy(ccecb_block_size(fctx->ecb), iv, out);
 
     return CCERR_OK;
 }

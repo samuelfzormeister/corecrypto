@@ -18,12 +18,37 @@
 
 #include <corecrypto/ccpad.h>
 
+extern void ccmode_xts_mult_alpha(uint8_t *I);
+
 void ccpad_xts_encrypt(const struct ccmode_xts *xts,
                        ccxts_ctx *ctx, ccxts_tweak *tweak,
                        size_t nbytes, const void *in, void *out)
 {
-    cc_size blocks = nbytes / ccxts_block_size(xts);
-    cc_size leftover = (nbytes & 15);
-    
-    
+    uint8_t cbuf[16], pbuf[16] = {0};
+    cc_size leftover = nbytes & 15;
+    cc_size bytes = nbytes - leftover;
+    const uint8_t *pt = in;
+    uint8_t *ct = out;
+
+    if (leftover == 0) {
+        ccxts_update(xts, ctx, tweak, (bytes >> 4), pt, ct);
+        return;
+    } else {
+        cc_size i;
+        ccxts_update(xts, ctx, tweak, (bytes >> 4) - 1, pt, ct);
+        pt += bytes - 16;
+        ct += bytes - 16;
+        ccxts_update(xts, ctx, tweak, 1, pt, cbuf);
+
+        for (i = 0; i < leftover; i++) {
+            pbuf[i] = pt[i];
+            ct[i] = cbuf[i];
+        }
+
+        for (; i < 16; i++) {
+            pbuf[i] = cbuf[i];
+        }
+
+        ccxts_update(xts, ctx, tweak, 1, pbuf, ct - 16);
+    }
 }

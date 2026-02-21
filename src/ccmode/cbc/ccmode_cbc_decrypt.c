@@ -22,14 +22,20 @@
 int ccmode_cbc_decrypt(const cccbc_ctx *ctx, cccbc_iv *iv, size_t nblocks, const void *in, void *out)
 {
     const struct _ccmode_cbc_key *fctx = (const struct _ccmode_cbc_key *)ctx;
-    void *cur_iv = iv->b;
+    uint8_t *cur_iv = &iv->b[0];
+    uint8_t *pt = out;
+    const uint8_t *ct = in;
 
     /* iterate. */
     while (nblocks--) {
         ccecb_update(fctx->ecb, CCMODE_CBC_KEY_ECB_CTX(fctx), 1, in, out);
-        cc_xor(ccecb_block_size(fctx->ecb), out, in, cur_iv);
+        
+        for (cc_size i; i < fctx->ecb->block_size; i++) {
+            uint8_t tmp = cur_iv[i] ^ ct[i];
+            cur_iv[i] = ct[i];
+            pt[i] = tmp;
+        }
 
-        cur_iv = out;
         in += ccecb_block_size(fctx->ecb);
         out += ccecb_block_size(fctx->ecb);
     }

@@ -30,6 +30,7 @@
 #include <corecrypto/ccdigest_priv.h>
 #include <corecrypto/cchmac.h>
 #include <corecrypto/ccmd5.h>
+#include <corecrypto/ccpad.h>
 #include <corecrypto/ccrc4.h>
 #include <corecrypto/ccsha1.h>
 #include <corecrypto/ccsha2.h>
@@ -159,6 +160,9 @@ void cc_populate_fns(crypto_functions_t fns)
     fns->ccrc4_info = ccrc4();
 
     fns->ccchacha20poly1305_fns = &ccchacha20poly1305_funcs;
+
+    fns->ccpad_xts_decrypt_fn = &ccpad_xts_decrypt;
+    fns->ccpad_xts_encrypt_fn = &ccpad_xts_encrypt;
 
 #if CCKEXT_TRACE
     printf("corecrypto: finished populating implemented functions.\n");

@@ -74,7 +74,7 @@ struct _ccmode_test_ctx {
 //
 // Allow for space to conduct a test without allocating memory ourself.
 //
-#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 32)
+#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 28)
 
 // cctest_info format:
 // ccaes_IMPLNAME_TESTNAME_ti

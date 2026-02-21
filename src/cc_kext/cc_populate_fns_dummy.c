@@ -22,7 +22,7 @@
 #include "register_crypto.h"
 #endif
 
-#include "../dummy/pdcrypto_dummy.h"
+#include "../pdcdummy/pdcrypto_dummy.h"
 
 void cc_populate_fns_dummy(crypto_functions_t fns)
 {
@@ -33,10 +33,6 @@ void cc_populate_fns_dummy(crypto_functions_t fns)
     /* AES dummies */
     fns->ccaes_gcm_decrypt = &pdcaes_gcm_decrypt_dummy;
     fns->ccaes_gcm_encrypt = &pdcaes_gcm_encrypt_dummy;
-
-    /* Padding dummies */
-    fns->ccpad_xts_decrypt_fn = pdcpad_xts_encrypt_fn_dummy;
-    fns->ccpad_xts_encrypt_fn = pdcpad_xts_decrypt_fn_dummy;
 
     /* RNG dummy */
     fns->ccrng_fn = &ccrng; /* I consider this a dummy because it returns the KPRNG. The **real** CCRNG is an NIST CTR DRBG using AES */
