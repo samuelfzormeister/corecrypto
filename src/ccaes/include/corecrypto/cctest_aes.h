@@ -129,6 +129,34 @@ extern const struct cctest_info *ccaes_ltc_cfb_decrypt_vartxt_ti(void);
 extern const struct cctest_info *ccaes_ltc_cfb_encrypt_mmt_ti(void);
 extern const struct cctest_info *ccaes_ltc_cfb_decrypt_mmt_ti(void);
 
+#if CCAES_INTEL_ASM
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_opt_gfsbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_opt_keysbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_opt_varkey_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_opt_vartxt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_opt_gfsbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_opt_keysbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_opt_varkey_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_opt_vartxt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_aesni_gfsbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_aesni_keysbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_aesni_varkey_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_aesni_vartxt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_aesni_gfsbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_aesni_keysbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_aesni_varkey_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_aesni_vartxt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_opt_mmt_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_opt_mmt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb_encrypt_aesni_mmt_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb_decrypt_aesni_mmt_ti(void);
+#endif
+
 #pragma mark - CFB8 test suites
 
 extern const struct cctest_info *ccaes_ltc_cfb8_encrypt_gfsbox_ti(void);
@@ -143,5 +171,33 @@ extern const struct cctest_info *ccaes_ltc_cfb8_decrypt_vartxt_ti(void);
 
 extern const struct cctest_info *ccaes_ltc_cfb8_encrypt_mmt_ti(void);
 extern const struct cctest_info *ccaes_ltc_cfb8_decrypt_mmt_ti(void);
+
+#if CCAES_INTEL_ASM
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_opt_gfsbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_opt_keysbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_opt_varkey_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_opt_vartxt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_opt_gfsbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_opt_keysbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_opt_varkey_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_opt_vartxt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_aesni_gfsbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_aesni_keysbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_aesni_varkey_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_aesni_vartxt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_aesni_gfsbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_aesni_keysbox_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_aesni_varkey_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_aesni_vartxt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_opt_mmt_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_opt_mmt_ti(void);
+
+extern const struct cctest_info *ccaes_intel_cfb8_encrypt_aesni_mmt_ti(void);
+extern const struct cctest_info *ccaes_intel_cfb8_decrypt_aesni_mmt_ti(void);
+#endif
 
 #endif /* _CORECRYPTO_CCTEST_AES_H_ */

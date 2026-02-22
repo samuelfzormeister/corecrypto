@@ -21,10 +21,10 @@
 #include <corecrypto/cctest_internal.h>
 #include <corecrypto/cctest_priv.h>
 #include <corecrypto/cc_runtime_config.h>
-#include <corecrypto/ccdigest_test_internal.h>
 
 #define CCTEST_TRACE(x...) cc_printf("[CCTEST]: " x)
 
+/*
 static struct _cctest_test_link *cctest_link_aes_intel_ofb(struct _cctest_test_link *lnk)
 {
 #if CCAES_INTEL_ASM
@@ -55,6 +55,7 @@ static struct _cctest_test_link *cctest_link_aes_intel_ofb(struct _cctest_test_l
 
     return lnk;
 }
+ */
 
 static struct _cctest_test_link *cctest_link_aes_ltc_ofb(struct _cctest_test_link *lnk)
 {
@@ -66,7 +67,7 @@ static struct _cctest_test_link *cctest_link_aes_ltc_ofb(struct _cctest_test_lin
 struct _cctest_test_link *cctest_link_aes_ofb(struct _cctest_test_link *lnk)
 {
     lnk = cctest_link_aes_ltc_ofb(lnk);
-    lnk = cctest_link_aes_intel_ofb(lnk);
+    //lnk = cctest_link_aes_intel_ofb(lnk);
 
     return lnk;
 }

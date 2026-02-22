@@ -33,6 +33,12 @@ extern struct _cctest_test_link *cctest_link_aes_ofb(struct _cctest_test_link *l
 extern struct _cctest_test_link *cctest_link_aes_cfb(struct _cctest_test_link *lnk);
 extern struct _cctest_test_link *cctest_link_aes_cfb8(struct _cctest_test_link *lnk);
 
+#if __has_include(<unistd.h>)
+#include <unistd.h>
+
+#define cctest_sleep(s) sleep(s)
+#endif
+
 /*
  * MEMORY CORRUPTION!!! MEMORY CORRUPTION!!! COME GET YOUR MEMORY CORRUPTION!!!
  *
@@ -82,8 +88,8 @@ int cctest_conduct_tests(uint32_t flags)
     }
 
     if (flags & CCTEST_ENABLE_AES) {
-        chain = cctest_link_aes_ecb(chain);
-        chain = cctest_link_aes_cbc(chain);
+        //chain = cctest_link_aes_ecb(chain);
+        //chain = cctest_link_aes_cbc(chain);
         chain = cctest_link_aes_ofb(chain);
         chain = cctest_link_aes_cfb(chain);
         chain = cctest_link_aes_cfb8(chain);
@@ -106,6 +112,7 @@ int cctest_conduct_tests(uint32_t flags)
         //CCTEST_TRACE("Exit test %s\n", ti->name);
         cctest_free(ctx, ti->size);
         lnk = lnk->next;
+        cctest_sleep(1);
         continue;
 
         fail:

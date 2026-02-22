@@ -18,6 +18,7 @@
 
 #include <corecrypto/ccaes.h>
 #include <corecrypto/ccmode_test_internal.h>
+#include <corecrypto/cctest_aes.h>
 
 #pragma mark - Known Answer Test section
 
@@ -103,67 +104,67 @@ CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128VarTxt_decrypt_vectors,
 
 #if CCAES_INTEL_ASM
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128GFSbox_encrypt_vectors,
-                                gfsbox, "LTC backed AES CFB Encrypt (CFB128GFSbox)",
+                                gfsbox, "Intel ASM backed AES CFB Encrypt (CFB128GFSbox)",
                                 intel_cfb_encrypt_opt, intel_ecb_encrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128KeySbox_encrypt_vectors,
-                                keysbox, "LTC backed AES CFB Encrypt (CFB128KeySbox)",
+                                keysbox, "Intel ASM backed AES CFB Encrypt (CFB128KeySbox)",
                                 intel_cfb_encrypt_opt, intel_ecb_encrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128VarKey_encrypt_vectors,
-                                varkey, "LTC backed AES CFB Encrypt (CFB128VarKey)",
+                                varkey, "Intel ASM backed AES CFB Encrypt (CFB128VarKey)",
                                 intel_cfb_encrypt_opt, intel_ecb_encrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128VarTxt_encrypt_vectors,
-                                vartxt, "LTC backed AES CFB Encrypt (CFB128VarTxt)",
+                                vartxt, "Intel ASM backed AES CFB Encrypt (CFB128VarTxt)",
                                 intel_cfb_encrypt_opt, intel_ecb_encrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128GFSbox_decrypt_vectors,
-                                gfsbox, "LTC backed AES CFB Decrypt (CFB128GFSbox)",
+                                gfsbox, "Intel ASM backed AES CFB Decrypt (CFB128GFSbox)",
                                 intel_cfb_decrypt_opt, intel_ecb_decrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128KeySbox_decrypt_vectors,
-                                keysbox, "LTC backed AES CFB Decrypt (CFB128KeySbox)",
+                                keysbox, "Intel ASM backed AES CFB Decrypt (CFB128KeySbox)",
                                 intel_cfb_decrypt_opt, intel_ecb_decrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128VarKey_decrypt_vectors,
-                                varkey, "LTC backed AES CFB Decrypt (CFB128VarKey)",
+                                varkey, "Intel ASM backed AES CFB Decrypt (CFB128VarKey)",
                                 intel_cfb_decrypt_opt, intel_ecb_decrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128VarTxt_decrypt_vectors,
-                                vartxt, "LTC backed AES CFB Decrypt (CFB128VarTxt)",
-                                intel_cfb_decrypt_aesni, intel_ecb_decrypt_opt);
+                                vartxt, "Intel ASM backed AES CFB Decrypt (CFB128VarTxt)",
+                                intel_cfb_decrypt_opt, intel_ecb_decrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128GFSbox_encrypt_vectors,
-                                gfsbox, "LTC backed AES CFB Encrypt (CFB128GFSbox)",
+                                gfsbox, "Intel AES-NI backed AES CFB Encrypt (CFB128GFSbox)",
                                 intel_cfb_encrypt_aesni, intel_ecb_encrypt_aesni);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128KeySbox_encrypt_vectors,
-                                keysbox, "LTC backed AES CFB Encrypt (CFB128KeySbox)",
+                                keysbox, "Intel AES-NI backed AES CFB Encrypt (CFB128KeySbox)",
                                 intel_cfb_encrypt_aesni, intel_ecb_encrypt_aesni);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128VarKey_encrypt_vectors,
-                                varkey, "LTC backed AES CFB Encrypt (CFB128VarKey)",
+                                varkey, "Intel AES-NI backed AES CFB Encrypt (CFB128VarKey)",
                                 intel_cfb_encrypt_aesni, intel_ecb_encrypt_aesni);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128VarTxt_encrypt_vectors,
-                                vartxt, "LTC backed AES CFB Encrypt (CFB128VarTxt)",
+                                vartxt, "Intel AES-NI backed AES CFB Encrypt (CFB128VarTxt)",
                                 intel_cfb_encrypt_aesni, intel_ecb_encrypt_aesni);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128GFSbox_decrypt_vectors,
-                                gfsbox, "LTC backed AES CFB Decrypt (CFB128GFSbox)",
+                                gfsbox, "Intel AES-NI backed AES CFB Decrypt (CFB128GFSbox)",
                                 intel_cfb_decrypt_aesni, intel_ecb_decrypt_aesni);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128KeySbox_decrypt_vectors,
-                                keysbox, "LTC backed AES CFB Decrypt (CFB128KeySbox)",
+                                keysbox, "Intel AES-NI backed AES CFB Decrypt (CFB128KeySbox)",
                                 intel_cfb_decrypt_aesni, intel_ecb_decrypt_aesni);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128VarKey_decrypt_vectors,
-                                varkey, "LTC backed AES CFB Decrypt (CFB128VarKey)",
+                                varkey, "Intel AES-NI backed AES CFB Decrypt (CFB128VarKey)",
                                 intel_cfb_decrypt_aesni, intel_ecb_decrypt_aesni);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128VarTxt_decrypt_vectors,
-                                vartxt, "LTC backed AES CFB Decrypt (CFB128VarTxt)",
+                                vartxt, "Intel AES-NI backed AES CFB Decrypt (CFB128VarTxt)",
                                 intel_cfb_decrypt_aesni, intel_ecb_decrypt_aesni);
 #endif
 
@@ -186,23 +187,23 @@ CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128MMT_encrypt_vectors,
                                 ltc_cfb_encrypt, ltc_ecb_encrypt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128MMT_decrypt_vectors, 
-                                mmt, "LTC backed AES CFB Encrypt (CFB128MMT)", 
+                                mmt, "LTC backed AES CFB Decrypt (CFB128MMT)", 
                                 ltc_cfb_decrypt, ltc_ecb_decrypt);
 
 #if CCAES_INTEL_ASM
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128MMT_encrypt_vectors,
-                                mmt, "LTC backed AES CFB Encrypt (CFB128MMT)",
+                                mmt, "Intel ASM backed AES CFB Encrypt (CFB128MMT)",
                                 intel_cfb_encrypt_opt, intel_ecb_encrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128MMT_decrypt_vectors,
-                                mmt, "LTC backed AES CFB Encrypt (CFB128MMT)",
+                                mmt, "Intel ASM backed AES CFB Encrypt (CFB128MMT)",
                                 intel_cfb_decrypt_opt, intel_ecb_decrypt_opt);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, encrypt, CFB128MMT_encrypt_vectors,
-                                mmt, "LTC backed AES CFB Encrypt (CFB128MMT)",
+                                mmt, "Intel AES-NI backed AES CFB Encrypt (CFB128MMT)",
                                 intel_cfb_encrypt_aesni, intel_ecb_encrypt_aesni);
 
 CCMODE_CONSTRUCTED_TEST_FACTORY(aes, cfb, decrypt, CFB128MMT_decrypt_vectors,
-                                mmt, "LTC backed AES CFB Encrypt (CFB128MMT)",
+                                mmt, "Intel AES-NI backed AES CFB Decrypt (CFB128MMT)",
                                 intel_cfb_decrypt_aesni, intel_ecb_decrypt_aesni);
 #endif

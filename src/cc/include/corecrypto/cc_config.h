@@ -599,6 +599,10 @@
  * obsidian isn't.
  * quartzolite isn't.
  * aplite isn't.
+ *
+ * TODO: Rename macro to be more generic? CC_EXTENDED_KERNEL?
+ *
+ * I should upstream the CPU feature collection code.
  */
 #if CC_XNU_KERNEL_AVAILABLE
  #if __has_include(<System/i386/cpu_capabilities.h>)

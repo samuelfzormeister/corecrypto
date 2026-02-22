@@ -19,9 +19,7 @@
 #include <corecrypto/cc_debug.h>
 #include <corecrypto/cc_macros.h>
 #include <corecrypto/cctest_internal.h>
-#include <corecrypto/cctest_priv.h>
 #include <corecrypto/cc_runtime_config.h>
-#include <corecrypto/ccdigest_test_internal.h>
 
 #define CCTEST_TRACE(x...) cc_printf("[CCTEST]: " x)
 

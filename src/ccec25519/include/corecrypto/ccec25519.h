@@ -34,4 +34,13 @@ typedef uint8_t ccec25519signature[64];
 void cced25519_make_key_pair(const struct ccdigest_info *, struct ccrng_state *, ccec25519pubkey pk, ccec25519secretkey sk);
 void cced25519_sign(const struct ccdigest_info *, ccec25519signature, size_t len, const void *msg, const ccec25519pubkey pk, const ccec25519secretkey sk);
 
+//
+// Export all available X25519 functions as pubilc until proven otherwise.
+//
+void cccurve25519(ccec25519key out, const ccec25519secretkey secret, const ccec25519base pub);
+
+void cccurve25519_make_priv(struct ccrng_state *rng, ccec25519secretkey sk);
+void cccurve25519_make_pub(ccec25519pubkey pub, const ccec25519secretkey sk);
+void cccurve25519_make_key_pair(struct ccrng_state *rng, ccec25519pubkey pk, ccec25519secretkey sk);
+
 #endif /* _CORECRYPTO_CCEC25519_H_ */

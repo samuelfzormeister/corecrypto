@@ -18,6 +18,7 @@
 
 #include <corecrypto/ccaes.h>
 #include <corecrypto/ccmode_test_internal.h>
+#include <corecrypto/cctest_aes.h>
 
 static struct ccmode_test_vector CBCGFSbox_encrypt_vectors[] = {
 #include "vectors/CBCGFSbox128_encrypt.inc"

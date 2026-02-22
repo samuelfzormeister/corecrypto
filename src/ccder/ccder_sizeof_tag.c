@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,21 +16,39 @@
  * @LICENSE_HEADER_END@
  */
 
-#include "ccn_internal.h"
+#include <corecrypto/ccder.h>
 
-int ccn_cmp(cc_size n, const cc_unit *s, const cc_unit *t)
+#if __has_include(<limits.h>)
+#include <limits.h>
+#endif
+
+//
+// IMPLEMENTOR'S NOTE:
+// https://luca.ntop.org/Teaching/Appunti/asn1.html
+//
+
+//
+// the last three bits need to be clear
+//
+size_t ccder_sizeof_tag(ccder_tag tag)
 {
-    int ret = 0;
-    cc_size size = 0;
-    cc_unit tmp = 0, tmp2 = 0, tmp3 = 0;
-
-    for (cc_size i = 0; i < n; i++) {
-        tmp = cc_unit_is_equal(s[i], t[i]);
-        CC_MUXU(tmp2, tmp, i, tmp2);        // tmp2 = tmp ? i : tmp2
-        CC_MUXU(tmp3, tmp, i, tmp3);        // tmp3 = tmp ? i : tmp3
+    if (tag >= 0x4000) {
+        return 4;
     }
     
+    if (tag >= 0x80) {
+        //
+        // >= 0x80 means we're definitely a long-form tag
+        //
+        return 3;
+    }
     
+    if (tag >= 0x1F) {
+        //
+        // >= 0x1F usually indicates a low-tag number form.
+        //
+        return 2;
+    }
     
-    return ret;
+    return 1;
 }

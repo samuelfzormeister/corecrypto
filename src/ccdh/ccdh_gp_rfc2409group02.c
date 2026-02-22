@@ -44,7 +44,9 @@ ccdh_gp_decl_n(ccn_nof(1024)) _ccdh_gp_rfc2409group02 = {
     .ccn_size = ccn_nof(1024),
     .bitlen = 1024,
     .p = {
-        /* So the GPs are stored in reverse order. which makes sense considering the values are in BE. at least I think they are. */
+        /*
+         * I believe these are little endian.
+         */
         CCN64_C(FF, FF, FF, FF, FF, FF, FF, FF),
         CCN64_C(49, 28, 66, 51, EC, E6, 53, 81),
         CCN64_C(AE, 9F, 24, 11, 7C, 4B, 1F, E6),

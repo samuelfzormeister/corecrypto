@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,10 +16,10 @@
  * @LICENSE_HEADER_END@
  */
 
+#include <corecrypto/cc_priv.h>
 #include <corecrypto/ccn.h>
-#include <corecrypto/ccz.h>
 
-bool ccz_is_zero(ccz *z)
+size_t ccn_write_uint_size(cc_size n, const cc_unit *s)
 {
-    return ccn_is_zero(z->n, z->units);
+    return CC_BITLEN_TO_BYTELEN(ccn_bitlen(n, s));
 }

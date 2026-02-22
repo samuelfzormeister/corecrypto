@@ -24,11 +24,11 @@ void dump_dh_gp(ccdh_const_gp_t gp)
 
     printf("\n");
     printf("size: %zu\n", gp->n);
-    printf("bits: %lld\n", gp->options);
+    printf("bits: %lld\n", gp->bitlen);
     printf("func: <%p>\n", gp->mulmod_prime);
     printf("prime: <%p>\n", ccdh_gp_prime(gp));
     printf("g: <%p>\n", ccdh_gp_g(gp));
-    printf("l: <%p>\n", ccdh_gp_l(gp));
+    printf("l: <%lld>\n", ccdh_gp_l(gp));
     printf("order: <%p>\n", ccdh_gp_order(gp));
     printf("order bitlen: %zx\n", ccdh_gp_order_bitlen(gp));
     printf("gp size: %zd\n", ccdh_gp_size(gp->n));

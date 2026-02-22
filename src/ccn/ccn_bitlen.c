@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,18 +19,32 @@
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccn.h>
 
+#if CCN_UNIT_SIZE == 8
+#define ccn_clz cc_clz64
+#else
+#define ccn_clz cc_clz32
+
+#if CC_UNIT_SIZE == 2
+#define ccn_clz_extra 16
+#elif CC_UNIT_SIZE == 1
+#define ccn_clz_extra 24
+#endif
+#endif
+
 cc_size ccn_bitlen(cc_size n, const cc_unit *s)
 {
-    cc_size avail = ccn_n(n, s);
-    cc_size size = ccn_bitsof_n(avail);
-
-    cc_unit u = s[avail - 1];
-
-#if CCN_UNIT_SIZE == 8
-    size -= cc_clz64(u);
+    cc_size size = 0, leading = 0;
+    cc_unit tmp = 0;
+    
+    for (cc_size i = 0; i < n; i++) {
+        CC_HEAVISIDE_STEP(tmp, s[i]);                               // check if the unit is zero
+#if CC_UNIT_SIZE == 1 || CC_UNIT_SIZE == 2
+        leading = ccn_clz(s[i] | 1) - ccn_clz_extra;                // count leading zeros (if a given unit is zero, the | 1 should aviod an undefined condition)
 #else
-    size -= cc_clz32(ccn32_32_parse(s, avail - 1));
+        leading = ccn_clz(s[i] | 1);                                // count leading zeros (if a given unit is zero, the | 1 should aviod an undefined condition)
 #endif
+        CC_MUXU(size, tmp, ccn_bitsof_n(i + 1) - leading, size);    // then, update the bit count if the unit is non-zero.
+    }
 
     return size;
 }

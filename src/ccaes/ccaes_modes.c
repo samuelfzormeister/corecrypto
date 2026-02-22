@@ -30,7 +30,7 @@ const struct ccmode_ecb *ccaes_ecb_encrypt_mode(void)
 #if CCAES_INTEL_ASM
     if (CC_HAS_AESNI()) {
 #if CORECRYPTO_DEBUG
-        cc_printf("corecrypto(aes): using AES-NI for ECB encrypt\n");
+        cc_printf("ccaes: using AES-NI for ECB encrypt\n");
 #endif
         return &ccaes_intel_ecb_encrypt_aesni_mode;
     } else {
@@ -47,7 +47,7 @@ const struct ccmode_ecb *ccaes_ecb_decrypt_mode(void)
 #if CCAES_INTEL_ASM
     if (CC_HAS_AESNI()) {
 #if CORECRYPTO_DEBUG
-        cc_printf("corecrypto(aes): using AES-NI for ECB decrypt\n");
+        cc_printf("ccaes: using AES-NI for ECB decrypt\n");
 #endif
         return &ccaes_intel_ecb_decrypt_aesni_mode;
     } else {
@@ -66,7 +66,7 @@ const struct ccmode_cbc *ccaes_cbc_encrypt_mode(void)
 #if CCAES_INTEL_ASM
     if (CC_HAS_AESNI()) {
 #if CORECRYPTO_DEBUG
-        cc_printf("corecrypto(aes): using AES-NI for CBC encrypt\n");
+        cc_printf("ccaes: using AES-NI for CBC encrypt\n");
 #endif
         return &ccaes_intel_cbc_encrypt_aesni_mode;
     } else {
@@ -83,7 +83,7 @@ const struct ccmode_cbc *ccaes_cbc_decrypt_mode(void)
 #if CCAES_INTEL_ASM
     if (CC_HAS_AESNI()) {
 #if CORECRYPTO_DEBUG
-        cc_printf("corecrypto(aes): using AES-NI for CBC decrypt\n");
+        cc_printf("ccaes: using AES-NI for CBC decrypt\n");
 #endif
         return &ccaes_intel_cbc_decrypt_aesni_mode;
     } else {

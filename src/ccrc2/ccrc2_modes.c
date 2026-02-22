@@ -19,10 +19,18 @@
 #include <corecrypto/ccmode_factory.h>
 #include <corecrypto/ccrc2.h>
 
-CCMODE_CBC_FACTORY(rc2, encrypt)
-CCMODE_CBC_FACTORY(rc2, decrypt)
+CCMODE_CBC_FACTORY(rc2, encrypt);
+CCMODE_CBC_FACTORY(rc2, decrypt);
 
-CCMODE_OFB_FACTORY(rc2)
+CCMODE_CFB_FACTORY(rc2, cfb, encrypt);
+CCMODE_CFB_FACTORY(rc2, cfb, decrypt);
+
+CCMODE_CFB_FACTORY(rc2, cfb8, encrypt);
+CCMODE_CFB_FACTORY(rc2, cfb8, decrypt);
+
+CCMODE_OFB_FACTORY(rc2);
+
+CCMODE_CTR_FACTORY(rc2);
 
 const struct ccmode_ecb *ccrc2_ecb_encrypt_mode(void)
 {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -74,7 +74,7 @@ struct _ccmode_test_ctx {
 //
 // Allow for space to conduct a test without allocating memory ourself.
 //
-#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 28)
+#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 32)
 
 // cctest_info format:
 // ccaes_IMPLNAME_TESTNAME_ti

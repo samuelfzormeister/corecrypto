@@ -38,6 +38,11 @@ void cckprng_init(struct cckprng_ctx *ctx, unsigned max_ngens, size_t entropybuf
     ctx->entropybuf.buf = entropybuf;
     ctx->entropybuf.nbytes = entropybuf_nbytes;
     ctx->entropybuf.nsamples = entropybuf_nsamples;
+    
+    //
+    // nonce is the timebase value at call
+    //
+    cc_copy(seed_nbytes, ctx->seed, seed);
 }
 
 void cckprng_initgen(struct cckprng_ctx *ctx, unsigned gen_idx)
@@ -48,15 +53,19 @@ void cckprng_initgen(struct cckprng_ctx *ctx, unsigned gen_idx)
 
 void cckprng_reseed(struct cckprng_ctx *ctx, size_t nbytes, const void *seed)
 {
-    
+    //
+    // todo: reseed whole prng?
+    //
 }
 
 void cckprng_refresh(struct cckprng_ctx *ctx)
 {
-
+    //
+    // on every call to /dev/random, the kprng is refreshed.
+    //
 }
 
 void cckprng_generate(struct cckprng_ctx *ctx, unsigned gen_idx, size_t nbytes, void *out)
 {
-
+    
 }

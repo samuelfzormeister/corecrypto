@@ -19,21 +19,21 @@
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccn.h>
 
+#if CCN_UNIT_SIZE == 8
 #define CCN_LOAD_UNIT CC_LOAD64_BE
+#endif
 
 //
 // "Copy big endian integer and represent it in cc_units"
 //
 int ccn_read_uint(cc_size n, cc_unit *r, size_t data_nbytes, const uint8_t *data)
 {
-    cc_size units = ccn_nof_size(data_nbytes);
+    cc_size nbytes = ccn_sizeof_n(n);
     
-    if (n < units) {
-        return -1;
-    }
-
-    for (cc_size i = units; i > 0; i--) {
-        CCN_LOAD_UNIT(r[i], data);
+    if (nbytes < data_nbytes) {
+        
+    } else {
+        
     }
 
     return 0;

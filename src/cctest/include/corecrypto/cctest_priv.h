@@ -101,4 +101,7 @@ int cctest_conduct_tests(uint32_t);
 
 void cctest_enable_trace(bool enable);
 
+int ccaes_test_gfsbox(void);
+int ccaes_test_varkey(void);
+
 #endif /* _CORECRYPTO_CCTEST_PRIV_H_ */

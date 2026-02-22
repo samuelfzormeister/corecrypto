@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,19 +16,22 @@
  * @LICENSE_HEADER_END@
  */
 
+#include <corecrypto/cc_priv.h>
 #include <corecrypto/ccn.h>
 
-/* I assume units are stored in a native order. */
-
+//
+// we want to do this in the right way, which means you guessed it:
+// CONSTANT TIME!
+//
 cc_size ccn_n(cc_size n, const cc_unit *s)
 {
-    cc_size size = n; /* ccn_is_zero relies on this returning zero when s[0] is zero. */
+    cc_size size = 0;
+    cc_unit tmp = 0;
 
-    while (n--) {
-        if (s[n] == 0) {
-            size--;
-        }
+    for (cc_size i = 1; i <= n; i++) {
+        CC_HEAVISIDE_STEP(tmp, s[i - 1]);    // this will set tmp to 1 if the unit is non-zero
+        CC_MUXU(size, tmp, i, size);         // size = tmp ? i : size
     }
-
+    
     return size;
 }
