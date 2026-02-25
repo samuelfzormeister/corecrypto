@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,11 +35,29 @@
 #include <corecrypto/ccsha1.h>
 #include <corecrypto/ccsha2.h>
 
+#if __has_include(<libkern/version.h>)
+#include <libkern/version.h>
+#else
+#define VERSION_MAJOR 19
+#define VERSION_MINOR 6
+#endif
+
+/*
+ * Is there a better way to do this? This relies on the SDK actually being accurate - which, if we're building for
+ * an older OS on a newer version of Darwin despite using the host's SDK
+ */
+#define CC_KERNEL_REQUIRED(major) (VERSION_MAJOR == major)
+
+#define CC_KERNEL_AVAILABLE_FROM(major, minor) ((VERSION_MAJOR >= major) && (VERSION_MINOR >= minor))
+
+#define CC_KERNEL_REMOVED_FROM(major, minor) ((VERSION_MAJOR < major) && (VERSION_MINOR < minor))
+
 /*
  * Build the ChaCha20Poly1305 function table
  *
  * Required for XNU >= 4570.1.64 (Darwin 17)
  */
+#if CC_KERNEL_AVAILABLE_FROM(17, 0)
 const struct ccchacha20poly1305_fns ccchacha20poly1305_funcs = {
     &ccchacha20poly1305_info,
     &ccchacha20poly1305_init,
@@ -52,6 +70,7 @@ const struct ccchacha20poly1305_fns ccchacha20poly1305_funcs = {
     &ccchacha20poly1305_decrypt,
     &ccchacha20poly1305_verify,
 };
+#endif
 
 /*
  * Darwin has a tendency to change how the crypto API implements functions
@@ -107,62 +126,79 @@ void cc_populate_fns(crypto_functions_t fns)
 #endif
 
     /* AES modes */
+#if CC_KERNEL_AVAILABLE_FROM(12, 0)
     fns->ccaes_cbc_encrypt = ccaes_cbc_encrypt_mode();
     fns->ccaes_cbc_decrypt = ccaes_cbc_decrypt_mode();
     fns->ccaes_ecb_encrypt = ccaes_ecb_encrypt_mode();
     fns->ccaes_ecb_decrypt = ccaes_ecb_decrypt_mode();
-    fns->ccaes_ctr_crypt = ccaes_ctr_crypt_mode();
     fns->ccaes_xts_encrypt = ccaes_xts_encrypt_mode();
     fns->ccaes_xts_decrypt = ccaes_xts_decrypt_mode();
+#endif
 
-    /* Blowfish functions */
+#if CC_KERNEL_AVAILABLE_FROM(17, 0)
+    fns->ccaes_ctr_crypt = ccaes_ctr_crypt_mode();
+#endif
+
+#if CC_KERNEL_AVAILABLE_FROM(12, 0) && CC_KERNEL_REMOVED_FROM(20, 0)
     fns->ccblowfish_ecb_encrypt = ccblowfish_ecb_encrypt_mode();
     fns->ccblowfish_ecb_decrypt = ccblowfish_ecb_decrypt_mode();
+#endif
 
-    /* CAST functions */
+#if CC_KERNEL_AVAILABLE_FROM(12, 0) && CC_KERNEL_REMOVED_FROM(20, 0)
     fns->cccast_ecb_encrypt = cccast_ecb_encrypt_mode();
     fns->cccast_ecb_decrypt = cccast_ecb_decrypt_mode();
+#endif
 
-    /* DES functions */
+#if CC_KERNEL_AVAILABLE_FROM(12, 0)
     fns->ccdes_key_is_weak_fn = &ccdes_key_is_weak;
     fns->ccdes_key_set_odd_parity_fn = &ccdes_key_set_odd_parity;
     fns->ccdes_cbc_encrypt = ccdes_cbc_encrypt_mode();
     fns->ccdes_cbc_decrypt = ccdes_cbc_decrypt_mode();
     fns->ccdes_ecb_encrypt = ccdes_ecb_encrypt_mode();
     fns->ccdes_ecb_decrypt = ccdes_ecb_decrypt_mode();
+#endif
 
-    /* Triple DES functions */
+#if CC_KERNEL_AVAILABLE_FROM(12, 0)
     fns->cctdes_cbc_encrypt = ccdes3_cbc_encrypt_mode();
     fns->cctdes_cbc_decrypt = ccdes3_cbc_decrypt_mode();
     fns->cctdes_ecb_encrypt = ccdes3_ecb_encrypt_mode();
     fns->cctdes_ecb_decrypt = ccdes3_ecb_decrypt_mode();
+#endif
 
-    /* HMAC functions */
+#if CC_KERNEL_AVAILABLE_FROM(12, 0)
     fns->cchmac_fn = &cchmac;
     fns->cchmac_init_fn = &cchmac_init;
     fns->cchmac_update_fn = &cchmac_update;
     fns->cchmac_final_fn = &cchmac_final;
+#endif
 
-    /* digest functions */
+#if CC_KERNEL_AVAILABLE_FROM(12, 0)
     fns->ccdigest_fn = &ccdigest;
     fns->ccdigest_init_fn = &ccdigest_init;
     fns->ccdigest_update_fn = &ccdigest_update;
     fns->ccdigest_final_fn = &ccdigest_final;
+#endif
 
-    /* Hashing digest info pointers */
+#if CC_KERNEL_AVAILABLE_FROM(12, 0)
     fns->ccsha1_di = ccsha1_di();
     fns->ccsha256_di = ccsha256_di();
     fns->ccsha384_di = ccsha384_di();
     fns->ccsha512_di = ccsha512_di();
     fns->ccmd5_di = ccmd5_di();
+#endif
 
-    /* RC4 */
+#if CC_KERNEL_AVAILABLE_FROM(12, 0) && CC_KERNEL_REMOVED_FROM(20, 0)
     fns->ccrc4_info = ccrc4();
+#endif
 
+#if CC_KERNEL_AVAILABLE_FROM(17, 0)
     fns->ccchacha20poly1305_fns = &ccchacha20poly1305_funcs;
+#endif
 
+#if CC_KERNEL_AVAILABLE_FROM(12, 0) && CC_KERNEL_REMOVED_FROM(20, 0)
     fns->ccpad_xts_decrypt_fn = &ccpad_xts_decrypt;
     fns->ccpad_xts_encrypt_fn = &ccpad_xts_encrypt;
+#endif
 
 #if CCKEXT_TRACE
     printf("corecrypto: finished populating implemented functions.\n");

@@ -27,7 +27,7 @@
 #include "register_crypto.h"
 #endif
 
-#include "../kprng/yarrow/yarrow.h"
+#include "../cckprng/yarrow/yarrow.h"
 #include <corecrypto/cckprng.h>
 
 #if CORECRYPTO_KEXT_TEST
