@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,7 @@
 
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/cccmac_priv.h>
+#include <corecrypto/ccmode.h>
 
 int cccmac_init(const struct ccmode_cbc *cbc, cccmac_ctx_t ctx, size_t key_nbytes, const void *key)
 {
@@ -29,7 +30,7 @@ int cccmac_init(const struct ccmode_cbc *cbc, cccmac_ctx_t ctx, size_t key_nbyte
     }
 
     cccmac_generate_subkeys(cbc, key_nbytes, key, cccmac_k1(ctx), cccmac_k2(ctx));
-    cbc->init(cccmac_cbc(ctx), cccmac_mode_sym_ctx(cccmac_cbc(ctx), ctx), key_nbytes, key);
+    cccbc_init(cbc,cccmac_mode_sym_ctx(cbc, ctx), key_nbytes, key);
 
     /* Anything else? */
     return CCERR_OK;

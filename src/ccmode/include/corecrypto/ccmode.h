@@ -241,6 +241,11 @@ CC_INLINE int ccctr_update(const struct ccmode_ctr *mode, ccctr_ctx *ctx, size_t
     return mode->ctr(ctx, nbytes, in, out);
 }
 
+CC_INLINE int ccctr_setctr(const struct ccmode_ctr *mode, ccctr_ctx *ctx, const void *ctr)
+{
+    return mode->setctr(mode, ctx, ctr);
+}
+
 CC_INLINE int ccctr_one_shot(const struct ccmode_ctr *mode,
                              size_t key_len,
                              const void *key,

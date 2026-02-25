@@ -18,6 +18,8 @@
 
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccaes.h>
+#include <corecrypto/ccmode.h>
+#include <corecrypto/ccmode_impl.h>
 #include <corecrypto/ccdrbg.h>
 #include <corecrypto/ccdrbg_impl.h>
 
@@ -30,6 +32,17 @@ struct ccdrbg_nistctr_state {
     uint64_t reseed_counter;
     const struct ccdrbg_nistctr_custom *custom;
 };
+
+static void
+block_encrypt(struct ccmode_ctr *mode, ccctr_ctx *ctx, uint8_t *block)
+{
+    ccctr_setctr(mode, ctx, block);
+    ccctr_update(mode, ctx, mode->block_size, block, block);
+}
+
+/* 10.3.3 - BCC process */
+static void
+bcc_update(uint8_t *);
 
 /*
  * NIST CTR based DRBGs can use the following ciphers:
@@ -44,12 +57,7 @@ done(struct ccdrbg_state *ctx)
     cc_clear(sizeof(struct ccdrbg_nistctr_state), ctx);
 }
 
-/*
-int (*init)(const struct ccdrbg_info *info, struct ccdrbg_state *drbg,
-            size_t entropyLength, const void* entropy,
-            size_t nonceLength, const void* nonce,
-            size_t psLength, const void* ps);
- */
+
 
 static int init(const struct ccdrbg_info *info, struct ccdrbg_state *drbg,
                 size_t entropy_len, const void *entropy,
@@ -64,7 +72,8 @@ static int init(const struct ccdrbg_info *info, struct ccdrbg_state *drbg,
 void ccdrbg_factory_nistctr(struct ccdrbg_info *info, const struct ccdrbg_nistctr_custom *custom)
 {
     cc_abort("incomplete NIST CTR based DRBG - aborting in the event that it is ever called\n");
-    info->size = sizeof(struct ccdrbg_nistctr_state) + sizeof(struct ccdrbg_nistctr_custom);
+    info->size = sizeof(struct ccdrbg_nistctr_state);
 
-    info->done = done;
+    info->init = &init;
+    info->done = &done;
 }

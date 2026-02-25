@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +16,10 @@
  * @LICENSE_HEADER_END@
  */
 
-#ifndef _CORECRYPTO_CCCMAC_PRIV_H_
-#define _CORECRYPTO_CCCMAC_PRIV_H_
+#include <corecrypto/ccder.h>
+#include <corecrypto/ccn.h>
 
-#include <corecrypto/cccmac.h>
-
-int cccmac_generate_subkeys(const struct ccmode_cbc *cbc, size_t key_nbytes, const void *key, uint8_t *key1, uint8_t *key2);
-
-void cccmac_sl_test_xor(uint8_t *out, uint8_t *in);
-
-#endif /* _CORECRYPTO_CCCMAC_PRIV_H_ */
+size_t ccder_sizeof_implicit_octet_string(ccder_tag implicit_tag, cc_size n, const cc_unit *s)
+{
+    return ccder_sizeof(implicit_tag, ccn_write_uint_size(n, s));
+}

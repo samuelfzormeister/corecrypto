@@ -27,28 +27,25 @@
 // https://luca.ntop.org/Teaching/Appunti/asn1.html
 //
 
-//
-// the last three bits need to be clear
-//
 size_t ccder_sizeof_tag(ccder_tag tag)
 {
-    if (tag >= 0x4000) {
-        return 4;
-    }
-    
-    if (tag >= 0x80) {
-        //
-        // >= 0x80 means we're definitely a long-form tag
-        //
-        return 3;
-    }
-    
-    if (tag >= 0x1F) {
-        //
-        // >= 0x1F usually indicates a low-tag number form.
-        //
+    ccder_tag tmp = tag & CCDER_TAGNUM_MASK;
+
+#if CCDER_MULTIBYTE_TAGS
+    if (tmp < CCDER_HIGH_TAG_NUMBER) {  /* stock standard */
+        return 1;
+    } else if (tmp <= 0x7F) {           /* 7 bits */
         return 2;
+    } else if (tmp <= 0x3FFF) {         /* 14 bits */
+        return 3;
+    } else if (tmp <= 0x1FFFFF) {       /* 21 bits */
+        return 4;
+    } else if (tmp <= 0x3FFFFFF) {      /* 28 bits */
+        return 5;
+    } else {
+        return 6;
     }
-    
+#else
     return 1;
+#endif
 }

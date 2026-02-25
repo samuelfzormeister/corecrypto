@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,8 +20,6 @@
 #include <corecrypto/cccmac_priv.h>
 #include <corecrypto/ccmode.h>
 
-const uint8_t constant_zero[CMAC_BLOCKSIZE] = { 0 };
-
 /* recycled from older versions of CommonCrypto. */
 void cc_leftshift_onebit(uint8_t *input, uint8_t *output)
 {
@@ -31,36 +29,36 @@ void cc_leftshift_onebit(uint8_t *input, uint8_t *output)
     for (i = 15; i >= 0; i--) {
         output[i] = input[i] << 1;
         output[i] |= overflow;
-        overflow = (input[i] & 0x80) ? 1 : 0;
+        overflow = input[i] >> 7;   // why bitmask and check when you can just have a value by shifting.
     }
     return;
+}
+
+/* another internal function... */
+void cccmac_sl_test_xor(uint8_t *out, uint8_t *in)
+{
+    uint8_t tmp = 0;
+    cc_leftshift_onebit(in, out);
+
+    // officially constant-time - i believe
+    tmp = out[0];
+    tmp = (tmp & 0x80);         // get bit 7 status
+    tmp = (0 - tmp) & 0x87;     // if the bit is set, this will underflow giving us the value needed
+    out[15] ^= tmp;
 }
 
 int cccmac_generate_subkeys(const struct ccmode_cbc *cbc, size_t key_nbytes, const void *key, uint8_t *key1, uint8_t *key2)
 {
     const uint8_t iv[CMAC_BLOCKSIZE] = { 0 };
     uint8_t buf[CMAC_BLOCKSIZE] = { 0 };
-    uint8_t tmp[CMAC_BLOCKSIZE] = { 0 };
 
     int ret = cccbc_one_shot(cbc, key_nbytes, key, iv, 1, buf, buf);
     if (ret) { return ret; }
 
-    if ((buf[0] & 0x80) == 0) {
-        cc_leftshift_onebit(buf, key1);
-    } else {
-        cc_leftshift_onebit(buf, tmp);
-        cc_xor(CMAC_BLOCKSIZE, key1, tmp, constant_zero);
-    }
-
-    if ((key1[0] & 0x80) == 0) {
-        cc_leftshift_onebit(key1, key2);
-    } else {
-        cc_leftshift_onebit(key1, tmp);
-        cc_xor(CMAC_BLOCKSIZE, key2, tmp, constant_zero);
-    }
+    cccmac_sl_test_xor(key1, buf);
+    cccmac_sl_test_xor(key2, key1);
 
     cc_clear(CMAC_BLOCKSIZE, buf);
-    cc_clear(CMAC_BLOCKSIZE, tmp);
 
     return CCERR_OK;
 }

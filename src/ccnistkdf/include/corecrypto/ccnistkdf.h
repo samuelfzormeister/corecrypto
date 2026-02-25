@@ -57,11 +57,11 @@ int ccnistkdf_ctr_hmac(struct ccdigest_info *digest,
  * @function   ccnistkdf_ctr_hmac_fixed
  * @abstract   The NIST KDF in Counter mode, using HMAC.
  *
- * @param   digest       Digest to use for HMAC.
+ * @param   digest       Digest to use for HMAC
  * @param   key_len      Length of the key Derivation Key
  * @param   key          The key derivation key
- * @param   context_len  Length of the context
- * @param   context      The context variable of the NIST KDF function.
+ * @param   fixed_len    Length of the fixed data
+ * @param   fixed_data   The fixed data
  * @param   derived_len  The length of the derived key
  * @param   derived_key  The derived key
  *
@@ -69,7 +69,7 @@ int ccnistkdf_ctr_hmac(struct ccdigest_info *digest,
  */
 int ccnistkdf_ctr_hmac_fixed(struct ccdigest_info *digest,
                              size_t key_len, const void *key,
-                             size_t context_len, const void *context,
+                             size_t fixed_len, const void *fixed_data,
                              size_t derived_len, void *derived_key);
 
 /*!

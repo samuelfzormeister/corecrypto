@@ -16,6 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
+#include <corecrypto/cc_macros.h>
 #include <corecrypto/ccdigest_priv.h>
 #include <corecrypto/cchkdf.h>
 #include <corecrypto/cchmac.h>
@@ -24,7 +25,7 @@
 //
 // https://www.rfc-editor.org/rfc/rfc5869
 //
-// 2.2 - Step 2: Expand
+// 2.3 - Step 2: Expand
 //
 
 int cchkdf_expand(struct ccdigest_info *di, size_t prk_len, const void *prk,
@@ -33,17 +34,18 @@ int cchkdf_expand(struct ccdigest_info *di, size_t prk_len, const void *prk,
 {
     uint8_t T[CCDIGEST_MAX_OUTPUT_SIZE];
     size_t n = cc_ceiling(derived_len, di->output_size);
+    int ret = CCERR_PARAMETER;
     size_t Tlength = 0;
     size_t finalBytes = derived_len - (n * di->output_size);
     size_t finalBytesOffset = derived_len - finalBytes;
     cchmac_di_decl(di, hmac);
     cchmac_di_decl(di, hmac_initial);
 
-    if (n > 255) {
-        return CCERR_PARAMETER;
-    } else if (prk_len < di->output_size) {
+    /* as per the spec, the out length needs to be less than  */
+    cc_require(n < 255, out);
 
-    }
+    /* since we export this function, check that the prk len and digest output size are equal. */
+    cc_require(prk_len == di->output_size, out);
 
     // i'm actually glad that HMAC ops can be split up into different function calls
     cchmac_init(di, hmac_initial, prk_len, prk);
@@ -77,9 +79,12 @@ int cchkdf_expand(struct ccdigest_info *di, size_t prk_len, const void *prk,
         derived_key += di->output_size;
     }
 
+    ret = CCERR_OK;
+
+    out:
     cc_clear(cchmac_di_size(di), hmac);
     cc_clear(cchmac_di_size(di), hmac_initial);
     cc_clear(di->output_size, T);
 
-    return CCERR_OK;
+    return ret;
 }

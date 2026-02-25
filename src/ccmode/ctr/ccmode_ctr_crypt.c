@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +16,8 @@
  * @LICENSE_HEADER_END@
  */
 
- #include <corecrypto/cc_priv.h>
- #include <corecrypto/ccmode_internal.h>
+#include <corecrypto/cc_priv.h>
+#include <corecrypto/ccmode_internal.h>
 
 int ccmode_ctr_crypt(ccctr_ctx *ctx, size_t nbytes, const void *in, void *out)
 {
@@ -27,15 +27,21 @@ int ccmode_ctr_crypt(ccctr_ctx *ctx, size_t nbytes, const void *in, void *out)
     uint8_t *cur_out = out;
     uint8_t *counter = (uint8_t *)CCMODE_CTR_KEY_COUNTER(ckey);
     uint8_t *pad = (uint8_t *)CCMODE_CTR_KEY_PAD(ckey);
+    
+    /* use an 8-byte counter */
+    size_t ctr_size = CC_MIN(ckey->ecb->block_size, 8);
 
     while (nbytes--) {
         if (ckey->pad_len == block_size) {
-            for (size_t i = block_size - 1; i < block_size; i--) {
-                counter[i] += 1;
-            }
-
             ckey->ecb->ecb(CCMODE_CTR_KEY_ECB_CTX(ckey), 1, counter, pad);
             ckey->pad_len = 0;
+
+            for (size_t i = (block_size - 1); i >= ctr_size; i--) {
+                counter[i] += 1;
+                if (counter[i] > 0) {
+                    break;
+                }
+            }
         }
 
         *cur_out++ = *cur_in++ ^ pad[ckey->pad_len++];

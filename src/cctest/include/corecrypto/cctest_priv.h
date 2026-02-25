@@ -20,8 +20,16 @@
 #define _CORECRYPTO_CCTEST_PRIV_H_
 
 #include <stdbool.h>
-#include <corecrypto/ccdigest.h>
-#include <corecrypto/ccmode.h>
+#include <corecrypto/cc.h>
+
+/*
+ * POST will use the cctest framework, however the exhaustive list will be disabled.
+ */
+#if CORECRYPTO_TEST == 0
+#define CCTEST_FULL_TESTS 1
+#else
+#define CCTEST_FULL_TESTS 0
+#endif
 
 /*!
  * @group cctest
@@ -32,7 +40,9 @@
  *
  * See these links for more details:
  * https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Module-Validation-Program/documents/fips140-2/FIPS1402IG.pdf
- * https://csrc.nist.gov/CSRC/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf
+ * https://csrc.nist.gov/CSRC/media/Projects/cryptographic-module-validation-program/documents/fips%20140-3/FIPS%20140-3%20IG.pdf\
+ *
+ * The full testing dylib should be placed at /usr/local/lib/libcorecrypto_test.dylib
  */
 
 /*
@@ -101,7 +111,17 @@ int cctest_conduct_tests(uint32_t);
 
 void cctest_enable_trace(bool enable);
 
-int ccaes_test_gfsbox(void);
-int ccaes_test_varkey(void);
+typedef enum {
+    CCTEST_MODE_ECB = 1,
+    CCTEST_MODE_CBC,
+    CCTEST_MODE_CFB,
+    CCTEST_MODE_CFB8,
+    CCTEST_MODE_OFB,
+    CCTEST_MODE_CTR,
+    CCTEST_MODE_XTS,
+} cctest_mode_t;
+
+int ccaes_test_gfsbox(cctest_mode_t);
+int ccaes_test_varkey(cctest_mode_t);
 
 #endif /* _CORECRYPTO_CCTEST_PRIV_H_ */

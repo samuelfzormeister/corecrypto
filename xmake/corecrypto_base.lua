@@ -1,13 +1,3 @@
-set_policy("check.auto_ignore_flags", false)
-
-includes("xmake/toolchain.lua")
-
-if is_plat("linux") then
-   --  set_toolchains("llvm-linux")
-elseif is_plat("windows") then
-    set_toolchains("llvm-windows")
-end
-
 add_sysincludedirs(
     "$(projectdir)/src/cc/include",
     "$(projectdir)/src/ccaes/include",
@@ -51,12 +41,3 @@ add_sysincludedirs(
     "$(projectdir)/src/cczp/include",
     "$(projectdir)/src/fips/include"
 )
-
-add_sysincludedirs("$(projectdir)/src/cctest/include")
-
-includes("xmake/corecrypto_static.lua")
-includes("xmake/corecrypto_test.lua")
-includes("xmake/corecrypto_tools.lua")
-includes("xmake/corecrypto_user.lua")
-includes("xmake/corecrypto_noasm.lua")
-

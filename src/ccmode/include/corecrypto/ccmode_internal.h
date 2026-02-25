@@ -53,6 +53,17 @@
 #define CCMODE_GCM_KEY(gkey) ((struct _ccmode_gcm_key *)gkey)
 #define CCMODE_GCM_KEY_ECB_CTX(gkey) (ccecb_ctx *)&gkey->u[ccn_nof_size(gkey->ecb->block_size)]
 
+#define CCMODE_CCM_KEY(key) ((struct _ccmode_ccm_key *)key)
+#define CCMODE_CCM_KEY_ECB(key) (CCMODE_CCM_KEY(key)->ecb)
+#define CCMODE_CCM_KEY_PAD(key) (&CCMODE_CCM_KEY(key)->u[0])
+#define CCMODE_CCM_KEY_ECB_CTX(key) (ccecb_ctx *)&CCMODE_CCM_KEY(key)->u[ccn_nof_size(CCMODE_CCM_KEY_ECB(key)->block_size)]
+
+#define CCMODE_CCM_NONCE(nonce) ((struct _ccmode_ccm_nonce *)nonce)
+
+#define CCMODE_CCM_STATE_IV    0    /* we need an IV. */
+#define CCMODE_CCM_STATE_AAD   1    /* waiting on aad via ccm->cbcmac */
+#define CCMODE_CCM_STATE_CRYPT 2    /* we have the IV, and are ready to prcoess data. */
+
 /* this is exported to the symbol table, see cc_exports.txt */
 void ccmode_gcm_gf_mult(const unsigned char *a, const unsigned char *b, unsigned char *c);
 

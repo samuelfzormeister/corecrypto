@@ -37,6 +37,10 @@ extern struct _cctest_test_link *cctest_link_aes_cfb8(struct _cctest_test_link *
 #include <unistd.h>
 
 #define cctest_sleep(s) sleep(s)
+#elif __has_include(<windows.h>)
+#include <windows.h>
+
+#define cctest_sleep(s) Sleep(s * 1000)
 #endif
 
 /*

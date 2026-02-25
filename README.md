@@ -13,19 +13,59 @@
 >
 > Additionally, this project relies on private headers from XNU for both `libcorecrypto` and `corecrypto_kernel` on Darwin based platforms.
 >
-> The `VNG` (which allegedly stands for Apple's Vector & Numerics Group CoreOS team) implementations of AES are currently untested.
->
 > This project is also untested, so the chance for logic bugs is high. Currently, work is being done to implement a unit testing framework.
 >
 
 The `corecrypto` project is a low-level cryptography library designed for portability and ease of use, supplying digest functions and encryption modes, alongside other crypographic operations.
 
+For a build of corecrypto **without** the utilities and binaries used during development, use the included `corecrypto_darwin` target.
+- `xcodebuild clean build -target corecrypto_darwin`
+
+
 The `corecrypto` project has several targets:
-- `libcorecrypto`, the userspace library target.
-- `libcorecrypto_noasm`, the userspace library target without any assembly.
+- `corecrypto_user`, the userspace library target.
+- `corecrypto_static`, the static library form of corecrypto, used for the [dyld](https://github.com/apple-oss-distributions/dyld) project
 - `corecrypto_kernel`, the kernel extension for Darwin, utilised by XNU and other components.
-- `libcc_test`, all of the source code under the [test](src/test) directory for runtime testing if `libcorecrypto` was configured without testing infrastructure.
+- `corecrypto_test`, the infrastructure and unit tests for testing the corecrypto project.
+- `librsp`, a static library used internally for parsing the RSP files provided by the NIST.
+- `cctest`, a userspace binary that integrates with `libcc_test` to conduct tests on the library.
+- `prng_seedctl`, a binary ran by launchd that updates the kernel PRNG's seed.
 
 > [!IMPORTANT]
-> At the moment, this fork of the base corecrypto repository is architected to work with the Darwin 19 Kernel fork found [here](https://github.com/samuelfzormeister/xnu/tree/6153/x86-dev).
+> At the moment, this fork of the base corecrypto repository is architected to work with the Darwin 19 Kernel fork found [here](https://github.com/samuelfzormeister/xnu/tree/6153/ad_reset).
 > Any other environments *will* work, however ceratin functions may be inaccessible, eg: the AVX-512 based SHA-512 check depends on the extension to `i386_cpuid_info_t`, the base SHA extension checker should work fine for the kernel, but is not available in userspace as the `kHasSHA` bit is not defined in `<System/i386/cpu_capabilities.h>`.
+
+## Installed files
+
+- `/System/Library/Extensions/corecrypto.kext`
+- `/usr/lib/system/libcorecrypto.dylib`
+- `/usr/lib/system/libcorecrypto_noasm.dylib`
+- `/usr/local/bin/cctest`
+- `/usr/local/bin/rsp2header`
+- `/usr/local/lib/librsp.a`
+- `/usr/local/lib/system/libcorecrypto.a`
+- `/usr/local/lib/libcorecrypto_test.a`
+- `/usr/local/lib/libcorecrypto_test.dylib`
+
+## Tested Implementations
+
+The following components of the corecrypto have been validated and are known to be outputting good values:
+- ccmd2
+- ccmd4
+- ccmd5
+- ccrmd160
+- ccsha1   (LTC)
+- ccsha224 (LTC)
+- ccsha256 (LTC)
+- ccsha384 (LTC)
+- ccsha512 (LTC)
+- ccsha512_224 (LTC)
+- ccsha512_256 (LTC)
+- ccaes (ECB, LTC)
+- ccaes (CBC, Gladman)
+- ccaes (ECB, Intel Opt ASM)
+- ccaes (ECB, Intel AES-NI ASM)
+- ccaes (CBC, Intel Opt ASM)
+- ccaes (CBC, Intel AES-NI ASM)
+
+Bug reports are encouraged! File a report if an implementation is broken!

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,8 +25,9 @@ static int ccrng_pbkdf2_prng_generate(struct ccrng_state *rng, size_t outlen, vo
 {
     struct ccrng_pbkdf2_prng_state *state = (struct ccrng_pbkdf2_prng_state *)rng;
 
+    /* hopefully should signal that the PBKDF2 PRNG needs to be reset... */
     if (outlen > state->buffer_size) {
-        return CCERR_OVERFLOW;
+        return CCERR_OUT_OF_ENTROPY;
     }
 
     /* Work from the end of the PRNG buffer... */
@@ -53,6 +54,7 @@ int ccrng_pbkdf2_prng_init(struct ccrng_pbkdf2_prng_state *state,
     /* populate the generate callback */
     state->generate = &ccrng_pbkdf2_prng_generate;
 
+    /* todo: is SHA-256 'random' enough? */
     ccpbkdf2_hmac(ccsha256_di(), password_length, password, salt_length, salt, iterations, max_output, state->buffer);
 
     return CCERR_OK;

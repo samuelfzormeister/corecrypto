@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +16,13 @@
  * @LICENSE_HEADER_END@
  */
 
-#ifndef _CORECRYPTO_CCCMAC_PRIV_H_
-#define _CORECRYPTO_CCCMAC_PRIV_H_
+#include <corecrypto/ccmode_internal.h>
 
-#include <corecrypto/cccmac.h>
+void ccmode_ccm_macdata(ccccm_ctx *key, ccccm_nonce *nonce_ctx, unsigned int new_block, size_t nbytes, const void *in)
+{
+    struct _ccmode_ccm_nonce *nonce = CCMODE_CCM_NONCE(nonce_ctx);
 
-int cccmac_generate_subkeys(const struct ccmode_cbc *cbc, size_t key_nbytes, const void *key, uint8_t *key1, uint8_t *key2);
-
-void cccmac_sl_test_xor(uint8_t *out, uint8_t *in);
-
-#endif /* _CORECRYPTO_CCCMAC_PRIV_H_ */
+    if (new_block) {
+        // ????
+    }
+}

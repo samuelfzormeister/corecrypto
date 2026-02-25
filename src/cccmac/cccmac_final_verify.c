@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,13 +16,18 @@
  * @LICENSE_HEADER_END@
  */
 
-#ifndef _CORECRYPTO_CCCMAC_PRIV_H_
-#define _CORECRYPTO_CCCMAC_PRIV_H_
+#include <corecrypto/cc.h>
+#include <corecrypto/cccmac_priv.h>
+#include <corecrypto/ccmode.h>
 
-#include <corecrypto/cccmac.h>
+int cccmac_final_verify(cccmac_ctx_t ctx, size_t expected_mac_nbytes, const void *expected_mac)
+{
+    uint8_t mac[CMAC_BLOCKSIZE];
 
-int cccmac_generate_subkeys(const struct ccmode_cbc *cbc, size_t key_nbytes, const void *key, uint8_t *key1, uint8_t *key2);
-
-void cccmac_sl_test_xor(uint8_t *out, uint8_t *in);
-
-#endif /* _CORECRYPTO_CCCMAC_PRIV_H_ */
+    cccmac_final_generate(ctx, CMAC_BLOCKSIZE, mac);
+    if (cc_cmp_safe(expected_mac_nbytes, mac, expected_mac) == 0) {
+        return CCERR_OK;
+    } else {
+        return CCERR_INTEGRITY;
+    }
+}
