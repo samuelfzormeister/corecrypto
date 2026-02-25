@@ -84,6 +84,8 @@
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccdigest_priv.h>
 
+#include "ccsha1_internal.h"
+
 
 #ifndef SHA_LONG_LOG2
 #define SHA_LONG_LOG2	2	/* default to 32 bits */
