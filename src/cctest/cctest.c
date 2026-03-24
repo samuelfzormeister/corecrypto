@@ -21,17 +21,13 @@
 #include <corecrypto/cctest_internal.h>
 #include <corecrypto/cctest_priv.h>
 #include <corecrypto/ccdigest_test_internal.h>
+#include <corecrypto/ccpbkdf2_test.h>
 #include <corecrypto/cc_memory.h>
+#include <corecrypto/cc_runtime_config.h>
 
 #define CCTEST_TRACE(x...) cc_printf("[CCTEST]: " x)
 
 static struct _cctest_test_link *root;
-
-extern struct _cctest_test_link *cctest_link_aes_ecb(struct _cctest_test_link *lnk);
-extern struct _cctest_test_link *cctest_link_aes_cbc(struct _cctest_test_link *lnk);
-extern struct _cctest_test_link *cctest_link_aes_ofb(struct _cctest_test_link *lnk);
-extern struct _cctest_test_link *cctest_link_aes_cfb(struct _cctest_test_link *lnk);
-extern struct _cctest_test_link *cctest_link_aes_cfb8(struct _cctest_test_link *lnk);
 
 #if __has_include(<unistd.h>)
 #include <unistd.h>
@@ -92,11 +88,54 @@ int cctest_conduct_tests(uint32_t flags)
     }
 
     if (flags & CCTEST_ENABLE_AES) {
-        //chain = cctest_link_aes_ecb(chain);
-        //chain = cctest_link_aes_cbc(chain);
-        chain = cctest_link_aes_ofb(chain);
-        chain = cctest_link_aes_cfb(chain);
-        chain = cctest_link_aes_cfb8(chain);
+        CCTEST_ADD_TEST(chain, ccaes_ecb_encrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_ecb_decrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_ltc_ecb_encrypt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_ltc_ecb_decrypt_ti());
+
+#if CCAES_INTEL_ASM
+        CCTEST_ADD_TEST(chain, ccaes_intel_ecb_encrypt_opt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_intel_ecb_decrypt_opt_ti());
+        if (CC_HAS_AESNI()) {
+            CCTEST_ADD_TEST(chain, ccaes_intel_ecb_encrypt_aesni_ti());
+            CCTEST_ADD_TEST(chain, ccaes_intel_ecb_decrypt_aesni_ti());
+        }
+#endif
+
+        CCTEST_ADD_TEST(chain, ccaes_cbc_encrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cbc_decrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cbc_factory_encrypt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cbc_factory_decrypt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_gladman_cbc_encrypt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_gladman_cbc_decrypt_ti());
+
+#if CCAES_INTEL_ASM
+        CCTEST_ADD_TEST(chain, ccaes_intel_cbc_encrypt_opt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_intel_cbc_decrypt_opt_ti());
+        if (CC_HAS_AESNI()) {
+            CCTEST_ADD_TEST(chain, ccaes_intel_cbc_encrypt_aesni_ti());
+            CCTEST_ADD_TEST(chain, ccaes_intel_cbc_decrypt_aesni_ti());
+        }
+#endif
+
+        CCTEST_ADD_TEST(chain, ccaes_cfb_encrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cfb_decrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cfb_factory_encrypt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cfb_factory_decrypt_ti());
+
+        CCTEST_ADD_TEST(chain, ccaes_cfb8_encrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cfb8_decrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cfb8_factory_encrypt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_cfb8_factory_decrypt_ti());
+
+        CCTEST_ADD_TEST(chain, ccaes_ofb_encrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_ofb_decrypt_default_ti());
+        CCTEST_ADD_TEST(chain, ccaes_ofb_factory_encrypt_ti());
+        CCTEST_ADD_TEST(chain, ccaes_ofb_factory_decrypt_ti());
+    }
+
+    if (flags & CCTEST_ENABLE_PBKDF2) {
+        CCTEST_ADD_TEST(chain, ccpbkdf2_rfc7914_ti());
     }
 
     struct _cctest_test_link *lnk = root;
@@ -105,7 +144,7 @@ int cctest_conduct_tests(uint32_t flags)
         const struct cctest_info *ti = lnk->ti;
         cctest_ctx *ctx = cctest_malloc(ti->size);
         const char *reason = "INIT FAIL";
-
+        cc_clear(ti->size, ctx);
         //CCTEST_TRACE("Begin test %s\n", ti->name);
         ret = cctest_init(ti, ctx);
         cc_require(ret == 0, fail);
@@ -116,7 +155,7 @@ int cctest_conduct_tests(uint32_t flags)
         //CCTEST_TRACE("Exit test %s\n", ti->name);
         cctest_free(ctx, ti->size);
         lnk = lnk->next;
-        cctest_sleep(1);
+        //cctest_sleep(1);
         continue;
 
         fail:

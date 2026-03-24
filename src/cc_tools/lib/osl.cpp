@@ -42,9 +42,17 @@ static void __osl_log(osl::log_level level, const char *fmt, va_list args)
         "INFO"
     };
 
-    printf("[rsplib][%s]: ", __levels[level]);
+    printf("[osl][%s]: ", __levels[level]);
     vprintf(fmt, args);
     printf("\n");
+}
+
+static void __osl_abort(const char *fmt, va_list args)
+{
+    printf("[osl]: abort reason:\n");
+    vprintf(fmt, args);
+    printf("\n");
+    abort();
 }
 
 #elif CC_DARWIN
@@ -69,4 +77,11 @@ void osl::log(osl::log_level level, const char *fmt, ...) {
     va_list list;
     va_start(list, fmt);
     __osl_log(level, fmt, list);
+}
+
+void osl::abort(const char *fmt, ...)
+{
+    va_list list;
+    va_start(list, fmt);
+    __osl_abort(fmt, list);
 }

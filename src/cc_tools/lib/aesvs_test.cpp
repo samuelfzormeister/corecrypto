@@ -23,9 +23,10 @@
 
 using namespace corecrypto::rsplib;
 
-aesvs_test::aesvs_test(const std::string &name) : base_test(name)
+aesvs_test::aesvs_test(const std::string &name, mode mode) : base_test(name)
 {
     osl::log(osl::log_level::debug, "creating an aesvs test obj... (%s)", name.c_str());
+    _mode = mode;
 }
 
 void aesvs_test::add_vector(std::shared_ptr<aesvs_vector> vector) {

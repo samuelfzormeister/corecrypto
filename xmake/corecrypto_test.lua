@@ -1,8 +1,11 @@
 includes("corecrypto_base.lua")
+includes("corecrypto_user.lua")
 
 target("libcorecrypto_test_static")
     set_kind("static")
     set_basename("corecrypto_test")
+
+    add_deps("libcorecrypto_static")
 
     add_sysincludedirs("$(projectdir)/src/cctest/include")
     
@@ -54,6 +57,11 @@ target("libcorecrypto_test_static")
     -- SHA-2
     add_files(
         "$(projectdir)/src/ccsha2/test/*_ti.c"
+    )
+
+    -- PBKDF2
+    add_files(
+        "$(projectdir)/src/ccpbkdf2/test/*.c"
     )
 
 target("libcorecrypto_test")
@@ -115,11 +123,16 @@ target("libcorecrypto_test")
         "$(projectdir)/src/ccsha2/test/*_ti.c"
     )
 
+    -- PBKDF2
+    add_files(
+        "$(projectdir)/src/ccpbkdf2/test/*.c"
+    )
+
 target("corecrypto_test")
     set_kind("binary")
     set_languages("c++17")
 
-    add_deps("libcorecrypto", "libcorecrypto_test")
+    add_deps("libcorecrypto", "libcorecrypto_test_static")
 
     add_sysincludedirs("$(projectdir)/src/cctest/include")
 

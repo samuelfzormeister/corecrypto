@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,17 +30,17 @@
 #define CCMODE_CFB_KEY_FEEDBACK(ctx) &ctx->u[0]
 /* ^ rename to IV? */
 #define CCMODE_CFB_KEY_PADDING(ctx) (&ctx->u[ccn_nof_size(ctx->ecb->block_size)])
-#define CCMODE_CFB_KEY_ECB_CTX(ctx) (ccecb_ctx *)(&ctx->u[ccn_nof_size(ctx->ecb->block_size) * 2])
+#define CCMODE_CFB_KEY_ECB_CTX(ctx) (ccecb_ctx *)(&ctx->u[ccn_nof_size(ctx->ecb->block_size * 2)])
 
 /* CFB key fields */
 #define CCMODE_CFB8_KEY_FEEDBACK(ctx) &ctx->u[0]
 /* ^ rename to IV? */
-#define CCMODE_CFB8_KEY_PADDING(ctx) (ctx->u + ccn_sizeof_size(ctx->ecb->block_size))
-#define CCMODE_CFB8_KEY_ECB_CTX(ctx) (ccecb_ctx *)(&ctx->u[2 * ccn_nof_size(ctx->ecb->block_size)])
+#define CCMODE_CFB8_KEY_PADDING(ctx) (&ctx->u[ccn_nof_size(ctx->ecb->block_size)])
+#define CCMODE_CFB8_KEY_ECB_CTX(ctx) (ccecb_ctx *)(&ctx->u[ccn_nof_size(ctx->ecb->block_size * 2)])
 
 #define CCMODE_CTR_KEY_COUNTER(ckey) &ckey->u[0]
 #define CCMODE_CTR_KEY_PAD(ckey)     (&ckey->u[ccn_nof_size(ckey->ecb->block_size)])
-#define CCMODE_CTR_KEY_ECB_CTX(ckey) (ccecb_ctx *)(&ckey->u[ccn_nof_size(ckey->ecb->block_size) * 2])
+#define CCMODE_CTR_KEY_ECB_CTX(ckey) (ccecb_ctx *)(&ckey->u[ccn_nof_size(ckey->ecb->block_size * 2)])
 
 #define CCMODE_OFB_KEY_IV(okey)      &okey->u[0]
 #define CCMODE_OFB_KEY_ECB_CTX(okey) (ccecb_ctx *)&okey->u[ccn_nof_size(okey->ecb->block_size)]
@@ -59,6 +59,7 @@
 #define CCMODE_CCM_KEY_ECB_CTX(key) (ccecb_ctx *)&CCMODE_CCM_KEY(key)->u[ccn_nof_size(CCMODE_CCM_KEY_ECB(key)->block_size)]
 
 #define CCMODE_CCM_NONCE(nonce) ((struct _ccmode_ccm_nonce *)nonce)
+#define CCMODE_CCM_NONCE_MAC(nonce) ((struct _ccmode_ccm_nonce *)nonce)->MAC
 
 #define CCMODE_CCM_STATE_IV    0    /* we need an IV. */
 #define CCMODE_CCM_STATE_AAD   1    /* waiting on aad via ccm->cbcmac */

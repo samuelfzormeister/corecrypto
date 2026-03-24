@@ -631,7 +631,7 @@ CC_INLINE int ccgcm_aad(const struct ccmode_gcm *mode, ccgcm_ctx *ctx, size_t nb
  @discussion ccgcm_gmac is deprecated. Use the drop-in replacement 'ccgcm_aad' instead.
  */
 CC_INLINE int ccgcm_gmac (const struct ccmode_gcm *mode, ccgcm_ctx *ctx, size_t nbytes, const void *in)
-cc_deprecate_with_replacement("ccgcm_aad", 13.0, 10.15, 13.0, 6.0, 4.0)
+CC_API_DEPRECATED_WITH_REPLACEMENT_FALL_2019("ccgcm_aad")
 {
     return mode->gmac(ctx, nbytes, in);
 }

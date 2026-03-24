@@ -103,7 +103,7 @@ int ccmode_cbc_encrypt_test_run(cctest_ctx *ctx)
             continue;
         } else {
             cctest_trace_fail(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
-            cc_printf("[CCTEST][CIPHER][%s]: EXPECTED:\n", tctx->ti->name);
+            cc_printf("[CCTEST][CIPHER][%s]: PLAINTEXT:\n", tctx->ti->name);
             
             uint8_t *state = (uint8_t *)vec.plaintext;
             
@@ -118,7 +118,7 @@ int ccmode_cbc_encrypt_test_run(cctest_ctx *ctx)
             }
             cc_printf("\n");
             
-            cc_printf("[CCTEST][CIPHER][%s]: CIPHERTEXT:\n", tctx->ti->name);
+            cc_printf("[CCTEST][CIPHER][%s]: EXPECTED:\n", tctx->ti->name);
             
             state = (uint8_t *)vec.ciphertext;
             

@@ -27,21 +27,36 @@ namespace corecrypto {
         //
         // SHAVS vector.
         //
-    class shavs_vector : public base_vector {
-        public:
-        shavs_vector(const std::string &len,
-                     const std::string &msg,
-                     const std::string &md);
+        class shavs_vector : public base_vector {
+            public:
+            shavs_vector(const std::string &len,
+                         const std::string &msg,
+                         const std::string &md);
         
-        const std::string &get_length_field() { return _length; }
+            const std::string &get_length_field() { return _length; }
         
-        private:
-        std::string _length;
-    };
+            private:
+            std::string _length;
+        };
     
         class shavs_test : public base_test {
             public:
-            shavs_test(const std::string &name);
+
+            enum variant {
+                sha1,
+                sha224,
+                sha256,
+                sha384,
+                sha512,
+                sha512_224,
+                sha512_256,
+                sha3_224,
+                sha3_256,
+                sha3_384,
+                sha3_512,
+            };
+
+            shavs_test(const std::string &name, variant variant);
 
             void add_vector(std::shared_ptr<shavs_vector>);
 
@@ -49,6 +64,7 @@ namespace corecrypto {
 
             private:
             std::vector<std::shared_ptr<shavs_vector>> _testVectors;
+            variant _varient;
         };
 
     }

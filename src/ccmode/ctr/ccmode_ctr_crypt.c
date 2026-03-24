@@ -29,7 +29,7 @@ int ccmode_ctr_crypt(ccctr_ctx *ctx, size_t nbytes, const void *in, void *out)
     uint8_t *pad = (uint8_t *)CCMODE_CTR_KEY_PAD(ckey);
     
     /* use an 8-byte counter */
-    size_t ctr_size = CC_MIN(ckey->ecb->block_size, 8);
+    size_t ctr_size = CC_MIN(block_size, 8);
 
     while (nbytes--) {
         if (ckey->pad_len == block_size) {

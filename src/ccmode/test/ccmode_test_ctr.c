@@ -88,12 +88,11 @@ int ccmode_ctr_encrypt_test_run(cctest_ctx *ctx)
 
     for (int i = 0; i < vi->nvectors; i++) {
         struct ccmode_test_vector vec = vi->vectors[i];
-        cc_size blocks = vec.text_length / ccctr_block_size(mode);
         const char *reason = "";
         
         int ret = ccctr_init(mode, cx, vec.key_length, vec.key, vec.iv);
         cc_require_action(ret == 0, testfail, reason = "INIT FAIL");
-        ret = ccctr_update(mode, cx, blocks, vec.plaintext, scratch);
+        ret = ccctr_update(mode, cx, vec.text_length, vec.plaintext, scratch);
         cc_require_action(ret == 0, testfail, reason = "UPDATE FAIL");
         if (cc_cmp_safe(vec.text_length, vec.ciphertext, scratch) == 0) {
             cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
@@ -168,12 +167,11 @@ int ccmode_ctr_decrypt_test_run(cctest_ctx *ctx)
 
     for (int i = 0; i < vi->nvectors; i++) {
         struct ccmode_test_vector vec = vi->vectors[i];
-        cc_size blocks = vec.text_length / ccctr_block_size(mode);
         const char *reason = "";
         
         int ret = ccctr_init(mode, cx, vec.key_length, vec.key, vec.iv);
         cc_require_action(ret == 0, testfail, reason = "INIT FAIL");
-        ret = ccctr_update(mode, cx, blocks, vec.ciphertext, scratch);
+        ret = ccctr_update(mode, cx, vec.text_length, vec.ciphertext, scratch);
         cc_require_action(ret == 0, testfail, reason = "UPDATE FAIL");
         if (cc_cmp_safe(vec.text_length, vec.plaintext, scratch) == 0) {
             cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);

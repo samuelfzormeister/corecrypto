@@ -22,22 +22,30 @@
 int ccmode_cbc_decrypt(const cccbc_ctx *ctx, cccbc_iv *iv, size_t nblocks, const void *in, void *out)
 {
     const struct _ccmode_cbc_key *fctx = (const struct _ccmode_cbc_key *)ctx;
-    uint8_t *cur_iv = &iv->b[0];
+    const struct ccmode_ecb *ecb = fctx->ecb;
+    ccecb_ctx *ecb_ctx = CCMODE_CBC_KEY_ECB_CTX(fctx);
+    size_t block_size = ecb->block_size;
+    uint8_t *cur_iv = (uint8_t *)iv;
     uint8_t *pt = out;
     const uint8_t *ct = in;
+    uint8_t buf[block_size];
 
     /* iterate. */
-    while (nblocks--) {
-        ccecb_update(fctx->ecb, CCMODE_CBC_KEY_ECB_CTX(fctx), 1, in, out);
-        
-        for (cc_size i; i < fctx->ecb->block_size; i++) {
-            uint8_t tmp = cur_iv[i] ^ ct[i];
+    while (nblocks) {
+        /* run decryption */
+        ccecb_update(ecb, ecb_ctx, 1, ct, buf);
+
+        /* XOR the IV */
+        for (cc_size i = 0; i < block_size; i++) {
+            uint8_t tmp = cur_iv[i] ^ buf[i];
             cur_iv[i] = ct[i];
             pt[i] = tmp;
         }
 
-        in += ccecb_block_size(fctx->ecb);
-        out += ccecb_block_size(fctx->ecb);
+        ct += block_size;
+        pt += block_size;
+
+        --nblocks;
     }
 
     return CCERR_OK;

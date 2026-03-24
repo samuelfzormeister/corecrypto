@@ -25,41 +25,35 @@ namespace corecrypto {
 
     namespace rsplib {
 
-        class aesvs_vector : public base_vector {
-            public:
-            aesvs_vector(const std::string &key,
-                         const std::string &iv,
-                         const std::string &plaintext,
-                         const std::string &ciphertext);
-
-            virtual const std::string &get_key(void) { return _key; }
-
-            virtual const std::string &get_iv(void) { return _iv; }
-
-            protected:
-            std::string _key;
-            std::string _iv;
-        };
+        using aesvs_vector = class block_cipher_vector;
 
         //
         // AESVS vector.
         //
         class aesvs_test : public base_test {
             public:
-            enum {
+            enum mode {
                 ecb,
                 cbc,
+                cfb1,           // unused by corecrypto. we only do CFB8 and CFB128 for AES.
+                cfb8,
+                cfb128,
+                ofb,
+                xts,            // technically falls under XTS-VS but we reuse AESVS for handling XTS.
             };
 
-            aesvs_test(const std::string &name);
+            aesvs_test(const std::string &name, mode mode);
 
             void add_vector(std::shared_ptr<aesvs_vector>);
 
             virtual void write_to_stream(std::stringstream &stream) override;
 
-            private:
+            mode get_mode(void) { return _mode; }
+
+            protected:
             std::vector<std::shared_ptr<aesvs_vector>> _testVectors;
-            std::string name;
+            std::string _name;
+            mode _mode;
         };
 
     }

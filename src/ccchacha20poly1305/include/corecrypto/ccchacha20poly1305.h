@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <corecrypto/cc.h>
 
 #define CCCHACHA20_KEY_NBYTES 32
 #define CCCHACHA20_BLOCK_NBYTES 64
@@ -107,7 +108,7 @@ struct ccchacha20poly1305_info {
 
 };
 
-const struct ccchacha20poly1305_info *ccchacha20poly1305_info(void);
+const struct ccchacha20poly1305_info *ccchacha20poly1305_info(void) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function   ccchacha20poly1305_init
@@ -123,7 +124,9 @@ const struct ccchacha20poly1305_info *ccchacha20poly1305_info(void);
 
  @warning The key-nonce pair must be unique per encryption.
  */
-int	ccchacha20poly1305_init(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, const uint8_t *key);
+int	ccchacha20poly1305_init(const struct ccchacha20poly1305_info *info, 
+							ccchacha20poly1305_ctx *ctx, 
+							const uint8_t *key) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function   ccchacha20poly1305_reset
@@ -134,7 +137,8 @@ int	ccchacha20poly1305_init(const struct ccchacha20poly1305_info *info, ccchacha
 
  @result     0 iff successful.
  */
-int ccchacha20poly1305_reset(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx);
+int ccchacha20poly1305_reset(const struct ccchacha20poly1305_info *info, 
+							 ccchacha20poly1305_ctx *ctx) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function   ccchacha20poly1305_setnonce
@@ -150,8 +154,10 @@ int ccchacha20poly1305_reset(const struct ccchacha20poly1305_info *info, ccchach
 
  @warning The key-nonce pair must be unique per encryption.
  */
-int ccchacha20poly1305_setnonce(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, const uint8_t *nonce);
-int ccchacha20poly1305_incnonce(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, uint8_t *nonce);
+int ccchacha20poly1305_setnonce(const struct ccchacha20poly1305_info *info, 
+								ccchacha20poly1305_ctx *ctx, const uint8_t *nonce) CC_API_AVAILABLE_FALL_2017;
+int ccchacha20poly1305_incnonce(const struct ccchacha20poly1305_info *info, 
+								ccchacha20poly1305_ctx *ctx, uint8_t *nonce) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function   ccchacha20poly1305_aad
@@ -168,7 +174,9 @@ int ccchacha20poly1305_incnonce(const struct ccchacha20poly1305_info *info, ccch
 
  This function may be called zero or more times.
  */
-int	ccchacha20poly1305_aad(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, size_t nbytes, const void *aad);
+int	ccchacha20poly1305_aad(const struct ccchacha20poly1305_info *info, 
+						   ccchacha20poly1305_ctx *ctx, 
+						   size_t nbytes, const void *aad) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function   ccchacha20poly1305_encrypt
@@ -186,7 +194,10 @@ int	ccchacha20poly1305_aad(const struct ccchacha20poly1305_info *info, ccchacha2
 
  This function may be called zero or more times.
  */
-int	ccchacha20poly1305_encrypt(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, size_t nbytes, const void *ptext, void *ctext);
+int	ccchacha20poly1305_encrypt(const struct ccchacha20poly1305_info *info, 
+					           ccchacha20poly1305_ctx *ctx, 
+							   size_t nbytes, 
+							   const void *ptext, void *ctext) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function   ccchacha20poly1305_finalize
@@ -200,7 +211,8 @@ int	ccchacha20poly1305_encrypt(const struct ccchacha20poly1305_info *info, cccha
 
  @discussion The generated tag is 16 bytes in length.
  */
-int	ccchacha20poly1305_finalize(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, uint8_t *tag);
+int	ccchacha20poly1305_finalize(const struct ccchacha20poly1305_info *info, 
+							    ccchacha20poly1305_ctx *ctx, uint8_t *tag) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function   ccchacha20poly1305_decrypt
@@ -218,7 +230,10 @@ int	ccchacha20poly1305_finalize(const struct ccchacha20poly1305_info *info, ccch
 
  This function may be called zero or more times.
  */
-int	ccchacha20poly1305_decrypt(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, size_t nbytes, const void *ctext, void *ptext);
+int	ccchacha20poly1305_decrypt(const struct ccchacha20poly1305_info *info, 
+							   ccchacha20poly1305_ctx *ctx, 
+							   size_t nbytes, 
+							   const void *ctext, void *ptext) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function   ccchacha20poly1305_verify
@@ -232,7 +247,8 @@ int	ccchacha20poly1305_decrypt(const struct ccchacha20poly1305_info *info, cccha
 
  @discussion The expected tag is 16 bytes in length.
  */
-int	ccchacha20poly1305_verify(const struct ccchacha20poly1305_info *info, ccchacha20poly1305_ctx *ctx, const uint8_t *tag);
+int	ccchacha20poly1305_verify(const struct ccchacha20poly1305_info *info, 
+							  ccchacha20poly1305_ctx *ctx, const uint8_t *tag) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function      ccchacha20poly1305_encrypt_oneshot
@@ -262,7 +278,11 @@ int	ccchacha20poly1305_verify(const struct ccchacha20poly1305_info *info, ccchac
 
  @warning A single message can be at most (2^38 - 64) bytes in length.
  */
-int ccchacha20poly1305_encrypt_oneshot(const struct ccchacha20poly1305_info *info, const uint8_t *key, const uint8_t *nonce, size_t aad_nbytes, const void *aad, size_t ptext_nbytes, const void *ptext, void *ctext, uint8_t *tag);
+int ccchacha20poly1305_encrypt_oneshot(const struct ccchacha20poly1305_info *info, 
+									   const uint8_t *key, const uint8_t *nonce, 
+									   size_t aad_nbytes, const void *aad, 
+									   size_t ptext_nbytes, const void *ptext, 
+									   void *ctext, uint8_t *tag) CC_API_AVAILABLE_FALL_2017;
 
 /*!
  @function      ccchacha20poly1305_decrypt_oneshot
@@ -288,6 +308,10 @@ int ccchacha20poly1305_encrypt_oneshot(const struct ccchacha20poly1305_info *inf
 
  In-place processing is supported.
  */
-int ccchacha20poly1305_decrypt_oneshot(const struct ccchacha20poly1305_info *info, const uint8_t *key, const uint8_t *nonce, size_t aad_nbytes, const void *aad, size_t ctext_nbytes, const void *ctext, void *ptext, const uint8_t *tag);
+int ccchacha20poly1305_decrypt_oneshot(const struct ccchacha20poly1305_info *info, 
+									   const uint8_t *key, const uint8_t *nonce, 
+									   size_t aad_nbytes, const void *aad, 
+									   size_t ctext_nbytes, const void *ctext, 
+									   void *ptext, const uint8_t *tag) CC_API_AVAILABLE_FALL_2017;
 
 #endif

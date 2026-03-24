@@ -28,12 +28,23 @@ The `corecrypto` project has several targets:
 - `corecrypto_kernel`, the kernel extension for Darwin, utilised by XNU and other components.
 - `corecrypto_test`, the infrastructure and unit tests for testing the corecrypto project.
 - `librsp`, a static library used internally for parsing the RSP files provided by the NIST.
-- `cctest`, a userspace binary that integrates with `libcc_test` to conduct tests on the library.
+- `cctest`, a userspace binary that integrates with `libcorecrypto_test` to conduct tests on the library.
 - `prng_seedctl`, a binary ran by launchd that updates the kernel PRNG's seed.
 
 > [!IMPORTANT]
 > At the moment, this fork of the base corecrypto repository is architected to work with the Darwin 19 Kernel fork found [here](https://github.com/samuelfzormeister/xnu/tree/6153/ad_reset).
 > Any other environments *will* work, however ceratin functions may be inaccessible, eg: the AVX-512 based SHA-512 check depends on the extension to `i386_cpuid_info_t`, the base SHA extension checker should work fine for the kernel, but is not available in userspace as the `kHasSHA` bit is not defined in `<System/i386/cpu_capabilities.h>`.
+
+## SDK Integration
+
+The corecrypto project headers are easy to integrate with new and pre-existing SDKs.
+
+At most, the `corecrypto_user` library requires:
+- The `Libc` project headers
+- XNU's headers
+
+To install the corecrypto project headers into the SDK, it's as easy as running:
+`xcodebuild installhdrs -target corecrypto_user DSTROOT=$(xcrun -sdk macosx --show-sdk-path)`
 
 ## Installed files
 

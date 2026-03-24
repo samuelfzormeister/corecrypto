@@ -536,8 +536,8 @@ struct _ccmode_xts_tweak {
 /* Use this to statically initialize a ccmode_xts object for decryption. */
 #define CCMODE_FACTORY_XTS_DECRYPT(ECB, ECB_ENCRYPT) { \
 .size = ccn_sizeof_size(sizeof(struct _ccmode_xts_key)) + 2 * ccn_sizeof_size((ECB)->size), \
-.tweak_size = ccn_sizeof_size(sizeof(struct _ccmode_xts_tweak)) + ccn_sizeof_size(ecb->block_size), \
-.block_size = ecb->block_size, \
+.tweak_size = ccn_sizeof_size(sizeof(struct _ccmode_xts_tweak)) + ccn_sizeof_size((ECB)->block_size), \
+.block_size = (ECB)->block_size, \
 .init = ccmode_xts_init, \
 .key_sched = ccmode_xts_key_sched, \
 .set_tweak = ccmode_xts_set_tweak, \
@@ -549,8 +549,8 @@ struct _ccmode_xts_tweak {
 /* Use this to statically initialize a ccmode_xts object for encryption. */
 #define CCMODE_FACTORY_XTS_ENCRYPT(ECB, ECB_ENCRYPT) { \
 .size = ccn_sizeof_size(sizeof(struct _ccmode_xts_key)) + 2 * ccn_sizeof_size((ECB)->size), \
-.tweak_size = ccn_sizeof_size(sizeof(struct _ccmode_xts_tweak)) + ccn_sizeof_size(ecb->block_size), \
-.block_size = ecb->block_size, \
+.tweak_size = ccn_sizeof_size(sizeof(struct _ccmode_xts_tweak)) + ccn_sizeof_size((ECB)->block_size), \
+.block_size = (ECB)->block_size, \
 .init = ccmode_xts_init, \
 .key_sched = ccmode_xts_key_sched, \
 .set_tweak = ccmode_xts_set_tweak, \

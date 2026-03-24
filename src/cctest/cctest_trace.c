@@ -19,12 +19,24 @@
 #include <corecrypto/cc_debug.h>
 #include <corecrypto/cctest_internal.h>
 
-
 static const char *__subsystems[] = {
     "",
+
     "DIGEST",
     "CIPHER",
-    "CHACHA20"
+
+    "CHACHA20POLY1305",
+
+    "PBKDF2",
+    "SCRYPT",
+    "HKDF",
+    "NISTKDF",
+
+    "CMAC",
+    "HMAC",
+
+    "WRAP",
+    "DRBG",
 };
 
 static bool trace_enabled = false;
@@ -69,3 +81,18 @@ void cctest_trace_pass_named(uint32_t subsystem, const char *name, const char *n
         cc_printf("[CCTEST][%s][%s]: PASS %s\n", __subsystems[subsystem], name, named);
     }
 }
+
+void cctest_trace_enter(uint32_t subsystem, const char *name, uint64_t abs)
+{
+    if (trace_enabled) {
+        cc_printf("[CCTEST][%s] conducting test, %s (stamp: %lld)\n", __subsystems[subsystem], name, abs);
+    }
+}
+
+void cctest_trace_exit(uint32_t subsystem, const char *name, uint64_t abs)
+{
+    if (trace_enabled) {
+        cc_printf("[CCTEST][%s] finishing test, %s (stamp: %lld)\n", __subsystems[subsystem], name, abs);
+    }
+}
+

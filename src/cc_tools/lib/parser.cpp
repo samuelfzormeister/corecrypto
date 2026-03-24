@@ -16,8 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <rsplib/base.hpp>
-#include <rsplib/aesvs.hpp>
+#include <rsplib/parser.hpp>
 #include <rsplib/osl.hpp>
 #include <fstream>
 #include <memory>
@@ -40,13 +39,52 @@ parser::parser(const std::string &basename, std::stringstream &stream)
         osl::log(osl::debug, "parser: cur line: %s", line.c_str());
         if (line.find("AESVS") != std::string::npos) {
             if (line.find("ECB") == std::string::npos) {
-                parse_aesvs(stream, false);
+                parse_aesvs(stream, aesvs_test::ecb);
+            } else if (line.find("CBC") == std::string::npos){
+                parse_aesvs(stream, aesvs_test::cbc);
+            } else if (line.find("CFB1") == std::string::npos){
+                parse_aesvs(stream, aesvs_test::cfb1);
+            } else if (line.find("CFB8") == std::string::npos){
+                parse_aesvs(stream, aesvs_test::cfb8);
+            } else if (line.find("CFB128") == std::string::npos){
+                parse_aesvs(stream, aesvs_test::cfb128);
+            } else if (line.find("OFB") == std::string::npos){
+                parse_aesvs(stream, aesvs_test::ofb);
             } else {
-                parse_aesvs(stream, true);
+                osl::abort("unhandled mode for AES-VS");
             }
             break;
         } else if (line.find("SHA") != std::string::npos) {
-            parse_shavs(stream);
+            if (line.find("SHA-1") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha1);
+            } else if (line.find("SHA-224") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha224);
+            } else if (line.find("SHA-256") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha256);
+            } else if (line.find("SHA-384") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha384);
+            } else if (line.find("SHA-512/224") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha512_224);
+            } else if (line.find("SHA-512/256") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha512_256);
+            } else if (line.find("SHA-512") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha512);
+            } else if (line.find("SHA3-224") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha3_224);
+            } else if (line.find("SHA3-256") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha3_256);
+            } else if (line.find("SHA3-384") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha3_384);
+            } else if (line.find("SHA3-512") != std::string::npos) {
+                parse_shavs(stream, shavs_test::sha3_512);
+            } else {
+                osl::abort("unhandled SHA-VS case");
+            }
+        } else if (line.find("XTS") != std::string::npos) {
+            parse_xtsvs(stream);
+        } else {
+            osl::log(osl::error, "this rsp file wasn't handled.");
+            osl::abort("file not handled :(");
         }
     }
     osl::log(osl::debug, "parser::parser exit <<");

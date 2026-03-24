@@ -1,6 +1,6 @@
 includes("corecrypto_base.lua")
 
-target("corecrypto_static")
+target("libcorecrypto_static")
     set_kind("static")
     set_basename("corecrypto")
 
@@ -9,6 +9,7 @@ target("corecrypto_static")
         "$(projectdir)/src/cc/*.c",
         "$(projectdir)/src/ccaes/ltc/*.c",
         "$(projectdir)/src/ccaes/gladman/*.c",
+        "$(projectdir)/src/ccaes/*.c",
         "$(projectdir)/src/ccansikdf/*.c",
         "$(projectdir)/src/ccblowfish/*.c",
         "$(projectdir)/src/cccast/*.c",
@@ -46,6 +47,7 @@ target("corecrypto_static")
         "$(projectdir)/src/ccrng/*.c",
         "$(projectdir)/src/ccrng/pbkdf2/*.c",
         "$(projectdir)/src/ccrsa/*.c",
+        "$(projectdir)/src/ccscrypt/*.c",
         "$(projectdir)/src/ccsha1/*.c",
         "$(projectdir)/src/ccsha2/*.c",
         "$(projectdir)/src/ccsha3/*.c",

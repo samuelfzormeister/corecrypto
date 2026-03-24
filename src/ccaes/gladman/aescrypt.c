@@ -146,7 +146,7 @@ int ccaes_gladman_encrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
                                    const void *in, void *out)
 {
     aes_32t         locals(b0, b1);
-    const ccaes_gladman_decrypt_ctx *cx = (const ccaes_gladman_decrypt_ctx *)key;
+    const ccaes_gladman_encrypt_ctx *cx = (const ccaes_gladman_encrypt_ctx *)key;
     const aes_32t   *kp;
     const aes_32t   *kptr = cx->ks;
 	int				cbcEnable = (cx->cbcEnable || iv) ? 1 : 0;
@@ -349,7 +349,7 @@ int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 	unsigned char lastIv[AES_BLOCK_SIZE];
 	
 	/* fix a compiler warning... */
-	b00 = 0; b01 = 0; b02=0; b03 = 0;
+	//b00 = 0; b01 = 0; b02=0; b03 = 0;
 	
 #if defined( dec_imvars )
     dec_imvars; /* declare variables for inv_mcol() if needed */
@@ -443,12 +443,7 @@ int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 			{
 				// We are doing the first block so we need the IV rather than the previous
 				// block for CBC (there is no previous block)
-				if(iv) {
-					state_in(b1, iv);
-				}
-				else {
-					state_in(b1, cx->chainBuf);
-				}
+				state_in(b1, iv);
 			}
 			else
 			{

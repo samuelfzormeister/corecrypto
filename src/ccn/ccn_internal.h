@@ -19,6 +19,7 @@
 #ifndef _CORECRYPTO_CCN_INTERNAL_H_
 #define _CORECRYPTO_CCN_INTERNAL_H_
 
+#include "corecrypto/cc_config.h"
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccn.h>
 
@@ -62,6 +63,19 @@ cc_unit cc_unit_is_equal(cc_unit unit1, cc_unit unit2)
     // as seen in cc_cmp_safe, XORing is the best option here.
     //
     return cc_unit_is_zero(unit1 ^ unit2);
+}
+
+CC_INLINE
+cc_unit cc_unit_is_not_equal(cc_unit u1, cc_unit u2)
+{
+    return ~cc_unit_is_equal(u1, u2);
+}
+
+/* soooo hacky. 0xFF... if u1 < u2; 0 if equal and 1 if u1 > u2 */
+CC_INLINE
+cc_unit cc_unit_is_less_than(cc_unit u1, cc_unit u2)
+{
+    return cc_unit_msb((u2-u1)) - cc_unit_msb((u1-u2));
 }
 
 /* ASM stuff... */

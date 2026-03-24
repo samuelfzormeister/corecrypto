@@ -88,12 +88,11 @@ int ccmode_cfb_encrypt_test_run(cctest_ctx *ctx)
 
     for (int i = 0; i < vi->nvectors; i++) {
         struct ccmode_test_vector vec = vi->vectors[i];
-        cc_size blocks = vec.text_length / cccfb_block_size(mode);
         const char *reason = "";
         
         int ret = cccfb_init(mode, cx, vec.key_length, vec.key, vec.iv);
         cc_require_action(ret == 0, testfail, reason = "INIT FAIL");
-        ret = cccfb_update(mode, cx, blocks, vec.plaintext, scratch);
+        ret = cccfb_update(mode, cx, vec.text_length, vec.plaintext, scratch);
         cc_require_action(ret == 0, testfail, reason = "UPDATE FAIL");
         if (cc_cmp_safe(vec.text_length, vec.ciphertext, scratch) == 0) {
             cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
@@ -103,7 +102,7 @@ int ccmode_cfb_encrypt_test_run(cctest_ctx *ctx)
             cctest_trace_fail(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
                         cc_printf("[CCTEST][CIPHER][%s]: EXPECTED:\n", tctx->ti->name);
             
-            uint8_t *state = (uint8_t *)vec.plaintext;
+            uint8_t *state = (uint8_t *)vec.ciphertext;
             
             for (cc_size i = 0; i < vec.text_length; i++) {
                 if ((i % 8) == 0) {
@@ -116,9 +115,9 @@ int ccmode_cfb_encrypt_test_run(cctest_ctx *ctx)
             }
             cc_printf("\n");
             
-            cc_printf("[CCTEST][CIPHER][%s]: CIPHERTEXT:\n", tctx->ti->name);
+            cc_printf("[CCTEST][CIPHER][%s]: PLAINTEXT:\n", tctx->ti->name);
             
-            state = (uint8_t *)vec.ciphertext;
+            state = (uint8_t *)vec.plaintext;
             
             for (cc_size i = 0; i < vec.text_length; i++) {
                 if ((i % 8) == 0) {
@@ -168,12 +167,11 @@ int ccmode_cfb_decrypt_test_run(cctest_ctx *ctx)
 
     for (int i = 0; i < vi->nvectors; i++) {
         struct ccmode_test_vector vec = vi->vectors[i];
-        cc_size blocks = vec.text_length / cccfb_block_size(mode);
         const char *reason = "";
         
         int ret = cccfb_init(mode, cx, vec.key_length, vec.key, vec.iv);
         cc_require_action(ret == 0, testfail, reason = "INIT FAIL");
-        ret = cccfb_update(mode, cx, blocks, vec.ciphertext, scratch);
+        ret = cccfb_update(mode, cx, vec.text_length, vec.ciphertext, scratch);
         cc_require_action(ret == 0, testfail, reason = "UPDATE FAIL");
         if (cc_cmp_safe(vec.text_length, vec.plaintext, scratch) == 0) {
             cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);

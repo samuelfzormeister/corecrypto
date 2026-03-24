@@ -52,6 +52,9 @@ void set_flag(std::string &str)
     if (str == "sha2") {
         flags |= CCTEST_ENABLE_SHA2;
     }
+    if (str == "pbkdf2") {
+        flags |= CCTEST_ENABLE_PBKDF2;
+    }
 }
 
 void parse_test_list_string(std::string &enabled)

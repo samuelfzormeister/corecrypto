@@ -10,12 +10,12 @@ CommonCrypto requires the following from corecrypto:
 - AES block cipher operations in ~~CBC, ECB, CFB8, CTR, CFB, OFB, XTS,~~ GCM and CCM modes
 - AES Key Wrapping
 - An implementation of the ANSI Key Derivation function
-- An implementation of the HMAC Key Derivation function
+- ~~An implementation of the HMAC Key Derivation function~~
 - An implementation of the NIST Key Derivation function
 - ~~An implementation of the PBKDF2 key derivation function~~
 - ~~Blowfish operations~~
 - ~~CAST block cipher operations~~
-- CMAC operation
+- ~~CMAC operation~~
 - CKG (Collaborative Key Generation)
 - ~~DES operations~~
 - Diffie-Hellman operations
@@ -41,7 +41,7 @@ The Security project requires the following implementations from corecrypto:
 - AES block cipher operations in GCM mode
 - AES Key Wrapping
 - An implementation of the ANSI Key Derivation function
-- An implementation of the HMAC Key Derivation function
+- ~~An implementation of the HMAC Key Derivation function~~
 - ~~An implementation of the PBKDF2 key derivation function~~
 - DER encoding/decoding
 - DER encoding/decoding of Elliptic Curve keys
@@ -125,7 +125,7 @@ The passwordserver_sasl project requires the following implementations from core
 XNU has various interfaces to corecrypto, XNU wants the following cryptographic interfaces:
 - ~~ChaCha20 cipher + a Poly1305 authentication tag~~
 - ~~The CAST cipher in ECB mode~~
-- XTS and CBC padding functions
+- ~~XTS and~~ CBC padding functions
 - AES block ciper operations in ~~CBC, ECB, CTR, XTS~~ and GCM modes
 - ~~RC4 stream cipher~~
 - RSA operations

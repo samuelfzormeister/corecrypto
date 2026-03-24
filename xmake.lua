@@ -41,6 +41,7 @@ add_sysincludedirs(
     "$(projectdir)/src/ccripemd/include",
     "$(projectdir)/src/ccrng/include",
     "$(projectdir)/src/ccrsa/include",
+    "$(projectdir)/src/ccscrypt/include",
     "$(projectdir)/src/ccsha1/include",
     "$(projectdir)/src/ccsha2/include",
     "$(projectdir)/src/ccsha3/include",
@@ -59,4 +60,5 @@ includes("xmake/corecrypto_test.lua")
 includes("xmake/corecrypto_tools.lua")
 includes("xmake/corecrypto_user.lua")
 includes("xmake/corecrypto_noasm.lua")
+includes("xmake/rsplib.lua")
 

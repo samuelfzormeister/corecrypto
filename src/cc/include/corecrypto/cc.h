@@ -16,38 +16,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#if __has_feature(attribute_availability_with_replacement)
-#if __has_feature(attribute_availability_bridgeos)
-  #ifndef __CC_BRIDGE_OS_DEPRECATED
-    #define __CC_BRIDGEOS_DEPRECATED_WITH_REPLACEMENT(_dep, _msg) __attribute__((availability(bridgeos,deprecated=_dep, replacement=_msg)))
-    #define __CC_BRIDGEOS_DEPRECATED(_dep) __attribute__((availability(bridgeos,deprecated=_dep)))
-  #endif
-#endif
-
-#ifndef __CC_BRIDGEOS_DEPRECATED
-  #define __CC_BRIDGEOS_DEPRECATED_WITH_REPLACEMENT(_dep, _msg)
-  #define __CC_BRIDGEOS_DEPRECATED(_dep)
-#endif
-
-#define cc_deprecate_with_replacement(replacement_message, ios_version, macos_version, tvos_version, watchos_version, bridgeos_version) \
-__attribute__((availability(macos,deprecated=macos_version,       replacement=replacement_message)))\
-__attribute__((availability(ios,deprecated=ios_version,           replacement=replacement_message)))\
-__attribute__((availability(watchos,deprecated=watchos_version,   replacement=replacement_message)))\
-__attribute__((availability(tvos,deprecated=tvos_version,         replacement=replacement_message)))\
-__CC_BRIDGEOS_DEPRECATED_WITH_REPLACEMENT(bridgeos_version, replacement_message)
-
-#define cc_deprecate(ios_version, macos_version, tvos_version, watchos_version, bridgeos_version) \
-__attribute__((availability(macos,deprecated=macos_version)))\
-__attribute__((availability(ios,deprecated=ios_version           )))\
-__attribute__((availability(watchos,deprecated=watchos_version   )))\
-__attribute__((availability(tvos,deprecated=tvos_version         )))\
-__CC_BRIDGEOS_DEPRECATED(bridgeos_version)
-
-#else /* !__has_feature(attribute_availability_with_replacement) */
-
-#define cc_deprecate_with_replacement(replacement_message, ios_version, macos_version, tvos_version, watchos_version, bridgeos_version)
-
-#endif /* __has_feature(attribute_availability_with_replacement) */
+#include <corecrypto/cc_availability.h>
 
 /* Provide a general purpose macro concat method. */
 #define cc_concat_(a, b) a##b

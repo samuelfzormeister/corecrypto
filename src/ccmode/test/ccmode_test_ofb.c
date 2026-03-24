@@ -16,6 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
+#include "corecrypto/ccmode.h"
 #include <corecrypto/cc.h>
 #include <corecrypto/cc_debug.h>
 #include <corecrypto/cc_error.h>
@@ -88,12 +89,11 @@ int ccmode_ofb_encrypt_test_run(cctest_ctx *ctx)
 
     for (int i = 0; i < vi->nvectors; i++) {
         struct ccmode_test_vector vec = vi->vectors[i];
-        cc_size blocks = vec.text_length / ccofb_block_size(mode);
         const char *reason = "";
         
         int ret = ccofb_init(mode, cx, vec.key_length, vec.key, vec.iv);
         cc_require_action(ret == 0, testfail, reason = "INIT FAIL");
-        ret = ccofb_update(mode, cx, blocks, vec.plaintext, scratch);
+        ret = ccofb_update(mode, cx, vec.text_length, vec.plaintext, scratch);
         cc_require_action(ret == 0, testfail, reason = "UPDATE FAIL");
         if (cc_cmp_safe(vec.text_length, vec.ciphertext, scratch) == 0) {
             cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);
@@ -168,12 +168,11 @@ int ccmode_ofb_decrypt_test_run(cctest_ctx *ctx)
 
     for (int i = 0; i < vi->nvectors; i++) {
         struct ccmode_test_vector vec = vi->vectors[i];
-        cc_size blocks = vec.text_length / ccofb_block_size(mode);
         const char *reason = "";
         
         int ret = ccofb_init(mode, cx, vec.key_length, vec.key, vec.iv);
         cc_require_action(ret == 0, testfail, reason = "INIT FAIL");
-        ret = ccofb_update(mode, cx, blocks, vec.ciphertext, scratch);
+        ret = ccofb_update(mode, cx, vec.text_length, vec.ciphertext, scratch);
         cc_require_action(ret == 0, testfail, reason = "UPDATE FAIL");
         if (cc_cmp_safe(vec.text_length, vec.plaintext, scratch) == 0) {
             cctest_trace_pass(CCTEST_SUBSYSTEM_MODE, tctx->ti->name, i+1);

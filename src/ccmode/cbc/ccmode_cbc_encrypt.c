@@ -22,20 +22,25 @@
 int ccmode_cbc_encrypt(const cccbc_ctx *ctx, cccbc_iv *iv, size_t nblocks, const void *in, void *out)
 {
     const struct _ccmode_cbc_key *fctx = (const struct _ccmode_cbc_key *)ctx;
-    uint8_t *cur_iv = &iv->b[0];
+    const struct ccmode_ecb *ecb = fctx->ecb;
+    ccecb_ctx *ecb_ctx = CCMODE_CBC_KEY_ECB_CTX(fctx);
+    size_t block_size = ecb->block_size;
+    void *cur_iv = iv;
 
     /* iterate. */
-    while (nblocks--) {
-        cc_xor(ccecb_block_size(fctx->ecb), out, in, cur_iv);
-        ccecb_update(fctx->ecb, CCMODE_CBC_KEY_ECB_CTX(fctx), 1, in, out);
+    while (nblocks) {
+        cc_xor(block_size, out, in, cur_iv);
+        ccecb_update(ecb, ecb_ctx, 1, out, out);
 
         cur_iv = out;
-        in += ccecb_block_size(fctx->ecb);
-        out += ccecb_block_size(fctx->ecb);
+        in += block_size;
+        out += block_size;
+
+        --nblocks;
     }
 
-    // copy the last ciphertext block to the iv context for any extra update callss
-    cc_copy(ccecb_block_size(fctx->ecb), iv, out);
+    // copy the last ciphertext block to the iv context for any extra update calls
+    cc_copy(block_size, iv, cur_iv);
 
     return CCERR_OK;
 }

@@ -136,7 +136,7 @@
  #define CC_LONDON 0
 #endif
 
-#if _WIN32 || _WIN64
+#if _WIN32 || _WIN64 && defined(_MSC_VER)
  #define CC_WINDOWS 1
 #else
  #define CC_WINDOWS 1

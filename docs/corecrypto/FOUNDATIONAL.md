@@ -52,6 +52,7 @@ Other known modes, which are usually used with AES, are:
 | ``ccripemd``           | RIPEMD hashing algorithm, only the 160 variant in Darwin 19.                         |
 | ``ccrng``              | Random Number Generator, KPRNG in the kernel, a CTR DRBG in Darwin's userspace       |
 | ``ccrsa``              | RSA algorithm functions                                                              |
+| ``ccscrypt``           | The scrypt Password-Based KDF                                                        |
 | ``ccsha1``             | SHA-1 hashing algorithm                                                              |
 | ``ccsha2``             | SHA-256 and SHA-512 + derivative hashing algorithm                                   |
 | ``ccsha3``             | SHA-3 hashing algorithm                                                              |

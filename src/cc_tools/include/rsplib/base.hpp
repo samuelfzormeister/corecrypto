@@ -19,8 +19,6 @@
 #ifndef __RSPLIB_BASE__
 #define __RSPLIB_BASE__
 
-#include <filesystem>
-#include <memory>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -39,6 +37,7 @@ namespace corecrypto {
             enum {
                 base,
                 aesvs,
+                shavs,
             };
 
             //
@@ -48,7 +47,7 @@ namespace corecrypto {
 
             const std::string &get_name(void) { return _name; }
 
-            virtual uint32_t get_test_kind() {
+            virtual uint32_t get_kind() {
                 return base;
             }
 
@@ -56,6 +55,7 @@ namespace corecrypto {
             std::string _name;
         };
 
+        // base class 
         class base_vector {
             public:
             base_vector(const std::string &input, const std::string &expected_output);
@@ -69,28 +69,32 @@ namespace corecrypto {
             std::string _expected_output;
         };
 
-        class parser {
-            //
-            // We use stringstream for simplicty.
-            //
+        class block_cipher_vector : public base_vector {
             public:
-            parser(const std::string &basename, std::stringstream &stream);
+            block_cipher_vector(const std::string &key,
+                         const std::string &iv,
+                         const std::string &plaintext,
+                         const std::string &ciphertext);
 
-            const std::vector<std::shared_ptr<base_test>> &get_tests(void);
+            virtual const std::string &get_key(void) { return _key; }
 
-            void parse_aesvs(std::stringstream &stream, bool ecb);
+            virtual const std::string &get_iv(void) { return _iv; }
 
-            void parse_shavs(std::stringstream &stream);
+            protected:
+            std::string _key;
+            std::string _iv;
+        };
 
-            void write_tests_to_stream(std::stringstream &stream);
+        class aead_vector : public block_cipher_vector {
+            public:
+            aead_vector(const std::string &key,
+                        const std::string &iv,
+                        const std::string &plaintext,
+                        const std::string &ciphertext,
+                        const std::string &tag);
 
-            void write_tests_to_directory(std::filesystem::path &path);
-
-            void write_header(std::stringstream &stream);
-
-            private:
-            std::string _basename;
-            std::vector<std::shared_ptr<base_test>> _tests;   // we allocate a pointer here
+            protected:
+            std::string _tag;
         };
     }
 };

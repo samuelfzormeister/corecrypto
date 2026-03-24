@@ -24,8 +24,14 @@ int ccmode_cfb8_init(const struct ccmode_cfb8 *cfb, cccfb8_ctx *ctx, size_t rawk
 {
     struct _ccmode_cfb8_key *ckey = (struct _ccmode_cfb8_key *)ctx;
     ckey->ecb = (const struct ccmode_ecb *)cfb->custom;
-    cc_memcpy(CCMODE_CFB8_KEY_FEEDBACK(ckey), iv, ckey->ecb->block_size);
-    ckey->ecb->init(ckey->ecb, CCMODE_CFB8_KEY_ECB_CTX(ckey), rawkey_len, rawkey);
-    ckey->ecb->ecb(CCMODE_CFB8_KEY_ECB_CTX(ckey), 1, CCMODE_CFB8_KEY_FEEDBACK(ckey), CCMODE_CFB8_KEY_PADDING(ckey));
+
+    if (iv) {
+        cc_memcpy(CCMODE_CFB8_KEY_FEEDBACK(ckey), iv, ckey->ecb->block_size);
+    } else {
+        cc_clear(ckey->ecb->block_size, CCMODE_CFB8_KEY_FEEDBACK(ckey));
+    }
+
+    ccecb_init(ckey->ecb, CCMODE_CFB8_KEY_ECB_CTX(ckey), rawkey_len, rawkey);
+    ccecb_update(ckey->ecb, CCMODE_CFB8_KEY_ECB_CTX(ckey), 1, CCMODE_CFB8_KEY_FEEDBACK(ckey), CCMODE_CFB8_KEY_PADDING(ckey));
     return CCERR_OK;
 }

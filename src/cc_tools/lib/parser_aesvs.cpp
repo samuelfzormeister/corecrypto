@@ -16,8 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <rsplib/base.hpp>
-#include <rsplib/aesvs.hpp>
+#include <rsplib/parser.hpp>
 #include <rsplib/osl.hpp>
 #include <memory>
 #include <sstream>
@@ -30,7 +29,7 @@ using namespace corecrypto;
 //
 // This is shit. This is shit. Can someone that isn't me write anything better.
 //
-void parser::parse_aesvs(std::stringstream &stream, bool ecb)
+void parser::parse_aesvs(std::stringstream &stream, aesvs_test::mode mode)
 {
     osl::log(osl::debug, "parsing aesvs...");
     std::string line;
@@ -39,8 +38,8 @@ void parser::parse_aesvs(std::stringstream &stream, bool ecb)
     std::string plaintext;
     std::string ciphertext;
 
-    auto encrypt = std::make_shared<aesvs_test>(_basename + "_encrypt");
-    auto decrypt = std::make_shared<aesvs_test>(_basename + "_decrypt");
+    auto encrypt = std::make_shared<aesvs_test>(_basename + "_encrypt", mode);
+    auto decrypt = std::make_shared<aesvs_test>(_basename + "_decrypt", mode);
 
     bool curEnc = false;
 

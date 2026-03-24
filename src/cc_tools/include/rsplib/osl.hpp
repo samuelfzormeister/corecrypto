@@ -25,6 +25,10 @@
 
 #include <sstream>
 
+//
+// corecrypto C++ OS Layer
+//
+
 namespace corecrypto {
 
     namespace osl {
@@ -36,6 +40,8 @@ namespace corecrypto {
         };
 
         void log(log_level level, const char *fmt, ...);
+
+        void abort(const char *fmt, ...);
     }
 
     namespace util {

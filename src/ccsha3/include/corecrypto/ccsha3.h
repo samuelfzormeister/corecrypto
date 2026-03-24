@@ -67,7 +67,6 @@ const struct ccdigest_info *ccsha3_512_di(void);
  000000000004be37 t _ccsha3_512_vng_final
  000000000004be50 T _ccsha3_final
  000000000007ffa0 S _ccsha3_keccak_p1600_initial_state
-
  */
 
 /* See ccsha2.h for an explaination on the OIDs here */
@@ -100,7 +99,7 @@ extern const struct ccdigest_info ccsha3_256_c_di;
 #define CCSHA3_384_STATE_SIZE 200
 extern const struct ccdigest_info ccsha3_384_c_di;
 
-#define CCSHA3_512_BLOCK_SIZE 72
+#define CCSHA3_512_BLOCK_SIZE  72
 #define CCSHA3_512_OUTPUT_SIZE 64
 #define CCSHA3_512_STATE_SIZE 200
 extern const struct ccdigest_info ccsha3_512_c_di;

@@ -23,6 +23,7 @@
 #include <corecrypto/cc_config.h>
 #include <corecrypto/cctest_priv.h>
 #include <corecrypto/ccn.h>
+#include <corecrypto/ccmode.h>
 #include <corecrypto/ccmode_factory.h>
 
  /*
@@ -39,18 +40,19 @@
  * The IV field can be reused as a field for the tweak in XTS mode.
  */
 struct ccmode_test_vector {
-     uint32_t attrs;
+    uint32_t attrs;
 
-     const char *key;
-     size_t key_length;
-     const char *iv;
-     size_t iv_length;
-     size_t text_length;
-     const char *plaintext;
-     const char *ciphertext;
-     size_t add_length;
-     const char *aad;
- };
+    const char *key;
+    size_t key_length;
+    const char *iv;
+    size_t iv_length;
+    size_t text_length;
+    const char *plaintext;
+    const char *ciphertext;
+    size_t add_length;
+    const char *aad;
+};
+
 struct ccmode_test_vector_info {
     const struct ccmode_test_vector *vectors;
     size_t nvectors;
@@ -69,41 +71,60 @@ struct _ccmode_test_ctx {
 #define CCMODE_TEST_VI(vi) ((struct ccmode_test_vector_info *)vi)
 #define CCMODE_TEST_CTX_KEY(kind, ctx) (kind *) &ctx->u[0]
 #define CCMODE_TEST_CTX_IV_SPACE(type, ctx) (type *)&ctx->u[ccn_nof_size(ctx->ctx_size)]
-#define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size + ctx->block_size)]
+#define CCMODE_TEST_CTX_SCRATCH_SPACE(ctx) &ctx->u[ccn_nof_size(ctx->ctx_size) + ccn_nof_size(ctx->ctx_size)]
 
 //
 // Allow for space to conduct a test without allocating memory ourself.
 //
-#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) (mode->block_size * 32)
+#define CCMODE_TEST_CTX_SCRATCH_SIZE(mode) 1000
+
+// The AESVS MMT tests will at most have 160 blocks.
+#define CCMODE_TEST_CTX_SCRATCH_SIZE_MMT(mode) 200
 
 // cctest_info format:
 // ccaes_IMPLNAME_TESTNAME_ti
-#define CCMODE_TEST_FACTORY(cipher, mode, crypt, vectors, testname, altname, impl)         \
-static struct cctest_info cc##cipher##_##impl##_##testname##_test;                  \
-static struct ccmode_test_vector_info cc##cipher##_##impl##_##testname##_test_vi  \
+#define CCMODE_TEST_FACTORY(cipher, mode, crypt, vectors, altname, impl)         \
+static struct cctest_info cc##cipher##_##impl##_test;                  \
+static struct ccmode_test_vector_info cc##cipher##_##impl##_test_vi  \
     = { vectors , sizeof(vectors) / sizeof(struct ccmode_test_vector) };      \
                                                                           \
-const struct cctest_info *cc##cipher##_##impl##_##testname##_ti() {          \
+const struct cctest_info *cc##cipher##_##impl##_ti() {          \
     const struct ccmode_##mode *ciph = &cc##cipher##_##impl##_mode;                      \
-    ccmode_##mode##_##crypt##_test_factory(&cc##cipher##_##impl##_##testname##_test , ciph, altname , &cc##cipher##_##impl##_##testname##_test_vi ); \
-    return &cc##cipher##_##impl##_##testname##_test;                                         \
+    ccmode_##mode##_##crypt##_test_factory(&cc##cipher##_##impl##_test , ciph, altname , &cc##cipher##_##impl##_test_vi ); \
+    return &cc##cipher##_##impl##_test;                                         \
 }
 
-#define CCMODE_CONSTRUCTED_TEST_FACTORY(cipher, mode, crypt, vectors, testname, altname, impl, ecb)         \
-static struct cctest_info cc##cipher##_##impl##_##testname##_test;                  \
-static struct ccmode_test_vector_info cc##cipher##_##impl##_##testname##_test_vi  \
+// this is for modes that are backed by the ECB implementation.
+#define CCMODE_FACTORY_TEST_FACTORY(cipher, mode, crypt, vectors, altname)         \
+static struct cctest_info cc##cipher##_##mode##_factory_##crypt##_test;                  \
+static struct ccmode_test_vector_info cc##cipher##_##mode##_factory_##crypt##_test_vi  \
     = { vectors , sizeof(vectors) / sizeof(struct ccmode_test_vector) };      \
                                                                           \
-const struct cctest_info *cc##cipher##_##impl##_##testname##_ti() {          \
-    static struct ccmode_##mode test_##cipher##_##impl##_mode; \
-    ccmode_factory_##mode##_##crypt(&test_##cipher##_##impl##_mode , &cc##cipher##_##ecb##_mode); \
-    const struct ccmode_##mode *ciph = &test_##cipher##_##impl##_mode;                      \
-    ccmode_##mode##_##crypt##_test_factory(&cc##cipher##_##impl##_##testname##_test , ciph, altname , &cc##cipher##_##impl##_##testname##_test_vi ); \
-    return &cc##cipher##_##impl##_##testname##_test;                                         \
+const struct cctest_info *cc##cipher##_##mode##_factory_##crypt##_ti() {          \
+    static struct ccmode_##mode test_##mode##_mode; \
+    ccmode_factory_##mode##_##crypt(&test_##mode##_mode , cc##cipher##_ecb_##crypt##_mode()); \
+    const struct ccmode_##mode *ciph = &test_##mode##_mode;                      \
+    ccmode_##mode##_##crypt##_test_factory(&cc##cipher##_##mode##_factory_##crypt##_test , ciph, altname , &cc##cipher##_##mode##_factory_##crypt##_test_vi ); \
+    return &cc##cipher##_##mode##_factory_##crypt##_test;                                         \
 }
 
-#define CCMODE_ECB_TEST_FACTORY(cipher, crypt, vectors, altname, testname, impl) CCMODE_TEST_FACTORY(cipher, ecb, crypt, vectors, testname, altname, impl)
-#define CCMODE_CBC_TEST_FACTORY(cipher, crypt, vectors, altname, testname, impl) CCMODE_TEST_FACTORY(cipher, cbc, crypt, vectors, testname, altname, impl)
+#define CCMODE_DEFAULT_TEST_FACTORY(cipher, mode, crypt, vectors, altname)         \
+static struct cctest_info cc##cipher##_##mode##_##crypt##_default_test;                  \
+static struct ccmode_test_vector_info cc##cipher##_##mode##_##crypt##_default_test_vi  \
+    = { vectors , sizeof(vectors) / sizeof(struct ccmode_test_vector) };      \
+                                                                          \
+const struct cctest_info *cc##cipher##_##mode##_##crypt##_default_ti() {          \
+    const struct ccmode_##mode *ciph = cc##cipher##_##mode##_##crypt##_mode();                      \
+    ccmode_##mode##_##crypt##_test_factory(&cc##cipher##_##mode##_##crypt##_default_test , ciph, altname , &cc##cipher##_##mode##_##crypt##_default_test_vi ); \
+    return &cc##cipher##_##mode##_##crypt##_default_test;                                         \
+}
+
+
+#define CCMODE_ECB_TEST_FACTORY(cipher, crypt, vectors, altname, impl) CCMODE_TEST_FACTORY(cipher, ecb, crypt, vectors, altname, impl)
+#define CCMODE_CBC_TEST_FACTORY(cipher, crypt, vectors, altname, impl) CCMODE_TEST_FACTORY(cipher, cbc, crypt, vectors, altname, impl)
+#define CCMODE_CFB_TEST_FACTORY(cipher, crypt, vectors, altname, impl) CCMODE_TEST_FACTORY(cipher, cfb, crypt, vectors, altname, impl)
+#define CCMODE_CFB8_TEST_FACTORY(cipher, crypt, vectors, altname, impl) CCMODE_TEST_FACTORY(cipher, cfb8, crypt, vectors, altname, impl)
+#define CCMODE_OFB_TEST_FACTORY(cipher, crypt, vectors, altname, impl) CCMODE_TEST_FACTORY(cipher, ofb, crypt, vectors, altname, impl)
 
 void ccmode_ecb_encrypt_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi);
 void ccmode_ecb_decrypt_test_factory(struct cctest_info *ti, const struct ccmode_ecb *mode, const char *name, struct ccmode_test_vector_info *vi);

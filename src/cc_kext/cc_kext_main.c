@@ -44,11 +44,17 @@ static const struct cckprng_funcs cc_kprng_fns = {
     .generate = cckprng_generate
 };
 
+#if CCKPRNG_YARROW == 1
 static struct cckprng_ctx cc_kprng_ctx = {
     .prng = NULL,
     .bytes_since_entropy = 0,
     .bytes_generated = 0
 };
+#else
+static struct cckprng_ctx cc_kprng_ctx = {
+    
+};
+#endif
 
 /* cc_populate_fns.c && cc_populate_fns_dummy.c */
 extern void cc_populate_fns(crypto_functions_t fns);
@@ -76,10 +82,12 @@ kern_return_t cc_kext_start(kmod_info_t *ki, void *d)
     if (ret == -1) {
         printf("warning: corecrypto could not be registered. Did another crypto handler beat us to it?\n");
     } else {
+#if CCKPRNG_YARROW == 1
         prng_error_status error = prngInitialize(&cc_kprng_ctx.prng);
         if (error != PRNG_SUCCESS) {
             panic("prngInitialize() failed with code %d", error);
         }
+#endif
 
         register_and_init_prng(&cc_kprng_ctx, &cc_kprng_fns);
         printf("corecrypto: registered functions and prng.\n");

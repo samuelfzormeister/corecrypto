@@ -53,7 +53,7 @@ extern const struct cctest_info *ccsha512_224_ltc_shortmsg_ti(void);
 extern const struct cctest_info *ccsha512_256_ltc_longmsg_ti(void);
 extern const struct cctest_info *ccsha512_256_ltc_shortmsg_ti(void);
 
-#include <corecrypto/cctest_aes.h>
+#include <corecrypto/ccaes_test.h>
 
 //
 // We build a "linked list" (I say that loosely, given there's no pointer to the last field)
@@ -84,17 +84,36 @@ struct _cctest_test_link {
 
 #define CCTEST_ADD_TEST(chain, info)                        \
     chain->ti = info;                                       \
-    CCTEST_TRACE("Enabling test %s\n", chain->ti->name);    \
+    CCTEST_TRACE("Enabling test %s\n", info->name);    \
     CCTEST_LINK_NEXT_ALLOC(chain);                          \
     chain = chain->next;
 
 
 enum {
+    // --- Abstract layers. --- //
     CCTEST_SUBSYSTEM_DIGEST = 1,
     CCTEST_SUBSYSTEM_MODE,
 
-    CCTEST_SUBSYSTEM_CHACHA20,
+    // --- AEAD modules (non-mode driven) --- //
+    CCTEST_SUBSYSTEM_CHACHA20POLY1305,
+
+    // --- Key Derivation Function modules --- //
+    CCTEST_SUBSYSTEM_PBKDF2,
+    CCTEST_SUBSYSTEM_SCRYPT,
+    CCTEST_SUBSYSTEM_HKDF,
+    CCTEST_SUBSYSTEM_NISTKDF,   // TODO: implement NIST KBKDFs.
+
+    // --- MAC function modules --- //
+    CCTEST_SUBSYSTEM_CMAC,
+    CCTEST_SUBSYSTEM_HMAC,
+
+    // --- Other modules --- //
+    CCTEST_SUBSYSTEM_WRAP,
+    CCTEST_SUBSYSTEM_DRBG,
 };
+
+void cctest_trace_enter(uint32_t subsystem, const char *name, uint64_t abs);
+void cctest_trace_exit(uint32_t subsystem, const char *name, uint64_t abs);
 
 void cctest_trace_fail(uint32_t subsystem, const char *name, uint32_t failed_vec);
 void cctest_trace_general(uint32_t subsystem, const char *name, const char *msg);

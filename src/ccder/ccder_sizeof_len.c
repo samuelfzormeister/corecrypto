@@ -22,3 +22,47 @@
 #include <limits.h>
 #endif
 
+#if __SIZE_WIDTH__ == 64
+
+size_t ccder_sizeof_len(size_t len)
+{
+    if (len <= 0x7F) {
+        return 1;
+    } else if (len <= UINT8_MAX) {          /* 8 bits */
+        return 2;
+    } else if (len <= UINT16_MAX) {         /* 16 bits */
+        return 3;
+    } else if (len <= 0xFFFFFF) {           /* 24 bits */
+        return 4;
+    } else if (len <= UINT32_MAX) {         /* 32 bits */
+        return 5;
+    } else if (len <= 0xFFFFFFFFFF) {       /* 40 bits */
+        return 6;
+    } else if (len <= 0xFFFFFFFFFFFF) {     /* 48 bits */
+        return 7;
+    } else if (len <= 0xFFFFFFFFFFFFFF) {   /* 56 bits */
+        return 8;
+    } else {                                /* 64 bits */
+        return 9;
+    }
+}
+
+#else
+
+size_t ccder_sizeof_len(size_t len)
+{
+    if (len <= 0x7F) {
+        return 1;
+    } else if (len <= UINT8_MAX) {  /* 8 bits */
+        return 2;
+    } else if (len <= UINT16_MAX) { /* 16 bits */
+        return 3;
+    } else if (len <= 0xffffff) {   /* 24 bits */
+        return 4;
+    } else {                        /* 32 bits */
+        return 5;
+    }
+}
+
+#endif
+

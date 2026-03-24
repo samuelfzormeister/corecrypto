@@ -29,8 +29,6 @@ int ccn_cmp(cc_size n, const cc_unit *s, const cc_unit *t)
         CC_MUXU(tmp2, tmp, i, tmp2);        // tmp2 = tmp ? i : tmp2
         CC_MUXU(tmp3, tmp, i, tmp3);        // tmp3 = tmp ? i : tmp3
     }
-    
-    
-    
-    return ret;
+
+    return (int)cc_unit_is_less_than(tmp2, tmp3);
 }

@@ -3,6 +3,8 @@ includes("corecrypto_base.lua")
 target("librsp")
     set_kind("static")
 
+    set_languages("c++17")
+
     add_sysincludedirs(
         "$(projectdir)/src/cc_tools/include"
     )

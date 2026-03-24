@@ -18,14 +18,39 @@
 
 #include <corecrypto/ccaes.h>
 #include <corecrypto/ccmode_test_internal.h>
+#include <corecrypto/ccaes_test.h>
 
-static struct ccmode_test_vector OFBMMT_encrypt_vectors[] = {
+static struct ccmode_test_vector ofb_encrypt_vectors[] = {
+#include "vectors/OFBGFSbox128_encrypt.inc"
+#include "vectors/OFBGFSbox192_encrypt.inc"
+#include "vectors/OFBGFSbox256_encrypt.inc"
+#include "vectors/OFBKeySbox128_encrypt.inc"
+#include "vectors/OFBKeySbox192_encrypt.inc"
+#include "vectors/OFBKeySbox256_encrypt.inc"
+#include "vectors/OFBVarKey128_encrypt.inc"
+#include "vectors/OFBVarKey192_encrypt.inc"
+#include "vectors/OFBVarKey256_encrypt.inc"
+#include "vectors/OFBVarTxt128_encrypt.inc"
+#include "vectors/OFBVarTxt192_encrypt.inc"
+#include "vectors/OFBVarTxt256_encrypt.inc"
 #include "vectors/OFBMMT128_encrypt.inc"
 #include "vectors/OFBMMT192_encrypt.inc"
 #include "vectors/OFBMMT256_encrypt.inc"
 };
 
-static struct ccmode_test_vector OFBMMT_decrypt_vectors[] = {
+static struct ccmode_test_vector ofb_decrypt_vectors[] = {
+#include "vectors/OFBGFSbox128_decrypt.inc"
+#include "vectors/OFBGFSbox192_decrypt.inc"
+#include "vectors/OFBGFSbox256_decrypt.inc"
+#include "vectors/OFBKeySbox128_decrypt.inc"
+#include "vectors/OFBKeySbox192_decrypt.inc"
+#include "vectors/OFBKeySbox256_decrypt.inc"
+#include "vectors/OFBVarKey128_decrypt.inc"
+#include "vectors/OFBVarKey192_decrypt.inc"
+#include "vectors/OFBVarKey256_decrypt.inc"
+#include "vectors/OFBVarTxt128_decrypt.inc"
+#include "vectors/OFBVarTxt192_decrypt.inc"
+#include "vectors/OFBVarTxt256_decrypt.inc"
 #include "vectors/OFBMMT128_decrypt.inc"
 #include "vectors/OFBMMT192_decrypt.inc"
 #include "vectors/OFBMMT256_decrypt.inc"
@@ -37,11 +62,13 @@ static struct ccmode_test_vector OFBMMT_decrypt_vectors[] = {
 #define ccmode_factory_ofb_encrypt ccmode_factory_ofb_crypt
 #define ccmode_factory_ofb_decrypt ccmode_factory_ofb_crypt
 
-/* great way to test the default ccmode logic, by using it as the driver for mode testing. */
-CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, encrypt, OFBMMT_encrypt_vectors, mmt, "OFB (LTC) AES Encrypt MMT", ltc_ofb_encrypt, ltc_ecb_encrypt);
-CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, decrypt, OFBMMT_decrypt_vectors, mmt, "OFB (LTC) AES Decrypt MMT", ltc_ofb_decrypt, ltc_ecb_decrypt);
+#define ccaes_ofb_encrypt_mode ccaes_ofb_crypt_mode
+#define ccaes_ofb_decrypt_mode ccaes_ofb_crypt_mode
 
-#if CCAES_INTEL_ASM
-CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, encrypt, OFBMMT_encrypt_vectors, mmt, "OFB (LTC) AES Encrypt MMT", intel_ofb_encrypt_opt, intel_ecb_encrypt_opt);
-CCMODE_CONSTRUCTED_TEST_FACTORY(aes, ofb, decrypt, OFBMMT_decrypt_vectors, mmt, "OFB (LTC) AES Decrypt MMT", intel_ofb_decrypt_opt, intel_ecb_decrypt_opt);
-#endif
+CCMODE_DEFAULT_TEST_FACTORY(aes, ofb, encrypt, ofb_encrypt_vectors, "OFB AES Encrypt (Default)");
+CCMODE_DEFAULT_TEST_FACTORY(aes, ofb, decrypt, ofb_decrypt_vectors, "OFB AES Decrypt (Default)");
+
+#define ccaes_ecb_decrypt_mode ccaes_ecb_encrypt_mode
+
+CCMODE_FACTORY_TEST_FACTORY(aes, ofb, encrypt, ofb_encrypt_vectors, "OFB AES Encrypt (Factory)");
+CCMODE_FACTORY_TEST_FACTORY(aes, ofb, decrypt, ofb_decrypt_vectors, "OFB AES Decrypt (Factory)");

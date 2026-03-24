@@ -16,6 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
+#include "corecrypto/cc_priv.h"
 #include <corecrypto/ccmode_internal.h>
 
 #if CCN_UNIT_SIZE == 8 && CC_DUNIT_SUPPORTED
@@ -67,7 +68,18 @@ bmul32(uint32_t x, uint32_t y, uint32_t *r_high, uint32_t *r_low)
 //
 void ccmode_gcm_gf_mult(const unsigned char *a, const unsigned char *b, unsigned char *c)
 {
-    
+    uint64_t z_hi_h, z_hi_l, z_lo_h, z_lo_l;
+    uint32_t a_hi_h, a_hi_l, a_lo_h, a_lo_l;
+    uint32_t b_hi_h, b_hi_l, b_lo_h, b_lo_l;
+    uint32_t z0_hi_h, z0_hi_l, z0_lo_h, z0_lo_l;
+    uint32_t z1_hi_h, z1_hi_l, z1_lo_h, z1_lo_l;
+    uint32_t z2_hi_h, z2_hi_l, z2_lo_h, z2_lo_l;
+    uint32_t t_hi, t_lo;
+
+    CC_LOAD32_BE(a_lo_l, a+12);
+    CC_LOAD32_BE(a_lo_h, a+8);
+    CC_LOAD32_BE(a_hi_l, a+4);
+    CC_LOAD32_BE(a_hi_h, a);
 }
 
 #endif

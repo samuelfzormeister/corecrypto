@@ -108,11 +108,11 @@ int ccchacha20_block_test(cctest_ctx *cx) {
 
     if (cc_cmp_safe(sizeof(ctx->ctx.buffer), ctx->ctx.buffer, 
                ccchacha20_block_test_expected_state) == 0) {
-        cctest_trace_pass_named(CCTEST_SUBSYSTEM_CHACHA20, ctx->me->name, "BLOCK FUNCTION TEST");
+        cctest_trace_pass_named(CCTEST_SUBSYSTEM_CHACHA20POLY1305, ctx->me->name, "BLOCK FUNCTION TEST");
         ccchacha20_final(&ctx->ctx);
         return 0;
     } else {
-        cctest_trace_fail_named(CCTEST_SUBSYSTEM_CHACHA20, ctx->me->name, "BLOCK FUNCTION TEST");
+        cctest_trace_fail_named(CCTEST_SUBSYSTEM_CHACHA20POLY1305, ctx->me->name, "BLOCK FUNCTION TEST");
         ccchacha20_dump_state(&ctx->ctx);
         ccchacha20_final(&ctx->ctx);
         return -1;

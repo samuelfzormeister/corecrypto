@@ -31,6 +31,7 @@ add_sysincludedirs(
     "$(projectdir)/src/ccripemd/include",
     "$(projectdir)/src/ccrng/include",
     "$(projectdir)/src/ccrsa/include",
+    "$(projectdir)/src/ccscrypt/include",
     "$(projectdir)/src/ccsha1/include",
     "$(projectdir)/src/ccsha2/include",
     "$(projectdir)/src/ccsha3/include",

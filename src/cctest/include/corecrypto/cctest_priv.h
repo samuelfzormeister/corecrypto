@@ -63,6 +63,7 @@ enum {
     CCTEST_ENABLE_RIPEMD = (1 << 4),
     CCTEST_ENABLE_SHA1 = (1 << 5),
     CCTEST_ENABLE_SHA2 = (1 << 6),
+    CCTEST_ENABLE_PBKDF2 = (1 << 7),
 
     CCTEST_ENABLE_ALL = 0x0FFFFFFF,
 };
@@ -123,5 +124,12 @@ typedef enum {
 
 int ccaes_test_gfsbox(cctest_mode_t);
 int ccaes_test_varkey(cctest_mode_t);
+
+struct cctest_suite {
+    const char *name;
+    size_t ntests;
+
+    const struct cctest_info *(*get_tests)(const struct cctest_suite *);
+};
 
 #endif /* _CORECRYPTO_CCTEST_PRIV_H_ */

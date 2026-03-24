@@ -16,7 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <rsplib/base.hpp>
+#include <rsplib/parser.hpp>
 #include <rsplib/shavs.hpp>
 #include <rsplib/osl.hpp>
 #include <memory>
@@ -30,7 +30,7 @@ using namespace corecrypto;
 //
 // This is shit. This is shit. Can someone that isn't me write anything better.
 //
-void parser::parse_shavs(std::stringstream &stream)
+void parser::parse_shavs(std::stringstream &stream, shavs_test::variant variant)
 {
     osl::log(osl::debug, "parsing aesvs...");
     std::string line;
@@ -38,7 +38,7 @@ void parser::parse_shavs(std::stringstream &stream)
     std::string dgst;
     std::string len;
 
-    auto test = std::make_shared<shavs_test>(_basename);
+    auto test = std::make_shared<shavs_test>(_basename, variant);
 
     while (std::getline(stream, line)) {
         std::smatch match;

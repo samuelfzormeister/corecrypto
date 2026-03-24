@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 The PureDarwin Project, All rights reserved.
+ * Copyright (C) 2025-2026 The PureDarwin Project, All rights reserved.
  *
  * @LICENSE_HEADER_BEGIN@
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,17 +25,29 @@
 /* Grasping at straws here. */
 
 /* 5 * 5 * 64 == 1600 */
+
+#define CCKECCAK_STATE_SIZE ((5 * 5) * 64)
+
 struct cckeccak_state {
-    uint64_t state[25];
+    uint64_t lanes[25];
 };
 
 typedef struct cckeccak_state *cckeccak_state_t;
 
 int cckeccak_init_state(cckeccak_state_t state);
 
-typedef int (*cckeccak_permutation)(cckeccak_state_t state, size_t length, const void *data);
+typedef int (*cckeccak_permutation)(cckeccak_state_t state);
 
-cckeccak_perumatation cckeccak_get_permutation(void);
+cckeccak_permutation cckeccak_get_permutation(void);
+
+void cckeccak_f1600_c(cckeccak_state_t state);
+
+/* probing gave me the rate var. */
+void cckeccak_absorb_blocks(cckeccak_state_t state, size_t rate, size_t nblocks, const void *data, cckeccak_permutation permutation);
+
+void cckeccak_absorb_and_pad(cckeccak_state_t state, size_t rate, size_t nbytes, const void *data, uint8_t padn, cckeccak_permutation permutation);
+
+void cckeccak_squeeze(cckeccak_state_t state, size_t rate, size_t nbytes, void *out, cckeccak_permutation permuatation);
 
 /*
  000000000001e870 T _cckeccak_absorb_and_pad
@@ -47,6 +59,8 @@ cckeccak_perumatation cckeccak_get_permutation(void);
  000000000001eda5 T _cckeccak_oneshot
  000000000001ecba T _cckeccak_oneshot_iovec
  000000000001e953 T _cckeccak_squeeze
+ 
+ an uppercase T usually means they're exported? why?
  */
 
 #endif /* _CORECRYPTO_CCKECCAK_H_ */

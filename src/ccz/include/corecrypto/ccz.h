@@ -23,6 +23,10 @@
 #include <corecrypto/cc.h>
 #include <corecrypto/ccn.h>
 
+//
+// ccz is a shim wrapper around ccn that acts like a multiple-precision interface.
+//
+
 struct ccz_class {
     void *ctx;
     void *(*ccz_alloc)(void *ctx, size_t size);
@@ -33,6 +37,7 @@ struct ccz_class {
 struct {
     struct ccz_class *ccz_class; /* I think? */
     cc_size n;
+    int sign;
     cc_unit *units;
 } typedef ccz;
 
