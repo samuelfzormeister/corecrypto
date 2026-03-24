@@ -17,6 +17,7 @@
  */
 
 #include <corecrypto/cc_absolute_time.h>
+#include <corecrypto/cc_debug.h>
 #include <corecrypto/cctest_internal.h>
 #include <corecrypto/ccpbkdf2_test.h>
 
@@ -51,6 +52,41 @@ int ccpbkdf2_test_run(cctest_ctx *ctx)
             continue;
         } else {
             cctest_trace_fail(CCTEST_SUBSYSTEM_PBKDF2, cx->ti->name, vec);
+            
+            uint8_t *dk = (uint8_t *)&cx->u[0];
+
+            cc_printf("[CCTEST][PBKDF2][%s]: OUTPUT:\n", cx->ti->name);
+
+            for (cc_size i = 0; i < v->dk_len; i++) {
+                if ((i % 8) == 0) {
+                    if (i > 0) {
+                        cc_printf("\n");
+                    }
+                }
+                cc_printf("%02x ", *dk);
+                dk++;
+            }
+            
+            cc_printf("\n");
+            
+            cc_printf("[CCTEST][PBKDF2][%s]: EXPECTED:\n", cx->ti->name);
+            
+            dk = (uint8_t *)v->expected_dk;
+            
+            for (cc_size i = 0; i < v->dk_len; i++) {
+                if ((i % 8) == 0) {
+                    if (i > 0) {
+                        cc_printf("\n");
+                    }
+                }
+                cc_printf("%02x ", *dk);
+                dk++;
+            }
+            
+            cc_printf("\n");
+            
+            cctest_trace_exit(CCTEST_SUBSYSTEM_PBKDF2, cx->ti->name, cc_absolute_time());
+            
             return -1;
         }
     }

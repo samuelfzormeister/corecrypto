@@ -54,6 +54,7 @@ ccdh_gp_decl_n(ccn_nof(768)) _ccdh_gp_apple768 = {
     .bitlen = 768,
     .p = {
         CCN64_C(FF, FF, FF, FF, FF, FF, FF, FF),
-        CCN64_C(EC, 14, AD, 08, 4D, 0A, 47, 64),
+        CCN64_C(EC, 14, AD, 08, 4D, 0A, 47, 6D),
+        CCN64_C(b7, 99, 6e, 88, 52, 9b, 1a, 37),
     },
 };

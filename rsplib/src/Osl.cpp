@@ -30,7 +30,40 @@ static const char *__levels[] = {
     "DEBUG"
 };
 
-#if CC_WINDOWS
+#if CC_DARWIN
+
+Osl::OslService *Osl::OslService::_pInstance = NULL;
+
+class OslServiceDarwin : public Osl::OslService {
+    public:
+    OslServiceDarwin();
+
+    virtual void abortWithReason(std::string reason) override;
+    virtual void logv(const char *component, Osl::LogLevel level, const char *format, va_list args) override;
+};
+
+static OslServiceDarwin _osl;
+
+OslServiceDarwin::OslServiceDarwin()
+{
+    Osl::OslService::_pInstance = this;
+    Osl::Log("OSL", Osl::Debug, "OSL has initialized.");
+}
+
+void OslServiceDarwin::abortWithReason(std::string reason)
+{
+    std::fprintf(stderr, "%s\n", reason.c_str());
+    abort();
+}
+
+void OslServiceDarwin::logv(const char *component, Osl::LogLevel level, const char *format, va_list args)
+{
+    std::printf("[%s][%s]:", component, __levels[level]);
+    std::vprintf(format, args);
+    std::printf("\n");
+}
+
+#elif CC_WINDOWS
 
 Osl::OslService *Osl::OslService::_pInstance = NULL;
 
