@@ -7,8 +7,13 @@ target("libcorecrypto_test_static")
 
     add_deps("libcorecrypto_static")
 
+    if is_plat("linux") then
+        add_cflags("-DCC_LINUX_ASM=1")
+        add_asflags("-DCC_LINUX_ASM=1")
+    end
+
     add_sysincludedirs("$(projectdir)/src/cctest/include")
-    
+
     add_defines("CORECRYPTO_TEST=1")
 
     -- Add infrastructure
@@ -21,12 +26,7 @@ target("libcorecrypto_test_static")
 
     -- AES
     add_files(
-        "$(projectdir)/src/ccaes/test/*.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_cbc.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_cfb.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_cfb8.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_ecb.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_ofb.c"
+        "$(projectdir)/src/ccaes/test/*.c"
     )
 
     -- MD2
@@ -71,8 +71,13 @@ target("libcorecrypto_test")
     -- We'll link to the dynamic version where possible.
     add_deps("libcorecrypto")
 
+    if is_plat("linux") then
+        add_cflags("-DCC_LINUX_ASM=1")
+        add_asflags("-DCC_LINUX_ASM=1")
+    end
+
     add_sysincludedirs("$(projectdir)/src/cctest/include")
-    
+
     add_defines("CORECRYPTO_TEST=1")
 
     -- Add infrastructure
@@ -85,12 +90,7 @@ target("libcorecrypto_test")
 
     -- AES
     add_files(
-        "$(projectdir)/src/ccaes/test/*.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_cbc.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_cfb.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_cfb8.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_ecb.c",
-        "$(projectdir)/src/cctest/cctest_link_aes_ofb.c"
+        "$(projectdir)/src/ccaes/test/*.c"
     )
 
     -- MD2

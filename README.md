@@ -46,7 +46,7 @@ At most, the `corecrypto_user` library requires:
 To install the corecrypto project headers into the SDK, it's as easy as running:
 `xcodebuild installhdrs -target corecrypto_user DSTROOT=$(xcrun -sdk macosx --show-sdk-path)`
 
-## Installed files
+## Installed binaries
 
 - `/System/Library/Extensions/corecrypto.kext`
 - `/usr/lib/system/libcorecrypto.dylib`

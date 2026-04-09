@@ -20,12 +20,12 @@ target("libcorecrypto_static")
         "$(projectdir)/src/ccdh/*.c",
         "$(projectdir)/src/ccdigest/*.c",
         "$(projectdir)/src/ccdrbg/*.c",
-        "$(projectdir)/src/ccec/*.c",
-        "$(projectdir)/src/ccec25519/*.c",
-        "$(projectdir)/src/ccecies/*.c",
+        -- "$(projectdir)/src/ccec/*.c",
+        -- "$(projectdir)/src/ccec25519/*.c",
+        -- "$(projectdir)/src/ccecies/*.c",
         "$(projectdir)/src/cchkdf/*.c",
         "$(projectdir)/src/cchmac/*.c",
-        "$(projectdir)/src/cckeccak/*.c",
+        -- "$(projectdir)/src/cckeccak/*.c",
         "$(projectdir)/src/ccmd2/*.c",
         "$(projectdir)/src/ccmd4/*.c",
         "$(projectdir)/src/ccmd5/*.c",
@@ -37,10 +37,10 @@ target("libcorecrypto_static")
         "$(projectdir)/src/ccmode/ofb/*.c",
         "$(projectdir)/src/ccmode/xts/*.c",
         "$(projectdir)/src/ccn/*.c",
-        "$(projectdir)/src/ccnistkdf/*.c",
+        -- "$(projectdir)/src/ccnistkdf/*.c",
         "$(projectdir)/src/ccpad/*.c",
         "$(projectdir)/src/ccpbkdf2/*.c",
-        "$(projectdir)/src/ccprime/*.c",
+        -- "$(projectdir)/src/ccprime/*.c",
         "$(projectdir)/src/ccrc2/*.c",
         "$(projectdir)/src/ccrc4/*.c",
         "$(projectdir)/src/ccripemd/*.c",
@@ -50,17 +50,17 @@ target("libcorecrypto_static")
         "$(projectdir)/src/ccscrypt/*.c",
         "$(projectdir)/src/ccsha1/*.c",
         "$(projectdir)/src/ccsha2/*.c",
-        "$(projectdir)/src/ccsha3/*.c",
-        "$(projectdir)/src/ccsrp/*.c",
+        -- "$(projectdir)/src/ccsha3/*.c",
+        -- "$(projectdir)/src/ccsrp/*.c",
         "$(projectdir)/src/ccwrap/*.c",
-        "$(projectdir)/src/ccxof/*.c",
+        -- "$(projectdir)/src/ccxof/*.c",
         "$(projectdir)/src/ccz/*.c",
         "$(projectdir)/src/cczp/*.c"
     )
 
     -- If we're on x86 or IA32, enable the accelerated assembly.
     if is_arch("x86_64", "i386") then
-        add_files("src/ccaes/intel/*.c")
+        add_files("$(projectdir)/src/ccaes/intel/*.c")
 
         add_files(
             "$(projectdir)/src/ccaes/intel/aes_crypt_hw.s",

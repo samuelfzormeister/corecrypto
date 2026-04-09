@@ -3,7 +3,7 @@ set_policy("check.auto_ignore_flags", false)
 includes("xmake/toolchain.lua")
 
 if is_plat("linux") then
-   --  set_toolchains("llvm-linux")
+    -- set_toolchains("llvm-linux")
 elseif is_plat("windows") then
     set_toolchains("llvm-windows")
 end
@@ -61,4 +61,3 @@ includes("xmake/corecrypto_tools.lua")
 includes("xmake/corecrypto_user.lua")
 includes("xmake/corecrypto_noasm.lua")
 includes("xmake/rsplib.lua")
-
