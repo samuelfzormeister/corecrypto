@@ -22,31 +22,36 @@
 #include <corecrypto/cc_config.h>
 #include <corecrypto/ccn.h>
 
-/* Workspace related macros go here. */
+// --- CC_WINDOWS triggers on Darwin, I need to diagnose this. --- //
+#if defined (_WIN32) && defined (_MSC_VER)
+
+// --- We use _alloca on Windows/MSVC systems. Everything will crash without it. --- //
+#define CC_WORKSPACE_STACK_DECL_N(ws, n) \
+            cc_unit *ws##_buf = _alloca(ccn_sizeof_n(n)); \
+            cc_ws ws##_ctx; \
+            cc_ws_t ws = &ws##_ctx; \
+            ws->start = (cc_unit *)ws##_buf; \
+            ws->end = ws->start + ccn_sizeof_n(n);
+
+#else
 
 #define CC_WORKSPACE_STACK_DECL_N(ws, n) \
             cc_unit ws##_buf[ccn_sizeof_n(n)]; \
             cc_ws ws##_ctx; \
             cc_ws_t ws = &ws##_ctx; \
             ws->start = (cc_unit *)&ws##_buf; \
-            ws->end = ws->start + ccn_sizeof_n(n); \
+            ws->end = ws->start + ccn_sizeof_n(n);
+
+#endif
+
+#define CC_WORKSPACE_STACK_DECL(ws, size) CC_WORKSPACE_STACK_DECL_N(ws, ccn_nof_size(size))
 
 #define CC_WORKSPACE_STACK_FREE_N(ws, n) \
             ccn_clear(n, ws->start); \
             ws->start = NULL; \
-            ws->end = NULL; \
+            ws->end = NULL;
 
-#define CC_WORKSPACE_STACK_DECL(ws, size) \
-            uint8_t ws##_buf[size]; \
-            cc_ws ws##_ctx; \
-            cc_ws_t ws = &ws##_ctx; \
-            ws->start = (cc_unit *)&ws##_buf; \
-            ws->end = ws->start + size; \
-
-#define CC_WORKSPACE_STACK_FREE(ws, size) \
-            cc_clear(size, ws->start); \
-            ws->start = NULL; \
-            ws->end = NULL; \
+#define CC_WORKSPACE_STACK_FREE(ws, size) CC_WORKSPACE_STACK_FREE_N(ws, ccn_nof_size(size))
 
 #if CC_USE_HEAP_FOR_WORKSPACE
 
@@ -60,7 +65,7 @@
             cc_ws ws##_ctx; \
             cc_ws_t ws = &ws##_ctx; \
             ws->start = IOMalloc(ccn_sizeof_n(n)); \
-            ws->end = ws->start + ccn_sizeof_n(n); \
+            ws->end = ws->start + ccn_sizeof_n(n);
 
 #define CC_WORKSPACE_FREE_N(ws, n) \
             IOFree(ws->start, ccn_sizeof_n(n)); \
