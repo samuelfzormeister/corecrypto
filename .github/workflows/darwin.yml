@@ -22,7 +22,7 @@ jobs:
       - name: Build & Install
         run: |
           cd ~/corecrypto
-          xcodebuild install -target corecrypto_static DSTROOT=$PWD/DSTROOT
+          xcodebuild install -target corecrypto_static -target corecrypto_kernel DSTROOT=$PWD/DSTROOT
       - name: Package DSTROOT into a tarball
         run: |
           cd ~/corecrypto
