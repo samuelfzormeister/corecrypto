@@ -54,6 +54,7 @@ int ccscrypt(size_t password_len, const void *password,
     ret = CCERR_OK;
 
 out:
+    cc_clear(size, storage);
     return ret;
 }
 
