@@ -29,19 +29,11 @@ const struct ccdigest_info *ccdigest_oid_lookup(ccoid_t oid, ...);
 
 #define ccdigest_copy_state(_di_, _dst_, _src_) cc_memcpy_nochk(_dst_, _src_, (_di_)->state_size)
 
-// Migrate some of the internal headers to here for simplicity's sake.
-
+// --- The functions below act MD-like in their padding scheme. This works for SHA-1, SHA-2, MD4 and MD5. --- //
 void ccdigest_final_64le(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *digest);
-
 void ccdigest_final_64be(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *digest);
 
-void ccdigest_final_fn(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *digest);
-
-//
-// !!! UPDATE WHEN NECESSARY !!!
-//
-// For now, this is equivalent to CCSHA512_OUTPUT_SIZE
-//
+// --- This is the same as CCSHA512_OUTPUT_SIZE. Update when a larger output digest is added. --- //
 #define CCDIGEST_MAX_OUTPUT_SIZE 64
 
 #endif /* _CORECRYPTO_CCDIGEST_PRIV_H_ */

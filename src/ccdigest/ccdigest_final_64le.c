@@ -47,29 +47,3 @@ void ccdigest_final_64le(const struct ccdigest_info *di, ccdigest_ctx_t ctx,
         CC_STORE32_LE(ccdigest_state_u32(di, ctx)[i], dgst + (4 * i));
     }
 }
-
-#define ZORM_TAMPERING 1
-
-#if ZORM_TAMPERING
-
-void ccdigest_final_fn(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *digest)
-{
-    di->final(di, ctx, digest);
-}
-
-#else
-
-void ccdigest_final_fn(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *digest)
-{
-    // TODO: Is this the correct implementation?
-
-#if BYTE_ORDER == BIG_ENDIAN
-    ccdigest_final_64be(di, ctx, digest);
-#elif BYTE_ORDER == LITTLE_ENDIAN
-    ccdigest_final_64le(di, ctx, digest);
-#else
-    cc_abort("Unsupported byte order");
-#endif
-}
-
-#endif
