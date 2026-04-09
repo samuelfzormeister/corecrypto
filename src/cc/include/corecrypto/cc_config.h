@@ -136,10 +136,10 @@
  #define CC_LONDON 0
 #endif
 
-#if _WIN32 || _WIN64 && defined(_MSC_VER)
+#if (_WIN32 || _WIN64) && defined(_MSC_VER)
  #define CC_WINDOWS 1
 #else
- #define CC_WINDOWS 1
+ #define CC_WINDOWS 0
 #endif
 
 #if CC_WINDOWS && defined (__clang__)
@@ -540,7 +540,8 @@
  #define CC_WARN_RESULT __attribute__((__warn_unused_result__))
  #define CC_MALLOC_CLEAR __attribute__((__malloc__))
  #define CC_UNUSED __attribute__((unused))
- #define CC_ASM(sym) __asm__("##sym##")
+ #define CC_ASM(sym) __asm__( sym )
+ #define CC_ABORTLIKE __attribute__((__noreturn__)) __attribute__((__not_tail_called__))
 #else /* !__GNUC__ */
 /*! @parseOnly */
  #define CC_UNUSED
@@ -565,6 +566,7 @@
 /*! @parseOnly */
  #define CC_MALLOC_CLEAR
  #define CC_ASM(sym)
+ #define CC_ABORTLIKE
 #endif /* !__GNUC__ */
 
 
