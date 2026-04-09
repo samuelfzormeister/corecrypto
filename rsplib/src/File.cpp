@@ -16,7 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <rsplib/file.hpp>
+#include <Rsp/File.hpp>
 
 #include "FileInternal.hpp"
 #include "osl.hpp"
@@ -27,5 +27,9 @@ File::File(const std::string &filename,
            std::stringstream &stream, 
            const std::string &detectedLine) : m_fileDetectionLine(detectedLine), m_filename(filename)
 {
-    AesVsParser parser(detectedLine);
+    if (detectedLine.find("AESVS") != std::string::npos) {
+        AesVsParser parser(detectedLine);
+
+        m_tests = parser.parse(filename, stream);
+    }
 }

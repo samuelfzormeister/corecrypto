@@ -16,28 +16,29 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <Rsp/Cipher.hpp>
+#include <Rsp/Core.hpp>
 
-#include "Osl.hpp"
+#include "osl.hpp"
 
-using namespace Rsp::Cipher;
+#define TRACE_BEGIN Osl::Log("CORE", Osl::Debug , "%s >>", __FUNCTION__)
+#define TRACE_END Osl::Log("CORE", Osl::Debug , "%s <<", __FUNCTION__)
 
-#define LOG(lvl, x...) Osl::Log("CIPHER", lvl , ##x )
+#define LOG(lvl, x...) Osl::Log("CORE", lvl , ##x )
 
-Vector::Vector(const std::string &in, 
-               const std::string &out,
-               const std::string &key, 
-               const std::string &iv) : Core::Vector(in, out), m_key(key), m_iv(iv)
+using namespace Rsp::Core;
+
+Vector::Vector(const std::string &in, const std::string &out) : m_in(in), m_out(out)
 {
-    LOG(Osl::Debug, "creating Cipher::Vector");
+    TRACE_BEGIN;
+
+    TRACE_END;
 }
 
-void Test::addVector(const std::string &in, 
-                const std::string &out,
-                const std::string &key, 
-                const std::string &iv)
+Test::Test(const std::string &name) : m_name(name)
 {
-    m_vectors.push_back(Cipher::Vector(in, out, key, iv));
+    LOG(Osl::Debug, "creating core test");
 }
 
-
+VectorWriter::VectorWriter(VectorWriterFormat fmt, const std::vector<Vector> &vector) : 
+                            m_fmt(fmt), 
+                            m_vectors(vector) {}

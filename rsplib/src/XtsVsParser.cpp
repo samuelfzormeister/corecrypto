@@ -16,8 +16,8 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <rsplib/cipher.hpp>
-#include <rsplib/file.hpp>
+#include <Rsp/Cipher.hpp>
+#include <Rsp/File.hpp>
 #include <vector>
 #include <regex>
 
@@ -35,9 +35,9 @@ using namespace Rsp;
 #define LOG(lvl, x...) Osl::Log( COMPONENT , lvl , ##x )
 
 
-std::vector<Foundation::Test> XtsVsParser::parse(const std::string &filename, std::stringstream &file)
+std::vector<Core::Test> XtsVsParser::parse(const std::string &filename, std::stringstream &file)
 {
-    std::vector<Foundation::Test> tests;
+    std::vector<Core::Test> tests;
     std::string line;
     std::string key;
     std::string iv;

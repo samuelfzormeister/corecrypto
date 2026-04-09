@@ -19,7 +19,7 @@
 #ifndef __RSPLIB_FILEINTERNAL_HPP__
 #define __RSPLIB_FILEINTERNAL_HPP__
 
-#include <rsplib/file.hpp>
+#include <Rsp/File.hpp>
 #include <sstream>
 
 namespace Rsp {
@@ -27,7 +27,7 @@ namespace Rsp {
         public:
         FileParser(const std::string &detectedLine);
 
-        virtual std::vector<Foundation::Test> parse(const std::string &filename, std::stringstream &file) = 0;
+        virtual std::vector<Core::Test> parse(const std::string &filename, std::stringstream &file) = 0;
 
         protected:
         std::string m_fileDetectionLine;
@@ -37,21 +37,21 @@ namespace Rsp {
         public:
         AesVsParser(const std::string &detectedLine);
 
-        virtual std::vector<Foundation::Test> parse(const std::string &filename, std::stringstream &file) override;
+        virtual std::vector<Core::Test> parse(const std::string &filename, std::stringstream &file) override;
     };
 
     class XtsVsParser : public FileParser {
         public:
         XtsVsParser(const std::string &detectedLine);
 
-        virtual std::vector<Foundation::Test> parse(const std::string &filename, std::stringstream &file) override;
+        virtual std::vector<Core::Test> parse(const std::string &filename, std::stringstream &file) override;
     };
 
     class ShaVsParser : public FileParser {
         public:
         ShaVsParser(const std::string &detectedLine);
 
-        virtual std::vector<Foundation::Test> parse(const std::string &filename, std::stringstream &file) override;
+        virtual std::vector<Core::Test> parse(const std::string &filename, std::stringstream &file) override;
     };
 }
 

@@ -16,13 +16,13 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <rsplib/cipher.hpp>
-#include <rsplib/file.hpp>
+#include <Rsp/Cipher.hpp>
+#include <Rsp/File.hpp>
 #include <vector>
 #include <regex>
 
 #include "FileInternal.hpp"
-#include "osl.hpp"
+#include "Osl.hpp"
 
 using namespace Rsp;
 
@@ -34,11 +34,15 @@ using namespace Rsp;
 
 #define LOG(lvl, x...) Osl::Log( COMPONENT , lvl , ##x )
 
+AesVsParser::AesVsParser(const std::string &dl) : FileParser(dl)
+{
+    // --- do nothing --- //
+}
 
-std::vector<Foundation::Test> AesVsParser::parse(const std::string &filename, std::stringstream &file)
+std::vector<Core::Test> AesVsParser::parse(const std::string &filename, std::stringstream &file)
 {
     Cipher::CipherMode mode;
-    std::vector<Foundation::Test> tests;
+    std::vector<Core::Test> tests;
     std::string line;
     std::string key;
     std::string iv;
@@ -83,7 +87,7 @@ std::vector<Foundation::Test> AesVsParser::parse(const std::string &filename, st
             LOG(Osl::Debug, "parser: found key");
             key = std::regex_replace(match.str(), repl, "");
         }
-        
+
         if (line.find("IV") != std::string::npos) {
             std::regex_search(line, match, reg);
             iv = std::regex_replace(match.str(), repl, "");
@@ -128,4 +132,3 @@ std::vector<Foundation::Test> AesVsParser::parse(const std::string &filename, st
 
     return tests;
 }
-
