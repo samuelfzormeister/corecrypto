@@ -44,32 +44,28 @@
   #define __CC_BRIDGEOS_AVAILABLE(_dep)
 #endif
 
-#define cc_deprecate_with_replacement(replacement_message, ios_version, macos_version, tvos_version, watchos_version, bridgeos_version) \
+#define cc_deprecate_with_replacement(replacement_message, macos_version, ios_version, tvos_version, watchos_version, bridgeos_version) \
     __attribute__((availability(macos,deprecated=macos_version,       replacement=replacement_message)))\
     __attribute__((availability(ios,deprecated=ios_version,           replacement=replacement_message)))\
     __attribute__((availability(watchos,deprecated=watchos_version,   replacement=replacement_message)))\
     __attribute__((availability(tvos,deprecated=tvos_version,         replacement=replacement_message)))\
     __CC_BRIDGEOS_DEPRECATED_WITH_REPLACEMENT(bridgeos_version, replacement_message)
 
-#define cc_deprecate(ios_version, macos_version, tvos_version, watchos_version, bridgeos_version) \
+#define cc_deprecate(macos_version, ios_version, tvos_version, watchos_version, bridgeos_version) \
     __attribute__((availability(macos,deprecated=macos_version)))       \
     __attribute__((availability(ios,deprecated=ios_version)))           \
     __attribute__((availability(watchos,deprecated=watchos_version)))   \
     __attribute__((availability(tvos,deprecated=tvos_version)))         \
     __CC_BRIDGEOS_DEPRECATED(bridgeos_version)
 
-#define cc_available(ios_version, macos_version, tvos_version, watchos_version, bridgeos_version) \
+#define cc_available(macos_version, ios_version, tvos_version, watchos_version, bridgeos_version) \
 __attribute__((availability(macos,introduced=macos_version)))\
 __attribute__((availability(ios,introduced=ios_version           )))\
 __attribute__((availability(watchos,introduced=watchos_version   )))\
 __attribute__((availability(tvos,introduced=tvos_version         )))\
 __CC_BRIDGEOS_AVAILABLE(bridgeos_version)
 
-#define cc_available_1(ios_version, macos_version) \
-__attribute__((availability(macos,introduced=macos_version)))\
-__attribute__((availability(ios,introduced=ios_version           )))\
-
-#define cc_obsoleted(ios_version, macos_version, tvos_version, watchos_version, bridgeos_version) \
+#define cc_obsoleted(macos_version, ios_version, tvos_version, watchos_version, bridgeos_version) \
 __attribute__((availability(macos,obsoleted=macos_version)))\
 __attribute__((availability(ios,obsoleted=ios_version           )))\
 __attribute__((availability(watchos,obsoleted=watchos_version   )))\
@@ -101,10 +97,16 @@ __CC_BRIDGEOS_AVAILABLE(bridgeos_version)
 
 #else /* !__has_feature(attribute_availability_with_replacement) */
 
-#define cc_deprecate_with_replacement(replacement_message, ios_version, macos_version, tvos_version, watchos_version, bridgeos_version)
-#define cc_deprecate(ios_version, macos_version, tvos_version, watchos_version, bridgeos_version)
-#define cc_available(ios_version, macos_version, tvos_version, watchos_version, bridgeos_version)
-#define cc_obsoleted(ios_version, macos_version, tvos_version, watchos_version, bridgeos_version)
+#define cc_deprecate_with_replacement(replacement_message, macos_version, ios_version, tvos_version, watchos_version, bridgeos_version)
+#define cc_deprecate(macos_version, ios_version, tvos_version, watchos_version, bridgeos_version)
+#define cc_available(macos_version, ios_version, tvos_version, watchos_version, bridgeos_version)
+#define cc_obsoleted(macos_version, ios_version, tvos_version, watchos_version, bridgeos_version)
+
+#define cc_ios_available(vers)
+#define cc_macos_available(vers)
+#define cc_watchos_available(vers)
+#define cc_tvos_available(vers)
+#define cc_bridgeos_available(vers)
 
 #endif /* __has_feature(attribute_availability_with_replacement) */
 
@@ -134,41 +136,16 @@ __CC_BRIDGEOS_AVAILABLE(bridgeos_version)
     cc_watchos_available(3.0)       \
     cc_tvos_available(10.0)
 
-#define CC_API_AVAILABLE_FALL_2017  \
-    cc_macos_available(10.13)       \
-    cc_ios_available(11.0)          \
-    cc_watchos_available(4.0)       \
-    cc_tvos_available(11.0)         \
-    cc_bridgeos_available(2.0)
+#define CC_API_AVAILABLE_FALL_2017  cc_available(10.13, 11.0, 11.0, 4.0, 2.0)
 
-#define CC_API_AVAILABLE_FALL_2018  \
-    cc_macos_available(10.14)       \
-    cc_ios_available(12.0)          \
-    cc_watchos_available(5.0)       \
-    cc_tvos_available(12.0)         \
-    cc_bridgeos_available(3.0)
+#define CC_API_AVAILABLE_FALL_2018  cc_available(10.14, 12.0, 12.0, 5.0, 3.0)
 
-#define CC_API_AVAILABLE_FALL_2019  \
-    cc_macos_available(10.15)       \
-    cc_ios_available(13.0)          \
-    cc_watchos_available(6.0)       \
-    cc_tvos_available(13.0)         \
-    cc_bridgeos_available(4.0)
+#define CC_API_AVAILABLE_FALL_2019  cc_available(10.15, 13.0, 13.0, 6.0, 4.0)
 
-
-#define CC_API_DEPRECATED_FALL_2019  \
-    cc_macos_deprecate(10.15)        \
-    cc_ios_deprecate(13.0)           \
-    cc_watchos_deprecate(6.0)        \
-    cc_tvos_deprecate(13.0)          \
-    cc_bridgeos_deprecate(4.0)
+#define CC_API_DEPRECATED_FALL_2019 cc_deprecate(10.15, 13.0, 13.0, 6.0, 4.0)
 
 // --- Long macro name, fix this? --- //
-#define CC_API_DEPRECATED_WITH_REPLACEMENT_FALL_2019(msg)   \
-    cc_macos_deprecate_with_replacement(msg, 10.15)         \
-    cc_ios_deprecate_with_replacement(msg, 13.0)            \
-    cc_watchos_deprecate_with_replacement(msg, 6.0)         \
-    cc_tvos_deprecate_with_replacement(msg, 13.0)           \
-    cc_bridgeos_deprecate_with_replacement(msg, 4.0)
+#define CC_API_DEPRECATED_WITH_REPLACEMENT_FALL_2019(msg) \
+    cc_deprecate_with_replacement(msg, 10.15, 13.0, 13.0, 6.0, 4.0)
 
 #endif /* _CORECRYPTO_CC_AVAILABILITY_H_ */

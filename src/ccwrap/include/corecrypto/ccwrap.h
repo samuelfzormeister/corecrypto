@@ -26,12 +26,12 @@
 // I doubt this is *supposed* to be "public". Whatever.
 #define CCWRAP_SEMIBLOCK 8 // AES 128-bit, according to NIST 800-38F
 
-inline size_t ccwrap_wrapped_size(size_t key_length)
+CC_INLINE size_t ccwrap_wrapped_size(size_t key_length)
 {
     return (key_length + CCWRAP_SEMIBLOCK);
 }
 
-inline size_t ccwrap_unwrapped_size(size_t wrapped_length)
+CC_INLINE size_t ccwrap_unwrapped_size(size_t wrapped_length)
 {
     return (wrapped_length - CCWRAP_SEMIBLOCK);
 }

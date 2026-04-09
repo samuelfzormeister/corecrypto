@@ -22,13 +22,12 @@
 
 int ccwrap_argsvalid(const struct ccmode_ecb *mode, size_t pt_len, size_t wrapped_len)
 {
-    int res = CCERR_OK;
+    int ret = CCERR_OK;
     
-    cc_require(mode->block_size == (CCWRAP_SEMIBLOCK * 2), fail);
-    cc_require((pt_len / CCWRAP_SEMIBLOCK) < CCWRAP_MAX_SEMIBLOCKS, fail);
-    cc_require((wrapped_len / CCWRAP_SEMIBLOCK) <= CCWRAP_MAX_SEMIBLOCKS, fail);
+    cc_require_action(mode->block_size == (CCWRAP_SEMIBLOCK * 2), out, ret = CCERR_PARAMETER);
+    cc_require_action((pt_len / CCWRAP_SEMIBLOCK) < CCWRAP_MAX_SEMIBLOCKS, out, ret = CCERR_PARAMETER);
+    cc_require_action((wrapped_len / CCWRAP_SEMIBLOCK) <= CCWRAP_MAX_SEMIBLOCKS, out, ret = CCERR_PARAMETER);
     
-fail:
-    res = CCERR_PARAMETER;
-    return res;
+out:
+    return ret;
 }

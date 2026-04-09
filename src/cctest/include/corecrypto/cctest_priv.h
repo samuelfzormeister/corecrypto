@@ -112,24 +112,4 @@ int cctest_conduct_tests(uint32_t);
 
 void cctest_enable_trace(bool enable);
 
-typedef enum {
-    CCTEST_MODE_ECB = 1,
-    CCTEST_MODE_CBC,
-    CCTEST_MODE_CFB,
-    CCTEST_MODE_CFB8,
-    CCTEST_MODE_OFB,
-    CCTEST_MODE_CTR,
-    CCTEST_MODE_XTS,
-} cctest_mode_t;
-
-int ccaes_test_gfsbox(cctest_mode_t);
-int ccaes_test_varkey(cctest_mode_t);
-
-struct cctest_suite {
-    const char *name;
-    size_t ntests;
-
-    const struct cctest_info *(*get_tests)(const struct cctest_suite *);
-};
-
 #endif /* _CORECRYPTO_CCTEST_PRIV_H_ */

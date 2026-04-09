@@ -19,6 +19,9 @@
 #include <corecrypto/cc_debug.h>
 #include <corecrypto/cc_stub_diag.h>
 
+// --- Use the backtrace dumping equivalent on Linux. --- //
+#if CC_DARWIN || CC_LINUX
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <execinfo.h>
@@ -28,6 +31,7 @@ void cc_stub_log(const char *fn)
     void *local[10];
     cc_printf("corecrypto: %s invoked. aborting.\n", fn);
     cc_printf("backtrace for diagnostics:\n");
+    // --- Hopefully this should diagnose what binary tried to use our stub? --- //
     backtrace_symbols_fd(local, 10, STDERR_FILENO);
     cc_printf("\n");
 }
@@ -37,3 +41,23 @@ void cc_stub_log_abort(const char *fn)
     cc_stub_log(fn);
     abort();
 }
+
+#else
+
+// --- This is if anyone tries to call into Darwin stubs on Windows. --- //
+
+#include <stdlib.h>
+
+void cc_stub_log(const char *fn)
+{
+    cc_printf("corecrypto:%s: some outside library is trying to use our darwinOS stubs.\n", fn);
+}
+
+void cc_stub_log_abort(const char *fn)
+{
+    cc_stub_log(fn);
+    cc_printf("corecrypto:%s: according to the function called, this is illegal.\n", fn);
+    abort();
+}
+
+#endif

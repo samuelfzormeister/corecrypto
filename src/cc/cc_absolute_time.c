@@ -32,13 +32,50 @@ uint64_t cc_absolute_time(void)
 uint64_t cc_absolute_time_to_msec(uint64_t time)
 {
     struct mach_timebase_info in;
-    
+
     mach_timebase_info(&in);
-    
+
     return (uint64_t)(((time * in.numer) / in.denom)) / NSEC_PER_MSEC;
 }
 
-#elif CC_WINDOWS
+#elif CC_LINUX
+
+#include <pthread.h>
+#include <time.h>
+#include <unistd.h>
+
+#define NSEC_PER_SEC  1000000000
+#define NSEC_PER_MSEC 1000000
+
+/*
+static pthread_once_t clock_init_once;
+static struct timespec clock_resolution;
+
+void __linux_clock_init(void)
+{
+    clock_getres(CLOCK_MONOTONIC_RAW, &clock_resolution);
+}
+*/
+
+uint64_t cc_absolute_time(void)
+{
+    struct timespec time;
+
+    //pthread_once(clock_init_once, &__linux_clock_init);
+
+    clock_gettime(CLOCK_MONOTONIC_RAW, &time);
+
+    return (time.tv_sec * NSEC_PER_SEC) + time.tv_nsec;
+}
+
+uint64_t cc_absolute_time_to_msec(uint64_t abs)
+{
+    //pthread_once(clock_init_once, &__linux_clock_init);
+
+    return abs / NSEC_PER_MSEC;
+}
+
+#elif CC_WINDOWS && !CC_DARWINBOOT
 
 #include <stdbool.h>
 #include <windows.h>
@@ -47,12 +84,10 @@ static uint64_t abs_freq = 0;
 
 uint64_t cc_absolute_time(void)
 {
-    cc_printf("cc_absolute_tine >>\n");
     LARGE_INTEGER pc;
 
     QueryPerformanceCounter(&pc);
 
-    cc_printf("cc_absolute_tine <<\n");
     return (uint64_t)pc.QuadPart;
 }
 
@@ -70,4 +105,3 @@ uint64_t cc_absolute_time_to_msec(uint64_t abs)
 }
 
 #endif
-

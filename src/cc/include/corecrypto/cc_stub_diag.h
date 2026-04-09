@@ -23,6 +23,6 @@
 
 void cc_stub_log(const char *fn);
 
-void cc_stub_log_abort(const char *fn) __abortlike;
+void cc_stub_log_abort(const char *fn) CC_ABORTLIKE;
 
 #endif /* _CORECRYPTO_CC_STUB_DIAG_H_ */

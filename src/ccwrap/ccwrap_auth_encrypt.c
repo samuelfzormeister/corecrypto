@@ -16,43 +16,52 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <corecrypto/cc.h>
+#include <corecrypto/cc_memory.h>
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccaes.h>
 #include <corecrypto/ccwrap.h>
 #include <corecrypto/ccwrap_priv.h>
 
-int ccwrap_auth_encrypt_withiv(struct ccmode_ecb *mode, ccecb_ctx *context, size_t length, const uint8_t *key, size_t *wrapped_length, uint8_t *wrapped_key, const uint8_t *iv)
-{
-    uint64_t R[3]; // + 1 for the outgoing IV.
-    uint64_t B;
-    size_t n = (length / CCWRAP_SEMIBLOCK);
+// --- uint64_t array of R --- //
+#define CCWRAP_WORKSPACE_R_N(kl) ccn_nof_size(kl / CCWRAP_SEMIBLOCK) + ccn_nof_size(sizeof(uint64_t))
 
-    if (length != CCAES_KEY_SIZE_128) {
+int ccwrap_auth_encrypt_withiv(struct ccmode_ecb *ecb, ccecb_ctx *ecb_key, size_t length, const uint8_t *key, size_t *wrapped_length, uint8_t *wrapped_key, const uint8_t *iv)
+{
+    CC_WORKSPACE_STACK_DECL(R_ws, CCWRAP_WORKSPACE_R_N(length));
+    uint64_t *R = (uint64_t *)R_ws->start;
+    uint64_t A, B;
+    size_t n = (length / CCWRAP_SEMIBLOCK);
+    size_t wrapsize = ccwrap_wrapped_size(length);
+
+    if (ccwrap_argsvalid(ecb, length, wrapsize) == CCERR_PARAMETER) {
         return CCERR_PARAMETER;
     }
 
-    uint64_t A = *(uint64_t *)iv;
+    cc_memcpy(&A, iv, sizeof(uint64_t));
     R[0] = A;
-    for (int i = 1; i < n; i++) {
-        R[i] = key[i];
-    }
+    cc_memcpy(&R[1], key, length);
 
     for (int j = 0; j < 5; j++) {
-        for (int k = 1; k < n; k++) {
-            uint64_t tmp = A | R[k];
-            if (mode->ecb(context, 1, &tmp, &B) == CCERR_OK) {
-                A = CC_H2BE64(B) ^ (n * j) + k;
-                R[k] = CC_H2LE64(B);
+        for (int i = 1; i <= n; i++) {
+            uint64_t tmp = A | R[i];
+            if (ccecb_update(ecb, ecb_key, 1, &tmp, &B) == CCERR_OK) {
+                // --- TODO: figure out if this works. --- //
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+                A = CC_BSWAP64(B) ^ ((n * j) + i);
+                R[i] = B;
+#else
+                A = B ^ ((n * j) + i);
+                R[i] = CC_BSWAP64(B);
+#endif
             } else {
-                CC_MEMSET(R, 0, sizeof(R));
+                CC_WORKSPACE_STACK_FREE_N(R_ws, CCWRAP_WORKSPACE_R_N(length));
                 return CCERR_INTERNAL;
             }
         }
     }
 
-    *wrapped_length = ccwrap_wrapped_size(length);
-    CC_MEMCPY(wrapped_key, R, ccwrap_wrapped_size(length));
+    *wrapped_length = wrapsize;
+    CC_MEMCPY(wrapped_key, R, wrapsize);
 
     return CCERR_OK;
 }
