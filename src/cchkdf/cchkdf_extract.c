@@ -16,6 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
+#include <corecrypto/cc_memory.h>
 #include <corecrypto/ccdigest_priv.h>
 #include <corecrypto/cchkdf.h>
 #include <corecrypto/cchmac.h>
@@ -30,10 +31,10 @@
 int cchkdf_extract(struct ccdigest_info *di, size_t salt_len, const void *salt, size_t ikm_len, const void *ikm, void *prk)
 {
     if (salt == NULL || salt_len == 0) {
-        // "if not provided, it is set to a string of HashLen zeros."
-        uint8_t zero_salt[CCDIGEST_MAX_OUTPUT_SIZE];
+        // --- Use CC_WORKSPACE to enable Windows clients. --- //
+        CC_WORKSPACE_STACK_DECL(zero, di->output_size);
 
-        cchmac(di, di->output_size, zero_salt, ikm_len, ikm, prk);
+        cchmac(di, di->output_size, zero->start, ikm_len, ikm, prk);
     } else {
         cchmac(di, salt_len, salt, ikm_len, ikm, prk);
     }

@@ -16,6 +16,7 @@
  * @LICENSE_HEADER_END@
  */
 
+#include <corecrypto/cc_memory.h>
 #include <corecrypto/cchkdf.h>
 #include <corecrypto/cchmac.h>
 #include <corecrypto/ccdigest_priv.h>
@@ -26,7 +27,9 @@ int cchkdf(struct ccdigest_info *di, size_t ikm_len, const void *ikm,
            size_t info_len, const void *info,
            size_t derived_len, void *derived_key)
 {
-    uint8_t prk[CCDIGEST_MAX_OUTPUT_SIZE];
+    // --- Use CC_WORKSPACE to enable Windows clients. --- //
+    CC_WORKSPACE_STACK_DECL(prkws, di->output_size);
+    uint8_t *prk = (uint8_t *)prkws->start;
 
     int res = cchkdf_extract(di, salt_len, salt, ikm_len, ikm, prk);
     if (res == CCERR_OK) {

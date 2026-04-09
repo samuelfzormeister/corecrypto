@@ -16,11 +16,11 @@
  * @LICENSE_HEADER_END@
  */
 
-#include <corecrypto/cc_macros.h>
+#include <corecrypto/cc_memory.h>
+#include <corecrypto/cc_priv.h>
 #include <corecrypto/ccdigest_priv.h>
 #include <corecrypto/cchkdf.h>
 #include <corecrypto/cchmac.h>
-#include <corecrypto/cc_priv.h>
 
 //
 // https://www.rfc-editor.org/rfc/rfc5869
@@ -32,59 +32,50 @@ int cchkdf_expand(struct ccdigest_info *di, size_t prk_len, const void *prk,
                   size_t info_len, const void *info,
                   size_t derived_len, void *derived_key)
 {
-    uint8_t T[CCDIGEST_MAX_OUTPUT_SIZE];
-    size_t n = cc_ceiling(derived_len, di->output_size);
-    int ret = CCERR_PARAMETER;
-    size_t Tlength = 0;
-    size_t finalBytes = derived_len - (n * di->output_size);
-    size_t finalBytesOffset = derived_len - finalBytes;
+    // --- Use CC_WORKSPACE to enable Windows clients. --- //
+    CC_WORKSPACE_STACK_DECL(Tws, di->output_size);
     cchmac_di_decl(di, hmac);
-    cchmac_di_decl(di, hmac_initial);
+    cchmac_di_decl(di, ihmac);
+    uint8_t *T = (uint8_t *)Tws->start;
+    size_t n = cc_ceiling(derived_len, di->output_size);
+    size_t Tlength = 0;
+    size_t offset = 0;
 
-    /* as per the spec, the out length needs to be less than  */
-    cc_require(n < 255, out);
+    /* as per the spec, the out length needs to be less than 256 */
+    if (n > 255) {
+        return CCERR_PARAMETER;
+    }
 
-    /* since we export this function, check that the prk len and digest output size are equal. */
-    cc_require(prk_len == di->output_size, out);
+    if (prk_len < di->output_size) {
+        return CCERR_PARAMETER;
+    }
 
-    // i'm actually glad that HMAC ops can be split up into different function calls
-    cchmac_init(di, hmac_initial, prk_len, prk);
+    cchmac_init(di, ihmac, prk_len, prk);
 
     for (size_t i = 1; i <= n; i++) {
         uint8_t ctr = (uint8_t)i;
 
-        cc_memcpy(hmac, hmac_initial, cchmac_di_size(di));
+        cc_memcpy(hmac, ihmac, cchmac_di_size(di));
 
-        // update using the contents of T first.
         cchmac_update(di, hmac, Tlength, T);
-
-        // then; update using the info string
         cchmac_update(di, hmac, info_len, info);
-
-        // and then do the 'counter' field.
         cchmac_update(di, hmac, 1, &ctr);
 
-        // generate the MAC
         cchmac_final(di, hmac, T);
 
-        // that is a piece of our key; copy to derived_key and 'push' the pointer forward
         if (i == n) {
-            cc_memcpy(derived_key, T, finalBytes);
+            cc_memcpy(derived_key + offset, T, derived_len - offset);
         } else {
-            cc_memcpy(derived_key, T, di->output_size);
+            cc_memcpy(derived_key + offset, T, di->output_size);
         }
 
         Tlength = di->output_size;
-
-        derived_key += di->output_size;
+        offset += di->output_size;
     }
 
-    ret = CCERR_OK;
+    cchmac_di_clear(di, hmac);
+    cchmac_di_clear(di, ihmac);
+    CC_WORKSPACE_STACK_FREE(Tws, di->output_size);
 
-    out:
-    cc_clear(cchmac_di_size(di), hmac);
-    cc_clear(cchmac_di_size(di), hmac_initial);
-    cc_clear(di->output_size, T);
-
-    return ret;
+    return CCERR_OK;
 }
