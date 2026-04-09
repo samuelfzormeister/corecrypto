@@ -145,7 +145,7 @@
         #define kHasARMv82SHA512 0x80000000
 
         // --- This is the easiest way to account for the change. --- //
-        #include <libkern/version.h>
+        #include <Kenrel/libkern/version.h>
         #if VERSION_MAJOR >= 20
             extern uint64_t _get_cpu_capabilities(void);
         #else
