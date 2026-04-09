@@ -92,7 +92,7 @@ typedef struct {
 
 typedef struct {
     vng_aes_intel_encrypt_ctx encrypt;
-	vng_aes_intel_decrypt_ctx decrypt;
+    vng_aes_intel_decrypt_ctx decrypt;
 } vng_aes_intel_ctx;
 
 extern int vng_aes_encrypt_opt_key(const unsigned char *key, size_t key_len, vng_aes_intel_encrypt_ctx cx[1]) __asm__("_vng_aes_encrypt_opt_key");

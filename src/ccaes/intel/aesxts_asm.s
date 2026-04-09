@@ -4,9 +4,9 @@
 	0. xts_mult_x_on_xmm7 : a code macro that is used throughout all other functions
 	1. void xts_mult_x(uint8_t *I);
 	2. int tweak_crypt(const uint8_t *P, uint8_t *C, uint8_t *T, aesedp_encrypt_ctx *ctx);
-	3. int tweak_crypt_group(const uint8_t *P, uint8_t *C, uint8_t *T, aesedp_encrypt_ctx *ctx, uint32_t lim); 
+	3. int tweak_crypt_group(const uint8_t *P, uint8_t *C, uint8_t *T, aesedp_encrypt_ctx *ctx, uint32_t lim);
 	4. int tweak_uncrypt(const uint8_t *C, uint8_t *P, uint8_t *T, aesedp_decrypt_ctx *ctx);
-	5. int tweak_uncrypt_group(const uint8_t *C, uint8_t *P, uint8_t *T, aesedp_decrypt_ctx *ctx, uint32_t lim); 
+	5. int tweak_uncrypt_group(const uint8_t *C, uint8_t *P, uint8_t *T, aesedp_decrypt_ctx *ctx, uint32_t lim);
 
 	This file should be compiled together with xtsClearC.c
 
@@ -22,23 +22,23 @@
 
 #if CCAES_INTEL_ASM && (defined __i386__ || defined __x86_64__)
 
-#define	CRYPT_OK	0		// can not include "crypt.h" in which CRYPT_OK is from enum  
+#define	CRYPT_OK	0		// can not include "crypt.h" in which CRYPT_OK is from enum
 
 /*
 	The following macro is used throughout the functions in this file.
 	It is the core function within the function xts_mult_x defined in (xtsClearC.c)
 
-	upon entry, %xmm7 = the input tweak (128-bit), 
+	upon entry, %xmm7 = the input tweak (128-bit),
 	on return, %xmm7 = the updated tweak (128-bit)
 	the macro uses %xmm1/%xmm2/%ecx in the computation
 	the operation can be described as follows :
-	0. let x = %xmm7; 					// 128-bit little-endian input 
+	0. let x = %xmm7; 					// 128-bit little-endian input
 	1. x = rotate_left(x,1);			// rotate left by 1 -bit
 	2. if (x&1) x ^= 0x0000...0086;		// if least significant bit = 1, least significant byte ^= 0x86;
-	3. return x; 
+	3. return x;
 
 	It's a pity that SSE does not support shifting of the whole 128-bit xmm registers.
-	The workaround is 
+	The workaround is
 		1. using parallel dual quad (8-byte) shifting, 1 for the 2 bottom 63-bits, 1 for the 2 leading bits
 		2. manipulating the shifted quad words to form the 128-bit shifted result.
 
@@ -46,31 +46,31 @@
 	Output : %xmm7
 	Used : %xmm1/%xmm2/%ecx
 
-	The macro is good for both x86_64 and i386. 
+	The macro is good for both x86_64 and i386.
 
-*/	
+*/
 
 	.macro		xts_mult_x_on_xmm7			// input : x = %xmm7, MS = most significant, LS = least significant
-	movaps		%xmm7, %xmm1				// %xmm1 = a copy of x 
+	movaps		%xmm7, %xmm1				// %xmm1 = a copy of x
 	movaps		%xmm7, %xmm2				// %xmm2 = a copy of x
-	psllq		$$1, %xmm7					// 1-bit left shift of 2 quad words (x1<<1, x0<<1), zero-filled 
-	psrlq		$$63, %xmm1					// 2 leading bits, each in the least significant bit of a quad word 
-	psrad		$$31, %xmm2					// the MS 32-bit will be either 0 or -1, depending on the MS bit of x
-	pshufd		$$0xc6, %xmm1, %xmm1		// switch the positions of the 2 leading bits
-	pshufd		$$0x03, %xmm2, %xmm2		// the LS 32-bit will be either 0 or -1, depending on the MS bit of x
+	psllq		$1, %xmm7					// 1-bit left shift of 2 quad words (x1<<1, x0<<1), zero-filled
+	psrlq		$63, %xmm1					// 2 leading bits, each in the least significant bit of a quad word
+	psrad		$31, %xmm2					// the MS 32-bit will be either 0 or -1, depending on the MS bit of x
+	pshufd		$0xc6, %xmm1, %xmm1		// switch the positions of the 2 leading bits
+	pshufd		$0x03, %xmm2, %xmm2		// the LS 32-bit will be either 0 or -1, depending on the MS bit of x
 	por			%xmm1, %xmm7				// we finally has %xmm7 = rotate_left(x,1);
-	movl		$$0x86, %ecx				// a potential byte to xor the bottom byte
+	movl		$0x86, %ecx				// a potential byte to xor the bottom byte
 	movd		%ecx, %xmm1					// copy it to %xmm1, the other is 0
 	pand		%xmm2, %xmm1				// %xmm1 = 0 or 0x86, depending on the MS bit of x
 	pxor		%xmm1, %xmm7				// rotate_left(x,1) ^= 0 or 0x86 depending on the MS bit of x
 	.endm
 
 
-/* 
+/*
 	function : void xts_mult_x(uint8_t *I);
 
 	1. load (__m128*) (I) into xmm7
-	2. macro xts_mult_x_on_xmm7 (i/o @ xmm7, used xmm1/xmm2/ecx) 
+	2. macro xts_mult_x_on_xmm7 (i/o @ xmm7, used xmm1/xmm2/ecx)
 	3. save output (%xmm7) to memory pointed by I
 
 	input : 16-byte memory pointed by I
@@ -79,7 +79,7 @@
 	if kernel code, xmm1/xmm2/xmm7 saved and restored
 	other used registers : eax/ecx
 
- */	
+ */
 	.text
 	.align  4,0x90
 	.globl	_aesxts_mult_x
@@ -92,14 +92,14 @@ _aesxts_mult_x:
 	mov		4(%esp), %eax					// 1st argument at stack, offset 4 for ret_addr for i386
 	#define	I	%eax
 	#define	sp	%esp
-#endif	
+#endif
 
 	// if KERNEL code, allocate memory and save xmm1/xmm2/xmm7
 #ifdef	KERNEL
 #if defined __x86_64__
-	sub		$0x38, sp						// 8-bytes alignment + 3 * 16 bytes	
+	sub		$0x38, sp						// 8-bytes alignment + 3 * 16 bytes
 #else
-	sub		$0x3c, sp						// 12-bytes alignment + 3 * 16 bytes 
+	sub		$0x3c, sp						// 12-bytes alignment + 3 * 16 bytes
 #endif
 	movaps	%xmm1, (sp)
 	movaps	%xmm2, 16(sp)
@@ -109,7 +109,7 @@ _aesxts_mult_x:
 	// load, compute, and save
 	movups	(I), %xmm7						// load input tweak 128-bit into %xmm7
 	xts_mult_x_on_xmm7						// the macro (also used else where) will update %xmm7 as the output
-	movups	%xmm7, (I)						// save the xts_mult_x output 
+	movups	%xmm7, (I)						// save the xts_mult_x output
 
 	// if KERNEL code, restore xmm1/xmm2/xmm7 and deallocate stack memory
 #ifdef	KERNEL
@@ -117,9 +117,9 @@ _aesxts_mult_x:
 	movaps	16(sp), %xmm2
 	movaps	32(sp), %xmm7
 #if defined __x86_64__
-	add		$0x38, sp						// 8-bytes alignment + 3 * 16 bytes	
+	add		$0x38, sp						// 8-bytes alignment + 3 * 16 bytes
 #else
-	add		$0x3c, sp						// 12-bytes alignment + 3 * 16 bytes	
+	add		$0x3c, sp						// 12-bytes alignment + 3 * 16 bytes
 #endif
 #endif
 
@@ -128,8 +128,8 @@ _aesxts_mult_x:
 	#undef	I
 	#undef	sp
 
-/* 
-	The following is x86_64/i386 assembly implementation of 
+/*
+	The following is x86_64/i386 assembly implementation of
 
 	int tweak_crypt(const uint8_t *P, uint8_t *C, uint8_t *T, aesedp_encrypt_ctx *ctx);
 
@@ -147,7 +147,7 @@ _aesxts_mult_x:
 
 	The following is the assembly implementation flow
 
-	1. save used xmm registers (xmm1/xmm7) if kernel code 
+	1. save used xmm registers (xmm1/xmm7) if kernel code
 	2. load xmm1 = P, xmm7 = T
 	3. xmm1 = C = P ^ T
 	4. write xmm1 to C
@@ -157,7 +157,7 @@ _aesxts_mult_x:
 	8. write xmm1 to C
 	9. update T (in xmm7) via xts_mult_x macro
 	a. restore xmm registers (xmm1/xmm7) if kernel code
-	b. return CRYPT_OK (in eax) 
+	b. return CRYPT_OK (in eax)
 
 	Note: used xmm registers : xmm1/xmm2/xmm7, xmm2 in xts_mult_x macro
 
@@ -241,7 +241,7 @@ _aesxts_tweak_crypt_aesni:
 	mov		ctx, %rdx					// ctx
 #endif
 
-	pxor	%xmm7, %xmm1				// C = P ^ T	
+	pxor	%xmm7, %xmm1				// C = P ^ T
 	movups	%xmm1, (C)					// save C into memory
 
 	call	_vng_aes_encrypt_opt				// err = aes_encrypt(C,C,ctx);
@@ -369,7 +369,7 @@ _aesxts_tweak_crypt_opt:
 	mov		ctx, %rdx					// ctx
 #endif
 
-	pxor	%xmm7, %xmm1				// C = P ^ T	
+	pxor	%xmm7, %xmm1				// C = P ^ T
 	movups	%xmm1, (C)					// save C into memory
 
 	call	_vng_aes_encrypt_opt				// err = aes_encrypt(C,C,ctx);
@@ -419,8 +419,8 @@ _aesxts_tweak_crypt_opt:
 	#undef	ctx
 	#undef	sp
 
-/* 
-	The following is x86_64/i386 assembly implementation of 
+/*
+	The following is x86_64/i386 assembly implementation of
 
 	int tweak_crypt_group(const uint8_t *P, uint8_t *C, uint8_t *T, aesedp_encrypt_ctx *ctx, uint32_t lim);
 
@@ -436,7 +436,7 @@ _aesxts_tweak_crypt_opt:
 	while (more than 4 consecutive blocks available) {
 
 		do xts_mult_x macro 4 times and write the 4 tweaks on stack (16-byte aligned)
-	
+
 		perform 4 C = P ^ T;	// T is on 16-byte aligned stack
 
 		perform 4 aes_encrypt (all aes_encrypt instruction interleaved to achieve better throughtput)
@@ -452,7 +452,7 @@ _aesxts_tweak_crypt_opt:
 	3. C = C ^ T
 	4. xts_mult_x(T)
 
-	Note: used xmm registers : 
+	Note: used xmm registers :
 			xmm0-xmm5, xmm7 if aesni is available
 			xmm0-xmm4, xmm7 if aesni is not available.
 
@@ -488,7 +488,7 @@ _aesxts_tweak_crypt_group_aesni:
 
 	// allocate stack memory for local use and/or xmm register save for kernel code
 	sub		$(12+8*16+16*4), %esp		// 12 (alignment) + 8*16 (xmm) + 4*16 (pre-computed tweaks) aesni
-										// 12 (alignment) + 8*16 (xmm) + 4*16 (only 12 used for aes_encrypt) no aesni 
+										// 12 (alignment) + 8*16 (xmm) + 4*16 (only 12 used for aes_encrypt) no aesni
 	// transfer calling arguments
 	mov		20(%ebp), %eax				// ctx
 	mov		12(%ebp), %edi				// C
@@ -518,7 +518,7 @@ _aesxts_tweak_crypt_group_aesni:
 
 	// rdi/rsi/rdx/rcx/r8
 	// transfer calling arguments
-	mov		%rdi, %r12	
+	mov		%rdi, %r12
 	mov		%rsi, %r13
 	mov		%rdx, %r14
 	mov		%rcx, %r15
@@ -544,7 +544,7 @@ _aesxts_tweak_crypt_group_aesni:
 	sub		$4, lim											// pre-decrement lim by 4
 	jl		9f												// if lim < 4, skip the following code
 
-	movups	(T), %xmm7										// xmm7 is the tweak before encrypting every 4 blocks	
+	movups	(T), %xmm7										// xmm7 is the tweak before encrypting every 4 blocks
 #ifdef	KERNEL
 	movaps	%xmm5, 0xb0(sp)									// hw-aes-based uses extra xmm5
 #endif
@@ -587,7 +587,7 @@ _aesxts_tweak_crypt_group_aesni:
 	#define	ctx	%ecx
 #endif
 
-	mov		240(ctx), %eax					// aes length 
+	mov		240(ctx), %eax					// aes length
 
 	cmp		$160, %eax						// AES-128 ?
 	je		160f
@@ -603,7 +603,7 @@ _aesxts_tweak_crypt_group_aesni:
 
 	// definitions, macros, and constructs for 4 blocks hw-aes-encrypt
 
-	// the following key definitions will also be used in tweak_uncrypt_group 
+	// the following key definitions will also be used in tweak_uncrypt_group
 	#define	key0			0(ctx)
 	#define	key1			16(ctx)
 	#define	key2			32(ctx)
@@ -678,7 +678,7 @@ _aesxts_tweak_crypt_group_aesni:
 	aes		%xmm5, %xmm3
 	.endm
 
-	// all aes encypt operations end with the following 4 instructions	
+	// all aes encypt operations end with the following 4 instructions
 	.macro	aes_last
 	aeslast	%xmm4, %xmm0
 	aeslast	%xmm4, %xmm1
@@ -690,7 +690,7 @@ _aesxts_tweak_crypt_group_aesni:
 	aes_common_part			// encrypt common part
 	aes_last				// encrypt ending part
 	.endm
-	
+
 	.macro	aes_192
 	aes_common_part			// encrypt common part
 
@@ -745,10 +745,10 @@ _aesxts_tweak_crypt_group_aesni:
 	aes_192
 	jmp		8f
 
-224:	// AES-256 encrypt	
+224:	// AES-256 encrypt
 	aes_256
 
-8:	
+8:
 
 	// 4 C = C ^ T
 	pxor	tweak1, %xmm0
@@ -776,9 +776,9 @@ _aesxts_tweak_crypt_group_aesni:
 9:
 	xor		%eax, %eax					// to return CRYPT_OK
 	add		$4, lim						// post-increment lim by 4
-	je		9f							// if lim==0, branch to prepare to return	
+	je		9f							// if lim==0, branch to prepare to return
 
-1:	movups	%xmm7, (T)					// save final tweak 
+1:	movups	%xmm7, (T)					// save final tweak
 L_error_crypt:
 9:
 	// if kernel, restore used xmm registers
@@ -833,7 +833,7 @@ _aesxts_tweak_crypt_group_opt:
 
 	// allocate stack memory for local use and/or xmm register save for kernel code
 	sub		$(12+8*16+16*4), %esp		// 12 (alignment) + 8*16 (xmm) + 4*16 (pre-computed tweaks) aesni
-										// 12 (alignment) + 8*16 (xmm) + 4*16 (only 12 used for aes_encrypt) no aesni 
+										// 12 (alignment) + 8*16 (xmm) + 4*16 (only 12 used for aes_encrypt) no aesni
 	// transfer calling arguments
 	mov		20(%ebp), %eax				// ctx
 	mov		12(%ebp), %edi				// C
@@ -863,7 +863,7 @@ _aesxts_tweak_crypt_group_opt:
 
 	// rdi/rsi/rdx/rcx/r8
 	// transfer calling arguments
-	mov		%rdi, %r12	
+	mov		%rdi, %r12
 	mov		%rsi, %r13
 	mov		%rdx, %r14
 	mov		%rcx, %r15
@@ -888,7 +888,7 @@ _aesxts_tweak_crypt_group_opt:
 
 	movups	(T), %xmm7					// T, xmm7 will be used as T (128-bit) throughtout the loop
 
-	sub		$1, lim						// pre-decrement lim by 1	
+	sub		$1, lim						// pre-decrement lim by 1
 	jl		1f							// if lim < 1, branch to prepare to return
 0:
 	movups	(P), %xmm0					// P
@@ -904,12 +904,12 @@ _aesxts_tweak_crypt_group_opt:
 	mov		ctx, %rdx					// ctx
 #endif
 
-	pxor	%xmm7, %xmm0				// C = P ^ T	
+	pxor	%xmm7, %xmm0				// C = P ^ T
 	movups	%xmm0, (C)					// save C into memory
 
 	call	_aes_encrypt_xmm_no_save	// err = aes_encrypt(C,C,ctx);
 
-	cmp		$CRYPT_OK, %eax				// err == CRYPT_OK ? 
+	cmp		$CRYPT_OK, %eax				// err == CRYPT_OK ?
 	jne		9f							// if err != CRYPT_OK, branch to exit with error
 
 	movups	(C), %xmm0					// load xmm0 with C
@@ -923,7 +923,7 @@ _aesxts_tweak_crypt_group_opt:
 	sub		$1, lim						// lim--
 	jge		0b							// if (lim>0) repeat the scalar loop
 
-1:	movups	%xmm7, (T)					// save final tweak 
+1:	movups	%xmm7, (T)					// save final tweak
 L_error_crypt_opt:
 9:
 	// if kernel, restore used xmm registers
@@ -958,8 +958,8 @@ L_error_crypt_opt:
 	#undef	ctx
 	#undef	sp
 
-/* 
-	The following is x86_64/i386 assembly implementation of 
+/*
+	The following is x86_64/i386 assembly implementation of
 
 	int tweak_uncrypt(const uint8_t *C, uint8_t *P, uint8_t *T, aesedp_decrypt_ctx *ctx);
 
@@ -977,7 +977,7 @@ L_error_crypt_opt:
 
 	The following is the assembly implementation flow
 
-	1. save used xmm registers (xmm1/xmm7) if kernel code 
+	1. save used xmm registers (xmm1/xmm7) if kernel code
 	2. load xmm1 = C, xmm7 = T
 	3. xmm1 = P = C ^ T
 	4. write xmm1 to P
@@ -987,7 +987,7 @@ L_error_crypt_opt:
 	8. write xmm1 to P
 	9. update T (in xmm7) via xts_mult_x macro
 	a. restore xmm registers (xmm1/xmm7) if kernel code
-	b. return CRYPT_OK (in eax) 
+	b. return CRYPT_OK (in eax)
 
 	Note: used xmm registers : xmm1/xmm2/xmm7, xmm2 in xts_mult_x macro
 
@@ -1071,7 +1071,7 @@ _aesxts_tweak_uncrypt_aesni:
 	mov		ctx, %rdx					// ctx
 #endif
 
-	pxor	%xmm7, %xmm1				// P = C ^ T	
+	pxor	%xmm7, %xmm1				// P = C ^ T
 	movups	%xmm1, (P)					// save P into memory
 
 	call	_vng_aes_decrypt_aesni				// err = aes_decrypt(P,P,ctx);
@@ -1199,7 +1199,7 @@ _aesxts_tweak_uncrypt_opt:
 	mov		ctx, %rdx					// ctx
 #endif
 
-	pxor	%xmm7, %xmm1				// P = C ^ T	
+	pxor	%xmm7, %xmm1				// P = C ^ T
 	movups	%xmm1, (P)					// save P into memory
 
 	call	_vng_aes_decrypt_opt				// err = aes_decrypt(P,P,ctx);
@@ -1249,8 +1249,8 @@ _aesxts_tweak_uncrypt_opt:
 	#undef	ctx
 	#undef	sp
 
-/* 
-	The following is x86_64/i386 assembly implementation of 
+/*
+	The following is x86_64/i386 assembly implementation of
 
 	int tweak_uncrypt_group(const uint8_t *C, uint8_t *P, uint8_t *T, aesedp_decrypt_ctx *ctx, uint32_t lim);
 
@@ -1266,7 +1266,7 @@ _aesxts_tweak_uncrypt_opt:
 	while (more than 4 consecutive blocks available) {
 
 		do xts_mult_x macro 4 times and write the 4 tweaks on stack (16-byte aligned)
-	
+
 		perform 4 P = C ^ T;	// T is on 16-byte aligned stack
 
 		perform 4 aes_decrypt (all aes_decrypt instruction interleaved to achieve better throughtput)
@@ -1282,7 +1282,7 @@ _aesxts_tweak_uncrypt_opt:
 	3. P = P ^ T
 	4. xts_mult_x(T)
 
-	Note: used xmm registers : 
+	Note: used xmm registers :
 			xmm0-xmm5, xmm7 if aesni is available
 			xmm0-xmm4, xmm7 if aesni is not available.
 
@@ -1304,7 +1304,7 @@ _aesxts_tweak_uncrypt_group_aesni:
 
 	// allocate stack memory for local use and/or xmm register save for kernel code
 	sub		$(12+8*16+16*4), %esp		// 12 (alignment) + 8*16 (xmm) + 4*16 (pre-computed tweaks) aesni
-										// 12 (alignment) + 8*16 (xmm) + 4*16 (only 12 used for aes_decrypt) no aesni 
+										// 12 (alignment) + 8*16 (xmm) + 4*16 (only 12 used for aes_decrypt) no aesni
 	// transfer calling arguments
 	mov		20(%ebp), %eax				// ctx
 	mov		12(%ebp), %edi				// P
@@ -1334,7 +1334,7 @@ _aesxts_tweak_uncrypt_group_aesni:
 
 	// rdi/rsi/rdx/rcx/r8
 	// transfer calling arguments
-	mov		%rdi, %r12	
+	mov		%rdi, %r12
 	mov		%rsi, %r13
 	mov		%rdx, %r14
 	mov		%rcx, %r15
@@ -1360,7 +1360,7 @@ _aesxts_tweak_uncrypt_group_aesni:
 	sub		$4, lim											// pre-decrement lim by 4
 	jl		9f												// if lim < 4, skip the following code
 
-	movups	(T), %xmm7										// xmm7 is the tweak before decrypting every 4 blocks	
+	movups	(T), %xmm7										// xmm7 is the tweak before decrypting every 4 blocks
 #ifdef	KERNEL
 	movaps	%xmm5, 0xb0(sp)									// hw-aes-based uses extra xmm5
 #endif
@@ -1403,7 +1403,7 @@ _aesxts_tweak_uncrypt_group_aesni:
 	#define	ctx	%ecx
 #endif
 
-	mov		240(ctx), %eax					// aes length 
+	mov		240(ctx), %eax					// aes length
 
 	cmp		$160, %eax						// AES-128 ?
 	je		160f
@@ -1544,10 +1544,10 @@ _aesxts_tweak_uncrypt_group_aesni:
 	aes_dec_192
 	jmp		8f
 
-224:	// AES-256 decrypt	
+224:	// AES-256 decrypt
 	aes_dec_256
 
-8:	
+8:
 
 	// 4 P = P ^ T
 	pxor	tweak1, %xmm0
@@ -1575,9 +1575,9 @@ _aesxts_tweak_uncrypt_group_aesni:
 9:
 	xor		%eax, %eax					// to return CRYPT_OK
 	add		$4, lim						// post-increment lim by 4
-	je		9f							// if lim==0, branch to prepare to return	
+	je		9f							// if lim==0, branch to prepare to return
 
-1:	movups	%xmm7, (T)					// save final tweak 
+1:	movups	%xmm7, (T)					// save final tweak
 L_error_uncrypt:
 9:
 	// if kernel, restore used xmm registers
@@ -1626,7 +1626,7 @@ _aesxts_tweak_uncrypt_group_opt:
 
 	// allocate stack memory for local use and/or xmm register save for kernel code
 	sub		$(12+8*16+16*4), %esp		// 12 (alignment) + 8*16 (xmm) + 4*16 (pre-computed tweaks) aesni
-										// 12 (alignment) + 8*16 (xmm) + 4*16 (only 12 used for aes_decrypt) no aesni 
+										// 12 (alignment) + 8*16 (xmm) + 4*16 (only 12 used for aes_decrypt) no aesni
 	// transfer calling arguments
 	mov		20(%ebp), %eax				// ctx
 	mov		12(%ebp), %edi				// P
@@ -1656,7 +1656,7 @@ _aesxts_tweak_uncrypt_group_opt:
 
 	// rdi/rsi/rdx/rcx/r8
 	// transfer calling arguments
-	mov		%rdi, %r12	
+	mov		%rdi, %r12
 	mov		%rsi, %r13
 	mov		%rdx, %r14
 	mov		%rcx, %r15
@@ -1681,7 +1681,7 @@ _aesxts_tweak_uncrypt_group_opt:
 
 	movups	(T), %xmm7					// T, xmm7 will be used as T (128-bit) throughtout the loop
 
-	sub		$1, lim						// pre-decrement lim by 1	
+	sub		$1, lim						// pre-decrement lim by 1
 	jl		1f							// if lim < 1, branch to prepare to return
 0:
 	movups	(C), %xmm0					// C
@@ -1697,12 +1697,12 @@ _aesxts_tweak_uncrypt_group_opt:
 	mov		ctx, %rdx					// ctx
 #endif
 
-	pxor	%xmm7, %xmm0				// P = C ^ T	
+	pxor	%xmm7, %xmm0				// P = C ^ T
 	movups	%xmm0, (P)					// save P into memory
 
 	call	_aes_decrypt_xmm_no_save	// err = aes_decrypt(P,P,ctx);
 
-	cmp		$CRYPT_OK, %eax				// err == CRYPT_OK ? 
+	cmp		$CRYPT_OK, %eax				// err == CRYPT_OK ?
 	jne		9f							// if err != CRYPT_OK, branch to exit with error
 
 	movups	(P), %xmm0					// load xmm0 with P
@@ -1716,7 +1716,7 @@ _aesxts_tweak_uncrypt_group_opt:
 	sub		$1, lim						// lim--
 	jge		0b							// if (lim>0) repeat the scalar loop
 
-1:	movups	%xmm7, (T)					// save final tweak 
+1:	movups	%xmm7, (T)					// save final tweak
 L_error_uncrypt_opt:
 9:
 	// if kernel, restore used xmm registers

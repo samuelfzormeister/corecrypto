@@ -47,7 +47,7 @@
 
 				Round constants, beginning with AESRcon[1] for the first round
 				(AESRcon[0] is padding.)
-	
+
 		Arguments:
 
 			const unsigned char *Key
@@ -83,7 +83,7 @@
 
 	.text
 	.globl _vng_aes_encrypt_opt_key
-//	.private_extern	_vng_aes_encrypt_opt_key
+//	CC_ASM_PRIVATE_EXTERN	_vng_aes_encrypt_opt_key
 _vng_aes_encrypt_opt_key:
 
 #define	dr		r0d				// Dissection register.
@@ -192,7 +192,7 @@ _vng_aes_encrypt_opt_key:
 #undef	Nk
 
 	.globl _vng_aes_encrypt_key128
-//	.private_extern	_vng_aes_encrypt_key128
+//	CC_ASM_PRIVATE_EXTERN	_vng_aes_encrypt_key128
 _vng_aes_encrypt_key128:
 
 	/*	Save registers and set SaveSize to the number of bytes pushed onto the
@@ -340,7 +340,7 @@ EKeyHas4Words:
 
 #if defined	__i386__
 	mov		E, (r4)
-	mov		4(r4), STable 
+	mov		4(r4), STable
 #endif
 
 	cmp		$0x36, t0d				// Was this the last round constant?
@@ -390,7 +390,7 @@ EKeyHas4Words:
 
 
 	.globl _vng_aes_encrypt_key192
-//	.private_extern	_vng_aes_encrypt_key192
+//	CC_ASM_PRIVATE_EXTERN	_vng_aes_encrypt_key192
 _vng_aes_encrypt_key192:
 
 	/*	Save registers and set SaveSize to the number of bytes pushed onto the
@@ -470,7 +470,7 @@ EKeyHas6Words:
             call    0f          // Push program counter onto stack.
         0:
             pop     %eax      // Get program counter.
- 
+
 		#define	STable	r3
         lea     _AESRcon-0b(%eax), R
         lea     _AESSubBytesWordTable-0b(%eax), STable
@@ -501,7 +501,7 @@ EKeyHas6Words:
 	iteration.  52 are needed in the key.  So only four are needed in the last
 	iteration.
 */
-	jmp		2f		
+	jmp		2f
 1:
 	// Continue chaining to successive words.
 	pxor	ve3, ve4
@@ -576,7 +576,7 @@ EKeyHas6Words:
 #undef	STable
 
 	.globl _vng_aes_encrypt_key256
-//	.private_extern	_vng_aes_encrypt_key256
+//	CC_ASM_PRIVATE_EXTERN	_vng_aes_encrypt_key256
 _vng_aes_encrypt_key256:
 
 	/*	Save registers and set SaveSize to the number of bytes pushed onto the
@@ -663,7 +663,7 @@ EKeyHas8Words:
             call    0f          // Push program counter onto stack.
         0:
             pop     %eax      // Get program counter.
- 
+
 		#define	STable	r3
         lea     _AESRcon-0b(%eax), R
         lea     _AESSubBytesWordTable-0b(%eax), STable
@@ -692,7 +692,7 @@ EKeyHas8Words:
 	iteration.  60 are needed in the key.  So only four are needed in the last
 	iteration.
 */
-	jmp		2f		
+	jmp		2f
 1:
 	movd	ve3, dr				// Put previous word into dissection register.
 

@@ -98,7 +98,7 @@
 
 				Round constants, beginning with AESRcon[1] for the first round
 				(AESRcon[0] is padding.)
-	
+
 		Arguments:
 
 			const unsigned char *Key
@@ -190,7 +190,7 @@ InvMixColumn:
 		movzb	drh, t0d
 		movd	LookupS(0, t0), vt1		// Look up byte 1 in table 0.
 		pxor	vt1, vt0
-		shr		$$16, dr
+		shr		$16, dr
 		movzb	drl, t0d
 		movd	LookupS(1, t0), vt1		// Look up byte 2 in table 1.
 		pxor	vt1, vt0
@@ -207,7 +207,7 @@ InvMixColumn:
 		movzb	drh, t0d
 		movd	LookupS(1, t0), vt1		// Look up byte 1 in table 1.
 		pxor	vt1,vt0
-		shr		$$16, dr
+		shr		$16, dr
 		movzb	drl, t0d
 		movd	LookupS(2, t0), vt1		// Look up byte 2 in table 2.
 		pxor	vt1,vt0
@@ -218,7 +218,7 @@ InvMixColumn:
 
 	.text
 	.globl _vng_aes_decrypt_opt_key
-//	.private_extern	_vng_aes_decrypt_opt_key
+//	CC_ASM_PRIVATE_EXTERN	_vng_aes_decrypt_opt_key
 _vng_aes_decrypt_opt_key:
 	/*	Save registers and set SaveSize to the number of bytes pushed onto the
 		stack so far, including the caller's return address.
@@ -303,7 +303,7 @@ _vng_aes_decrypt_opt_key:
 
 
 	.globl _vng_aes_decrypt_key128
-//	.private_extern	_vng_aes_decrypt_key128
+//	CC_ASM_PRIVATE_EXTERN	_vng_aes_decrypt_key128
 _vng_aes_decrypt_key128:
 
 	/*	Save registers and set SaveSize to the number of bytes pushed onto the
@@ -546,7 +546,7 @@ DKeyHas4Words:
 
 
 	.globl _vng_aes_decrypt_key192
-//	.private_extern	_vng_aes_decrypt_key192
+//	CC_ASM_PRIVATE_EXTERN	_vng_aes_decrypt_key192
 _vng_aes_decrypt_key192:
 
 	/*	Save registers and set SaveSize to the number of bytes pushed onto the
@@ -816,7 +816,7 @@ DKeyHas6Words:
 
 
 	.globl _vng_aes_decrypt_key256
-//	.private_extern	_vng_aes_decrypt_key256
+//	CC_ASM_PRIVATE_EXTERN	_vng_aes_decrypt_key256
 _vng_aes_decrypt_key256:
 
 	/*	Save registers and set SaveSize to the number of bytes pushed onto the

@@ -95,7 +95,7 @@ extern "C"
    so we need to control this with the following VC++ pragmas
 */
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 #pragma optimize( "s", on )
 #endif
 
@@ -284,7 +284,7 @@ int ccaes_gladman_encrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
    so we need to control this with the following VC++ pragmas
 */
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
 #pragma optimize( "t", on )
 #endif
 
@@ -333,7 +333,7 @@ int ccaes_gladman_encrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 
 
 int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
-                               const void *in, void *out)
+                          const void *in, void *out)
 {
     aes_32t        locals(b0, b1);
     const ccaes_gladman_decrypt_ctx *cx = (const ccaes_gladman_decrypt_ctx *)key;
@@ -345,25 +345,24 @@ int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 #if defined(LAST_DEC_ROUND_CACHE_TABLES)
 	dtables(t_il);
 #endif
-	int cbcEnable = (cx->cbcEnable || iv) ? 1 : 0;
+	int cbcEnable = (cx->cbcEnable) ? 1 : 0;
 	unsigned char lastIv[AES_BLOCK_SIZE];
-	
+
 	/* fix a compiler warning... */
 	//b00 = 0; b01 = 0; b02=0; b03 = 0;
-	
+
 #if defined( dec_imvars )
     dec_imvars; /* declare variables for inv_mcol() if needed */
 #endif
-	
-#if defined( AES_ERR_CHK )
-    if( cx->rn != 10 && cx->rn != 12 && cx->rn != 14 )
-        return aes_error;
-#endif
+
+	if(cbcEnable & (num_blk == 0)) {
+        return 0;
+    }
 
 #if defined(DEC_ROUND_CACHE_TABLES)
 	itables(t_in);
-#endif	
-	
+#endif
+
 	in += AES_BLOCK_SIZE * (num_blk - 1);
 	out += AES_BLOCK_SIZE * (num_blk - 1);
 	// Load the last block's ciphertext into b1
@@ -373,7 +372,7 @@ int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 	if(cbcEnable & (num_blk != 0)) {
 		memmove(lastIv, in, AES_BLOCK_SIZE);
 	}
-	
+
 	for (;num_blk; out -= AES_BLOCK_SIZE, --num_blk)
 	{
 		kp = kptr;
@@ -381,7 +380,6 @@ int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 		key_in(b0, b1, kp);
 
 #if (DEC_UNROLL == FULL)
-	
 		switch(cx->rn)
 		{
 		case 14:
@@ -405,12 +403,10 @@ int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 			round(inv_rnd,  b1, b0, kp -  9 * N_COLS);
 #if defined(LAST_DEC_ROUND_CACHE_TABLES)
 			itables(t_il);
-#endif	
+#endif
 			round(inv_lrnd, b0, b1, kp - 10 * N_COLS);
 		}
-
 #else
-	
 		{   aes_32t    rnd;
 #if (DEC_UNROLL == PARTIAL)
 			for(rnd = 0; rnd < (cx->rn >> 1) - 1; ++rnd)
@@ -432,7 +428,7 @@ int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 #endif
 #if defined(LAST_DEC_ROUND_CACHE_TABLES)
 			itables(t_il);
-#endif	
+#endif
 			kp -= N_COLS;
 			round(inv_lrnd, b0, b1, kp);
 		}
@@ -451,7 +447,7 @@ int ccaes_gladman_decrypt(const cccbc_ctx *key, cccbc_iv *iv, size_t num_blk,
 				state_in(b1, in);
 			}
 
-			// Do the CBC with b1 which is either the IV or the ciphertext of 
+			// Do the CBC with b1 which is either the IV or the ciphertext of
 			// the previous block.
 			cbc(b0, b1);
 		}

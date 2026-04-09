@@ -30,7 +30,7 @@
  Issue 31/01/2006
 
  These subroutines implement multiple block AES modes for ECB, CBC, CFB,
- OFB and CTR encryption,  The code provides support for the VIA Advanced 
+ OFB and CTR encryption,  The code provides support for the VIA Advanced
  Cryptography Engine (ACE).
 
  NOTE: In the following subroutines, the AES contexts (ctx) must be
@@ -46,19 +46,19 @@
 /* move the xmm registers save/restore originally inside the callee functions into these 2 caller functions */
 
 /* HW-AES specific implementation cclee 3-12-10 */
-/* In aes_encrypt_cbc and aes_decrypt_cbc, __cpu_capabilities is polled, 
+/* In aes_encrypt_cbc and aes_decrypt_cbc, __cpu_capabilities is polled,
 	and if kHasAES is detected, branch to the hw-specific functions here */
 
 
-/* 	
+/*
 	This files defines _vng_encrypt_cbc_hw and _vng_decrypt_cbc_hw --- Intel Westmere HW AES-based implementation
-	of _aes_encrypt_cbc and _aes_decrypt_cbc. 
+	of _aes_encrypt_cbc and _aes_decrypt_cbc.
 
-	These 2 functions SHOULD BE entried ONLY after the AES HW is verified to be available. 
+	These 2 functions SHOULD BE entried ONLY after the AES HW is verified to be available.
 	They SHOULD NOT be called without AES HW detection. It might cause xnu to crash.
 
-	The AES HW is detected 1st thing in 
-		_aes_encrypt_cbc (aes_modes_asm.s) 
+	The AES HW is detected 1st thing in
+		_aes_encrypt_cbc (aes_modes_asm.s)
 		_aes_decrypt_cbc (aes_modes_asm.s)
 	and, if AES HW is detected, branch without link (ie, jump) to the functions here.
 
@@ -70,17 +70,17 @@
 	cclee 3-13-10
 */
 
-/* 
+/*
 	The function _vng_decrypt_cbc_hw previously simply serially decrypts block by block
 	in our group meeting, Eric/Ali suggested that I perhaps should take a look of combining multiple blocks
 	in a loop and interleaving multiple aesdec instructions to absorb/hide stalls to improve the decrypt thoughput.
 
-	The idea was actually described in the Intel AES Instruction Set White Paper (Rev. 2.0 page 53-55) 
+	The idea was actually described in the Intel AES Instruction Set White Paper (Rev. 2.0 page 53-55)
 
 	This modification interleaves the aesdec/aesdeclast instructions for 4 blocks in cbc mode.
 	On a 2.4GHz core-i5/2.66GHz core-i7, the x86_64 decrypt throughput (in xnu-iokit) has been improved
 	from 1180/1332 to 1667/1858 MBytes/sec. This is approximately 1.40 times speedup in the decryption.
-	The encrypt throughput is not changed.  
+	The encrypt throughput is not changed.
 
 	I also enhanced the assembly code comments.
 
@@ -99,10 +99,10 @@
     that might assume *iv is read only, and therefore should not be changed. This is being tracked in
 
     <rdar://problem/8256020> xnu : add cbc feature in bsd/crypto/aes/i386/
-    
+
 */
 
-/* ---------------------------------------------------------------------------------------------------------------- 
+/* ----------------------------------------------------------------------------------------------------------------
 
 	aes_encrypt_cbc function (see aes_modes.c or aes_modes_asm.s) :
 
@@ -119,10 +119,10 @@
 	}
 
 	The following is an implementation of this function using Intel AESNI.
-	This function _vng_aes_encrypt_cbc_hw SHOULD NOT be called directly. 
+	This function _vng_aes_encrypt_cbc_hw SHOULD NOT be called directly.
 	Developer should still call _aes_encrypt_cbc (in aes_modes_asm.s) which will poll cpu_capabilities and branch
 	to this aesni-based function should it detecs that aesni is available.
-	Blindly call this function SURELY will cause a CRASH on systems with no aesni support. 
+	Blindly call this function SURELY will cause a CRASH on systems with no aesni support.
 
 	Note that each block starts with *iv, which is the output of the previous block. Therefore, the cbc blocks
 	are serially chained. This prevents us from arranging several blocks for encryption in parallel.
@@ -133,6 +133,8 @@
 	.align	4,0x90
 	.globl	_vng_aes_encrypt_cbc_hw
 _vng_aes_encrypt_cbc_hw:
+	.globl _vng_aes_encrypt_aesni_cbc
+_vng_aes_encrypt_aesni_cbc:
 
 	// push/save registers for local use
 #if	defined	__i386__
@@ -163,7 +165,7 @@ _vng_aes_encrypt_cbc_hw:
 #if defined __i386__
 	sub		$(8*16), %esp			// for possible xmm0-xmm7 save/restore
 #else
-	sub		$(16*16), %rsp		// xmm0-xmm15 save/restore	
+	sub		$(16*16), %rsp		// xmm0-xmm15 save/restore
 #endif
 
 	movaps	%xmm0, (sp)
@@ -193,14 +195,14 @@ _vng_aes_encrypt_cbc_hw:
 
 	mov		12(%ebp), %eax			// &iv[0]
 	mov		24(%ebp), %edx			// ctx
-	movups	(%eax), iv				// iv = in_iv	
+	movups	(%eax), iv				// iv = in_iv
 	mov		8(%ebp), %ebx			// ibuf
 	mov		16(%ebp), %ecx			// num_blk
 	mov		20(%ebp), %edi			// obuf
 
 	#define	ibuf	%ebx
 	#define	obuf	%edi
-	#define num_blk	%ecx	
+	#define num_blk	%ecx
 	#define	ctx		%edx
 
 #else
@@ -209,11 +211,11 @@ _vng_aes_encrypt_cbc_hw:
 	movups	(%rsi), iv				// iv = in_iv
 	mov		%rdx, %r13				// num_blk
 	mov		%rcx, %r14				// obuf
-	mov		%r8, %r15				// ctx	
+	mov		%r8, %r15				// ctx
 
 	#define	ibuf	%rbx
 	#define	num_blk	%r13d
-	#define	obuf	%r14	
+	#define	obuf	%r14
 	#define	ctx		%r15
 
 #endif
@@ -226,7 +228,7 @@ _vng_aes_encrypt_cbc_hw:
 	cmp		$224, %eax				// aes-256 encrypt ?
 	je		L_encrypt_256
 	mov		$-1, %eax				// return error
-	jmp		L_error	
+	jmp		L_error
 
 	//
 	// aes-128 encrypt_cbc operation, up to L_HW_cbc_done
@@ -309,7 +311,7 @@ L_HW_cbc_done:
 L_error:
 
 	// if kernel, restore xmm registers
-#ifdef	CC_KERNEL 
+#ifdef	CC_KERNEL
 	movaps	0(sp), %xmm0
 	movaps	16(sp), %xmm1
 	movaps	32(sp), %xmm2
@@ -330,7 +332,7 @@ L_error:
 #endif	// __x86_64__
 #endif	// CC_KERNEL
 
-	// release used stack memory, restore used callee-saved registers, and return 
+	// release used stack memory, restore used callee-saved registers, and return
 #if	defined	__i386__
 #ifdef	CC_KERNEL
 	add		$(8*16), %esp
@@ -339,7 +341,7 @@ L_error:
 	pop		%ebx
 #else
 #ifdef	CC_KERNEL
-	add		$(16*16), %rsp	
+	add		$(16*16), %rsp
 #endif
 	pop		%r15
 	pop		%r14
@@ -373,7 +375,7 @@ L_encrypt_192:
 	movups	176(ctx), %xmm13		// keyB
 	movups	192(ctx), %xmm14		// keyC
 #endif
-	
+
 	// while (num_blk--) {
 	//			*iv ^= *ibuf++;
 	//			aes_encrypt(iv, iv, ctx);
@@ -460,7 +462,7 @@ L_encrypt_256:
 0:
 	movups	(ibuf), %xmm1			// *ibuf
 	pxor	%xmm1, iv				// *iv ^= ibuf
-	
+
 	// aes_encrypt(iv, iv, ctx);
 	pxor    %xmm2, iv
     aesenc  %xmm3, iv
@@ -516,7 +518,7 @@ L_encrypt_256:
 	//
 
 
-/* ---------------------------------------------------------------------------------------------------------------- 
+/* ----------------------------------------------------------------------------------------------------------------
 
 	aes_decrypt_cbc function (see aes_modes.c or aes_modes_asm.s) :
 
@@ -533,10 +535,10 @@ L_encrypt_256:
 	}
 
 	The following is an implementation of this function using Intel AESNI.
-	This function _vng_decrypt_cbc_hw SHOULD NOT be called directly. 
+	This function _vng_decrypt_cbc_hw SHOULD NOT be called directly.
 	Developer should still call _aes_decrypt_cbc (in aes_modes_asm.s) which will poll cpu_capabilities and branch
 	to this aesni-based function should it detecs that aesni is available.
-	Blindly call this function SURELY will cause a CRASH on systems with no aesni support. 
+	Blindly call this function SURELY will cause a CRASH on systems with no aesni support.
 
 	Note that the decryption operation is not related over blocks.
 	This gives opportunity of arranging aes_decrypt operations in parallel to speed up code.
@@ -564,6 +566,8 @@ L_encrypt_256:
 	.align	4,0x90
 	.globl	_vng_aes_decrypt_cbc_hw
 _vng_aes_decrypt_cbc_hw:
+	.globl _vng_aes_decrypt_aesni_cbc
+_vng_aes_decrypt_aesni_cbc:
 
 	// push/save registers for local use
 #if	defined	__i386__
@@ -622,14 +626,14 @@ _vng_aes_decrypt_cbc_hw:
 #if defined	__i386__
 	mov		12(%ebp), %eax			// &iv[0]
 	mov		24(%ebp), %edx			// ctx
-	movups	(%eax), iv				// iv = in_iv	
+	movups	(%eax), iv				// iv = in_iv
 	mov		8(%ebp), %ebx			// ibuf
 	mov		16(%ebp), %ecx			// num_blk
 	mov		20(%ebp), %edi			// obuf
 
 	#define	ibuf	%ebx
 	#define	obuf	%edi
-	#define num_blk	%ecx	
+	#define num_blk	%ecx
 	#define	ctx		%edx
 
 #else	//	__x86_64__, rdi/rsi/rdx/rcx/r8
@@ -638,11 +642,11 @@ _vng_aes_decrypt_cbc_hw:
 	movups	(%rsi), iv				// iv = in_iv
 	mov		%rdx, %r13				// num_blk
 	mov		%rcx, %r14				// obuf
-	mov		%r8, %r15				// ctx	
+	mov		%r8, %r15				// ctx
 
 	#define	ibuf	%rbx
 	#define	num_blk	%r13d
-	#define	obuf	%r14	
+	#define	obuf	%r14
 	#define	ctx		%r15
 
 #endif
@@ -775,13 +779,13 @@ L_decrypt_128:
     aesdeclast  %xmm13, %xmm14
     aesdeclast  %xmm13, %xmm15
 
-	pxor	iv, %xmm1				// obuf[0] ^= *iv; 
+	pxor	iv, %xmm1				// obuf[0] ^= *iv;
 	movups	(ibuf), iv				// ibuf[0]
-	pxor	iv, %xmm2				// obuf[1] ^= ibuf[0]; 
+	pxor	iv, %xmm2				// obuf[1] ^= ibuf[0];
 	movups	16(ibuf), iv			// ibuf[1]
-	pxor	iv, %xmm14				// obuf[2] ^= ibuf[1]; 
-	movups	32(ibuf), iv			// ibuf[2] 
-	pxor	iv, %xmm15				// obuf[3] ^= obuf[2]; 
+	pxor	iv, %xmm14				// obuf[2] ^= ibuf[1];
+	movups	32(ibuf), iv			// ibuf[2]
+	pxor	iv, %xmm15				// obuf[3] ^= obuf[2];
 	movups	48(ibuf), iv			// *iv = ibuf[3]
 
 	movups	%xmm1, (obuf)			// write 1st obuf
@@ -892,13 +896,13 @@ L_decrypt_128:
     aesdeclast  %xmm7, %xmm4
     aesdeclast  %xmm7, %xmm5
 
-	pxor	iv, %xmm1				// 1st obuf ^= iv; 
+	pxor	iv, %xmm1				// 1st obuf ^= iv;
 	movups	(ibuf), iv				// 1st memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm2				// 2nd obuf ^= iv; 
+	pxor	iv, %xmm2				// 2nd obuf ^= iv;
 	movups	16(ibuf), iv			// 2nd memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm4				// 3rd obuf ^= iv; 
+	pxor	iv, %xmm4				// 3rd obuf ^= iv;
 	movups	32(ibuf), iv			// 3rd memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm5				// 4th obuf ^= iv; 
+	pxor	iv, %xmm5				// 4th obuf ^= iv;
 	movups	48(ibuf), iv			// 4th memcpy(iv, tmp, AES_BLOCK_SIZE);
 
 	movups	%xmm1, (obuf)			// write 1st obuf
@@ -907,8 +911,8 @@ L_decrypt_128:
 	movups	%xmm5, 48(obuf)			// write 4th obuf
 #endif
 
-	add		$64, ibuf				// ibuf += 4; 
-	add		$64, obuf				// obuf += 4;	
+	add		$64, ibuf				// ibuf += 4;
+	add		$64, obuf				// obuf += 4;
 
 	sub		$4, num_blk				// num_blk -= 4
 	jge		0b						// if num_blk > 0, repeat the loop
@@ -981,7 +985,7 @@ L_decrypt_128:
 	movups	96(ctx), %xmm7
 #endif
 
-	pxor	iv, %xmm1				// obuf[0] ^= *iv; 
+	pxor	iv, %xmm1				// obuf[0] ^= *iv;
 	movups	(ibuf), iv				// ibuf[0]
 	pxor	iv, %xmm2				// obuf[1] ^= ibuf[0]
 	movups	16(ibuf), iv			// *iv = ibuf[1]
@@ -995,7 +999,7 @@ L_decrypt_128:
 9:
 	test	$1, num_blk				// check whether num_blk has residual 1 block
 	je		L_HW_cbc_done			// if num_blk == 0, no need for residual processing code
-	
+
 	movups	(ibuf), %xmm2				// tmp = ibuf
 	// aes_decrypt
 	pxor    %xmm3, %xmm2
@@ -1025,7 +1029,7 @@ L_decrypt_128:
     aesdeclast  %xmm1, %xmm2
 #endif
 
-	pxor	iv, %xmm2			// *obuf ^= *iv; 
+	pxor	iv, %xmm2			// *obuf ^= *iv;
 	movups	(ibuf), iv			// *iv = *ibuf;
 	movups	%xmm2, (obuf)		// write *obuf
 
@@ -1168,28 +1172,28 @@ L_decrypt_192:
 
 	movups	32(ctx), %xmm13		// restore %xmm13 to its original key
 
-	pxor	iv, %xmm1				// obuf[0] ^= *iv; 
+	pxor	iv, %xmm1				// obuf[0] ^= *iv;
 	movups	(ibuf), iv				// ibuf[0]
-	pxor	iv, %xmm2				// obuf[1] ^= ibuf[0] 
+	pxor	iv, %xmm2				// obuf[1] ^= ibuf[0]
 	movups	16(ibuf), iv			// ibuf[1]
-	pxor	iv, %xmm14				// obuf[2] ^= ibuf[1] 
-	movups	32(ibuf), iv			// ibuf[2] 
-	pxor	iv, %xmm15				// obuf[3] ^= ibuf[2] 
-	movups	48(ibuf), iv			// *iv = ibuf[3] 
+	pxor	iv, %xmm14				// obuf[2] ^= ibuf[1]
+	movups	32(ibuf), iv			// ibuf[2]
+	pxor	iv, %xmm15				// obuf[3] ^= ibuf[2]
+	movups	48(ibuf), iv			// *iv = ibuf[3]
 
 	movups	%xmm1, (obuf)			// write 1st obuf
 	movups	%xmm2, 16(obuf)			// write 2nd obuf
 	movups	%xmm14, 32(obuf)		// write 3rd obuf
 	movups	%xmm15, 48(obuf)		// write 4th obuf
 
-	add		$64, ibuf				// ibuf += 4; 
-	add		$64, obuf				// obuf += 4;	
+	add		$64, ibuf				// ibuf += 4;
+	add		$64, obuf				// obuf += 4;
 
 	sub		$4, num_blk				// num_blk -= 4
 	jge		0b						// if num_blk > 0, repeat the loop
 
 9:	add		$4, num_blk				// post incremtn num_blk by 4
-	je		L_HW_cbc_done			// if num_blk == 0, prepare to return 
+	je		L_HW_cbc_done			// if num_blk == 0, prepare to return
 
 	movups	16(ctx), %xmm14			// restore %xmm14 to its key
 	movups	(ctx), %xmm15			// restore %xmm15 to its key
@@ -1280,21 +1284,21 @@ L_decrypt_192:
     aesdeclast  %xmm7, %xmm4
     aesdeclast  %xmm7, %xmm5
 
-	pxor	iv, %xmm1				// 1st obuf ^= iv; 
+	pxor	iv, %xmm1				// 1st obuf ^= iv;
 	movups	(ibuf), iv				// 1st memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm2				// 2nd obuf ^= iv; 
+	pxor	iv, %xmm2				// 2nd obuf ^= iv;
 	movups	16(ibuf), iv			// 2nd memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm4				// 3rd obuf ^= iv; 
+	pxor	iv, %xmm4				// 3rd obuf ^= iv;
 	movups	32(ibuf), iv			// 3rd memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm5				// 4th obuf ^= iv; 
+	pxor	iv, %xmm5				// 4th obuf ^= iv;
 	movups	48(ibuf), iv			// 4th memcpy(iv, tmp, AES_BLOCK_SIZE);
 	movups	%xmm1, (obuf)			// write 1st obuf
 	movups	%xmm2, 16(obuf)			// write 2nd obuf
 	movups	%xmm4, 32(obuf)			// write 3rd obuf
 	movups	%xmm5, 48(obuf)			// write 4th obuf
 
-	add		$64, ibuf				// ibuf += AES_BLOCK_SIZE * 4; 
-	add		$64, obuf				// obuf += AES_BLOCK_SIZE * 4;	
+	add		$64, ibuf				// ibuf += AES_BLOCK_SIZE * 4;
+	add		$64, obuf				// obuf += AES_BLOCK_SIZE * 4;
 
 	sub		$4, num_blk				// num_blk -= 4
 	jge		0b						// if num_blk > 0, repeat the loop
@@ -1349,13 +1353,13 @@ L_decrypt_192:
     aesdeclast  %xmm1, %xmm2
 #endif
 
-	pxor	iv, %xmm2			// obuf ^= iv; 
+	pxor	iv, %xmm2			// obuf ^= iv;
 	movups	(ibuf), iv			// memcpy(iv, tmp, AES_BLOCK_SIZE);
 
 	movups	%xmm2, (obuf)		// write obuf
 
-	add		$16, ibuf				// ibuf += AES_BLOCK_SIZE; 
-	add		$16, obuf				// obuf += AES_BLOCK_SIZE;	
+	add		$16, ibuf				// ibuf += AES_BLOCK_SIZE;
+	add		$16, obuf				// obuf += AES_BLOCK_SIZE;
 	sub		$1, num_blk				// num_blk --
 	jg		0b						// if num_blk > 0, repeat the loop
 
@@ -1368,7 +1372,7 @@ L_decrypt_192:
 L_decrypt_256:
 
 	cmp		$1, num_blk
-	jl		L_HW_cbc_done	
+	jl		L_HW_cbc_done
 
 	movups	224(ctx), %xmm3
 	movups	208(ctx), %xmm4
@@ -1480,13 +1484,13 @@ L_decrypt_256:
     aesdeclast  %xmm13, %xmm15
 	movups	64(ctx), %xmm13
 
-	pxor	iv, %xmm1				// obuf ^= iv; 
+	pxor	iv, %xmm1				// obuf ^= iv;
 	movups	(ibuf), iv				// memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm2				// obuf ^= iv; 
+	pxor	iv, %xmm2				// obuf ^= iv;
 	movups	16(ibuf), iv			// memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm14				// obuf ^= iv; 
+	pxor	iv, %xmm14				// obuf ^= iv;
 	movups	32(ibuf), iv			// memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm15				// obuf ^= iv; 
+	pxor	iv, %xmm15				// obuf ^= iv;
 	movups	48(ibuf), iv			// memcpy(iv, tmp, AES_BLOCK_SIZE);
 
 	movups	%xmm1, (obuf)			// write 1st obuf
@@ -1494,8 +1498,8 @@ L_decrypt_256:
 	movups	%xmm14, 32(obuf)		// write 3rd obuf
 	movups	%xmm15, 48(obuf)		// write 4th obuf
 
-	add		$64, ibuf				// ibuf += AES_BLOCK_SIZE*4; 
-	add		$64, obuf				// obuf += AES_BLOCK_SIZE*4;	
+	add		$64, ibuf				// ibuf += AES_BLOCK_SIZE*4;
+	add		$64, obuf				// obuf += AES_BLOCK_SIZE*4;
 
 	sub		$4, num_blk				// num_blk -= 4
 	jge		0b						// if num_blk > 0, repeat the loop
@@ -1607,21 +1611,21 @@ L_decrypt_256:
     aesdeclast  %xmm7, %xmm4
     aesdeclast  %xmm7, %xmm5
 
-	pxor	iv, %xmm1				// 1st obuf ^= iv; 
+	pxor	iv, %xmm1				// 1st obuf ^= iv;
 	movups	(ibuf), iv				// 1st memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm2				// 2nd obuf ^= iv; 
+	pxor	iv, %xmm2				// 2nd obuf ^= iv;
 	movups	16(ibuf), iv			// 2nd memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm4				// 3rd obuf ^= iv; 
+	pxor	iv, %xmm4				// 3rd obuf ^= iv;
 	movups	32(ibuf), iv			// 3rd memcpy(iv, tmp, AES_BLOCK_SIZE);
-	pxor	iv, %xmm5				// 4th obuf ^= iv; 
+	pxor	iv, %xmm5				// 4th obuf ^= iv;
 	movups	48(ibuf), iv			// 4th memcpy(iv, tmp, AES_BLOCK_SIZE);
 	movups	%xmm1, (obuf)			// write 1st obuf
 	movups	%xmm2, 16(obuf)			// write 2nd obuf
 	movups	%xmm4, 32(obuf)			// write 3rd obuf
 	movups	%xmm5, 48(obuf)			// write 4th obuf
 
-	add		$64, ibuf				// ibuf += AES_BLOCK_SIZE * 4; 
-	add		$64, obuf				// obuf += AES_BLOCK_SIZE * 4;	
+	add		$64, ibuf				// ibuf += AES_BLOCK_SIZE * 4;
+	add		$64, obuf				// obuf += AES_BLOCK_SIZE * 4;
 
 	sub		$4, num_blk				// num_blk -= 4
 	jge		0b						// if num_blk > 0, repeat the loop
@@ -1678,13 +1682,13 @@ L_decrypt_256:
 	movups	(ctx), %xmm1
     aesdeclast  %xmm1, %xmm2
 
-	pxor	iv, %xmm2			// obuf ^= iv; 
+	pxor	iv, %xmm2			// obuf ^= iv;
 	movups	(ibuf), iv			// memcpy(iv, tmp, AES_BLOCK_SIZE);
 
 	movups	%xmm2, (obuf)		// write obuf
 
-	add		$16, ibuf				// ibuf += AES_BLOCK_SIZE; 
-	add		$16, obuf				// obuf += AES_BLOCK_SIZE;	
+	add		$16, ibuf				// ibuf += AES_BLOCK_SIZE;
+	add		$16, obuf				// obuf += AES_BLOCK_SIZE;
 	sub		$1, num_blk				// num_blk --
 	jg		0b						// if num_blk > 0, repeat the loop
 
