@@ -1,0 +1,36 @@
+name: corecrypto (Darwin)
+
+on:
+  workflow_dispatch:
+    branches:
+      - development
+      - master
+
+  push:
+    branches:
+      - development
+      - master
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Clone Sources
+        run: |
+          git clone --branch ${GITHUB_REF_NAME} https://github.com/${{ github.repository } ~/corecrypto
+      - name: Build & Install
+        run: |
+          cd ~/corecrypto
+          xcodebuild install -target corecrypto_darwin DSTROOT=$PWD/DSTROOT
+      - name: Package DSTROOT into a tarball
+        run: |
+          cd ~/corecrypto
+          cd $PWD/DSTROOT
+          tar -cvf corecrypto.tar.xz .
+      - name: Upload Kernel Root tarball
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: corecrypto.tar.xz
+          path: /Users/runner/corecrypto/DSTROOT/corecrypto.tar.xz
