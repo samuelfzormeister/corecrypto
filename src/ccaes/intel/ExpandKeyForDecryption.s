@@ -190,7 +190,11 @@ InvMixColumn:
 		movzb	drh, t0d
 		movd	LookupS(0, t0), vt1		// Look up byte 1 in table 0.
 		pxor	vt1, vt0
-		shr		$16, dr
+#if __APPLE__
+		shr		$$16, dr
+#else
+        shr     $16, dr
+#endif
 		movzb	drl, t0d
 		movd	LookupS(1, t0), vt1		// Look up byte 2 in table 1.
 		pxor	vt1, vt0
@@ -207,7 +211,11 @@ InvMixColumn:
 		movzb	drh, t0d
 		movd	LookupS(1, t0), vt1		// Look up byte 1 in table 1.
 		pxor	vt1,vt0
-		shr		$16, dr
+#if __APPLE__
+        shr        $$16, dr
+#else
+        shr     $16, dr
+#endif
 		movzb	drl, t0d
 		movd	LookupS(2, t0), vt1		// Look up byte 2 in table 2.
 		pxor	vt1,vt0

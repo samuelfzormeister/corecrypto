@@ -42,6 +42,23 @@ void cc_stub_log_abort(const char *fn)
     abort();
 }
 
+#elif CC_KERNEL
+
+#include <corecrypto/cc_priv.h>
+
+void cc_stub_log(const char *fn)
+{
+    cc_printf("corecrypto:%s: some outside library is trying to use our darwinOS stubs.\n", fn);
+}
+
+void cc_stub_log_abort(const char *fn)
+{
+    cc_stub_log(fn);
+    cc_printf("corecrypto:%s: according to the function called, this is illegal.\n", fn);
+    cc_try_abort("stub.");
+}
+
+
 #else
 
 // --- This is if anyone tries to call into Darwin stubs on Windows. --- //

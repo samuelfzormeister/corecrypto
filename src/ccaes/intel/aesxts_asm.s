@@ -50,6 +50,22 @@
 
 */
 
+#if __APPLE__
+    .macro      xts_mult_x_on_xmm7            // input : x = %xmm7, MS = most significant, LS = least significant
+    movaps      %xmm7, %xmm1                // %xmm1 = a copy of x
+    movaps      %xmm7, %xmm2                // %xmm2 = a copy of x
+    psllq       $$1, %xmm7                    // 1-bit left shift of 2 quad words (x1<<1, x0<<1), zero-filled
+    psrlq       $$63, %xmm1                    // 2 leading bits, each in the least significant bit of a quad word
+    psrad       $$31, %xmm2                    // the MS 32-bit will be either 0 or -1, depending on the MS bit of x
+    pshufd      $$0xc6, %xmm1, %xmm1        // switch the positions of the 2 leading bits
+    pshufd      $$0x03, %xmm2, %xmm2        // the LS 32-bit will be either 0 or -1, depending on the MS bit of x
+    por         %xmm1, %xmm7                // we finally has %xmm7 = rotate_left(x,1);
+    movl        $$0x86, %ecx                // a potential byte to xor the bottom byte
+    movd        %ecx, %xmm1                    // copy it to %xmm1, the other is 0
+    pand        %xmm2, %xmm1                // %xmm1 = 0 or 0x86, depending on the MS bit of x
+    pxor        %xmm1, %xmm7                // rotate_left(x,1) ^= 0 or 0x86 depending on the MS bit of x
+    .endm
+#else
 	.macro		xts_mult_x_on_xmm7			// input : x = %xmm7, MS = most significant, LS = least significant
 	movaps		%xmm7, %xmm1				// %xmm1 = a copy of x
 	movaps		%xmm7, %xmm2				// %xmm2 = a copy of x
@@ -64,6 +80,7 @@
 	pand		%xmm2, %xmm1				// %xmm1 = 0 or 0x86, depending on the MS bit of x
 	pxor		%xmm1, %xmm7				// rotate_left(x,1) ^= 0 or 0x86 depending on the MS bit of x
 	.endm
+#endif
 
 
 /*
