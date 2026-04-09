@@ -34,5 +34,6 @@ extern const uint64_t ccsha512_K[80];
 extern void ccsha256_ltc_compress(ccdigest_state_t state, size_t nblocks, const void *data);
 extern void ccsha512_ltc_compress(ccdigest_state_t state, size_t nblocks, const void *data);
 extern void ccsha512_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *digest);
+extern void ccsha512_224_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx, void *digest);
 
 #endif

@@ -31,5 +31,5 @@ const struct ccdigest_info ccsha512_224_ltc_di = {
     .initial_state = ccsha512_224_initial_state,
 
     .compress = ccsha512_ltc_compress,
-    .final = ccsha512_final,
+    .final = ccsha512_224_final,
 };

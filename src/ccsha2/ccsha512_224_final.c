@@ -20,8 +20,7 @@
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccdigest.h>
 
-/* I referenced ccdigest_final_64be for this. */
-void ccsha512_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx,
+void ccsha512_224_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx,
                     void *digest)
 {
     unsigned char *dgst = digest;
@@ -50,4 +49,8 @@ void ccsha512_final(const struct ccdigest_info *di, ccdigest_ctx_t ctx,
     for (unsigned int i = 0; i < di->output_size / 8; i++) {
         CC_STORE64_BE(ccdigest_state_u64(di, ctx)[i], dgst + (8 * i));
     }
+
+    // --- The digest output size isn't entirely divisible by 8. --- //
+    unsigned int top = ((di->output_size / 4));
+    CC_STORE32_BE(ccdigest_state_u32(di, ctx)[top], dgst + (4 * (top - 1)));
 }
