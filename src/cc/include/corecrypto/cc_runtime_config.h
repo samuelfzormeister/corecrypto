@@ -41,7 +41,9 @@
         #define kHasADX                 0x0000000400000000ULL
 
         // --- _cpu_capabilities has been uint64_t since 2050.48.11 --- //
-        #include <libkern/version.h>
+        #include <Kernel/libkern/version.h>
+        #include <stdint.h>
+
         #if VERSION_MAJOR > 12 || (VERSION_MAJOR == 12 && VERSION_MINOR >= 5)
             extern uint64_t _get_cpu_capabilities(void);
         #else
