@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Clone Sources
         run: |
-          git clone --branch ${GITHUB_REF_NAME} https://github.com/${{ github.repository } ~/corecrypto
+          git clone --branch ${GITHUB_REF_NAME} https://github.com/${{ github.repository }} ~/corecrypto
       - name: Build & Install
         run: |
           cd ~/corecrypto
@@ -28,9 +28,9 @@ jobs:
           cd ~/corecrypto
           cd $PWD/DSTROOT
           tar -cvf corecrypto.tar.xz .
-      - name: Upload Kernel Root tarball
+      - name: Upload tarball
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: corecrypto.tar.xz
           path: /Users/runner/corecrypto/DSTROOT/corecrypto.tar.xz
