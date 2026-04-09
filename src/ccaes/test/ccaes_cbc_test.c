@@ -63,12 +63,12 @@ CCMODE_FACTORY_TEST_FACTORY(aes, cbc, encrypt, cbc_encrypt_vectors, "CBC AES Enc
 CCMODE_FACTORY_TEST_FACTORY(aes, cbc, decrypt, cbc_decrypt_vectors, "CBC AES Decrypt (Factory)");
 
 CCMODE_CBC_TEST_FACTORY(aes, encrypt, cbc_encrypt_vectors, "Gladman AES Encrypt", gladman_cbc_encrypt);
-CCMODE_CBC_TEST_FACTORY(aes, encrypt, cbc_decrypt_vectors, "Gladman AES Decrypt", gladman_cbc_decrypt);
+CCMODE_CBC_TEST_FACTORY(aes, decrypt, cbc_decrypt_vectors, "Gladman AES Decrypt", gladman_cbc_decrypt);
 
 #if CCAES_INTEL_ASM
 CCMODE_CBC_TEST_FACTORY(aes, encrypt, cbc_encrypt_vectors, "Intel Opt AES Encrypt", intel_cbc_encrypt_opt);
-CCMODE_CBC_TEST_FACTORY(aes, encrypt, cbc_encrypt_vectors, "Intel Opt AES Decrypt", intel_cbc_decrypt_opt);
+CCMODE_CBC_TEST_FACTORY(aes, decrypt, cbc_decrypt_vectors, "Intel Opt AES Decrypt", intel_cbc_decrypt_opt);
 
 CCMODE_CBC_TEST_FACTORY(aes, encrypt, cbc_encrypt_vectors, "Intel AESNI AES Encrypt", intel_cbc_encrypt_aesni);
-CCMODE_CBC_TEST_FACTORY(aes, encrypt, cbc_encrypt_vectors, "Intel AESNI AES Decrypt", intel_cbc_decrypt_aesni);
+CCMODE_CBC_TEST_FACTORY(aes, decrypt, cbc_decrypt_vectors, "Intel AESNI AES Decrypt", intel_cbc_decrypt_aesni);
 #endif
