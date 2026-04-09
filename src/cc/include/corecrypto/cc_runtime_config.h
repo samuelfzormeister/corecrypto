@@ -15,6 +15,10 @@
 
 /* Only intel systems have these runtime switches today. */
 
+// --- Default version macros if <Kernel/libkern/version.h> is unavailable --- //
+#define __CC_MAJOR_VERSION 19
+#define __CC_MINOR_VERSION 6
+
 #if defined(__x86_64__) || defined(__i386__)
 
 #if CC_KERNEL
@@ -29,6 +33,8 @@
 
 #elif CC_XNU_KERNEL_AVAILABLE
     #if !__has_include(<System/i386/cpu_capabilities.h>)
+        #include <stdint.h>
+
         #define kHasSupplementalSSE3    0x00000100
         #define kHasAES                 0x00001000
         #define kHasAVX1_0              0x01000000
@@ -41,8 +47,12 @@
         #define kHasADX                 0x0000000400000000ULL
 
         // --- _cpu_capabilities has been uint64_t since 2050.48.11 --- //
-        #include <Kernel/libkern/version.h>
-        #include <stdint.h>
+        #if __has_include(<Kenrel/libkern/version.h>)
+            #include <Kenrel/libkern/version.h>
+        #else
+            #define VERSION_MAJOR __CC_MAJOR_VERSION
+            #define VERSION_MINOR __CC_MINOR_VERSION
+        #endif
 
         #if VERSION_MAJOR > 12 || (VERSION_MAJOR == 12 && VERSION_MINOR >= 5)
             extern uint64_t _get_cpu_capabilities(void);
@@ -139,13 +149,19 @@
 
 #if CC_XNU_KERNEL_AVAILABLE || CC_KERNEL
     #if !__has_include(<System/arm/cpu_capabilities.h>)
-        #define kHasARMv8Crypto  0x01000000
+        #include <stdint.h>
 
+        #define kHasARMv8Crypto  0x01000000
         // --- We can still check for this bit --- //
         #define kHasARMv82SHA512 0x80000000
 
         // --- This is the easiest way to account for the change. --- //
-        #include <Kenrel/libkern/version.h>
+        #if __has_include(<Kenrel/libkern/version.h>)
+            #include <Kenrel/libkern/version.h>
+        #else
+            #define VERSION_MAJOR __CC_MAJOR_VERSION
+            #define VERSION_MINOR __CC_MINOR_VERSION
+        #endif
         #if VERSION_MAJOR >= 20
             extern uint64_t _get_cpu_capabilities(void);
         #else
