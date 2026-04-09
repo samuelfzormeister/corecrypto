@@ -20,80 +20,101 @@
 #if CC_KERNEL
     #include <i386/cpuid.h>
     #define CC_HAS_RDRAND() ((cpuid_features() & CPUID_FEATURE_RDRAND) != 0)
-#elif CC_XNU_KERNEL_AVAILABLE
-    #if !__has_include(<System/i386/cpu_capabilities.h>)
-        #define kHasRDRAND 0x02000000
-    #else
-        #include <System/i386/cpu_capabilities.h>
-    #endif
-
-    extern int _cpu_capabilities;
-    #define CC_HAS_RDRAND() (_cpu_capabilities & kHasRDRAND)
-#else
-    #define CC_HAS_RDRAND() 0
-#endif
-
-#if (CCSHA1_VNG_INTEL || CCSHA2_VNG_INTEL || CCAES_INTEL_ASM)
-
-#if CC_KERNEL
-    #include <i386/cpuid.h>
     #define CC_HAS_AESNI() ((cpuid_features() & CPUID_FEATURE_AES) != 0)
     #define CC_HAS_SupplementalSSE3() ((cpuid_features() & CPUID_FEATURE_SSSE3) != 0)
     #define CC_HAS_AVX1() ((cpuid_features() & CPUID_FEATURE_AVX1_0) != 0)
     #define CC_HAS_AVX2() ((cpuid_info()->cpuid_leaf7_features & CPUID_LEAF7_FEATURE_AVX2) != 0)
     #define CC_HAS_AVX512_AND_IN_KERNEL()    ((cpuid_info()->cpuid_leaf7_features & CPUID_LEAF7_FEATURE_AVX512F) !=0)
     #define CC_HAS_SHA()  ((cpuid_info()->cpuid_leaf7_features & CPUID_LEAF7_FEATURE_SHA) != 0)
-    #define CC_HAS_GFNI() ((cpuid_info()->cpuid_leaf7_features & CPUID_LEAF7_FEATURE_GFNI) != 0)
-#if CC_SAMZORMEISTER_KERNEL
-    #define CC_HAS_SHA512() ((cpuid_info()->cpuid_leaf7_sl1_features & CPUID_LEAF7_SL1_FEATURE_SHA512) != 0)
-#else
-    #define CC_HAS_SHA512() 0
-#endif
 
 #elif CC_XNU_KERNEL_AVAILABLE
     #if !__has_include(<System/i386/cpu_capabilities.h>)
         #define kHasSupplementalSSE3    0x00000100
         #define kHasAES                 0x00001000
         #define kHasAVX1_0              0x01000000
+        #define kHasRDRAND              0x02000000
+        // --- FMA might be of interest for ECC speedup. --- //
+        #define kHasFMA                 0x10000000
         #define kHasAVX2_0              0x20000000
+        #define kHasBMI2                0x80000000
+        // --- ADX might be of interest for ccn. --- //
+        #define kHasADX                 0x0000000400000000ULL
+
+        // --- _cpu_capabilities has been uint64_t since 2050.48.11 --- //
+        #include <libkern/version.h>
+        #if VERSION_MAJOR > 12 || (VERSION_MAJOR == 12 && VERSION_MINOR >= 5)
+            extern uint64_t _get_cpu_capabilities(void);
+        #else
+            // --- Should I just cut this section out? Who's using libcorecrypto on Lion or Snow Leopard? --- //
+            extern int _get_cpu_capabilities(void);
+        #endif
     #else
         #include <System/i386/cpu_capabilities.h>
     #endif
 
-    extern int _cpu_capabilities;
-    #define CC_HAS_AESNI() (_cpu_capabilities & kHasAES)
-    #define CC_HAS_SupplementalSSE3() (_cpu_capabilities & kHasSupplementalSSE3)
-    #define CC_HAS_AVX1() (_cpu_capabilities & kHasAVX1_0)
-    #define CC_HAS_AVX2() (_cpu_capabilities & kHasAVX2_0)
+    #define CC_HAS_RDRAND() (_get_cpu_capabilities() & kHasRDRAND)
+
+    #define CC_HAS_AESNI() (_get_cpu_capabilities() & kHasAES)
+    #define CC_HAS_SupplementalSSE3() (_get_cpu_capabilities() & kHasSupplementalSSE3)
+    #define CC_HAS_AVX1() (_get_cpu_capabilities() & kHasAVX1_0)
+    #define CC_HAS_AVX2() (_get_cpu_capabilities() & kHasAVX2_0)
+
+    // --- I wonder why Apple specifically needs and AND_IN_KERNEL check. --- //
+    // --- Did they not port their AVX-512 code to userspace? --- //
     #define CC_HAS_AVX512_AND_IN_KERNEL() 0
-#if CC_SAMZORMEISTER_KERNEL
-    #define CC_HAS_SHA() (_cpu_capabilities & kHasSHA)
-    #define CC_HAS_SHA512() (_cpu_capabilities & kHasSHA512)
+
+    // --- New bits introduced in custom kernels. --- //
+#if CC_SYSTEM_HAS_SHA_BIT
+    #define CC_HAS_SHA() (_get_cpu_capabilities() & kHasSHA)
 #else
     #define CC_HAS_SHA() 0
+#endif /* CC_SYSTEM_HAS_SHA_BIT */
+
+#if CC_SYSTEM_HAS_SHA512_BIT
+    #define CC_HAS_SHA512() (_get_cpu_capabilities() & kHasSHA512)
+#else
     #define CC_HAS_SHA512() 0
-#endif /* CC_SAMZORMEISTER_KERNEL */
+#endif /* CC_SYSTEM_HAS_SHA512_BIT */
 
 #elif __has_include(<cpuid.h>)
     #include <cpuid.h>
+    #include <stdbool.h>
+    #include <stdint.h>
 
-    //
-    // SAMUEL:
-    // I tried to take advantage of the available macros; but I don't
-    // think I can cover everything without having to mess with
-    // interacting with /proc/cpuinfo
-    // Unless I use an external library or implement a parser for cpuinfo
-    // and have an embedded function.
-    //
+    // --- libgcc doesn't cover every extension, I need to invoke CPUID. --- //
 
-    #define CC_HAS_AESNI() __builtin_cpu_supports("aes")
-    #define CC_HAS_SupplementalSSE3() __builtin_cpu_supports("ssse3")
-    #define CC_HAS_AVX1() __builtin_cpu_supports("avx")
-    #define CC_HAS_AVX2() __builtin_cpu_supports("avx2")
+    #define __REGISTER_EAX 0
+    #define __REGISTER_EBX 1
+    #define __REGISTER_ECX 2
+    #define __REGISTER_EDX 3
+
+    CC_INLINE bool cpu_check_leaf1(uint32_t reg, uint32_t bit)
+    {
+        uint32_t cpuid[4] = {0,0, 0, 0};
+        __cpuid(1, cpuid[__REGISTER_EAX], cpuid[__REGISTER_EBX], cpuid[__REGISTER_ECX], cpuid[__REGISTER_EDX]);
+        return (cpuid[reg] & bit) != 0;
+    }
+
+    CC_INLINE bool cpu_check_leaf7(uint32_t sl, uint32_t reg, uint32_t bit)
+    {
+        uint32_t cpuid[4] = {7,0, sl, 0};
+        __cpuid(7, cpuid[__REGISTER_EAX], cpuid[__REGISTER_EBX], cpuid[__REGISTER_ECX], cpuid[__REGISTER_EDX]);
+        return (cpuid[reg] & bit) != 0;
+    }
+
+    // --- For further down the track, should RDSEED be used instead? --- //
+    #define CC_HAS_RDRAND() cpu_check_leaf1(__REGISTER_ECX, bit_RDRND)
+    #define CC_HAS_AESNI() cpu_check_leaf1(__REGISTER_ECX, bit_AESNI)
+    #define CC_HAS_SupplementalSSE3() cpu_check_leaf1(__REGISTER_ECX, bit_SSSE3)
+    #define CC_HAS_AVX1() cpu_check_leaf1(__REGISTER_ECX, bit_AVX)
+    #define CC_HAS_AVX2() cpu_check_leaf7(0, __REGISTER_EBX, bit_AVX2)
     #define CC_HAS_AVX512_AND_IN_KERNEL() 0
-    #define CC_HAS_SHA() 0
+    #define CC_HAS_SHA() cpu_check_leaf7(0, __REGISTER_EBX, bit_SHA)
+    #define CC_HAS_SHA512() cpu_check_leaf7(1, __REGISTER_EAX, bit_SHA512)
 
 #elif __has_include(<immintrin.h>)
+    // --- Fallback if there's no cpuid.h available --- //
+
     #include <immintrin.h>
     #define CC_HAS_AESNI() _may_i_use_cpu_feature(_FEATURE_AES)
     #define CC_HAS_SupplementalSSE3() _may_i_use_cpu_feature(_FEATURE_SSSE3)
@@ -101,25 +122,45 @@
     #define CC_HAS_AVX2() _may_i_use_cpu_feature(_FEATURE_AVX2)
     #define CC_HAS_AVX512_AND_IN_KERNEL()  0
     #define CC_HAS_SHA() _may_i_use_cpu_feature(_FEATURE_SHA)
-    /* ? */
     #define CC_HAS_SHA512() _may_i_use_cpu_feature_ext(_FEATURE_SHA512, 1)
-
 #else
+    #define CC_HAS_RDRAND() 0
     #define CC_HAS_AESNI() 0
     #define CC_HAS_SupplementalSSE3() 0
     #define CC_HAS_AVX1() 0
     #define CC_HAS_AVX2() 0
     #define CC_HAS_AVX512_AND_IN_KERNEL()  0
     #define CC_HAS_SHA() 0
-
 #endif
 
-#endif  // (CCSHA1_VNG_INTEL || CCSHA2_VNG_INTEL || CCAES_INTEL_ASM)
+#elif defined (__arm__) || defined (__arm64__)
+
+#if CC_XNU_KERNEL_AVAILABLE || CC_KERNEL
+    #if !__has_include(<System/arm/cpu_capabilities.h>)
+        #define kHasARMv8Crypto  0x01000000
+
+        // --- We can still check for this bit --- //
+        #define kHasARMv82SHA512 0x80000000
+
+        // --- This is the easiest way to account for the change. --- //
+        #include <libkern/version.h>
+        #if VERSION_MAJOR >= 20
+            extern uint64_t _get_cpu_capabilities(void);
+        #else
+            extern int _get_cpu_capabilities(void);
+        #endif
+    #else
+        #include <System/arm/cpu_capabilities.h>
+    #endif
+
+    #define CC_HAS_NEON() (_get_cpu_capabilites() & kHasNeon)
+    #define CC_HAS_SHA1() (_get_cpu_capabilites() & kHasARMv8Crypto)
+    #define CC_HAS_SHA256() (_get_cpu_capabilites() & kHasARMv8Crypto)
+    #define CC_HAS_SHA512() (_get_cpu_capabilites() & kHasARMv82SHA512)
+    #define CC_HAS_SHA3() (_get_cpu_capabilites() & kHasARMv82SHA3)
+    #define CC_HAS_AES() (_get_cpu_capabilites() & kHasARMv8Crypto)
+#endif
 
 #endif  // defined(__x86_64__) || defined(__i386__)
-
-/*
- * TODO: ARM runtime switches to check for NEON and/or SVE + the cryptographic extensions to ARMv8
- */
 
 #endif /* CORECRYPTO_CC_RUNTIME_CONFIG_H_ */

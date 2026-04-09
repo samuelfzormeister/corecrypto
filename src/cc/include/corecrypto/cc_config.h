@@ -334,6 +334,7 @@
  #define CCN_OSX                   1
 #endif
 
+// --- Is there a reason why CC_KERNEL is excluded from CC_DARWIN here? --- //
 #if defined(TARGET_OS_MAC) && TARGET_OS_MAC && !CC_KERNEL
  #define CC_DARWIN 1
 #else
@@ -591,41 +592,32 @@
 #define CC_FIPSPOST_TRACE 0
 #endif
 
-/*
- * SAMUEL ZORMEISTER:
- * With the advent of my newer XNU branches, the identification of kernels has become more difficult.
- * I will need to establish a standard 'base' for some of these.
- *
- * andesite_reset and andesite_experimental are updated.
- * adakite_stable and adakite_unstable aren't.
- * obsidian isn't.
- * quartzolite isn't.
- * aplite isn't.
- *
- * TODO: Rename macro to be more generic? CC_EXTENDED_KERNEL?
- *
- * I should upstream the CPU feature collection code.
- */
+// --- SDK feature probing. --- //
 #if CC_XNU_KERNEL_AVAILABLE
  #if __has_include(<System/i386/cpu_capabilities.h>)
   #include <System/i386/cpu_capabilities.h>
-  #if defined (kHasSHA) && defined (kHasSHA512)
-   #define CC_SAMZORMEISTER_KERNEL 1
+  #if defined (kHasSHA)
+   #define CC_SYSTEM_HAS_SHA_BIT 1
   #else
-   #define CC_SAMZORMEISTER_KERNEL 0
+   #define CC_SYSTEM_HAS_SHA_BIT 0
+  #endif
+  #if defined (kHasSHA512)
+   #define CC_SYSTEM_HAS_SHA512_BIT 1
+  #else
+   #define CC_SYSTEM_HAS_SHA512_BIT 0
   #endif
  #else
-  #define CC_SAMZORMEISTER_KERNEL 0
- #endif // __has_include(<System/i386/cpu_capabilities.h>)
-#elif CC_KERNEL
- #include <i386/cpuid.h>
- #if defined (CPUID_LEAF7_SL1_FEATURE_SHA512)
-  #define CC_SAMZORMEISTER_KERNEL 1
- #else
-  #define CC_SAMZORMEISTER_KERNEL 0
+  // --- Don't check for these bits if we aren't a custom kernel. Apple can change bits at any time. --- //
+  #define CC_SYSTEM_HAS_SHA_BIT    0
+  #define CC_SYSTEM_HAS_SHA512_BIT 0
+  #define CC_SYSTEM_HAS_SHA3_BIT   0
  #endif
 #else
- #define CC_SAMZORMEISTER_KERNEL 0
+ // --- XNU isn't available, so default to not allowing the accelerated instructions. --- //
+ #define CC_SYSTEM_HAS_SHA_BIT    0
+ #define CC_SYSTEM_HAS_SHA512_BIT 0
+ #define CC_SYSTEM_HAS_SHA3_BIT   0
+ // --- ARM runtime switches should ignore the above macros. Apple has already defined bits for us. --- //
 #endif
 
 #endif /* _CORECRYPTO_CC_CONFIG_H_ */
