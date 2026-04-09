@@ -20,6 +20,12 @@
 #include <corecrypto/cc_priv.h>
 #include <corecrypto/ccn.h>
 
+#ifdef CCN_ADD_ASM
+#undef CCN_ADD_ASM
+
+#define CCN_ADD_ASM 0
+#endif
+
 cc_unit ccn_add(cc_size n, cc_unit *r, const cc_unit *s, const cc_unit *t)
 {
 #if CCN_ADD_ASM
