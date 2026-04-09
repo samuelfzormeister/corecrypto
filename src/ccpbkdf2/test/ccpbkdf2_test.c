@@ -112,5 +112,5 @@ void ccpbkdf2_test_factory(struct cctest_info *ti, const struct ccdigest_info *d
     ti->run = ccpbkdf2_test_run;
     ti->dump_state = ccpbkdf2_test_dump_state;
 
-    ti->size = ccn_sizeof_size(sizeof(struct ccpbkdf2_test_ctx)) + di->output_size;
+    ti->size = ccn_sizeof_size(sizeof(struct ccpbkdf2_test_ctx)) + (di->output_size * 2);
 }
