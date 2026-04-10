@@ -22,15 +22,10 @@ jobs:
       - name: Build & Install
         run: |
           cd ~/corecrypto
-          xcodebuild install -target corecrypto_static -target corecrypto_kernel DSTROOT=$PWD/DSTROOT
-      - name: Package DSTROOT into a tarball
-        run: |
-          cd ~/corecrypto
-          cd $PWD/DSTROOT
-          tar -cvf corecrypto.tar.xz .
-      - name: Upload tarball
+          xcodebuild install -target corecrypto_darwin DSTROOT=$PWD/DSTROOT
+      - name: Upload Artifacts
         if: success()
         uses: actions/upload-artifact@v6
         with:
-          name: corecrypto.tar.xz
-          path: /Users/runner/corecrypto/DSTROOT/corecrypto.tar.xz
+          name: corecrypto
+          path: /Users/runner/corecrypto/DSTROOT/
