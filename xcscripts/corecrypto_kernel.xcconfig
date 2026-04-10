@@ -26,6 +26,8 @@ PRIVATE_HEADERS_FOLDER_PATH = $(SDK_INSTALL_HEADERS_ROOT)/System/Library/Framewo
 
 INSTALL_PATH = /System/Library/Extensions
 
+OTHER_CFLAGS = -Wincompatible-function-pointer-types
+
 HEADER_SEARCH_PATHS = $(HEADER_SEARCH_PATHS) $(SRCROOT)/src/cckprng/include
 
 SYSTEM_HEADER_SEARCH_PATHS = $(DEPROOT)/System/Library/Frameworks/Kernel.framework/PrivateHeaders
