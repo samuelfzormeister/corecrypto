@@ -622,6 +622,9 @@
 		F05FCC4D2F887E2A00984347 /* ccasn1.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F65D0011F2800C60073759F /* ccasn1.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F05FCC512F88833600984347 /* fips_integrity_section.c in Sources */ = {isa = PBXBuildFile; fileRef = F05FCC502F88833600984347 /* fips_integrity_section.c */; };
 		F05FCC522F88833600984347 /* fips_integrity_section.c in Sources */ = {isa = PBXBuildFile; fileRef = F05FCC502F88833600984347 /* fips_integrity_section.c */; };
+		F05FCC532F88907600984347 /* cccast_eay_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = F004E9D52DD4B2F700103A8F /* cccast_eay_internal.h */; };
+		F05FCC542F88907600984347 /* cast_lcl.h in Headers */ = {isa = PBXBuildFile; fileRef = F004E9D82DD4B2F700103A8F /* cast_lcl.h */; };
+		F05FCC552F88907600984347 /* cast_s.h in Headers */ = {isa = PBXBuildFile; fileRef = F004E9D92DD4B2F700103A8F /* cast_s.h */; };
 		F0851A332DEA572600349FD5 /* ccpoly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = F0851A322DEA572600349FD5 /* ccpoly1305.c */; };
 		F0851A342DEA572600349FD5 /* ccpoly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = F0851A322DEA572600349FD5 /* ccpoly1305.c */; };
 		F0851A382DEA574000349FD5 /* cccmac_generate_subkeys.c in Sources */ = {isa = PBXBuildFile; fileRef = F0851A352DEA574000349FD5 /* cccmac_generate_subkeys.c */; };
@@ -4610,6 +4613,9 @@
 				F05FCC2B2F887D8F00984347 /* cccmac.h in Headers */,
 				F05FCC2C2F887D8F00984347 /* cccmac_priv.h in Headers */,
 				F05FCC2D2F887DA100984347 /* fipspost_trace.h in Headers */,
+				F05FCC532F88907600984347 /* cccast_eay_internal.h in Headers */,
+				F05FCC542F88907600984347 /* cast_lcl.h in Headers */,
+				F05FCC552F88907600984347 /* cast_s.h in Headers */,
 				F05FCC072F887D7D00984347 /* cc_debug.h in Headers */,
 				F05FCC082F887D7D00984347 /* cc_lock.h in Headers */,
 				F05FCC092F887D7D00984347 /* cc_macros.h in Headers */,

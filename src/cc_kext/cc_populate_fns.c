@@ -196,8 +196,9 @@ void cc_populate_fns(crypto_functions_t fns)
 #endif
 
 #if CC_KERNEL_AVAILABLE_FROM(12, 0) && CC_KERNEL_REMOVED_FROM(20, 0)
-    fns->ccpad_xts_decrypt_fn = &ccpad_xts_decrypt;
-    fns->ccpad_xts_encrypt_fn = &ccpad_xts_encrypt;
+    // --- we kind of have to brute force this. --- //
+    fns->ccpad_xts_decrypt_fn = (ccpad_xts_decrypt_fn_t)&ccpad_xts_decrypt;
+    fns->ccpad_xts_encrypt_fn = (ccpad_xts_encrypt_fn_t)&ccpad_xts_encrypt;
 #endif
 
 #if CCKEXT_TRACE
