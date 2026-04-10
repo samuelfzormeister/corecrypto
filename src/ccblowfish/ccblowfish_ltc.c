@@ -39,7 +39,7 @@
 #define F(x) ((skey->S[0][cc_byte(x, 3)] + skey->S[1][cc_byte(x, 2)]) ^ skey->S[2][cc_byte(x, 1)]) + skey->S[3][cc_byte(x, 0)]
 #endif
 
-static uint32_t s_blowfish_stream2word(const unsigned char *d, int dlen, int *cur)
+static uint32_t s_blowfish_stream2word(const unsigned char *d, size_t dlen, int *cur)
 {
     unsigned int z;
     int y = *cur;

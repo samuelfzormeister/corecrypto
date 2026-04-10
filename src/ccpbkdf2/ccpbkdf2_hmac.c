@@ -80,7 +80,7 @@ int ccpbkdf2_hmac(const struct ccdigest_info *di,
             // --- This resets the HMAC state to one where we can generate the new MAC. --- //
             ccdigest_copy_state(di, cchmac_istate(di, hmac), istate);
             cchmac_nbits(di, hmac) = di->block_size * 8;
-            cchmac_num(di, hmac) = di->output_size;
+            cchmac_num(di, hmac) = (uint32_t)di->output_size;
             cchmac_final(di, hmac, buffer);
             cc_xor(outLen, dk, dk, buffer);
         }

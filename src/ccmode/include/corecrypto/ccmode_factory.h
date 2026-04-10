@@ -295,8 +295,8 @@ int ccmode_gcm_encrypt(ccgcm_ctx *ctx, size_t nbytes, const void *in,
 /*!
  @function  ccmode_gcm_finalize() finalizes AES-GCM call sequence
  @param key encryption or decryption key
- @param tag_size
- @param tag
+ @param tag_size    The length of the tag
+ @param tag The buffer for the tag
  @result	0=success or non zero= error
  @discussion For decryption, the tag parameter must be the expected-tag. A secure compare is performed between the provided expected-tag and the computed-tag. If they are the same, 0 is returned. Otherwise, non zero is returned. For encryption, tag is output and provides the authentication tag.
 

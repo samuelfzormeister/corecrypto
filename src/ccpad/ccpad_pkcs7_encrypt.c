@@ -27,7 +27,7 @@ size_t ccpad_pkcs7_encrypt(const struct ccmode_cbc *cbc, cccbc_ctx *ctx, cccbc_i
     size_t block_size = cccbc_block_size(cbc);
     size_t blocks_bytes = (nbytes / block_size) * cccbc_block_size(cbc);
     size_t remaining_size = nbytes - blocks_bytes;
-    size_t padding = block_size - remaining_size;
+    int padding = (int)(block_size - remaining_size);
 
     /* now that we've ran that math, run encryption for the blocks that we do have. */
     cccbc_update(cbc, ctx, iv, (nbytes / block_size), in, out);

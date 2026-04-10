@@ -28,7 +28,7 @@ int vng_aes_xts_encrypt_aesni(const uint8_t *pt, unsigned long ptlen, uint8_t *c
 
     uint8_t PP[16], CC[16];
     uint64_t i, m, mo, lim;
-    uint64_t err;
+    int err = CRYPT_OK;
 
     /* get number of blocks */
     m = ptlen >> 4;
@@ -84,7 +84,7 @@ int vng_aes_xts_encrypt_opt(const uint8_t *pt, unsigned long ptlen, uint8_t *ct,
 
     uint8_t PP[16], CC[16];
     uint64_t i, m, mo, lim;
-    uint64_t err;
+    int err = CRYPT_OK;
 
     /* get number of blocks */
     m = ptlen >> 4;

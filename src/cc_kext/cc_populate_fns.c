@@ -50,7 +50,7 @@
 
 #define CC_KERNEL_AVAILABLE_FROM(major, minor) ((VERSION_MAJOR >= major) && (VERSION_MINOR >= minor))
 
-#define CC_KERNEL_REMOVED_FROM(major, minor) ((VERSION_MAJOR < major) && (VERSION_MINOR < minor))
+#define CC_KERNEL_REMOVED_FROM(major, minor) !((VERSION_MAJOR < major) && (VERSION_MINOR <= minor))
 
 /*
  * Build the ChaCha20Poly1305 function table

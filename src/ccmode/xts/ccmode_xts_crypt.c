@@ -23,7 +23,7 @@
 void ccmode_xts_mult_alpha(uint8_t *I)
 {
     int idx;
-    uint8_t t, tt;
+    uint8_t t, tt = 0;
 
     for (idx = t = 0; idx < 16; idx++) {
         tt = I[idx] >> 7;

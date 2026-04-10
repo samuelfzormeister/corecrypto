@@ -22,7 +22,7 @@
 #include <corecrypto/cczp.h>
 #include <corecrypto/ccrng.h>
 
-// Something about 'sructures such as ccdh_gp_decl_n' has me a bit curious as to whether the GPs are actually just CCZPs
+// Something about 'structures such as ccdh_gp_decl_n' has me a bit curious as to whether the GPs are actually just CCZPs
 // That and the whole layout looks extremely similar.
 struct ccdh_gp {
     __CCZP_ELEMENTS_DEFINITIONS()
