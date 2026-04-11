@@ -1,6 +1,7 @@
+
+#include <stddef.h>
 #include <corecrypto/cc.h>
 #include <corecrypto/cc_debug.h>
-#include <stddef.h>
 
 void cc_print(const char *label, size_t count, const uint8_t *s)
 {

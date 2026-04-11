@@ -28,4 +28,4 @@ uint64_t cc_absolute_time_to_msec(uint64_t abs);
 
 #define CC_MSEC_PER_NSEC 1000
 
-#endif
+#endif // _CORECRYPTO_CC_ABSOLUTE_TIME_H_
