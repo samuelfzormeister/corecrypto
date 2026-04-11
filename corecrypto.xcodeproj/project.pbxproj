@@ -283,6 +283,10 @@
 		425863432F8A3D68007CE657 /* ccz.h in Headers */ = {isa = PBXBuildFile; fileRef = F01F76EB2DAA5A0800770D5D /* ccz.h */; };
 		425863442F8A3D68007CE657 /* cczp.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F65CFEF1F2800C60073759F /* cczp.h */; };
 		425863452F8A3D68007CE657 /* fipspost_trace.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F358E742354F0370030CA4F /* fipspost_trace.h */; };
+		425863462F8A4204007CE657 /* ccaes_ltc_encrypt_mode.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BBB4A52E38E61F00349FD5 /* ccaes_ltc_encrypt_mode.c */; };
+		425863472F8A4204007CE657 /* ccaes_ltc_decrypt_mode.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BBB4A42E38E61F00349FD5 /* ccaes_ltc_decrypt_mode.c */; };
+		425863482F8A4204007CE657 /* aes_tab.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BBB4A22E38E61F00349FD5 /* aes_tab.c */; };
+		425863492F8A4204007CE657 /* ccaes_ltc.c in Sources */ = {isa = PBXBuildFile; fileRef = F0BBB4A32E38E61F00349FD5 /* ccaes_ltc.c */; };
 		429B446C2F7353CA0099B4B9 /* Osl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 429B44652F7352B40099B4B9 /* Osl.cpp */; };
 		429B446D2F7354280099B4B9 /* Foundation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 429B44632F7352B40099B4B9 /* Foundation.cpp */; };
 		429B446E2F7354460099B4B9 /* File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 429B44612F7352B40099B4B9 /* File.cpp */; };
@@ -5597,6 +5601,10 @@
 				F0957A992F87C7D100674061 /* ccsha512_224_ltc_di.c in Sources */,
 				429D83092F4F93120059EBD5 /* cccmac_one_shot_verify.c in Sources */,
 				F0957A742F87C7D100674061 /* ccn_sub1.c in Sources */,
+				425863462F8A4204007CE657 /* ccaes_ltc_encrypt_mode.c in Sources */,
+				425863472F8A4204007CE657 /* ccaes_ltc_decrypt_mode.c in Sources */,
+				425863482F8A4204007CE657 /* aes_tab.c in Sources */,
+				425863492F8A4204007CE657 /* ccaes_ltc.c in Sources */,
 				F0957A542F87C7D100674061 /* ccmode_cbc_decrypt.c in Sources */,
 				F0957A362F87C7D100674061 /* cccmac_update.c in Sources */,
 				F0957A812F87C7D100674061 /* ccrc4.c in Sources */,
